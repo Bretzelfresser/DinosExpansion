@@ -9,6 +9,10 @@ public class FoodInit {
 	
 	
 	public static final Food KIBBLE_B = addNegativeEffects(new Food.Builder()).saturation(100).build();
+	public static final Food KIBBLE_C = addNegativeEffects(new Food.Builder()).saturation(100).build();
+	public static final Food KIBBLE_P = addNegativeEffects(new Food.Builder()).saturation(100).build();
+	public static final Food KIBBLE_W = addNegativeEffects(new Food.Builder()).saturation(100).build();
+	public static final Food KIBBLE_Y = addNegativeEffects(new Food.Builder()).saturation(100).build();
 	
 	
 	
