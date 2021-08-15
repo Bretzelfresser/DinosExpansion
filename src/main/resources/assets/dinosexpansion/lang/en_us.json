@@ -8,12 +8,20 @@
 	"item.dinosexpansion.tranquillizer_arrow":"Tranquillizer Arrow",
 	"item.dinosexpansion.net_item.name":"Net",
 	"item.dinosexpansion.raft_item":"Raft",
+	"item.dinosexpansion.kibble_basic":"Basic Kibble",
+	"item.dinosexpansion.kibble_simple":"\u00A7aSimple Kibble",
+	"item.dinosexpansion.kibble_regular":"\u00A71Regular Kibble",
+	"item.dinosexpansion.kibble_superior":"Superior Kibble",
+	"item.dinosexpansion.kibble_exceptional":"\u00A76Exceptional Kibble",
+	"item.dinosexpansion.kibble_extraordinary":"\u00A7bExtraordinary Kibble",
+	"item.dinosexpansion.kibble.tooltip":"Powerful Food for taming but dont eat it",
 	
 	"entity.dinosexpansion.allosaurus":"Allosaurus",
 	"entity.dinosexpansion.raft":"Raft",
 	
 	"itemGroup.dinosexpansion.machines":"Machines",
 	"itemGroup.dinosexpansion.projectiles":"Weapons and Projectiles",
+	"itemGroup.dinosexpansion.misc":"Misc",
 	
 	"item.dinosexpansion.tooltip.tranquillizer_arrow":"Special arrow to knock out dinosaurs"
 	

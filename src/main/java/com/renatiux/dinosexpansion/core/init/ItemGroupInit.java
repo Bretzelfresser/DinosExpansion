@@ -8,6 +8,6 @@ public class ItemGroupInit {
 	
 	public static final ItemGroup MACHINES = new DinoItemGroup("machines", BlockInit.MORTAR);
 	public static final ItemGroup PROJECTILES = new DinoItemGroup("projectiles", ItemInit.TRANQUILIZER_ARROW);
-	public static final ItemGroup MISC = new DinoItemGroup("projectiles", ItemInit.RAFT_ITEM);
+	public static final ItemGroup MISC = new DinoItemGroup("misc", ItemInit.RAFT_ITEM);
 
 }

@@ -8,18 +8,19 @@ public class FoodInit {
 	
 	
 	
-	public static final Food KIBBLE_B = addNegativeEffects(new Food.Builder()).saturation(100).build();
-	public static final Food KIBBLE_C = addNegativeEffects(new Food.Builder()).saturation(100).build();
-	public static final Food KIBBLE_P = addNegativeEffects(new Food.Builder()).saturation(100).build();
-	public static final Food KIBBLE_W = addNegativeEffects(new Food.Builder()).saturation(100).build();
-	public static final Food KIBBLE_Y = addNegativeEffects(new Food.Builder()).saturation(100).build();
+	public static final Food KIBBLE_BASIC = addNegativeEffects(new Food.Builder()).saturation(20).build();
+	public static final Food KIBBLE_SIMPLE = addNegativeEffects(new Food.Builder()).saturation(40).build();
+	public static final Food KIBBLE_REGULAR = addNegativeEffects(new Food.Builder()).saturation(60).build();
+	public static final Food KIBBLE_SUPERIOR = addNegativeEffects(new Food.Builder()).saturation(80).build();
+	public static final Food KIBBLE_EXCEPTIONAL = addNegativeEffects(new Food.Builder()).saturation(100).build();
+	public static final Food KIBBLE_EXTRAORDINARY = addNegativeEffects(new Food.Builder()).saturation(120).build();
 	
 	
 	
 	private static Food.Builder addNegativeEffects(Food.Builder builder){
-		builder.effect(() -> new EffectInstance(Effects.NAUSEA, 1200, 2), 100);
-		builder.effect(() -> new EffectInstance(Effects.HUNGER, 1200, 2), 100);
-		builder.effect(() -> new EffectInstance(Effects.SLOWNESS, 300, 2), 25);
+		builder.effect(() -> new EffectInstance(Effects.NAUSEA, 1200, 2), 1);
+		builder.effect(() -> new EffectInstance(Effects.HUNGER, 1200, 2), 1);
+		builder.effect(() -> new EffectInstance(Effects.SLOWNESS, 300, 2), 0.25f);
 		return builder;
 	}
 
