@@ -1,0 +1,20 @@
+{
+	"container.dinosexpansion.allosaurus":"Allosaurus",
+	"container.dinosexpansion.mortar":"Mortar",
+	
+	
+	"block.dinosexpansion.mortar":"Mortar",
+	
+	"item.dinosexpansion.tranquillizer_arrow":"Tranquillizer Arrow",
+	"item.dinosexpansion.net_item.name":"Net",
+	"item.dinosexpansion.raft_item":"Raft",
+	
+	"entity.dinosexpansion.allosaurus":"Allosaurus",
+	"entity.dinosexpansion.raft":"Raft",
+	
+	"itemGroup.dinosexpansion.machines":"Machines",
+	"itemGroup.dinosexpansion.projectiles":"Weapons and Projectiles",
+	
+	"item.dinosexpansion.tooltip.tranquillizer_arrow":"Special arrow to knock out dinosaurs"
+	
+}

@@ -1,0 +1,25 @@
+modLoader="javafml" #mandatory
+loaderVersion="[36,)" 
+license="All rights reserved"
+[[mods]] #mandatory
+modId="dinosexpansion" #mandatory
+version="1.0" #mandatory
+displayName="Dinos Expansion" #mandatory
+logoFile="" #optional
+credits="" #optional
+authors="the One and only RenatiuX" #optional
+description='''
+adds Dinos
+'''
+[[dependencies.dinosexpansion]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[36,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.dinosexpansion]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"

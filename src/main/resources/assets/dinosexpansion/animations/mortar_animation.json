@@ -1,0 +1,21 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.Mortar.new": {
+			"loop": true,
+			"animation_length": 2.08,
+			"bones": {
+				"pestle": {
+					"rotation": {
+						"0.0": [25, 0, -25],
+						"0.52": [0, 0, -50],
+						"1.04": [-25, 0, -22.5],
+						"1.56": [0, 0, 0],
+						"2.08": [25, 0, -25]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
