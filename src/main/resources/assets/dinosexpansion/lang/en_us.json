@@ -15,6 +15,12 @@
 	"item.dinosexpansion.kibble_exceptional":"\u00A76Exceptional Kibble",
 	"item.dinosexpansion.kibble_extraordinary":"\u00A7bExtraordinary Kibble",
 	"item.dinosexpansion.kibble.tooltip":"Powerful Food for taming but dont eat it",
+	"item.dinosexpansion.poop_medium":"Poop",
+	"item.dinosexpansion.poop_small":"Poop",
+	"item.dinosexpansion.poop_large":"Poop",
+	"poop.small":"Small",
+	"poop.medium":"Medium",
+	"poop.large":"Large",
 	
 	"entity.dinosexpansion.allosaurus":"Allosaurus",
 	"entity.dinosexpansion.raft":"Raft",
