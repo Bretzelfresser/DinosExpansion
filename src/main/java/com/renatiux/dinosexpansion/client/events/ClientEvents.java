@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.client.events;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.AllosaurusRenderer;
+import com.renatiux.dinosexpansion.client.renderer.BoomerangRenderer;
 import com.renatiux.dinosexpansion.client.renderer.MortarRenderer;
 import com.renatiux.dinosexpansion.client.renderer.PoopRenderer;
 import com.renatiux.dinosexpansion.client.renderer.RaftRenderer;
@@ -41,6 +42,8 @@ public class ClientEvents {
 		ScreenManager.registerFactory(ContainerTypeInit.MORTAR_CONTAINER_TYPE.get(), MortarScreen::new);
 		
 		ScreenManager.registerFactory(ContainerTypeInit.DINOSAUR_TAMING_INVENTORY.get(), DinosaurTamingScreen::new);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.REGULAR_BOOMERANG.get(), new BoomerangRenderer.Factory());
 	}
 
 }

@@ -1,0 +1,22 @@
+{
+	"item.boomerang_throw":{
+		"category":"item",
+		"subtitle":"sound.boomerang_throw",
+		"sounds":[
+			{
+				"name": "dinosexpansion:item/boomerang_throw",
+				"stream":true
+			}
+		]
+	},
+	"item.boomerang_loop":{
+		"category":"item",
+		"subtitle":"sound.boomerang_loop",
+		"sounds":[
+			{
+				"name": "dinosexpansion:item/boomerang_loop",
+				"stream":true
+			}
+		]
+	}
+}

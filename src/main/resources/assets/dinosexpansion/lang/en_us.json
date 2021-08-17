@@ -28,6 +28,12 @@
 	"entity.dinosexpansion.allosaurus":"Allosaurus",
 	"entity.dinosexpansion.raft":"Raft",
 	
+	"item.boomerang_throw":"Boomerang Thrown",
+	"sound.boomerang_throw":"Boomerang Thrown",
+	
+	"item.boomerang_loop":"Boomerang Flying",
+	"sound.boomerang_loop":"Boomerang Flying",
+	
 	"itemGroup.dinosexpansion.machines":"Machines",
 	"itemGroup.dinosexpansion.projectiles":"Weapons and Projectiles",
 	"itemGroup.dinosexpansion.misc":"Misc",
