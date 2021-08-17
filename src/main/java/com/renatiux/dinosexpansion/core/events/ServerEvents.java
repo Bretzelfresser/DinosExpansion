@@ -5,6 +5,7 @@ import java.util.List;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.DinosaurStatus;
+import com.renatiux.dinosexpansion.common.entities.projectiles.NarcoticArrowEntity;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
@@ -24,6 +25,12 @@ public class ServerEvents {
 			return;
 		PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 		alertTamedDinosaurs(player);
+		
+		
+		if(event.getSource().getImmediateSource() instanceof NarcoticArrowEntity) {
+			System.out.println("hi");
+			event.setAmount(2);
+		}
 	}
 
 	private static void alertTamedDinosaurs(PlayerEntity player) {

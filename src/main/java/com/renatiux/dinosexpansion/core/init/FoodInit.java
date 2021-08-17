@@ -8,12 +8,12 @@ public class FoodInit {
 	
 	
 	
-	public static final Food KIBBLE_BASIC = addNegativeEffects(new Food.Builder()).saturation(20).build();
-	public static final Food KIBBLE_SIMPLE = addNegativeEffects(new Food.Builder()).saturation(40).build();
-	public static final Food KIBBLE_REGULAR = addNegativeEffects(new Food.Builder()).saturation(60).build();
-	public static final Food KIBBLE_SUPERIOR = addNegativeEffects(new Food.Builder()).saturation(80).build();
-	public static final Food KIBBLE_EXCEPTIONAL = addNegativeEffects(new Food.Builder()).saturation(100).build();
-	public static final Food KIBBLE_EXTRAORDINARY = addNegativeEffects(new Food.Builder()).saturation(120).build();
+	public static final Food KIBBLE_BASIC = addNegativeEffects(new Food.Builder()).hunger(20).build();
+	public static final Food KIBBLE_SIMPLE = addNegativeEffects(new Food.Builder()).hunger(40).build();
+	public static final Food KIBBLE_REGULAR = addNegativeEffects(new Food.Builder()).hunger(60).build();
+	public static final Food KIBBLE_SUPERIOR = addNegativeEffects(new Food.Builder()).hunger(80).build();
+	public static final Food KIBBLE_EXCEPTIONAL = addNegativeEffects(new Food.Builder()).hunger(100).build();
+	public static final Food KIBBLE_EXTRAORDINARY = addNegativeEffects(new Food.Builder()).hunger(120).build();
 	
 	
 	

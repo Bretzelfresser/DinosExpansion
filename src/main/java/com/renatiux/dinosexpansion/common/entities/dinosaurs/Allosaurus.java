@@ -26,7 +26,6 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -65,7 +64,7 @@ public class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaur
 	private boolean growl, continuesAnimation = false;
 
 	public Allosaurus(EntityType<? extends Dinosaur> type, World worldIn) {
-		super(type, worldIn, 18, 100, 100, 200);
+		super(type, worldIn, 18);
 		attackCounter = 0;
 		this.setPathPriority(PathNodeType.WATER, -1.0f);
 		this.setPathPriority(PathNodeType.LAVA, -2.0f);
@@ -105,6 +104,7 @@ public class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaur
 
 		if (growlCooldown > 0)
 			growlCooldown--;
+		//System.out.println(getNarcoticValue() + "|" + needeNarcotic);
 	}
 
 	@Override
@@ -140,15 +140,8 @@ public class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaur
 			// opens the gui
 			if (isTame() && isOwner(player) && (player.isSneaking() || !isSaddled()))
 				NetworkHooks.openGui((ServerPlayerEntity) player, this, buf -> buf.writeVarInt(getEntityId()));
-			// taming dummy
-			else if (!isTame()) {
-				ItemStack stack = player.getHeldItem(hand);
-				if (canEat(stack)) {
-					stack.shrink(1);
-					this.setTamedBy(player);
-				}
 				// riding
-			} else if (isTame() && isOwner(player) && !player.isSneaking() && isSaddled() && !this.isBeingRidden()
+			else if (isTame() && isOwner(player) && !player.isSneaking() && isSaddled() && !this.isBeingRidden()
 					&& !isKnockout() && deathTime <= 0) {
 				player.startRiding(this);
 			}
@@ -322,9 +315,6 @@ public class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaur
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (source.getImmediateSource() instanceof ArrowEntity) {
-			this.setKnockedOut(true);
-		}
 		return super.attackEntityFrom(source, amount);
 	}
 
@@ -354,10 +344,26 @@ public class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaur
 
 	@Override
 	protected int shrinkNarcotic(int narcotic) {
-		if (this.rand.nextDouble() <= 0.01) {
+		if (this.rand.nextDouble() <= 0.1) {
 			return narcotic - 1;
 		}
 		return narcotic;
 	}
+
+	@Override
+	public int getMaxHunger() {
+		return 20;
+	}
+
+	@Override
+	public int getMaxNarcotic() {
+		return 100;
+	}
+
+	@Override
+	public int getTimeBetweenEating() {
+		return 600;
+	}
+	
 
 }

@@ -1,6 +1,7 @@
 {
 	"container.dinosexpansion.allosaurus":"Allosaurus",
 	"container.dinosexpansion.mortar":"Mortar",
+	"container.dinosexpansion.taming":"Taming",
 	
 	
 	"block.dinosexpansion.mortar":"Mortar",
@@ -21,6 +22,8 @@
 	"poop.small":"Small",
 	"poop.medium":"Medium",
 	"poop.large":"Large",
+	"item.dinosexpansion.narcotics":"Narcotics",
+	"item.dinosexpansion.narcotic_berry":"Narcotic Berry",
 	
 	"entity.dinosexpansion.allosaurus":"Allosaurus",
 	"entity.dinosexpansion.raft":"Raft",

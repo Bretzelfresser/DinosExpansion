@@ -1,10 +1,14 @@
 package com.renatiux.dinosexpansion.common.entities.poop;
 
+import java.util.List;
+
 import com.renatiux.dinosexpansion.common.items.PoopItem.PoopSize;
+import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -13,8 +17,8 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -23,9 +27,8 @@ public class Poop extends Entity {
 	private static final DataParameter<Integer> POOP_SIZE = EntityDataManager.createKey(Poop.class,
 			DataSerializers.VARINT);
 
-
-	public Poop(EntityType<?> entityTypeIn, World worldIn, PoopSize size) {
-		this(entityTypeIn, worldIn);
+	public Poop(World worldIn, PoopSize size) {
+		this(EntityTypeInit.POOP.get(), worldIn);
 		setPoopSize(size);
 	}
 
@@ -36,27 +39,58 @@ public class Poop extends Entity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (this.ticksExisted >= 60000) {
+		if (this.ticksExisted >= 600) {
 			this.remove();
+		}
+		
+		
+		this.doBlockCollisions();
+		List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getBoundingBox().grow((double)0.2F, (double)-0.01F, (double)0.2F), EntityPredicates.pushableBy(this));
+		if(!list.isEmpty()) {
+			for(Entity entity : list) {
+				this.applyEntityCollision(entity);
+			}
 		}
 
 	}
 
 	@Override
-	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
-			switch (getPoopSize()) {
-			case LARGE:
-				player.addItemStackToInventory(new ItemStack(ItemInit.POOP_LARGE.get()));
-				this.remove();
-				break;
-			case MEDIUM:
-				player.addItemStackToInventory(new ItemStack(ItemInit.POOP_MEDIUM.get()));
-				this.remove();
-				break;
-			case SMALL:
-				player.addItemStackToInventory(new ItemStack(ItemInit.POOP_SMALL.get()));
-				this.remove();
-				break;
+	public boolean canBePushed() {
+		return true;
+	}
+
+	@Override
+	public boolean canCollide(Entity entity) {
+		return entity instanceof PlayerEntity;
+	}
+	
+	 public void applyEntityCollision(Entity entityIn) {
+	      if (entityIn instanceof BoatEntity) {
+	         if (entityIn.getBoundingBox().minY < this.getBoundingBox().maxY) {
+	            super.applyEntityCollision(entityIn);
+	         }
+	      } else if (entityIn.getBoundingBox().minY <= this.getBoundingBox().minY) {
+	         super.applyEntityCollision(entityIn);
+	      }
+
+	   }
+
+	@Override
+	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
+		System.out.println("yeah!!!!!!");
+		switch (getPoopSize()) {
+		case LARGE:
+			player.addItemStackToInventory(new ItemStack(ItemInit.POOP_LARGE.get()));
+			this.remove();
+			break;
+		case MEDIUM:
+			player.addItemStackToInventory(new ItemStack(ItemInit.POOP_MEDIUM.get()));
+			this.remove();
+			break;
+		case SMALL:
+			player.addItemStackToInventory(new ItemStack(ItemInit.POOP_SMALL.get()));
+			this.remove();
+			break;
 
 		}
 		return ActionResultType.PASS;
@@ -69,6 +103,7 @@ public class Poop extends Entity {
 
 	/**
 	 * synchronized with the client
+	 * 
 	 * @return the Poop Size
 	 */
 	public PoopSize getPoopSize() {

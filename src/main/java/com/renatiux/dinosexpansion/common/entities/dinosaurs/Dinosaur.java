@@ -9,7 +9,11 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.common.container.DinosaurTamingInventory;
+import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.entities.projectiles.NarcoticArrowEntity;
+import com.renatiux.dinosexpansion.common.items.NarcoticItem;
+import com.renatiux.dinosexpansion.common.items.PoopItem.PoopSize;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -18,9 +22,12 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
@@ -34,11 +41,14 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.server.management.PreYggdrasilConverter;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameRules;
@@ -46,6 +56,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.fml.network.NetworkHooks;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
@@ -70,15 +81,15 @@ public abstract class Dinosaur extends MonsterEntity
 			DataSerializers.VARINT);
 	public static final DataParameter<Integer> HUNGER = EntityDataManager.createKey(Dinosaur.class,
 			DataSerializers.VARINT);
-
+	
 	protected final int sizeInventory;
-	protected int needeNarcotic, sleepCooldown, needHunger, timeBetweenEating, hungerCounter;
-	protected UUID playerInLove;
+	protected int sleepCooldown, hungerCounter;
+	protected UUID playerKnockedOut;
 	protected AnimationFactory factory = new AnimationFactory(this);
 	protected DinosaurStatus status;
 	protected Inventory dinosaurInventory, tamingInventory;
 
-	private boolean dead, tameable;
+	private boolean dead, currentlyTeamable;
 	private List<ItemStack> stacksToDrop;
 	private DinosaurStatus prevStatus;
 
@@ -92,31 +103,54 @@ public abstract class Dinosaur extends MonsterEntity
 	 * @param needHunger        - needed Hunger in order to be tamed
 	 * @param timeBetweenEating - the time between the Dinosaur can eat
 	 */
-	public Dinosaur(EntityType<? extends Dinosaur> type, World worldIn, int sizeInventory, int needeNarcotic,
-			int needHunger, int timeBetweenEating) {
+	public Dinosaur(EntityType<? extends Dinosaur> type, World worldIn, int sizeInventory) {
 		super(type, worldIn);
 		this.sizeInventory = sizeInventory;
 		status = DinosaurStatus.IDLE;
-		if (needeNarcotic < 1)
-			throw new IllegalArgumentException("neede Narcotic has to be greater then 0 not: " + needeNarcotic);
-		this.needeNarcotic = needeNarcotic;
-		this.needHunger = needHunger;
 		this.hungerCounter = 0;
-		this.tameable = false;
-		this.timeBetweenEating = timeBetweenEating;
+		this.currentlyTeamable = false;
 		dead = false;
 		prevStatus = DinosaurStatus.IDLE;
 		this.ignoreFrustumCheck = true;
 		this.stacksToDrop = new LinkedList<>();
 		initInventory(sizeInventory);
-		InitTamingInventory(sizeInventory - 3);
+		InitTamingInventory(12);
 
+	}
+
+	@Override
+	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+		if (!world.isRemote) {
+			if (isKnockout() && !currentlyTeamable) {
+				NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
+					
+					@Override
+					public Container createMenu(int id, PlayerInventory inv, PlayerEntity player) {
+						return getTamingContainer(id, inv);
+					}
+					
+					@Override
+					public ITextComponent getDisplayName() {
+						return new TranslationTextComponent("container." + Dinosexpansion.MODID + ".taming");
+					}
+				}, buf -> buf.writeVarInt(this.getEntityId()));
+			}
+			else if(isKnockout() && currentlyTeamable) {
+				setTamedBy(player);
+				currentlyTeamable = false;
+				setNarcotic(0);
+			}
+		}
+		return super.applyPlayerInteraction(player, vec, hand);
+	}
+	
+	private Container getTamingContainer(int id, PlayerInventory inv) {
+		return new DinosaurTamingInventory(id, inv, this);
 	}
 
 	/**
 	 * sets the Dinosaur to sleep and sync it with the Client
 	 * 
-	 * @param value
 	 */
 	public void setSleep(boolean value) {
 		if (isSleeping() == value)
@@ -159,18 +193,61 @@ public abstract class Dinosaur extends MonsterEntity
 	}
 
 	/**
-	 * synchronized with the client
+	 * override to control whether the dino should poop
+	 */
+	protected boolean canPoop() {
+		return true;
+	}
+
+	/**
+	 * defines when to poop, called every tick
+	 */
+	protected boolean randomChancePoop() {
+		if (isSleeping() || isKnockout())
+			return false;
+		return this.rand.nextDouble() < 0.065d;
+	}
+
+	/**
+	 * override to control which Poop size the Dino should poop when pooping
+	 */
+	protected PoopSize getPoopSize() {
+		return PoopSize.SMALL;
+	}
+
+	/**
+	 * this is called when the Dino should poop, override to put ur custom Pooping
+	 * algorithm here
+	 */
+	protected void poop() {
+		this.world.addEntity(new Poop(world, getPoopSize()));
+	}
+
+	/**
+	 * synchronized with the client set the Dino tamed and drops the Taming
+	 * Inventory sets the Dino not to be Knockouted
 	 */
 	public boolean setTamedBy(PlayerEntity player) {
 		this.setOwnerUniqueId(player.getUniqueID());
 		this.setTame(true);
+		dropTamingInventory();
+		setKnockedOut(false);
 		this.world.setEntityState(this, (byte) 6);
 		return true;
 	}
-	
-	protected void copyTamingInventory() {
-		for(int i = 0;i<tamingInventory.getSizeInventory();i++) {
-			dinosaurInventory.setInventorySlotContents(i + 3, tamingInventory.getStackInSlot(i));
+
+	/**
+	 * drops the taming Inventory, called when tamed
+	 */
+	protected void dropTamingInventory() {
+		if (this.tamingInventory != null) {
+			for (int i = 3; i < this.tamingInventory.getSizeInventory(); ++i) {
+				ItemStack itemstack = this.tamingInventory.getStackInSlot(i);
+				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+					this.entityDropItem(itemstack);
+					this.dinosaurInventory.setInventorySlotContents(i, ItemStack.EMPTY);
+				}
+			}
 		}
 	}
 
@@ -187,8 +264,14 @@ public abstract class Dinosaur extends MonsterEntity
 	 * when trying to tame, finds narcotics and add then when needed
 	 */
 	protected void findAndAddNarcotic() {
-		for (int i = 3; i < tamingInventory.getSizeInventory(); i++) {
-			// TODO filter item that has narcotic
+		for (int i = 0; i < tamingInventory.getSizeInventory(); i++) {
+			if(tamingInventory.getStackInSlot(i).getItem() instanceof NarcoticItem) {
+				NarcoticItem narcotic = (NarcoticItem) tamingInventory.getStackInSlot(i).getItem();
+				if(getMaxNarcotic() - getNarcoticValue() >= narcotic.getNarcoticValue()) {
+					addNarcotic(narcotic.getNarcoticValue());
+					tamingInventory.getStackInSlot(i).shrink(1);
+				}
+			}
 		}
 	}
 
@@ -199,20 +282,22 @@ public abstract class Dinosaur extends MonsterEntity
 		if (hungerCounter > 0) {
 			hungerCounter--;
 		} else {
-			for (int i = 3; i < tamingInventory.getSizeInventory(); i++) {
-				if (canEat(dinosaurInventory.getStackInSlot(i))) {
-					addHunger((int) tamingInventory.getStackInSlot(i).getItem().getFood().getSaturation());
-					hungerCounter = timeBetweenEating;
+			for (int i = 0; i < tamingInventory.getSizeInventory(); i++) {
+				if (canEat(tamingInventory.getStackInSlot(i))) {
+					addHunger((int) tamingInventory.getStackInSlot(i).getItem().getFood().getHealing());
+					hungerCounter = getTimeBetweenEating();
+					this.tamingInventory.getStackInSlot(i).shrink(1);
+					System.out.println(1);
 				}
 			}
-			if (getHunger() >= needHunger) {
-				this.tameable = true;
+			if (getHunger() >= getMaxHunger()) {
+				this.currentlyTeamable = true;
 			}
 		}
 	}
 
 	public boolean isTameable() {
-		return tameable;
+		return true;
 	}
 
 	/**
@@ -247,23 +332,25 @@ public abstract class Dinosaur extends MonsterEntity
 	@Override
 	public void livingTick() {
 		super.livingTick();
-		if (!world.isRemote) {
+		if (!this.world.isRemote) {
 			if (getNarcoticValue() > 0) {
 				setNarcotic(shrinkNarcotic(getNarcoticValue()));
 				findAndAddNarcotic();
-				findAndAddHunger();
+				if(!currentlyTeamable)
+					findAndAddHunger();
 				if (getNarcoticValue() < 0)
 					setNarcotic(0);
 			}
+			//System.out.println(needeNarcotic);
 			if (getNarcoticValue() <= 0)
 				this.setKnockedOut(false);
-			if (getNarcoticValue() >= needeNarcotic) {
+			if (getNarcoticValue() >= getMaxNarcotic()) {
 				this.setKnockedOut(true);
 			}
 		}
 		if (sleepCooldown > 0)
 			sleepCooldown--;
-		if (!world.isRemote) {
+		if (!this.world.isRemote) {
 			if (isSleeping()) {
 				if (shouldWakeUp()) {
 					setSleep(false);
@@ -271,6 +358,9 @@ public abstract class Dinosaur extends MonsterEntity
 			} else if (shouldSleep()) {
 				setSleep(true);
 			}
+		}
+		if (randomChancePoop()) {
+			poop();
 		}
 	}
 
@@ -289,8 +379,10 @@ public abstract class Dinosaur extends MonsterEntity
 	public void setNarcotic(int stunningValue) {
 		this.dataManager.set(STUNNED, stunningValue);
 	}
+
 	/**
 	 * synchronized with the client
+	 * 
 	 * @param toAdd - the value of narcotic u want to add
 	 */
 	public void addNarcotic(int toAdd) {
@@ -353,6 +445,17 @@ public abstract class Dinosaur extends MonsterEntity
 		return this.status;
 	}
 
+	public void setPlayerKnockouted(PlayerEntity player) {
+		this.playerKnockedOut = player.getUniqueID();
+	}
+
+	/**
+	 * gets the UUId of the player the has knockouted the Dino
+	 */
+	public UUID getPlayerKnockedOut() {
+		return playerKnockedOut;
+	}
+
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (isSleeping())
@@ -368,9 +471,18 @@ public abstract class Dinosaur extends MonsterEntity
 				return false;
 			}
 		}
+		// adding the narcotic Value when this is a narcotic arrow
 		if (source.getImmediateSource() instanceof NarcoticArrowEntity) {
 			NarcoticArrowEntity narcoticArrow = (NarcoticArrowEntity) source.getImmediateSource();
 			this.addNarcotic(narcoticArrow.getNarcoticValue());
+			amount = 0;
+			// sets the Player that Knockouted the Dino
+			if (source.getTrueSource() instanceof PlayerEntity) {
+				PlayerEntity player = (PlayerEntity) source.getTrueSource();
+				if (this.getNarcoticValue() >= getMaxNarcotic()) {
+					setPlayerKnockouted(player);
+				}
+			}
 		}
 		return super.attackEntityFrom(source, amount);
 	}
@@ -394,23 +506,23 @@ public abstract class Dinosaur extends MonsterEntity
 		}
 		dinosaurInventory.addListener(this);
 	}
-	
-	private void InitTamingInventory(int sizeInventory) {
-			if (sizeInventory <= 0)
-				throw new IllegalArgumentException(
-						"size of the Inventory of the Dinosaur has to be greater then 0 not " + sizeInventory);
-			Inventory inventory = this.tamingInventory;
-			this.tamingInventory = new Inventory(sizeInventory);
-			if (inventory != null) {
-				int i = Math.min(inventory.getSizeInventory(), this.tamingInventory.getSizeInventory());
 
-				for (int j = 0; j < i; ++j) {
-					ItemStack itemstack = inventory.getStackInSlot(j);
-					if (!itemstack.isEmpty()) {
-						this.tamingInventory.setInventorySlotContents(j, itemstack.copy());
-					}
+	private void InitTamingInventory(int sizeInventory) {
+		if (sizeInventory <= 0)
+			throw new IllegalArgumentException(
+					"size of the Inventory of the Dinosaur has to be greater then 0 not " + sizeInventory);
+		Inventory inventory = this.tamingInventory;
+		this.tamingInventory = new Inventory(sizeInventory);
+		if (inventory != null) {
+			int i = Math.min(inventory.getSizeInventory(), this.tamingInventory.getSizeInventory());
+
+			for (int j = 0; j < i; ++j) {
+				ItemStack itemstack = inventory.getStackInSlot(j);
+				if (!itemstack.isEmpty()) {
+					this.tamingInventory.setInventorySlotContents(j, itemstack.copy());
 				}
 			}
+		}
 	}
 
 	@Override
@@ -460,11 +572,9 @@ public abstract class Dinosaur extends MonsterEntity
 		this.sleepCooldown = compound.getInt("sleepCooldown");
 		if (sleepCooldown > 0)
 			this.prevStatus = DinosaurStatus.getStatus(compound.getInt("prevStatus"));
-		this.tameable = compound.getBoolean("tameable");
+		this.currentlyTeamable = compound.getBoolean("tameable");
 		setHunger(compound.getInt("currentHunger"));
 		this.hungerCounter = compound.getInt("hungerCounter");
-		this.needHunger = compound.getInt("needHunger");
-		this.timeBetweenEating = compound.getInt("timeBetweenEating");
 		this.dead = compound.getBoolean("dead");
 		setSleep(compound.getBoolean("sleep"));
 		setKnockedOut(compound.getBoolean("knockout"));
@@ -485,13 +595,12 @@ public abstract class Dinosaur extends MonsterEntity
 		setChested(compound.getBoolean("ChestedDinosaure"));
 		initInventory(sizeInventory);
 		readInventory(dinosaurInventory, compound, "normal");
-		if(isKnockout()) {
+		if (isKnockout()) {
 			InitTamingInventory(sizeInventory);
 			readInventory(tamingInventory, compound, "taming");
 		}
 
-		this.needeNarcotic = compound.getInt("neededNarcotic");
-		this.playerInLove = compound.hasUniqueId("LoveCause") ? compound.getUniqueId("LoveCause") : null;
+		this.playerKnockedOut = compound.hasUniqueId("LoveCause") ? compound.getUniqueId("LoveCause") : null;
 	}
 
 	@Override
@@ -505,11 +614,9 @@ public abstract class Dinosaur extends MonsterEntity
 		compound.putInt("sleepCooldown", sleepCooldown);
 		if (sleepCooldown > 0)
 			compound.putInt("prevStatus)", prevStatus.getID());
-		compound.putBoolean("tameable", this.tameable);
+		compound.putBoolean("tameable", this.currentlyTeamable);
 		compound.putInt("currentHunger", getHunger());
 		compound.putInt("hungerCounter", this.hungerCounter);
-		compound.putInt("needHunger", needHunger);
-		compound.putInt("timeBetweenEating", timeBetweenEating);
 		compound.putBoolean("dead", dead);
 		compound.putBoolean("knockout", isKnockout());
 		compound.putInt("narcotic", getNarcoticValue());
@@ -521,11 +628,10 @@ public abstract class Dinosaur extends MonsterEntity
 
 		compound.putBoolean("ChestedDinosaure", this.hasChest());
 		writeInventory(dinosaurInventory, compound, "normal");
-		if(isKnockout())
+		if (isKnockout())
 			writeInventory(tamingInventory, compound, "taming");
-		compound.putInt("neededNarcotic", this.needeNarcotic);
-		if (this.playerInLove != null) {
-			compound.putUniqueId("LoveCause", this.playerInLove);
+		if (this.playerKnockedOut != null) {
+			compound.putUniqueId("LoveCause", this.playerKnockedOut);
 		}
 	}
 
@@ -617,6 +723,15 @@ public abstract class Dinosaur extends MonsterEntity
 	 */
 	public boolean isAttacking() {
 		return this.dataManager.get(ATTACKING);
+	}
+
+	/**
+	 * not synchronized with the client
+	 */
+	public boolean hasKnockouted(PlayerEntity player) {
+		if (getPlayerKnockedOut() == null)
+			return false;
+		return getPlayerKnockedOut().equals(player.getUniqueID());
 	}
 
 	/**
@@ -795,16 +910,29 @@ public abstract class Dinosaur extends MonsterEntity
 		}
 	}
 	
+	public abstract int getMaxHunger();
+	public abstract int getMaxNarcotic();
+	/**
+	 * gets the time the Dino needs between he ate and can eat again
+	 * time in ticks
+	 * @return
+	 */
+	public abstract int getTimeBetweenEating();
+
 	public int getHunger() {
 		return this.dataManager.get(HUNGER);
 	}
-	
+
 	public void setHunger(int hunger) {
 		this.dataManager.set(HUNGER, hunger);
 	}
-	
+
 	public void addHunger(int toAdd) {
 		this.dataManager.set(HUNGER, getHunger() + toAdd);
+	}
+	
+	public Inventory getTamingInventory() {
+		return this.tamingInventory;
 	}
 
 	/**

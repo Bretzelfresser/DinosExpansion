@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.common.entities;
 
 import com.renatiux.dinosexpansion.common.container.RaftContainer;
 import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
+import com.renatiux.dinosexpansion.core.init.ItemInit;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -14,6 +15,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -105,6 +107,11 @@ public class RaftEntity extends BoatEntity implements INamedContainerProvider{
 		setChested(compound.getBoolean("chested"));
 		initInventory();
 		readInventory(inventory, compound);
+	}
+	
+	@Override
+	public Item getItemBoat() {
+		return ItemInit.RAFT_ITEM.get();
 	}
 
 	@Override

@@ -3,9 +3,11 @@ package com.renatiux.dinosexpansion.client.events;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.AllosaurusRenderer;
 import com.renatiux.dinosexpansion.client.renderer.MortarRenderer;
+import com.renatiux.dinosexpansion.client.renderer.PoopRenderer;
 import com.renatiux.dinosexpansion.client.renderer.RaftRenderer;
 import com.renatiux.dinosexpansion.client.renderer.TranquilizerArrowRender;
 import com.renatiux.dinosexpansion.common.screens.AllosaurusScreen;
+import com.renatiux.dinosexpansion.common.screens.DinosaurTamingScreen;
 import com.renatiux.dinosexpansion.common.screens.MortarScreen;
 import com.renatiux.dinosexpansion.common.screens.RaftScreen;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
@@ -33,8 +35,12 @@ public class ClientEvents {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.TRANQUILIZER_ARROW.get(), TranquilizerArrowRender::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.RAFT.get(), RaftRenderer::new);
 		
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.POOP.get(), PoopRenderer::new);
+		
 		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.MORTAR_TILE_ENTITY_TYPE.get(), MortarRenderer::new);
 		ScreenManager.registerFactory(ContainerTypeInit.MORTAR_CONTAINER_TYPE.get(), MortarScreen::new);
+		
+		ScreenManager.registerFactory(ContainerTypeInit.DINOSAUR_TAMING_INVENTORY.get(), DinosaurTamingScreen::new);
 	}
 
 }
