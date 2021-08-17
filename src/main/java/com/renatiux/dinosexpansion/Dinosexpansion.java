@@ -4,20 +4,24 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
+import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import com.renatiux.dinosexpansion.core.init.BlockInit;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
 import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 import com.renatiux.dinosexpansion.core.init.RecipeInit;
+import com.renatiux.dinosexpansion.core.init.SoundInit;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -37,7 +41,7 @@ public class Dinosexpansion {
 
 	public Dinosexpansion() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		
+		ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, DEModConfig.init(new ForgeConfigSpec.Builder()));
 		GeckoLib.initialize();
 		// Register the setup method for modloading
 		bus.addListener(this::setup);
@@ -57,6 +61,8 @@ public class Dinosexpansion {
 		ContainerTypeInit.CONTAINER_TYPES.register(bus);
 		EntityTypeInit.ENTITY_TYPES.register(bus);
 		EntityTypeInit.ARROW_ENTITY_TYPES.register(bus);
+		
+		SoundInit.SOUNDS.register(bus);
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
