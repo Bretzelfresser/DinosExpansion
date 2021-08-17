@@ -136,11 +136,13 @@ public abstract class Dinosaur extends MonsterEntity
 						return new TranslationTextComponent("container." + Dinosexpansion.MODID + ".taming");
 					}
 				}, buf -> buf.writeVarInt(this.getEntityId()));
+				return ActionResultType.SUCCESS;
 			}
 			else if(isKnockout()&& hasKnockouted(player) && currentlyTeamable) {
 				setTamedBy(player);
 				currentlyTeamable = false;
 				setNarcotic(0);
+				return ActionResultType.SUCCESS;
 			}
 		}
 		return super.applyPlayerInteraction(player, vec, hand);

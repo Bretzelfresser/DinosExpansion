@@ -138,12 +138,15 @@ public class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaur
 				}
 			}
 			// opens the gui
-			if (isTame() && isOwner(player) && (player.isSneaking() || !isSaddled()))
+			if (isTame() && isOwner(player) && (player.isSneaking() || !isSaddled())) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, this, buf -> buf.writeVarInt(getEntityId()));
-				// riding
+				return ActionResultType.SUCCESS;
+			}
+			// riding
 			else if (isTame() && isOwner(player) && !player.isSneaking() && isSaddled() && !this.isBeingRidden()
 					&& !isKnockout() && deathTime <= 0) {
 				player.startRiding(this);
+				return ActionResultType.SUCCESS;
 			}
 		}
 		return super.applyPlayerInteraction(player, vec, hand);
