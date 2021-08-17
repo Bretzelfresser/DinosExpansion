@@ -15,6 +15,7 @@ import com.renatiux.dinosexpansion.common.entities.projectiles.NarcoticArrowEnti
 import com.renatiux.dinosexpansion.common.items.NarcoticItem;
 import com.renatiux.dinosexpansion.common.items.PoopItem.PoopSize;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
+import com.renatiux.dinosexpansion.core.tags.Tags;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -69,6 +70,8 @@ public abstract class Dinosaur extends MonsterEntity
 			DataSerializers.BOOLEAN);
 	public static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(Dinosaur.class,
 			DataSerializers.OPTIONAL_UNIQUE_ID);
+	public static final DataParameter<Optional<UUID>> PLAYER_KNOCKOUTED_ID = EntityDataManager.createKey(Dinosaur.class,
+			DataSerializers.OPTIONAL_UNIQUE_ID);
 	public static final DataParameter<Boolean> HAS_CHEST = EntityDataManager.createKey(Dinosaur.class,
 			DataSerializers.BOOLEAN);
 	public static final DataParameter<Boolean> ATTACKING = EntityDataManager.createKey(Dinosaur.class,
@@ -84,7 +87,6 @@ public abstract class Dinosaur extends MonsterEntity
 	
 	protected final int sizeInventory;
 	protected int sleepCooldown, hungerCounter;
-	protected UUID playerKnockedOut;
 	protected AnimationFactory factory = new AnimationFactory(this);
 	protected DinosaurStatus status;
 	protected Inventory dinosaurInventory, tamingInventory;
@@ -121,7 +123,7 @@ public abstract class Dinosaur extends MonsterEntity
 	@Override
 	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
 		if (!world.isRemote) {
-			if (isKnockout() && !currentlyTeamable) {
+			if (isKnockout() && hasKnockouted(player) && !currentlyTeamable) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
 					
 					@Override
@@ -135,7 +137,7 @@ public abstract class Dinosaur extends MonsterEntity
 					}
 				}, buf -> buf.writeVarInt(this.getEntityId()));
 			}
-			else if(isKnockout() && currentlyTeamable) {
+			else if(isKnockout()&& hasKnockouted(player) && currentlyTeamable) {
 				setTamedBy(player);
 				currentlyTeamable = false;
 				setNarcotic(0);
@@ -283,7 +285,7 @@ public abstract class Dinosaur extends MonsterEntity
 			hungerCounter--;
 		} else {
 			for (int i = 0; i < tamingInventory.getSizeInventory(); i++) {
-				if (canEat(tamingInventory.getStackInSlot(i))) {
+				if (canEat(tamingInventory.getStackInSlot(i)) || Tags.Items.KIBBLE.contains(tamingInventory.getStackInSlot(i).getItem())) {
 					addHunger((int) tamingInventory.getStackInSlot(i).getItem().getFood().getHealing());
 					hungerCounter = getTimeBetweenEating();
 					this.tamingInventory.getStackInSlot(i).shrink(1);
@@ -401,6 +403,7 @@ public abstract class Dinosaur extends MonsterEntity
 		this.dataManager.register(HAS_ARMOR, false);
 		this.dataManager.register(KNOCKOUT, false);
 		this.dataManager.register(HUNGER, 0);
+		this.dataManager.register(PLAYER_KNOCKOUTED_ID, Optional.empty());
 	}
 
 	/**
@@ -446,14 +449,20 @@ public abstract class Dinosaur extends MonsterEntity
 	}
 
 	public void setPlayerKnockouted(PlayerEntity player) {
-		this.playerKnockedOut = player.getUniqueID();
+		this.dataManager.set(PLAYER_KNOCKOUTED_ID, Optional.ofNullable(player.getUniqueID()));
+		System.out.println("yeah");
+	}
+	
+	protected void setPlayerKnockouted(UUID player) {
+		this.dataManager.set(PLAYER_KNOCKOUTED_ID, Optional.ofNullable(player));
 	}
 
 	/**
 	 * gets the UUId of the player the has knockouted the Dino
 	 */
+	@Nullable
 	public UUID getPlayerKnockedOut() {
-		return playerKnockedOut;
+		return this.dataManager.get(PLAYER_KNOCKOUTED_ID).orElse(null);
 	}
 
 	@Override
@@ -600,7 +609,7 @@ public abstract class Dinosaur extends MonsterEntity
 			readInventory(tamingInventory, compound, "taming");
 		}
 
-		this.playerKnockedOut = compound.hasUniqueId("LoveCause") ? compound.getUniqueId("LoveCause") : null;
+		setPlayerKnockouted(compound.hasUniqueId("LoveCause") ? compound.getUniqueId("LoveCause") : null);
 	}
 
 	@Override
@@ -630,8 +639,8 @@ public abstract class Dinosaur extends MonsterEntity
 		writeInventory(dinosaurInventory, compound, "normal");
 		if (isKnockout())
 			writeInventory(tamingInventory, compound, "taming");
-		if (this.playerKnockedOut != null) {
-			compound.putUniqueId("LoveCause", this.playerKnockedOut);
+		if (getPlayerKnockedOut() != null) {
+			compound.putUniqueId("LoveCause", getPlayerKnockedOut());
 		}
 	}
 
@@ -909,8 +918,13 @@ public abstract class Dinosaur extends MonsterEntity
 			this.playSound(getChestEquipSound(), 0.5F, 1.0F);
 		}
 	}
-	
+	/**
+	 * gets the value of food needed in order to be tamed
+	 */
 	public abstract int getMaxHunger();
+	/**
+	 * gets the value of the narcotic neede to be knockouted
+	 */
 	public abstract int getMaxNarcotic();
 	/**
 	 * gets the time the Dino needs between he ate and can eat again

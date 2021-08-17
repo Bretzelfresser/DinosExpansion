@@ -1,15 +1,15 @@
 {
 	"type":"dinosexpansion:mortar_recipe",
 	"input1":{
-		"item":"minecraft:coal",
-		"count": 3
-	},
-	"input2":{
-		"item":"minecraft:gunpowder",
+		"item":"minecraft:rotten_flesh",
 		"count": 1
 	},
+	"input2":{
+		"item":"dinosexpansion:narcotic_berry",
+		"count": 3
+	},
 	"output":{
-		"item":"minecraft:diamond",
+		"item":"dinosexpansion:narcotics",
 		"count": 1
 	},
 	"workTime": 300

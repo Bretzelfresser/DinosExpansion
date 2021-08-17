@@ -7,6 +7,7 @@ import com.renatiux.dinosexpansion.datagen.client.ModItemModelsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModBlockTagsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModEntityTypeTagsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModItemTagsProvider;
+import com.renatiux.dinosexpansion.datagen.server.ModLootTableProvider;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -44,6 +45,7 @@ public class DataGenerators {
 		gen.addProvider(provider);
 		gen.addProvider(new ModItemTagsProvider(gen, provider, helper));
 		gen.addProvider(new ModEntityTypeTagsProvider(gen, helper));
+		gen.addProvider(new ModLootTableProvider(gen));
 	}
 
 }

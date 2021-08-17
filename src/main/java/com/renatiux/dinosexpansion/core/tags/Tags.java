@@ -24,6 +24,7 @@ public class Tags {
 	
 	public static class Items{
 		public static final INamedTag<Item> DINOSAUR_MEAT_FOOD = createModTag("dinosaur_meat");
+		public static final INamedTag<Item> KIBBLE = createModTag("kibble");
 		
 		public static ITag.INamedTag<Item> createModTag(String name){
 			return ItemTags.makeWrapperTag(new ResourceLocation(Dinosexpansion.MODID, name).toString());

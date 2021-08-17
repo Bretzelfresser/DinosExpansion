@@ -22,12 +22,18 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 	protected void registerTags() {
 		makeDinoMeat();
 		makeArrows();
+		makeKibble();
 	}
 	
 	private void makeArrows() {
 		ItemInit.ARROWS.getEntries().stream().map(RegistryObject::get).forEach(item -> {
 			getOrCreateBuilder(ItemTags.ARROWS).add(item);
 		});
+	}
+	
+	private void makeKibble() {
+		getOrCreateBuilder(Tags.Items.KIBBLE).add(ItemInit.KIBBLE_BASIC.get(), ItemInit.KIBBLE_EXCEPTIONAL.get(), ItemInit.KIBBLE_EXTRAORDINARY.get(),
+				ItemInit.KIBBLE_REGULAR.get(), ItemInit.KIBBLE_SIMPLE.get(), ItemInit.KIBBLE_SUPERIOR.get());
 	}
 	
 	private void makeDinoMeat() {
