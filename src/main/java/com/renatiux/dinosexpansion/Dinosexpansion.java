@@ -1,6 +1,5 @@
 package com.renatiux.dinosexpansion;
 
-import com.renatiux.dinosexpansion.util.CutoutRendersDE;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,9 +12,8 @@ import com.renatiux.dinosexpansion.core.init.ItemInit;
 import com.renatiux.dinosexpansion.core.init.RecipeInit;
 import com.renatiux.dinosexpansion.core.init.SoundInit;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
+import com.renatiux.dinosexpansion.util.CutoutRendersDE;
 
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
