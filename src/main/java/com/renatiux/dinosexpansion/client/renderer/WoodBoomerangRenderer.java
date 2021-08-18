@@ -1,7 +1,9 @@
 package com.renatiux.dinosexpansion.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.projectiles.EntityBoomerang;
+import com.renatiux.dinosexpansion.core.init.ItemInit;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -10,6 +12,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -18,7 +21,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class WoodBoomerangRenderer extends EntityRenderer<EntityBoomerang>{
 	
-    public static final ResourceLocation TEXTURE = new ResourceLocation("dinosexpansion", "textures/items/wood_boomerang.png");
+    public static final ResourceLocation[] TEXTURES = new ResourceLocation[] {Dinosexpansion.modLoc("textures/items/wood_boomerang.png"), Dinosexpansion.modLoc("textures/items/iron_boomerang.png"), Dinosexpansion.modLoc("textures/items/diamond_boomerang.png")};
     private final ItemRenderer itemRenderer;
 
     public WoodBoomerangRenderer(EntityRendererManager renderManager, ItemRenderer item) {
@@ -46,7 +49,17 @@ public class WoodBoomerangRenderer extends EntityRenderer<EntityBoomerang>{
 
     @Override
     public ResourceLocation getEntityTexture(EntityBoomerang entity) {
-        return TEXTURE;
+    	Item renderItem = entity.getRenderedItemStack().getItem();
+    	if(renderItem == ItemInit.WOOD_BOOMERANG.get())
+    		return TEXTURES[0];
+    	if(renderItem == ItemInit.IRON_BOOMERANG.get()) {
+    		return TEXTURES[1];
+    	}
+    	if(renderItem == ItemInit.DIAMOND_BOOMERANG.get()) {
+    		return TEXTURES[2];
+    	}
+    		return TEXTURES[0];
+        
     }
     
     
