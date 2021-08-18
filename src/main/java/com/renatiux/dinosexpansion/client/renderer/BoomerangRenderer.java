@@ -2,7 +2,6 @@ package com.renatiux.dinosexpansion.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.renatiux.dinosexpansion.common.entities.projectiles.EntityBoomerang;
-import com.renatiux.dinosexpansion.core.init.ItemInit;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -42,7 +41,7 @@ public class BoomerangRenderer extends EntityRenderer<EntityBoomerang>{
     }
 
     private ItemStack getItemStackForRender(EntityBoomerang entityIn) {
-        return new ItemStack(ItemInit.BOOMERANG.get());
+        return entityIn.getRenderedItemStack().copy();
     }
 
     @Override

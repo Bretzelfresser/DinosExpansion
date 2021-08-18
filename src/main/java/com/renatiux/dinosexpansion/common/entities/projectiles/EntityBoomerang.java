@@ -398,6 +398,8 @@ public abstract class EntityBoomerang extends Entity{
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
+    
+    public abstract ItemStack getRenderedItemStack();
  
     static {
         ROTATION = EntityDataManager.createKey(EntityBoomerang.class, DataSerializers.FLOAT);

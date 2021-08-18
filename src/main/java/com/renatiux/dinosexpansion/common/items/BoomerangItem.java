@@ -1,7 +1,6 @@
 package com.renatiux.dinosexpansion.common.items;
 
 import com.renatiux.dinosexpansion.common.entities.projectiles.EntityBoomerang;
-import com.renatiux.dinosexpansion.common.entities.projectiles.RegularBoomerang;
 import com.renatiux.dinosexpansion.core.init.SoundInit;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,8 +14,11 @@ import net.minecraft.world.World;
 
 public class BoomerangItem extends Item{
 	
-	 public BoomerangItem(Properties properties) {
+	private final BoomerangSupplier supplier;
+	
+	 public BoomerangItem(Properties properties, BoomerangSupplier supplier) {
 	        super(properties);
+	        this.supplier = supplier;
 	    }
 	
 
@@ -24,7 +26,7 @@ public class BoomerangItem extends Item{
 	    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 	        ItemStack stack = playerIn.getHeldItem(handIn);
 	        //int eff = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FLAME, playerIn);
-	        EntityBoomerang boom = new RegularBoomerang(worldIn, playerIn, playerIn.getHeldItem(handIn), handIn);
+	        EntityBoomerang boom = supplier.createBoomerang(worldIn, playerIn, playerIn.getHeldItem(handIn), handIn);
 	            BlockPos currentPos = playerIn.getPosition();
 	            worldIn.playSound(null, currentPos.getX(), currentPos.getY(), currentPos.getZ(), SoundInit.BOOMERANG_THROW.get(), SoundCategory.PLAYERS, 0.6F, 1.0F);
 	            worldIn.addEntity(boom);
@@ -34,6 +36,11 @@ public class BoomerangItem extends Item{
 	            playerIn.setActiveHand(handIn);
 
 	        return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
+	    }
+	    
+	    
+	    public static interface BoomerangSupplier{
+	    	public EntityBoomerang createBoomerang(World world, PlayerEntity player,ItemStack stack, Hand hand);
 	    }
 
 }

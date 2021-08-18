@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.common.entities.projectiles;
 
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
+import com.renatiux.dinosexpansion.core.init.ItemInit;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -13,23 +14,23 @@ import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class RegularBoomerang extends EntityBoomerang{
+public class WoodBoomerang extends EntityBoomerang{
 
 	
 
-    public RegularBoomerang(EntityType<? extends EntityBoomerang> type, World world) {
+    public WoodBoomerang(EntityType<? extends EntityBoomerang> type, World world) {
         super(type, world);
-        this.timeBeforeTurnAround = DEModConfig.BOOMERANGCONFIG.RegularBoomerangRange.get() <= 0 ? 20 : DEModConfig.BOOMERANGCONFIG.RegularBoomerangRange.get();
+        this.timeBeforeTurnAround = DEModConfig.BOOMERANGCONFIG.WoodBoomerangRange.get() <= 0 ? 20 : DEModConfig.BOOMERANGCONFIG.WoodBoomerangRange.get();
     }
 
-    public RegularBoomerang(World worldIn, PlayerEntity entity, ItemStack itemstack, Hand hand) {
+    public WoodBoomerang(World worldIn, PlayerEntity entity, ItemStack itemstack, Hand hand) {
         super(EntityTypeInit.REGULAR_BOOMERANG.get(), worldIn, entity, itemstack, hand);
-        this.timeBeforeTurnAround = DEModConfig.BOOMERANGCONFIG.RegularBoomerangRange.get() <= 0 ? 20 : DEModConfig.BOOMERANGCONFIG.RegularBoomerangRange.get();
+        this.timeBeforeTurnAround = DEModConfig.BOOMERANGCONFIG.WoodBoomerangRange.get() <= 0 ? 20 : DEModConfig.BOOMERANGCONFIG.WoodBoomerangRange.get();
     }
 
     @Override
     protected int getDamage(Entity hitEntity, PlayerEntity player) {
-        return DEModConfig.BOOMERANGCONFIG.RegularBoomerangDamage.get() > 0 ? DEModConfig.BOOMERANGCONFIG.RegularBoomerangDamage.get() : 0;
+        return DEModConfig.BOOMERANGCONFIG.WoodBoomerangDamage.get() > 0 ? DEModConfig.BOOMERANGCONFIG.WoodBoomerangDamage.get() : 0;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class RegularBoomerang extends EntityBoomerang{
 
     @Override
     public void beforeTurnAround(PlayerEntity player) {
-        if (!isBouncing && DEModConfig.BOOMERANGCONFIG.RegularBoomerangFollows.get()) {
+        if (!isBouncing && DEModConfig.BOOMERANGCONFIG.WoodBoomerangFollows.get()) {
             double x = -MathHelper.sin((player.rotationYaw * 3.141593F) / 180F);
             double z = MathHelper.cos((player.rotationYaw * 3.141593F) / 180F);
 
@@ -49,5 +50,10 @@ public class RegularBoomerang extends EntityBoomerang{
             this.setMotion(motionX, motionY, motionZ);
         }
     }
+
+	@Override
+	public ItemStack getRenderedItemStack() {
+		return new ItemStack(ItemInit.WOOD_BOOMERANG.get());
+	}
 
 }
