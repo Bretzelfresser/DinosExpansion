@@ -38,7 +38,9 @@ public class ClientEvents {
 		
 		ScreenManager.registerFactory(ContainerTypeInit.DINOSAUR_TAMING_INVENTORY.get(), DinosaurTamingScreen::new);
 		
-		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.REGULAR_BOOMERANG.get(), new WoodBoomerangRenderer.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.WOOD_BOOMERANG.get(), new WoodBoomerangRenderer.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.IRON_BOOMERANG.get(), new WoodBoomerangRenderer.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.DIAMOND_BOOMERANG.get(), new WoodBoomerangRenderer.Factory());
 
 	}
 

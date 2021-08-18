@@ -5,6 +5,8 @@ import com.renatiux.dinosexpansion.common.entities.RaftEntity;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.entities.projectiles.WoodBoomerang;
+import com.renatiux.dinosexpansion.common.entities.projectiles.DiamondBoomerang;
+import com.renatiux.dinosexpansion.common.entities.projectiles.IronBoomerang;
 import com.renatiux.dinosexpansion.common.entities.projectiles.TranquilizerArrowEntity;
 
 import net.minecraft.entity.EntityClassification;
@@ -28,6 +30,12 @@ public class EntityTypeInit {
 			() -> EntityType.Builder.<RaftEntity>create(RaftEntity::new, EntityClassification.MISC).size(1.0F, 0.5f).trackingRange(10).setCustomClientFactory(RaftEntity::new).build(Dinosexpansion.modLoc("raft").toString()));
 	public static final RegistryObject<EntityType<Poop>> POOP = ENTITY_TYPES.register("poop", () -> EntityType.Builder.<Poop>create(Poop::new, EntityClassification.MISC).size(0.5f, 0.3f).build(Dinosexpansion.modLoc("poop").toString()));
 	
-	public static final RegistryObject<EntityType<WoodBoomerang>> REGULAR_BOOMERANG = ENTITY_TYPES.register("regular_boomerang", 
-			() -> EntityType.Builder.<WoodBoomerang>create(WoodBoomerang::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("regular_boomerang").toString()));
+	public static final RegistryObject<EntityType<WoodBoomerang>> WOOD_BOOMERANG = ENTITY_TYPES.register("wood_boomerang", 
+			() -> EntityType.Builder.<WoodBoomerang>create(WoodBoomerang::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("wood_boomerang").toString()));
+	
+	public static final RegistryObject<EntityType<IronBoomerang>> IRON_BOOMERANG = ENTITY_TYPES.register("iron_boomerang", 
+			() -> EntityType.Builder.<IronBoomerang>create(IronBoomerang::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("iron_boomerang").toString()));
+	
+	public static final RegistryObject<EntityType<DiamondBoomerang>> DIAMOND_BOOMERANG = ENTITY_TYPES.register("diamond_boomerang", 
+			() -> EntityType.Builder.<DiamondBoomerang>create(DiamondBoomerang::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("diamond_boomerang").toString()));
 }

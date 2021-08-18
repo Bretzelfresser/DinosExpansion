@@ -2,7 +2,10 @@ package com.renatiux.dinosexpansion.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.common.entities.projectiles.DiamondBoomerang;
 import com.renatiux.dinosexpansion.common.entities.projectiles.EntityBoomerang;
+import com.renatiux.dinosexpansion.common.entities.projectiles.IronBoomerang;
+import com.renatiux.dinosexpansion.common.entities.projectiles.WoodBoomerang;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 
 import net.minecraft.client.Minecraft;
@@ -21,7 +24,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class WoodBoomerangRenderer extends EntityRenderer<EntityBoomerang>{
 	
-    public static final ResourceLocation[] TEXTURES = new ResourceLocation[] {Dinosexpansion.modLoc("textures/items/wood_boomerang.png"), Dinosexpansion.modLoc("textures/items/iron_boomerang.png"), Dinosexpansion.modLoc("textures/items/diamond_boomerang.png")};
+    public static final ResourceLocation[] TEXTURES = new ResourceLocation[] {Dinosexpansion.modLoc("textures/item/wood_boomerang.png"), Dinosexpansion.modLoc("textures/item/iron_boomerang.png"), Dinosexpansion.modLoc("textures/item/diamond_boomerang.png")};
     private final ItemRenderer itemRenderer;
 
     public WoodBoomerangRenderer(EntityRendererManager renderManager, ItemRenderer item) {
@@ -44,12 +47,20 @@ public class WoodBoomerangRenderer extends EntityRenderer<EntityBoomerang>{
     }
 
     private ItemStack getItemStackForRender(EntityBoomerang entityIn) {
-        return entityIn.getRenderedItemStack().copy();
+    	if(entityIn instanceof IronBoomerang)
+    		System.out.println("iron");
+    	if(entityIn instanceof WoodBoomerang)
+    		System.out.println("wood");
+    	if(entityIn instanceof  DiamondBoomerang)
+    		System.out.println("diamond");
+    	//System.out.println(entityIn.getRenderedItemStack().getItem().getRegistryName().toString());
+        return entityIn.getRenderedItemStack();
     }
 
     @Override
     public ResourceLocation getEntityTexture(EntityBoomerang entity) {
     	Item renderItem = entity.getRenderedItemStack().getItem();
+    	System.out.println(renderItem.getRegistryName().toString());
     	if(renderItem == ItemInit.WOOD_BOOMERANG.get())
     		return TEXTURES[0];
     	if(renderItem == ItemInit.IRON_BOOMERANG.get()) {
@@ -58,7 +69,7 @@ public class WoodBoomerangRenderer extends EntityRenderer<EntityBoomerang>{
     	if(renderItem == ItemInit.DIAMOND_BOOMERANG.get()) {
     		return TEXTURES[2];
     	}
-    		return TEXTURES[0];
+    		return TEXTURES[1];
         
     }
     

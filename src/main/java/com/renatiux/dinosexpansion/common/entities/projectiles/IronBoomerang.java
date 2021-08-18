@@ -18,7 +18,7 @@ public class IronBoomerang extends EntityBoomerang{
 
 	public IronBoomerang(World worldIn, PlayerEntity entity,
 			ItemStack itemstack, Hand hand) {
-		super(EntityTypeInit.REGULAR_BOOMERANG.get(), worldIn, entity, itemstack, hand);
+		super(EntityTypeInit.IRON_BOOMERANG.get(), worldIn, entity, itemstack, hand);
 		this.timeBeforeTurnAround = DEModConfig.BOOMERANGCONFIG.IronBoomerangRange.get() <= 0 ? 20 : DEModConfig.BOOMERANGCONFIG.IronBoomerangRange.get();
 	}
 

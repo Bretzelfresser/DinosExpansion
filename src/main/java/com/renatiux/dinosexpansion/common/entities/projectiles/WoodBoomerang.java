@@ -24,7 +24,7 @@ public class WoodBoomerang extends EntityBoomerang{
     }
 
     public WoodBoomerang(World worldIn, PlayerEntity entity, ItemStack itemstack, Hand hand) {
-        super(EntityTypeInit.REGULAR_BOOMERANG.get(), worldIn, entity, itemstack, hand);
+        super(EntityTypeInit.WOOD_BOOMERANG.get(), worldIn, entity, itemstack, hand);
         this.timeBeforeTurnAround = DEModConfig.BOOMERANGCONFIG.WoodBoomerangRange.get() <= 0 ? 20 : DEModConfig.BOOMERANGCONFIG.WoodBoomerangRange.get();
     }
 

@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 public class DiamondBoomerang extends EntityBoomerang {
 
 	public DiamondBoomerang(World worldIn, PlayerEntity entity, ItemStack itemstack, Hand hand) {
-		super(EntityTypeInit.REGULAR_BOOMERANG.get(), worldIn, entity, itemstack, hand);
+		super(EntityTypeInit.DIAMOND_BOOMERANG.get(), worldIn, entity, itemstack, hand);
 		this.timeBeforeTurnAround = DEModConfig.BOOMERANGCONFIG.DiamondBoomerangRange.get() <= 0 ? 20
 				: DEModConfig.BOOMERANGCONFIG.DiamondBoomerangRange.get();
 	}
