@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
@@ -93,11 +92,11 @@ public class MultiToolItem extends ToolItem {
         Material material = blockIn.getMaterial();
         return material == Material.ROCK || material == Material.IRON || material == Material.ANVIL || block == Blocks.SNOW || block == Blocks.SNOW_BLOCK || block == Blocks.COBWEB;
     }
-
+    
     @Override
-    public ActionResultType useOn(ItemUseContext context) {
+    public ActionResultType onItemUse(ItemUseContext context) {
         World world = context.getWorld();
-        BlockPos blockpos = context.getClickedPos();
+        BlockPos blockpos = context.getPos();
         BlockState blockstate = world.getBlockState(blockpos);
         Block blockStrip = BLOCK_STRIPPING_MAP.get(blockstate.getBlock());
 
@@ -107,48 +106,49 @@ public class MultiToolItem extends ToolItem {
 
         BlockState blockStateBelow = world.getBlockState(blockBelowBlockPos);
         Block blockBelow = blockStateBelow.getBlock();
-        BlockPos blockAboveBlockPos = blockpos.above();
+        BlockPos blockAboveBlockPos = blockpos.up();
 
-        BlockPos blockTwiceBelowBlockPos = blockpos.below(2);
+        BlockPos blockTwiceBelowBlockPos = blockpos.down(2);
 
-        BlockPos blockTwiceAboveBlockPos = blockpos.above(2);
+        BlockPos blockTwiceAboveBlockPos = blockpos.up(2);
 
         if (blockStrip != null) {
             PlayerEntity playerentity = context.getPlayer();
             world.playSound(playerentity, blockpos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
             if (!world.isRemote) {
-                world.setBlock(blockpos, blockStrip.defaultBlockState().setValue(RotatedPillarBlock.AXIS, blockstate.get(RotatedPillarBlock.AXIS)), 11);
+                world.setBlockState(blockpos, blockStrip.getDefaultState().with(RotatedPillarBlock.AXIS, blockstate.get(RotatedPillarBlock.AXIS)), 11);
                 if (playerentity != null) {
-                    context.getItemInHand().hurtAndBreak(1, playerentity, (p_lambda$onItemUse$0_1_) -> {p_lambda$onItemUse$0_1_.broadcastBreakEvent(context.getHand());});
+                    context.getItem().damageItem(1, playerentity, (p_lambda$onItemUse$0_1_) -> {p_lambda$onItemUse$0_1_.sendBreakAnimation(context.getHand());});
                 }
             }
 
             return ActionResultType.SUCCESS;
         }
 
-        if (blockstate.getBlock() instanceof CampfireBlock && blockstate.getValue(CampfireBlock.LIT)) {
-            world.levelEvent((PlayerEntity)null, 1009, blockpos, 0);
-            world.setBlock(blockpos, blockstate.setValue(CampfireBlock.LIT, Boolean.valueOf(false)), 11);
+        if (blockstate.getBlock() instanceof CampfireBlock && blockstate.get(CampfireBlock.LIT)) {
+            world.playEvent((PlayerEntity)null, 1009, blockpos, 0);
+            world.setBlockState(blockpos, blockstate.with(CampfireBlock.LIT, Boolean.valueOf(false)), 11);
         }
 
-        if(!context.getPlayer().isShiftKeyDown()) {
+        if(!context.getPlayer().isSneaking()) {
 
-            int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(context);
+            @SuppressWarnings("deprecation")
+			int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(context);
             PlayerEntity playerentity = context.getPlayer();
             if (hook != 0) return hook > 0 ? ActionResultType.SUCCESS : ActionResultType.FAIL;
-            if(context.getClickedFace() != Direction.DOWN) {
-                if (world.isEmptyBlock(blockpos.above())) {
+            if(context.getFace() != Direction.DOWN) {
+                if (world.isAirBlock(blockpos.up())) {
                     setBlockToFarmland(context, blockpos, world);
                 }
 
                 if(block instanceof BushBlock) {
                     BlockState iblockstate2 = HOE_LOOKUP.get(world.getBlockState(blockBelowBlockPos).getBlock());
 
-                    if(iblockstate2 != null && world.isEmptyBlock(blockAboveBlockPos)) {
+                    if(iblockstate2 != null && world.isAirBlock(blockAboveBlockPos)) {
                         setBlockToFarmland(context, blockBelowBlockPos, world);
                         if(!playerentity.isCreative())
-                            block.playerDestroy(world, playerentity, blockpos, iblockstate, null, context.getItemInHand());
-                        world.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 11);
+                            block.harvestBlock(world, playerentity, blockpos, iblockstate, null, context.getItem());
+                        world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 11);
                         return ActionResultType.SUCCESS;
                     }
                 }
@@ -157,33 +157,33 @@ public class MultiToolItem extends ToolItem {
                     BlockState iblockstate2_below = HOE_LOOKUP.get(world.getBlockState(blockBelowBlockPos).getBlock());
                     BlockState iblockstate2_twice_below = HOE_LOOKUP.get(world.getBlockState(blockTwiceBelowBlockPos).getBlock());
 
-                    if(iblockstate.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER && iblockstate2_below != null && world.isEmptyBlock(blockTwiceAboveBlockPos)) {
+                    if(iblockstate.get(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER && iblockstate2_below != null && world.isAirBlock(blockTwiceAboveBlockPos)) {
                         setBlockToFarmland(context, blockBelowBlockPos, world);
-                        block.playerWillDestroy(world, blockpos, iblockstate, playerentity);
+                        block.onBlockHarvested(world, blockpos, iblockstate, playerentity);
                         return ActionResultType.SUCCESS;
-                    } else if(iblockstate.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER && iblockstate2_twice_below != null && world.isEmptyBlock(blockAboveBlockPos)) {
+                    } else if(iblockstate.get(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER && iblockstate2_twice_below != null && world.isAirBlock(blockAboveBlockPos)) {
                         setBlockToFarmland(context, blockTwiceBelowBlockPos, world);
-                        block.playerWillDestroy(world, blockpos, iblockstate, playerentity);
+                        block.onBlockHarvested(world, blockpos, iblockstate, playerentity);
                         return ActionResultType.SUCCESS;
                     }
                 }
             }
         } else {
-            if(context.getClickedFace() != Direction.DOWN) {
+            if(context.getFace() != Direction.DOWN) {
                 PlayerEntity playerentity = context.getPlayer();
 
-                if (world.getBlockState(blockpos.above()).isAir()) {
+                if (world.isAirBlock(blockpos.up())) {
                     setBlockToPath(context, blockpos, world);
                 }
 
                 if(block instanceof BushBlock) {
                     BlockState iblockstate2 = SHOVEL_LOOKUP.get(world.getBlockState(blockBelowBlockPos).getBlock());
 
-                    if(blockBelow == Blocks.GRASS || iblockstate2 != null && world.isEmptyBlock(blockAboveBlockPos)) {
+                    if(blockBelow == Blocks.GRASS || iblockstate2 != null && world.isAirBlock(blockAboveBlockPos)) {
                         setBlockToPath(context, blockBelowBlockPos, world);
                         if(!playerentity.isCreative())
-                            block.playerDestroy(world, playerentity, blockpos, iblockstate, null, context.getItemInHand());
-                        world.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 11);
+                            block.harvestBlock(world, playerentity, blockpos, iblockstate, null, context.getItem());
+                        world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 11);
                         return ActionResultType.SUCCESS;
                     }
                 }
@@ -192,13 +192,13 @@ public class MultiToolItem extends ToolItem {
                     BlockState iblockstate2_below = SHOVEL_LOOKUP.get(world.getBlockState(blockBelowBlockPos).getBlock());
                     BlockState iblockstate2_twice_below = SHOVEL_LOOKUP.get(world.getBlockState(blockTwiceBelowBlockPos).getBlock());
 
-                    if(iblockstate.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER && iblockstate2_below != null && world.isEmptyBlock(blockTwiceAboveBlockPos)) {
+                    if(iblockstate.get(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER && iblockstate2_below != null && world.isAirBlock(blockTwiceAboveBlockPos)) {
                         setBlockToPath(context, blockBelowBlockPos, world);
-                        block.playerWillDestroy(world, blockpos, iblockstate, playerentity);
+                        block.onBlockHarvested(world, blockpos, iblockstate, playerentity);
                         return ActionResultType.SUCCESS;
-                    } else if(iblockstate.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER && iblockstate2_twice_below != null && world.isEmptyBlock(blockAboveBlockPos)) {
+                    } else if(iblockstate.get(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER && iblockstate2_twice_below != null && world.isAirBlock(blockAboveBlockPos)) {
                         setBlockToPath(context, blockTwiceBelowBlockPos, world);
-                        block.playerWillDestroy(world, blockpos, iblockstate, playerentity);
+                        block.onBlockHarvested(world, blockpos, iblockstate, playerentity);
                         return ActionResultType.SUCCESS;
                     }
                 }
@@ -215,10 +215,10 @@ public class MultiToolItem extends ToolItem {
         if (iblockstate2 != null) {
             PlayerEntity playerentity = context.getPlayer();
             world.playSound(playerentity, blockpos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            if (!world.isClientSide) {
-                world.setBlock(blockpos, iblockstate2, 11);
+            if (!world.isRemote) {
+                world.setBlockState(blockpos, iblockstate2, 11);
                 if (playerentity != null) {
-                    context.getItemInHand().hurtAndBreak(1, playerentity, (p_lambda$onItemUse$0_1_) -> {p_lambda$onItemUse$0_1_.broadcastBreakEvent(context.getHand());});
+                    context.getItem().damageItem(1, playerentity, (p_lambda$onItemUse$0_1_) -> {p_lambda$onItemUse$0_1_.sendBreakAnimation(context.getHand());});
                 }
             }
 
@@ -235,9 +235,9 @@ public class MultiToolItem extends ToolItem {
             PlayerEntity playerentity = context.getPlayer();
             world.playSound(playerentity, blockpos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
             if (!world.isRemote) {
-                world.setBlock(blockpos, iblockstate1, 11);
+                world.setBlockState(blockpos, iblockstate1, 11);
                 if (playerentity != null) {
-                    context.getItemInHand().hurtAndBreak(1, playerentity, (p_lambda$onItemUse$0_1_) -> {p_lambda$onItemUse$0_1_.broadcastBreakEvent(context.getHand());});
+                    context.getItem().damageItem(1, playerentity, (p_lambda$onItemUse$0_1_) -> {p_lambda$onItemUse$0_1_.sendBreakAnimation(context.getHand());});
                 }
             }
 
@@ -249,20 +249,20 @@ public class MultiToolItem extends ToolItem {
 
     public float getAttackDamage()
     {
-        return this.material.getAttackDamageBonus();
+        return this.material.getAttackDamage();
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker)
     {
-        stack.hurtAndBreak(1, attacker, (player) -> {player.broadcastBreakEvent(EquipmentSlotType.MAINHAND);});
+        stack.damageItem(1, attacker, (player) -> {player.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
         return true;
     }
 
     public boolean mineBlock(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving)
     {
-        if ((double)state.getDestroySpeed(worldIn, pos) != 0.0D)
+        if ((double)state.getBlockHardness(worldIn, pos) != 0.0D)
         {
-            stack.hurtAndBreak(2, entityLiving, (player) -> {player.broadcastBreakEvent(EquipmentSlotType.MAINHAND);});
+            stack.damageItem(2, entityLiving, (player) -> {player.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
         }
 
         return true;
@@ -270,12 +270,12 @@ public class MultiToolItem extends ToolItem {
 
     public int getEnchantmentValue()
     {
-        return this.material.getEnchantmentValue();
+        return this.material.getEnchantability();
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment)
     {
-        if(enchantment.category == EnchantmentType.BREAKABLE || enchantment.category == EnchantmentType.WEAPON || enchantment.category == EnchantmentType.DIGGER)
+        if(enchantment.type == EnchantmentType.BREAKABLE || enchantment.type == EnchantmentType.WEAPON || enchantment.type == EnchantmentType.DIGGER)
             return true;
         else
             return false;
@@ -283,12 +283,12 @@ public class MultiToolItem extends ToolItem {
 
     public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair)
     {
-        return this.material.getRepairIngredient().test(repair) || super.isValidRepairItem(toRepair, repair);
+        return this.material.getRepairMaterial().test(repair) || super.getIsRepairable(toRepair, repair);
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlotType equipmentSlot)
     {
-        return equipmentSlot == EquipmentSlotType.MAINHAND ? this.attribute : super.getDefaultAttributeModifiers(equipmentSlot);
+        return equipmentSlot == EquipmentSlotType.MAINHAND ? this.attribute : super.getAttributeModifiers(equipmentSlot);
     }
 
     @Override
@@ -345,7 +345,7 @@ public class MultiToolItem extends ToolItem {
                         Blocks.TARGET, Blocks.SHROOMLIGHT, Blocks.SPONGE, Blocks.WET_SPONGE,
                         Blocks.JUNGLE_LEAVES, Blocks.OAK_LEAVES, Blocks.SPRUCE_LEAVES, Blocks.DARK_OAK_LEAVES,Blocks.ACACIA_LEAVES, Blocks.BIRCH_LEAVES});
 
-        BLOCK_STRIPPING_MAP = (new ImmutableMap.Builder()).put(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD)
+        BLOCK_STRIPPING_MAP = (new ImmutableMap.Builder<Block, Block>()).put(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD)
                 .put(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG).put(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD)
                 .put(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG)
                 .put(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD).put(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG)
@@ -356,11 +356,11 @@ public class MultiToolItem extends ToolItem {
                 .put(Blocks.CRIMSON_STEM, Blocks.STRIPPED_CRIMSON_STEM).put(Blocks.CRIMSON_HYPHAE, Blocks.STRIPPED_CRIMSON_HYPHAE)
                 .build();
 
-        SHOVEL_LOOKUP = Maps.newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.GRASS_PATH.defaultBlockState()));
+        SHOVEL_LOOKUP = Maps.newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.GRASS_PATH.getDefaultState()));
 
-        HOE_LOOKUP = Maps.newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.defaultBlockState(),
-                Blocks.GRASS_PATH, Blocks.FARMLAND.defaultBlockState(), Blocks.DIRT, Blocks.FARMLAND.defaultBlockState(),
-                Blocks.COARSE_DIRT, Blocks.DIRT.defaultBlockState()));
+        HOE_LOOKUP = Maps.newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(),
+                Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(),
+                Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
     }
 }
 
