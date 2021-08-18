@@ -47,7 +47,8 @@ public class DEBerryBush extends DEBushBlock implements IGrowable
         }
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         if (state.get(AGE) == 0) {
             return BUSHLING_SHAPE;

@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class Tags {
 	
 	public static class Blocks{
-
+		
 
 		public static ITag.INamedTag<Block> createModTag(String name){
 			return BlockTags.makeWrapperTag(new ResourceLocation(Dinosexpansion.MODID, name).toString());
