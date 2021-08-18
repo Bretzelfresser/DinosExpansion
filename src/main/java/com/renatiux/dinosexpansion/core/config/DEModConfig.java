@@ -53,7 +53,7 @@ public static class BoomerangConfig {
             DiamondBoomerangFollows = builder.comment("The Diamond Boomerang will follow your mouse till it hits it's range limit.").define("DiamondBoomerangFollows", true);
             breaksTorches = builder.comment("Can boomerang break torches.").define("breaksTorches", true);
             breaksFlowers = builder.comment("Can boomerang break Flowers.").define("breaksFlowers", true);
-            breaksGrass = builder.comment("Can boomerang break Glass.").define("breaksGrass", true);
+            breaksGrass = builder.comment("Can boomerang break Grass.").define("breaksGrass", true);
             breaksTallGrass = builder.comment("Can boomerang break Tall Grass.").define("breaksTallGrass", true);
             activatesLevers = builder.comment("Can boomerang switch levers on and off.").define("activatesLevers", true);
             activatesButtons = builder.comment("Can boomerang activate/push buttons.").define("activatesButtons", true);

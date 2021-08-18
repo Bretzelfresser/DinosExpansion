@@ -1,5 +1,6 @@
-package com.renatiux.dinosexpansion.common.blocks;
+package com.renatiux.dinosexpansion.common.blocks.machine;
 
+import com.renatiux.dinosexpansion.common.blocks.ShapedBlock;
 import com.renatiux.dinosexpansion.common.tileEntities.MortarTileEntity;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 

@@ -1,7 +1,7 @@
 package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.common.blocks.Mortar;
+import com.renatiux.dinosexpansion.common.blocks.machine.Mortar;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -20,9 +20,11 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class BlockInit {
 	
 	public static final DeferredRegister<Block> MACHINES = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
-	
+	public static final DeferredRegister<Block> PLANTS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
+	//Machine
 	public static final RegistryObject<Block> MORTAR = MACHINES.register("mortar", Mortar::new);
-	
+
+	//Plant
 	
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
