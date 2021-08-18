@@ -16,6 +16,7 @@ public class Tags {
 	
 	public static class Blocks{
 		
+		public static final INamedTag<Block> HORESTAIL_IN_GROUND = createModTag("horsetail_in_ground");
 
 		public static ITag.INamedTag<Block> createModTag(String name){
 			return BlockTags.makeWrapperTag(new ResourceLocation(Dinosexpansion.MODID, name).toString());
