@@ -28,7 +28,7 @@ public class RaftItem extends BoatItem{
 	 protected static final Predicate<Entity> field_219989_a = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
 	
 	public RaftItem() {
-		super(type, new Item.Properties().group(ItemGroupInit.MISC));
+		super(type, new Item.Properties().group(ItemGroupInit.MISC).maxStackSize(1));
 	}
 	
 	@Override
