@@ -22,12 +22,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-public class WoodBoomerangRenderer extends EntityRenderer<EntityBoomerang>{
+public class BoomerangRenderer extends EntityRenderer<EntityBoomerang>{
 	
     public static final ResourceLocation[] TEXTURES = new ResourceLocation[] {Dinosexpansion.modLoc("textures/item/wood_boomerang.png"), Dinosexpansion.modLoc("textures/item/iron_boomerang.png"), Dinosexpansion.modLoc("textures/item/diamond_boomerang.png")};
     private final ItemRenderer itemRenderer;
 
-    public WoodBoomerangRenderer(EntityRendererManager renderManager, ItemRenderer item) {
+    public BoomerangRenderer(EntityRendererManager renderManager, ItemRenderer item) {
         super(renderManager);
         this.itemRenderer = item;
         this.shadowSize = 0.15F;
@@ -79,7 +79,7 @@ public class WoodBoomerangRenderer extends EntityRenderer<EntityBoomerang>{
 
         @Override
         public  EntityRenderer<? super EntityBoomerang> createRenderFor(EntityRendererManager manager) {
-            return new WoodBoomerangRenderer(manager, Minecraft.getInstance().getItemRenderer());
+            return new BoomerangRenderer(manager, Minecraft.getInstance().getItemRenderer());
         }
     }
 
