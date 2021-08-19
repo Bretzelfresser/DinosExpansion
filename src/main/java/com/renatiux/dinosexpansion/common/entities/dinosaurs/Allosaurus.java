@@ -47,7 +47,7 @@ import software.bernie.geckolib3.core.controller.AnimationController.IAnimationP
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
-public class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaurus> {
+public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaurus> {
 
 	private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0FFB-87AE-4653-9556-501010E221A0");
 	public static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(
@@ -366,6 +366,11 @@ public class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaur
 	@Override
 	public int getTimeBetweenEating() {
 		return 600;
+	}
+
+	@Override
+	public boolean canBreed() {
+		return true;
 	}
 	
 

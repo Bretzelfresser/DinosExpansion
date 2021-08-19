@@ -167,7 +167,27 @@ public abstract class Dinosaur extends MonsterEntity
 			sleepCooldown = 350;
 		}
 	}
-
+	
+	/**
+	 * determines whether the Dino can Breed or not
+	 * @return
+	 */
+	public abstract boolean canBreed();
+	/**
+	 * checks whether it can breed with a certain Dinosaur, default is it breeds with every Dinosaur
+	 * override in order to make the DIno be able to breed with certain animals
+	 */
+	public boolean canBreedWith(Dinosaur dino) {
+		return dino instanceof Dinosaur;
+	}
+	
+	/**
+	 * 
+	 * @return whether the Dino has been set to breeing mode, so it searches 4 other Dinos it can breed with
+	 */
+	public boolean isReadyToBreed() {
+		return this.status == DinosaurStatus.BREED;
+	}
 	/**
 	 * synchronized with the client
 	 */

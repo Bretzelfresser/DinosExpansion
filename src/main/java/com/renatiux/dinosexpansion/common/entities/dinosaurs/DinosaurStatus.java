@@ -11,7 +11,8 @@ public enum DinosaurStatus {
 	PROTECTION(3),
 	SLEEPING(4),
 	WANDER(5),
-	FOLLOW(6);
+	FOLLOW(6),
+	BREED(7);
 	
 	private static Map<Integer, DinosaurStatus> values;
 	

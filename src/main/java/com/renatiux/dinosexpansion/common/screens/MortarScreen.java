@@ -24,11 +24,10 @@ public class MortarScreen extends ContainerScreen<MortarContainer> {
 		int middleY = (this.height - this.ySize) / 2;
 		this.blit(matrixStack, middleX, middleY, 0, 0, 176, 166);
 		if (container.isPowered()) {
-			//this.blit(matrixStack, middleX + 55, middleY + 37, 176, 0, 14, 14);
-		}
-		if(container.isPowered())
+			this.blit(matrixStack, middleX + 56, middleY + 37, 176, 0, 16, 14);
 			this.blit(matrixStack, middleX + 79, middleY + 35, 176, 14,
-				(int) ((100d - container.getCounterPercentage()) * 0.25), 17);
+					(int) ((100d - container.getCounterPercentage()) * 0.25), 17);
+		}
 	}
 
 	@Override
