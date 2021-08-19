@@ -4,10 +4,7 @@ import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.RaftEntity;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
-import com.renatiux.dinosexpansion.common.entities.projectiles.WoodBoomerang;
-import com.renatiux.dinosexpansion.common.entities.projectiles.DiamondBoomerang;
-import com.renatiux.dinosexpansion.common.entities.projectiles.IronBoomerang;
-import com.renatiux.dinosexpansion.common.entities.projectiles.TranquilizerArrowEntity;
+import com.renatiux.dinosexpansion.common.entities.projectiles.*;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -25,7 +22,9 @@ public class EntityTypeInit {
 
 	public static final RegistryObject<EntityType<TranquilizerArrowEntity>> TRANQUILIZER_ARROW = ARROW_ENTITY_TYPES.register("tranquillizer_arrow", 
 			() -> EntityType.Builder.<TranquilizerArrowEntity>create(TranquilizerArrowEntity::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("tranquillizer_arrow").toString()));
-	
+	public static final RegistryObject<EntityType<MegalodonToothArrowEntity>> MEGALODON_ARROW = ARROW_ENTITY_TYPES.register("megalodon_arrow",
+			() -> EntityType.Builder.<MegalodonToothArrowEntity>create(MegalodonToothArrowEntity::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("megalodon_arrow").toString()));
+
 	public static final RegistryObject<EntityType<RaftEntity>> RAFT = ENTITY_TYPES.register("raft", 
 			() -> EntityType.Builder.<RaftEntity>create(RaftEntity::new, EntityClassification.MISC).size(1.0F, 0.5f).trackingRange(10).setCustomClientFactory(RaftEntity::new).build(Dinosexpansion.modLoc("raft").toString()));
 	public static final RegistryObject<EntityType<Poop>> POOP = ENTITY_TYPES.register("poop", () -> EntityType.Builder.<Poop>create(Poop::new, EntityClassification.MISC).size(0.5f, 0.3f).build(Dinosexpansion.modLoc("poop").toString()));
