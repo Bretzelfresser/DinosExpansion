@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.common.blocks.world;
 
-import com.renatiux.dinosexpansion.common.DamageSourcesInit;
+import com.renatiux.dinosexpansion.core.init.DamageSourcesInit;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;

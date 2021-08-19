@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common;
+package com.renatiux.dinosexpansion.core.init;
 
 import net.minecraft.util.DamageSource;
 

@@ -27,7 +27,8 @@ public class MortarJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
+        @SuppressWarnings("resource")
+		RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
 
         registration.addRecipes(getRecipes(manager, RecipeInit.MORTAR_RECIPE), MortarRecipeCategory.ID);
     }

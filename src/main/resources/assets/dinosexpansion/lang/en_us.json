@@ -5,6 +5,26 @@
 	
 	
 	"block.dinosexpansion.mortar":"Mortar",
+	"block.dinosexpansion.lavender":"Lavender",
+	"block.dinosexpansion.lemon_verbena":"Lemon Verbena",
+	"block.dinosexpansion.archaeosigillaria":"Archaeosigillaria",
+	"block.dinosexpansion.cephalotaxus":"Cephalotaxus",
+	"block.dinosexpansion.dillhoffia":"Dillhoffia",
+	"block.dinosexpansion.ephedra":"Ephedra",
+	"block.dinosexpansion.osmunda":"Osmunda",
+	"block.dinosexpansion.sarracenia":"Sarracenia",
+	"block.dinosexpansion.vaccinium":"Vaccinium",
+	"block.dinosexpansion.zamites":"Zamites",
+	"block.dinosexpansion.welwitschia":"Welwitschia",
+	"block.dinosexpansion.pachypoda":"Pachypoda",
+	"block.dinosexpansion.horsetail":"Horsetail",
+	"block.dinosexpansion.foozia":"Foozia",
+	"block.dinosexpansion.duisbergia":"Duisbergia",
+	"block.dinosexpansion.bennettitales":"Bennettitales",
+	"block.dinosexpansion.crataegus":"Crataegus",
+	"block.dinosexpansion.florissantia":"Florissantia",
+	"block.dinosexpansion.amorphophallus":"Amorphophallus",
+	"block.dinosexpansion.tempskya":"Tempskya",
 	
 	"item.dinosexpansion.tranquillizer_arrow":"Tranquillizer Arrow",
 	"item.dinosexpansion.net_item.name":"Net",
@@ -40,7 +60,10 @@
 	"itemGroup.dinosexpansion.machines":"Machines",
 	"itemGroup.dinosexpansion.projectiles":"Weapons and Projectiles",
 	"itemGroup.dinosexpansion.misc":"Misc",
+	"itemGroup.dinosexpansion.flower":"Flower",
 	
-	"item.dinosexpansion.tooltip.tranquillizer_arrow":"Special arrow to knock out dinosaurs"
+	"item.dinosexpansion.tooltip.tranquillizer_arrow":"Special arrow to knock out dinosaurs",
+	
+	"category.dinosexpansion.mortar_recipe":"Mortar"
 	
 }

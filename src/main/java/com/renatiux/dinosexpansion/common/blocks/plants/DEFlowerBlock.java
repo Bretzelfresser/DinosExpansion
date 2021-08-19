@@ -1,7 +1,8 @@
 package com.renatiux.dinosexpansion.common.blocks.plants;
 
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FlowerBlock;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.math.BlockPos;
