@@ -16,7 +16,26 @@ public class Tags {
 	
 	public static class Blocks{
 		
+		public static final INamedTag<Block> LAVENDER_IN_GROUND = createModTag("lavender_in_ground");
+		public static final INamedTag<Block> LEMON_VERBENA_IN_GROUND = createModTag("lemon_verbena_in_ground");
+		public static final INamedTag<Block> FOOZIA_IN_GROUND = createModTag("foozia_in_ground");
+		public static final INamedTag<Block> DUISBERGIA_IN_GROUND = createModTag("duisbergia_in_ground");
+		public static final INamedTag<Block> ARCHAEOSIGILLARIA_IN_GROUND = createModTag("archaeosigillaria_in_ground");
+		public static final INamedTag<Block> BENNETTITALES_IN_GROUND = createModTag("bennettitales_in_ground");
+		public static final INamedTag<Block> CEPHALOTAXUS_IN_GROUND = createModTag("cephalotaxus_in_ground");
+		public static final INamedTag<Block> CRATAEGUS_IN_GROUND = createModTag("crataegus_in_ground");
+		public static final INamedTag<Block> DILLHOFFIA_IN_GROUND = createModTag("dillhoffia_in_ground");
+		public static final INamedTag<Block> EPHEDRA_IN_GROUND = createModTag("ephedra_in_ground");
+		public static final INamedTag<Block> FLORISSANTIA_IN_GROUND = createModTag("florissantia_in_ground");
 		public static final INamedTag<Block> HORESTAIL_IN_GROUND = createModTag("horsetail_in_ground");
+		public static final INamedTag<Block> OSMUNDA_IN_GROUND = createModTag("osmunda_in_ground");
+		public static final INamedTag<Block> SARRACENIA_IN_GROUND = createModTag("sarracenia_in_ground");
+		public static final INamedTag<Block> TEMPSKYA_IN_GROUND = createModTag("tempskya_in_ground");
+		public static final INamedTag<Block> VACCINIUM_IN_GROUND= createModTag("vaccinium_in_ground");
+		public static final INamedTag<Block> ZAMITES_IN_GROUND = createModTag("zamites_in_ground");
+		public static final INamedTag<Block> WELWITSCHIA_IN_GROUND = createModTag("welwitschia_in_ground");
+		public static final INamedTag<Block> PACHYPODA_IN_GROUND = createModTag("pachypoda_in_ground");
+		public static final INamedTag<Block> AMORPHOPHALLUS_IN_GROUND = createModTag("amorphophallus_in_ground");
 
 		public static ITag.INamedTag<Block> createModTag(String name){
 			return BlockTags.makeWrapperTag(new ResourceLocation(Dinosexpansion.MODID, name).toString());

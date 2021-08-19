@@ -1,5 +1,8 @@
 package com.renatiux.dinosexpansion;
 
+import com.renatiux.dinosexpansion.util.CompostablesDE;
+import com.renatiux.dinosexpansion.util.FlammablesDE;
+import com.renatiux.dinosexpansion.util.StrippablesDE;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -72,6 +75,9 @@ public class Dinosexpansion {
 	private void doClientStuff(final FMLClientSetupEvent event) {
 
 		CutoutRendersDE.renderCutOuts();
+		FlammablesDE.flammablesDE();
+		StrippablesDE.strippableDE();
+		CompostablesDE.compostablesDE();
 
 	}
 	

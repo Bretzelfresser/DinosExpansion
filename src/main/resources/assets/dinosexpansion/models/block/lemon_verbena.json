@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "dinosexpansion:block/lemon_verbena",
+    "particle": "dinosexpansion:block/lemon_verbena"
+  }
+}

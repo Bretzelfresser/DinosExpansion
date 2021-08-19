@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "layer=0": {
+      "model": "dinosexpansion:block/tempskya_0"
+    },
+    "layer=1": {
+      "model": "dinosexpansion:block/tempskya_1"
+    },
+    "layer=2": {
+      "model": "dinosexpansion:block/tempskya_2"
+    }
+  }
+}

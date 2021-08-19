@@ -18,6 +18,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -70,6 +71,14 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		NonNullList<Ingredient> i = NonNullList.create();
+		i.add(input1);
+		i.add(input2);
+		return i;
 	}
 
 	public int getWorkingTime() {

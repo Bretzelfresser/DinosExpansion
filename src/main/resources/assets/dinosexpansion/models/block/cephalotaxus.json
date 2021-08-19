@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "dinosexpansion:block/cephalotaxus",
+    "particle": "dinosexpansion:block/cephalotaxus"
+  }
+}
