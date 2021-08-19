@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "dinosexpansion:tranquillizer_arrow"
+    "dinosexpansion:tranquillizer_arrow",
+    "dinosexpansion:megalodon_arrow"
   ]
 }

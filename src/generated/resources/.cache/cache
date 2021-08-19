@@ -6,6 +6,7 @@ ba90a31206bcf1693b6039ddefa782be635e8bb3 assets/dinosexpansion/models/item/kibbl
 70b2dda45a2fbe8f22787c470b003b57d246bc27 assets/dinosexpansion/models/item/kibble_regular.json
 d5938f921f957ec9069a49fe4619c557bdc459f9 assets/dinosexpansion/models/item/kibble_simple.json
 65383fca6065108be8dc293729516acd1fe1ed6f assets/dinosexpansion/models/item/kibble_superior.json
+adb804fcbb191911c7657cd34c1f855df4eac4b6 assets/dinosexpansion/models/item/megalodon_arrow.json
 6880f8bab1d81f0adee1ba1c2ca48f86bdcc71e6 assets/dinosexpansion/models/item/narcotic_berry.json
 caafdb9fe8133b4a077080249ff0163d3e3006e6 assets/dinosexpansion/models/item/narcotics.json
 d98ed6d1124443b7b7bf6ffaaed25cfe71349897 assets/dinosexpansion/models/item/net_item.json
@@ -37,5 +38,5 @@ c3467a882733db85e64ec9ed08cf7b88cd0fdfd4 data/dinosexpansion/tags/blocks/zamites
 b144d270b947ea6b3a654ce97f33706bb37c8ce6 data/dinosexpansion/tags/entity_types/net_blacklisted.json
 93d3b570081e920832fd156c192ebbe8c4e95ca8 data/dinosexpansion/tags/items/dinosaur_meat.json
 74580e1011b300dd3223cc5a81295866be6b2e07 data/dinosexpansion/tags/items/kibble.json
-c3c3073c4cb3e2b0e88c03fb66625924082c182b data/minecraft/tags/entity_types/arrows.json
-c3c3073c4cb3e2b0e88c03fb66625924082c182b data/minecraft/tags/items/arrows.json
+fd9b83a4f6186ad12f6c593b02ff88c33f4c47e7 data/minecraft/tags/entity_types/arrows.json
+fd9b83a4f6186ad12f6c593b02ff88c33f4c47e7 data/minecraft/tags/items/arrows.json
