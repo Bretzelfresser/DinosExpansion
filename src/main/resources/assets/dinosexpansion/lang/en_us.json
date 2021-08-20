@@ -64,6 +64,9 @@
 	
 	"item.dinosexpansion.tooltip.tranquillizer_arrow":"Special arrow to knock out dinosaurs",
 	
-	"category.dinosexpansion.mortar_recipe":"Mortar"
+	"category.dinosexpansion.mortar_recipe":"Mortar",
+
+	"dinosexpansion.mortar.experience": "%s XP",
+	"dinosexpansion.mortar.time.seconds": "%ss"
 	
 }

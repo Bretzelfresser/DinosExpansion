@@ -12,5 +12,6 @@
 		"item":"dinosexpansion:narcotics",
 		"count": 1
 	},
-	"workTime": 300
+	"workTime": 300,
+	"experience": 0.5
 }

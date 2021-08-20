@@ -28,13 +28,14 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 	public static final Serializer SERIALIZER = new Serializer();
 
 	private final Ingredient input1, input2;
-	private final int count1, count2, workingTime;
+	private final int count1, count2, workingTime, experience;
 	private final ItemStack output;
 	private final ResourceLocation id;
 
-	public MortarRecipe(Ingredient input1, Ingredient input2, int count1, int count2, int workingTime, ItemStack output,
+	public MortarRecipe(Ingredient input1, Ingredient input2, int count1, int count2, int workingTime, int experience, ItemStack output,
 			ResourceLocation id) {
 		this.workingTime = workingTime;
+		this.experience = experience;
 		this.input1 = input1;
 		this.input2 = input2;
 		this.count1 = count1;
@@ -83,6 +84,10 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 
 	public int getWorkingTime() {
 		return workingTime;
+	}
+
+	public float getExperience() {
+		return this.experience;
 	}
 
 	public int getCount1() {
@@ -136,8 +141,9 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 			Pair<Integer, Ingredient> pairInput2 = deserializeItems(getJsonElement(json, "input2"));
 			final ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
 			int workTime = JSONUtils.getInt(json, "workTime", 200);
+			int experience = JSONUtils.getInt(json, "experience");
 			return new MortarRecipe(pairInput1.getSecond(), pairInput2.getSecond(), pairInput1.getFirst(),
-					pairInput2.getFirst(), workTime, output, recipeId);
+					pairInput2.getFirst(), workTime, experience, output, recipeId);
 		}
 
 		@Override
@@ -148,7 +154,8 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 			int counte2 = buffer.readVarInt();
 			ItemStack output = buffer.readItemStack();
 			int workTime = buffer.readVarInt();
-			return new MortarRecipe(input1, input2, counte1, counte2, workTime, output, recipeId);
+			int experience = buffer.readVarInt();
+			return new MortarRecipe(input1, input2, counte1, counte2, workTime, experience, output, recipeId);
 		}
 
 		@Override
