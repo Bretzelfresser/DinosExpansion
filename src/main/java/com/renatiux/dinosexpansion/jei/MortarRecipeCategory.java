@@ -30,17 +30,17 @@ public class MortarRecipeCategory implements IRecipeCategory<MortarRecipe> {
     private final IDrawable back;
     private final IDrawable icon;
     private final IDrawableStatic staticMortar;
-    private final IDrawableAnimated  animatedMortar;
+    //private final IDrawableAnimated  animatedMortar;
 
     public MortarRecipeCategory(IGuiHelper helper){
         this.back = helper.createDrawable(GUI, 0, 0, 82, 54);
         this.icon = helper.createDrawableIngredient(new ItemStack(BlockInit.MORTAR.get()));
-        this.staticMortar = helper.createDrawable(MortarRecipeCategory.GUI, 82, 114, 14, 14);
-        this.animatedMortar = helper.createAnimatedDrawable(staticMortar, 300, IDrawableAnimated.StartDirection.TOP, true);
+        this.staticMortar = helper.createDrawable(MortarRecipeCategory.GUI, 82, 0, 16, 17);
+        //this.animatedMortar = helper.createAnimatedDrawable(staticMortar, 300, IDrawableAnimated.StartDirection.BOTTOM, false);
         this.ProgessBar = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<Integer, IDrawableAnimated>() {
             @Override
             public IDrawableAnimated load(Integer cookTime) {
-                return helper.drawableBuilder(MortarRecipeCategory.GUI, 82, 0, 34, 10).buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                return helper.drawableBuilder(MortarRecipeCategory.GUI, 82, 17, 24, 17).buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
             }
         });
     }
@@ -97,10 +97,10 @@ public class MortarRecipeCategory implements IRecipeCategory<MortarRecipe> {
     }
 
     public void draw(MortarRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-        animatedMortar.draw(matrixStack, 1, 20);
+        staticMortar.draw(matrixStack, 1, 19);
 
         IDrawableAnimated arrow = this.getProgessBar(recipe);
-        arrow.draw(matrixStack, 20, 14);
+        arrow.draw(matrixStack, 25, 18);
 
         drawExperience(recipe, matrixStack, 0);
         drawCookTime(recipe, matrixStack, 45);

@@ -28,11 +28,12 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 	public static final Serializer SERIALIZER = new Serializer();
 
 	private final Ingredient input1, input2;
-	private final int count1, count2, workingTime, experience;
+	private final int count1, count2, workingTime;
+	private final float experience;
 	private final ItemStack output;
 	private final ResourceLocation id;
 
-	public MortarRecipe(Ingredient input1, Ingredient input2, int count1, int count2, int workingTime, int experience, ItemStack output,
+	public MortarRecipe(Ingredient input1, Ingredient input2, int count1, int count2, int workingTime, float experience, ItemStack output,
 			ResourceLocation id) {
 		this.workingTime = workingTime;
 		this.experience = experience;
@@ -141,7 +142,7 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 			Pair<Integer, Ingredient> pairInput2 = deserializeItems(getJsonElement(json, "input2"));
 			final ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
 			int workTime = JSONUtils.getInt(json, "workTime", 200);
-			int experience = JSONUtils.getInt(json, "experience");
+			float experience = JSONUtils.getFloat(json, "experience", 0.0f);
 			return new MortarRecipe(pairInput1.getSecond(), pairInput2.getSecond(), pairInput1.getFirst(),
 					pairInput2.getFirst(), workTime, experience, output, recipeId);
 		}
