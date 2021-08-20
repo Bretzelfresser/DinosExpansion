@@ -57,6 +57,7 @@ public class MortarTileEntity extends ContainerTileEntity implements IAnimatable
 				counter--;
 				if(counter == 0) {
 					finishWork(recipe);
+					return;
 				}
 			}
 		}else {
@@ -195,6 +196,5 @@ public class MortarTileEntity extends ContainerTileEntity implements IAnimatable
 	public void setMaxCounter(int maxCounter) {
 		this.maxCounter = maxCounter;
 	}
-
 
 }

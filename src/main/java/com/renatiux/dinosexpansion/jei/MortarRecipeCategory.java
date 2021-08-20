@@ -102,19 +102,7 @@ public class MortarRecipeCategory implements IRecipeCategory<MortarRecipe> {
         IDrawableAnimated arrow = this.getProgessBar(recipe);
         arrow.draw(matrixStack, 25, 18);
 
-        drawExperience(recipe, matrixStack, 0);
         drawCookTime(recipe, matrixStack, 45);
-    }
-
-    protected void drawExperience(MortarRecipe recipe, MatrixStack matrixStack, int y) {
-        float experience = recipe.getExperience();
-        if (experience > 0) {
-            TranslationTextComponent experienceString = new TranslationTextComponent("dinosexpansion.mortar.experience", experience);
-            Minecraft minecraft = Minecraft.getInstance();
-            FontRenderer fontRenderer = minecraft.fontRenderer;
-            int stringWidth = fontRenderer.getStringPropertyWidth(experienceString);
-            fontRenderer.func_243246_a(matrixStack, experienceString, back.getWidth() - stringWidth, y, 0xFF808080);
-        }
     }
 
     protected void drawCookTime(MortarRecipe recipe, MatrixStack matrixStack, int y) {
@@ -125,7 +113,7 @@ public class MortarRecipeCategory implements IRecipeCategory<MortarRecipe> {
             Minecraft minecraft = Minecraft.getInstance();
             FontRenderer fontRenderer = minecraft.fontRenderer;
             int stringWidth = fontRenderer.getStringPropertyWidth(timeString);
-            fontRenderer.func_243246_a(matrixStack, timeString, back.getWidth() - stringWidth, y, 0xFF808080);
+            fontRenderer.drawString(matrixStack, timeString.getString(), back.getWidth() - stringWidth, y, 0xFF808080);
         }
     }
 

@@ -29,14 +29,12 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 
 	private final Ingredient input1, input2;
 	private final int count1, count2, workingTime;
-	private final float experience;
 	private final ItemStack output;
 	private final ResourceLocation id;
 
-	public MortarRecipe(Ingredient input1, Ingredient input2, int count1, int count2, int workingTime, float experience, ItemStack output,
+	public MortarRecipe(Ingredient input1, Ingredient input2, int count1, int count2, int workingTime, ItemStack output,
 			ResourceLocation id) {
 		this.workingTime = workingTime;
-		this.experience = experience;
 		this.input1 = input1;
 		this.input2 = input2;
 		this.count1 = count1;
@@ -87,9 +85,6 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 		return workingTime;
 	}
 
-	public float getExperience() {
-		return this.experience;
-	}
 
 	public int getCount1() {
 		return count1;
@@ -142,9 +137,8 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 			Pair<Integer, Ingredient> pairInput2 = deserializeItems(getJsonElement(json, "input2"));
 			final ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
 			int workTime = JSONUtils.getInt(json, "workTime", 200);
-			float experience = JSONUtils.getFloat(json, "experience", 0.0f);
 			return new MortarRecipe(pairInput1.getSecond(), pairInput2.getSecond(), pairInput1.getFirst(),
-					pairInput2.getFirst(), workTime, experience, output, recipeId);
+					pairInput2.getFirst(), workTime, output, recipeId);
 		}
 
 		@Override
@@ -155,8 +149,7 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 			int counte2 = buffer.readVarInt();
 			ItemStack output = buffer.readItemStack();
 			int workTime = buffer.readVarInt();
-			int experience = buffer.readVarInt();
-			return new MortarRecipe(input1, input2, counte1, counte2, workTime, experience, output, recipeId);
+			return new MortarRecipe(input1, input2, counte1, counte2, workTime, output, recipeId);
 		}
 
 		@Override
