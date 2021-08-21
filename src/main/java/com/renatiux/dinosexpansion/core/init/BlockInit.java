@@ -1,18 +1,19 @@
 package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.common.blocks.DESapling;
 import com.renatiux.dinosexpansion.common.blocks.machine.Mortar;
 
 import com.renatiux.dinosexpansion.common.blocks.plants.DEDoubleFlowerBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DEFlowerBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DETripleFlowerBlock;
+import com.renatiux.dinosexpansion.common.trees.DETreeSpawners;
 import com.renatiux.dinosexpansion.core.tags.Tags;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -76,6 +77,30 @@ public class BlockInit {
 	//Triple Tall Flower
 	public static final RegistryObject<Block> TEMPSKYA = PLANTS.register("tempskya",
 			()-> new DETripleFlowerBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT), Tags.Blocks.TEMPSKYA_IN_GROUND));
+
+	//Sapling
+	public static final RegistryObject<Block> REDWOOD_SAPLING = PLANTS.register("redwood_sapling",
+			()-> new DESapling(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().zeroHardnessAndResistance().sound(SoundType.PLANT),Tags.Blocks.REDWOOD_IN_GROUND, DETreeSpawners.REDWOOD));
+
+	//Leaves
+	public static final RegistryObject<Block> REDWOOD_LEAVES = PLANTS.register("redwood_leaves",
+			()-> new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).sound(SoundType.PLANT).hardnessAndResistance(0.2F).tickRandomly().notSolid()
+					.setBlocksVision((state, world, pos) -> false).setSuffocates((state, world, pos) -> false).harvestTool(ToolType.HOE)));
+
+
+
+	//Log
+	public static final RegistryObject<Block> REDWOOD_LOG = PLANTS.register("redwood_log",
+			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F)));
+
+
+
+
+
+
+
+
+
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
 	 */

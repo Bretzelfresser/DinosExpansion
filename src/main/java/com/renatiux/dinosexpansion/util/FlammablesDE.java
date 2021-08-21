@@ -37,6 +37,10 @@ public class FlammablesDE {
         flammableBlock(BlockInit.TEMPSKYA.get(), 30, 60);
         flammableBlock(BlockInit.AMORPHOPHALLUS.get(), 30, 60);
 
+        //Log
+        flammableBlock(BlockInit.REDWOOD_LOG.get(), 5, 5);
 
+        //Leaves
+        flammableBlock(BlockInit.REDWOOD_LEAVES.get(), 30, 60);
     }
 }

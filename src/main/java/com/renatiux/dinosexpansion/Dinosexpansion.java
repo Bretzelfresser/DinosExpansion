@@ -1,8 +1,12 @@
 package com.renatiux.dinosexpansion;
 
+import com.renatiux.dinosexpansion.common.world.DEFeatures;
 import com.renatiux.dinosexpansion.util.CompostablesDE;
 import com.renatiux.dinosexpansion.util.FlammablesDE;
 import com.renatiux.dinosexpansion.util.StrippablesDE;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,6 +44,8 @@ public class Dinosexpansion {
 	public static final ResourceLocation modLoc(String name) {
 		return new ResourceLocation(MODID, name);
 	}
+
+	public static boolean ENABLE_OVERWORLD_TREES = true;
 
 	public Dinosexpansion() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -83,5 +89,16 @@ public class Dinosexpansion {
 	
 	private void registerEntityAttributes(EntityAttributeCreationEvent event) {
 		event.put(EntityTypeInit.ALLOSAURUS.get(), Allosaurus.setCustomAttributes().create());
+	}
+
+	@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+	public static class RegistriesDE {
+
+		@SubscribeEvent
+		public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
+			DEFeatures.init();
+			DEFeatures.features.forEach(feature -> event.getRegistry().register(feature));
+		}
+
 	}
 }

@@ -35,6 +35,13 @@ public class CompostablesDE {
         compostibleBlocks(0.3f, BlockInit.TEMPSKYA.get());
         compostibleBlocks(0.3f, BlockInit.AMORPHOPHALLUS.get());
 
+        //Sapling
+        compostibleBlocks(0.3f, BlockInit.REDWOOD_SAPLING.get());
+
+
+        //Leaves
+        compostibleBlocks(0.3f, BlockInit.REDWOOD_LEAVES.get());
+
     }
 
 }

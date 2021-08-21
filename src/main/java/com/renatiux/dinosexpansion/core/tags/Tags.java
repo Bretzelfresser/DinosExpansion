@@ -37,6 +37,10 @@ public class Tags {
 		public static final INamedTag<Block> PACHYPODA_IN_GROUND = createModTag("pachypoda_in_ground");
 		public static final INamedTag<Block> AMORPHOPHALLUS_IN_GROUND = createModTag("amorphophallus_in_ground");
 
+
+		//Sapling
+		public static final INamedTag<Block> REDWOOD_IN_GROUND = createModTag("redwood_in_ground");
+
 		public static ITag.INamedTag<Block> createModTag(String name){
 			return BlockTags.makeWrapperTag(new ResourceLocation(Dinosexpansion.MODID, name).toString());
 		}

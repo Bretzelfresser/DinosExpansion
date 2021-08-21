@@ -37,5 +37,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider{
 		getOrCreateBuilder(Tags.Blocks.WELWITSCHIA_IN_GROUND).add(Blocks.GRASS_BLOCK);
 		getOrCreateBuilder(Tags.Blocks.PACHYPODA_IN_GROUND).add(Blocks.GRASS_BLOCK);
 		getOrCreateBuilder(Tags.Blocks.AMORPHOPHALLUS_IN_GROUND).add(Blocks.GRASS_BLOCK);
+
+
+		//Sapling
+		getOrCreateBuilder(Tags.Blocks.REDWOOD_IN_GROUND).add(Blocks.GRASS_BLOCK);
 	}
 }
