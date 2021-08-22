@@ -420,14 +420,14 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator {
         {
             manager.func_235011_a_(SectionPos.from(chunkpos, 0), structure).forEach((piece) ->
             {
-                for(StructurePiece structurepiece1 : piece.get())
+                for(StructurePiece structurepiece1 : piece.getComponents())
                 {
                     if(structurepiece1.func_214810_a(chunkpos, 12))
                     {
                         if(structurepiece1 instanceof AbstractVillagePiece)
                         {
                             AbstractVillagePiece abstractvillagepiece = (AbstractVillagePiece) structurepiece1;
-                            JigsawPattern.PlacementBehaviour jigsawpattern$placementbehaviour = abstractvillagepiece.getPos().getProjection();
+                            JigsawPattern.PlacementBehaviour jigsawpattern$placementbehaviour = abstractvillagepiece.getJigsawPiece().getPlacementBehaviour();
                             if(jigsawpattern$placementbehaviour == JigsawPattern.PlacementBehaviour.RIGID)
                             {
                                 objectlist.add(abstractvillagepiece);
