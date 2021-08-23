@@ -66,7 +66,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator {
         }), Codec.LONG.fieldOf("seed").orElseGet(WorldSeedHolder::getSeed).forGetter((chunkGenerator) ->
         {
             return chunkGenerator.seed;
-        }), DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((chunkGenerator) ->
+        }), DimensionSettings.DIMENSION_SETTINGS_CODEC.fieldOf("settings").forGetter((chunkGenerator) ->
         {
             return chunkGenerator.settings;
         })).apply(c, c.stable(SeedNoiseChunkGenerator::new));
@@ -372,8 +372,8 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator {
         int i = chunk.getPos().getXStart();
         int j = chunk.getPos().getZStart();
         DimensionSettings dimensionsettings = this.settings.get();
-        int k = dimensionsettings.func_236118_f_();
-        int l = this.height - 1 - dimensionsettings.func_236117_e_();
+        int k = dimensionsettings.getBedrockFloorPosition();
+        int l = this.height - 1 - dimensionsettings.getBedrockRoofPosition();
         boolean flag = l + 4 >= 0 && l < this.height;
         boolean flag1 = k + 4 >= 0 && k < this.height;
         if(flag || flag1)
@@ -693,7 +693,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator {
     @Override
     public int getSeaLevel()
     {
-        return this.settings.get().func_236119_g_();
+        return this.settings.get().getSeaLevel();
     }
 
     @Override
@@ -709,7 +709,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator {
     @Override
     public void func_230354_a_(WorldGenRegion region)
     {
-        if(!this.settings.get().func_236120_h_())
+        if(!this.settings.get().isMobGenerationDisabled())
         {
             int i = region.getMainChunkX();
             int j = region.getMainChunkZ();

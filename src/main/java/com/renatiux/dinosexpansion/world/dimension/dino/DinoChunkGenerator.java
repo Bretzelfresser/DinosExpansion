@@ -21,7 +21,7 @@ public class DinoChunkGenerator extends SeedNoiseChunkGenerator {
         }), Codec.LONG.fieldOf("seed").orElseGet(WorldSeedHolder::getSeed).forGetter((chunkGenerator) ->
         {
             return chunkGenerator.seed;
-        }), DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((chunkGenerator) ->
+        }), DimensionSettings.DIMENSION_SETTINGS_CODEC.fieldOf("settings").forGetter((chunkGenerator) ->
         {
             return chunkGenerator.settings;
         })).apply(c, c.stable(DinoChunkGenerator::new));

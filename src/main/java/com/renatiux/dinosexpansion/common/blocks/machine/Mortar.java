@@ -65,7 +65,7 @@ public class Mortar extends ShapedBlock {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if(!state.isIn(newState.getBlock())) {
+		if(!state.matchesBlock(newState.getBlock())) {
 			TileEntity entity = worldIn.getTileEntity(pos);
 			if(entity instanceof MortarTileEntity) {
 				MortarTileEntity tileEntity = (MortarTileEntity) entity;

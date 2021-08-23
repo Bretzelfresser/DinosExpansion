@@ -28,6 +28,6 @@ public class DEDoubleFlowerBlock extends TallFlowerBlock {
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.down();
         BlockState blockStateDown = worldIn.getBlockState(blockpos);
-        return state.get(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? blockStateDown.isIn(this) : this.isValidGround(blockStateDown, worldIn, blockpos);
+        return state.get(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? blockStateDown.matchesBlock(this) : this.isValidGround(blockStateDown, worldIn, blockpos);
     }
 }

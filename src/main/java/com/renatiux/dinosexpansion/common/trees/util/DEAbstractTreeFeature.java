@@ -1,10 +1,20 @@
 package com.renatiux.dinosexpansion.common.trees.util;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.trees.util.noise.FastNoise;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -28,9 +38,6 @@ import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraftforge.common.Tags;
-
-import javax.annotation.Nullable;
-import java.util.*;
 
 public abstract class DEAbstractTreeFeature<TFC extends DETreeConfig> extends Feature<TFC> {
 
@@ -605,7 +612,7 @@ public abstract class DEAbstractTreeFeature<TFC extends DETreeConfig> extends Fe
                 }
             }
 
-            Template.func_222857_a(worldIn, 3, voxelshapepart, mutableboundingbox.minX, mutableboundingbox.minY, mutableboundingbox.minZ);
+            Template.updatePostProcessing(worldIn, 3, voxelshapepart, mutableboundingbox.minX, mutableboundingbox.minY, mutableboundingbox.minZ);
             setDisk(worldIn, rand, pos.down(), config);
             return flag;
         }

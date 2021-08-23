@@ -59,7 +59,7 @@ public class TimeMachineItem extends ShootableItem {
                     boolean flag1 = playerentity.abilities.isCreativeMode;
                     if(!world.isRemote)
                     {
-                        if(!entity.isPassenger() && !entity.isBeingRidden() && entity.canChangeDimensions())
+                        if(!entity.isPassenger() && !entity.isBeingRidden() && entity.canChangeDimension())
                         {
                             if(entity.world instanceof ServerWorld)
                             {
