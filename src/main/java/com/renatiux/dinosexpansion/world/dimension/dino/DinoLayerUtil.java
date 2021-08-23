@@ -36,9 +36,9 @@ public class DinoLayerUtil {
         biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1004), biomes);
         biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1005), biomes);
 
-        //IAreaFactory<T> riverLayer = PermianRiverLayer.INSTANCE.run(contextFactory.apply(1L), biomes);
+        //IAreaFactory<T> riverLayer = DinoRiverLayer.INSTANCE.run(contextFactory.apply(1L), biomes);
         //riverLayer = SmoothLayer.INSTANCE.run(contextFactory.apply(7000L), riverLayer);
-        //biomes = PermianRiverMixLayer.INSTANCE.run(contextFactory.apply(100L), biomes, riverLayer);
+        //biomes = DinoRiverMixLayer.INSTANCE.run(contextFactory.apply(100L), biomes, riverLayer);
 
         return biomes;
     }

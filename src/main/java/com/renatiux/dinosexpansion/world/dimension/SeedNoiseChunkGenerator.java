@@ -163,7 +163,8 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    public ChunkGenerator func_230349_a_(long l) {
+    @OnlyIn(Dist.CLIENT)
+    public ChunkGenerator func_230349_a_(long seed) {
         return new SeedNoiseChunkGenerator(this.biomeProvider.getBiomeProvider(seed), seed, this.settings);
     }
 

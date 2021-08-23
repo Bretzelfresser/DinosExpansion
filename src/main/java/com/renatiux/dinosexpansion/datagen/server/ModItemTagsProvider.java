@@ -23,6 +23,7 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 		makeDinoMeat();
 		makeArrows();
 		makeKibble();
+		makeTimeMachineConsumable();
 	}
 	
 	private void makeArrows() {
@@ -43,7 +44,9 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 	}
 
 	
-
+	private void makeTimeMachineConsumable(){
+		getOrCreateBuilder(Tags.Items.TIME_MACHINE_CONSUMABLE).add(ItemInit.TRANQUILIZER_ARROW.get());
+	}
 	
 
 }

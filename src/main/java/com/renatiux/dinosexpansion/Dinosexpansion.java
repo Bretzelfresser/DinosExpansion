@@ -1,9 +1,12 @@
 package com.renatiux.dinosexpansion;
 
+import com.renatiux.dinosexpansion.client.dimension.DinoDimensionRenderInfo;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
 import com.renatiux.dinosexpansion.util.CompostablesDE;
 import com.renatiux.dinosexpansion.util.FlammablesDE;
 import com.renatiux.dinosexpansion.util.StrippablesDE;
+import net.minecraft.client.world.DimensionRenderInfo;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -45,6 +48,11 @@ public class Dinosexpansion {
 		return new ResourceLocation(MODID, name);
 	}
 
+	public static TranslationTextComponent test(String type, String key)
+	{
+		return new TranslationTextComponent(type + "." + MODID + "." + key);
+	}
+
 	public static boolean ENABLE_OVERWORLD_TREES = true;
 
 	public Dinosexpansion() {
@@ -84,6 +92,10 @@ public class Dinosexpansion {
 		FlammablesDE.flammablesDE();
 		StrippablesDE.strippableDE();
 		CompostablesDE.compostablesDE();
+
+		DimensionRenderInfo baseRender = new DinoDimensionRenderInfo();
+
+		DimensionRenderInfo.field_239208_a_.put(Dinosexpansion.modLoc("dino_render"), baseRender);
 
 	}
 	
