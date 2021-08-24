@@ -76,7 +76,7 @@ public class Dinosexpansion {
 		
 		SoundInit.SOUNDS.register(bus);
 
-		BiomeInit.register(bus);
+		BiomeInit.BIOMES.register(bus);
 
 		SurfaceBuilderInit.SURFACE_BUILDER.register(bus);
 

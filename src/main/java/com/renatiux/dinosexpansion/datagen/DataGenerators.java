@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.datagen;
 import java.io.IOException;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.datagen.client.ModBlockStatesProvider;
 import com.renatiux.dinosexpansion.datagen.client.ModItemModelsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModBlockTagsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModEntityTypeTagsProvider;
@@ -38,6 +39,7 @@ public class DataGenerators {
 	private static void gatherClientData(DataGenerator gen, ExistingFileHelper helper) {
 		// BlockStates and ItemModels
 		gen.addProvider(new ModItemModelsProvider(gen, helper));
+		gen.addProvider(new ModBlockStatesProvider(gen, helper));
 	}
 
 	private static void gatherServerData(DataGenerator gen, ExistingFileHelper helper) {
