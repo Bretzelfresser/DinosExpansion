@@ -8,6 +8,7 @@ import com.renatiux.dinosexpansion.datagen.client.ModItemModelsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModBlockTagsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModEntityTypeTagsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModItemTagsProvider;
+import com.renatiux.dinosexpansion.datagen.server.ModLanguageProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModLootTableProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModRecipeProvider;
 
@@ -40,6 +41,7 @@ public class DataGenerators {
 		// BlockStates and ItemModels
 		gen.addProvider(new ModItemModelsProvider(gen, helper));
 		gen.addProvider(new ModBlockStatesProvider(gen, helper));
+		//gen.addProvider(new ModLanguageProvider(gen, "en_us"));
 	}
 
 	private static void gatherServerData(DataGenerator gen, ExistingFileHelper helper) {
