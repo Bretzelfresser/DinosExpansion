@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.core.init.DimensionInit;
 import com.renatiux.dinosexpansion.core.init.ItemGroupInit;
+import com.renatiux.dinosexpansion.core.init.ItemInit;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 import com.renatiux.dinosexpansion.util.ModTeleporter;
 import net.minecraft.entity.LivingEntity;
@@ -29,14 +30,14 @@ public class TimeMachineItem extends ShootableItem {
     public static final Predicate<ItemStack> CONSUMABLE = (stack) ->
             stack.getItem().isIn(Tags.Items.TIME_MACHINE_CONSUMABLE);
 
-    protected TimeMachineItem()
+    public TimeMachineItem()
     {
         super(new Properties().group(ItemGroupInit.MISC).maxStackSize(1).rarity(Rarity.RARE).isImmuneToFire());
 
     }
 
     @Override
-    public void onUse(World world, LivingEntity entity, ItemStack stack, int val1) {
+    public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity entity, int val1) {
         if(entity instanceof PlayerEntity)
         {
             PlayerEntity playerentity = (PlayerEntity)entity;
@@ -50,7 +51,7 @@ public class TimeMachineItem extends ShootableItem {
             {
                 if(itemstack.isEmpty())
                 {
-                    itemstack = new ItemStack(Items.REDSTONE);
+                    itemstack = new ItemStack(ItemInit.TRANQUILIZER_ARROW.get());
                 }
 
                 float f = getPowerForTime(i);
@@ -106,6 +107,7 @@ public class TimeMachineItem extends ShootableItem {
             }
         }
     }
+
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity entity, Hand hand) {

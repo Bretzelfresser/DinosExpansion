@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "dinosexpansion:block/dino_sand"
+      },
+      {
+        "model": "dinosexpansion:block/dino_sand",
+        "y": 90
+      },
+      {
+        "model": "dinosexpansion:block/dino_sand",
+        "y": 180
+      },
+      {
+        "model": "dinosexpansion:block/dino_sand",
+        "y": 270
+      }
+    ]
+  }
+}

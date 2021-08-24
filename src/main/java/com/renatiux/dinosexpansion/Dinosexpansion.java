@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion;
 
 import com.renatiux.dinosexpansion.client.dimension.DinoDimensionRenderInfo;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
+import com.renatiux.dinosexpansion.core.init.*;
 import com.renatiux.dinosexpansion.util.CompostablesDE;
 import com.renatiux.dinosexpansion.util.FlammablesDE;
 import com.renatiux.dinosexpansion.util.StrippablesDE;
@@ -15,13 +16,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
-import com.renatiux.dinosexpansion.core.init.BlockInit;
-import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
-import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
-import com.renatiux.dinosexpansion.core.init.ItemInit;
-import com.renatiux.dinosexpansion.core.init.RecipeInit;
-import com.renatiux.dinosexpansion.core.init.SoundInit;
-import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 import com.renatiux.dinosexpansion.util.CutoutRendersDE;
 
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -68,6 +62,7 @@ public class Dinosexpansion {
 
 		// Register ourselves for server and other game events we are interested in
 		MinecraftForge.EVENT_BUS.register(this);
+
 		BlockInit.MACHINES.register(bus);
 		BlockInit.PLANTS.register(bus);
 		ItemInit.ITEMS.register(bus);
@@ -80,9 +75,17 @@ public class Dinosexpansion {
 		EntityTypeInit.ARROW_ENTITY_TYPES.register(bus);
 		
 		SoundInit.SOUNDS.register(bus);
+
+		BiomeInit.register(bus);
+
+		SurfaceBuilderInit.SURFACE_BUILDER.register(bus);
+
+		WorldTypeInit.setup();
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
+
+		event.enqueueWork(DimensionInit::initBiomeSourcesAndChunkGenerator);
 		
 	}
 

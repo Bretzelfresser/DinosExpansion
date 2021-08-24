@@ -11,6 +11,7 @@ import com.renatiux.dinosexpansion.common.trees.DETreeSpawners;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.ToolType;
@@ -29,6 +30,7 @@ public class BlockInit {
 	
 	public static final DeferredRegister<Block> MACHINES = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 	public static final DeferredRegister<Block> PLANTS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
+
 	//Machine
 	public static final RegistryObject<Block> MORTAR = MACHINES.register("mortar", Mortar::new);
 
@@ -98,8 +100,12 @@ public class BlockInit {
 
 
 
+	//Soils
+	public static final RegistryObject<Block> DINO_SAND = MACHINES.register("dino_sand",
+			()-> new SandBlock(14406560, AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
 
-
+	public static final RegistryObject<Block> DINO_SILT = MACHINES.register("dino_silt",
+			()-> new Block(AbstractBlock.Properties.create(Material.CLAY, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
 
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem

@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.world.dimension.dino;
 
+import com.renatiux.dinosexpansion.common.biomes.BiomeKeys;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
 
@@ -10,15 +11,19 @@ public class DinoBiomeLayer implements IAreaTransformer0 {
 
     protected int[] commonBiomes = new int[]
             {
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_DINO_OCEAN),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_OCEAN),
 
             };
 
     protected int[] uncommonBiomes = (new int[]
             {
+                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DEEP_DINO_OCEAN),
 
             });
     protected int[] rareBiomes = (new int[]
             {
+                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DINO_OCEAN),
 
             });
 

@@ -13,7 +13,9 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DerivedWorldInfo;
 import net.minecraftforge.event.world.SleepFinishedTimeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
+@Mod.EventBusSubscriber(modid = Dinosexpansion.MODID)
 public class DimensionInit {
 
     public static final RegistryKey<World> DINO_WORLD = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, Dinosexpansion.modLoc("dino"));
