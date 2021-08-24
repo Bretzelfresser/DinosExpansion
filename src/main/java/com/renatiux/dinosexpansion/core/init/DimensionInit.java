@@ -33,7 +33,8 @@ public class DimensionInit {
         IWorld world = event.getWorld();
         if(world instanceof ServerWorld)
         {
-            ServerWorld serverWorld = (ServerWorld) world;
+            @SuppressWarnings("resource")
+			ServerWorld serverWorld = (ServerWorld) world;
             if(serverWorld.getDimensionKey() == DINO_WORLD)
             {
                 if(world.getWorldInfo() instanceof DerivedWorldInfo)

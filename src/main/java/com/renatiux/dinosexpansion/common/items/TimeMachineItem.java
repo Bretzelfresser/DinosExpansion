@@ -8,10 +8,10 @@ import com.renatiux.dinosexpansion.core.init.ItemGroupInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 import com.renatiux.dinosexpansion.util.ModTeleporter;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;

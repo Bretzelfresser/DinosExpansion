@@ -25,6 +25,8 @@
 	"block.dinosexpansion.florissantia":"Florissantia",
 	"block.dinosexpansion.amorphophallus":"Amorphophallus",
 	"block.dinosexpansion.tempskya":"Tempskya",
+	"block.dinosexpansion.dino_sand":"Dino Sand",
+	"block.dinosexpansion.dino_silt":"Dino Silt",
 	
 	"item.dinosexpansion.tranquillizer_arrow":"Tranquillizer Arrow",
 	"item.dinosexpansion.net_item.name":"Net",
@@ -47,6 +49,7 @@
 	"item.dinosexpansion.wood_boomerang":"Wood Boomerang",
 	"item.dinosexpansion.iron_boomerang":"Iron Boomerang",
 	"item.dinosexpansion.diamond_boomerang":"Diamond Boomerang",
+	"item.dinosexpansion.time_machine":"Time Machine",
 	
 	"entity.dinosexpansion.allosaurus":"Allosaurus",
 	"entity.dinosexpansion.raft":"Raft",
@@ -62,11 +65,15 @@
 	"itemGroup.dinosexpansion.misc":"Misc",
 	"itemGroup.dinosexpansion.flower":"Flower",
 	
+	"biome.dinosexpansion.deep_dino_ocean":"Deep Dino Ocean",
+	"biome.dinosexpansion.dino_ocean":"Dino Ocean",
+	"biome.dinosexpansion.warm_deep_dino_ocean":"Warm Deep Dino Ocean",
+	"biome.dinosexpansion.warm_dino_ocean":"Warm Dino Ocean",
+	
 	"item.dinosexpansion.tooltip.tranquillizer_arrow":"Special arrow to knock out dinosaurs",
 	
 	"category.dinosexpansion.mortar_recipe":"Mortar",
 
-	"dinosexpansion.mortar.experience": "%s XP",
 	"dinosexpansion.mortar.time.seconds": "%ss"
 	
 }
