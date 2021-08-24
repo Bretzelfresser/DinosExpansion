@@ -89,13 +89,13 @@ public class BlockInit {
 			()-> new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).sound(SoundType.PLANT).hardnessAndResistance(0.2F).tickRandomly().notSolid()
 					.setBlocksVision((state, world, pos) -> false).setSuffocates((state, world, pos) -> false).harvestTool(ToolType.HOE)));
 
-
-
 	//Log
 	public static final RegistryObject<Block> REDWOOD_LOG = PLANTS.register("redwood_log",
 			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F)));
 
-
+	//Planks
+	public static final RegistryObject<Block> REDWOOD_PLANKS = PLANTS.register("redwood_planks",
+			()-> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
 
 
 

@@ -1,6 +1,5 @@
 package com.renatiux.dinosexpansion.common.biomes;
 
-import com.renatiux.dinosexpansion.core.init.BlockInit;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;

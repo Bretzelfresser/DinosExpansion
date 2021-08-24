@@ -42,5 +42,8 @@ public class FlammablesDE {
 
         //Leaves
         flammableBlock(BlockInit.REDWOOD_LEAVES.get(), 30, 60);
+
+        //Planks
+        flammableBlock(BlockInit.REDWOOD_PLANKS.get(), 5, 5);
     }
 }
