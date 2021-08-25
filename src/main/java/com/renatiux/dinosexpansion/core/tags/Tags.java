@@ -41,6 +41,10 @@ public class Tags {
 		//Sapling
 		public static final INamedTag<Block> REDWOOD_IN_GROUND = createModTag("redwood_in_ground");
 
+
+		//Log
+		public static final INamedTag<Block> REDWOOD_LOG = createModTag("redwood_log");
+
 		public static ITag.INamedTag<Block> createModTag(String name){
 			return BlockTags.makeWrapperTag(new ResourceLocation(Dinosexpansion.MODID, name).toString());
 		}
@@ -50,7 +54,9 @@ public class Tags {
 		public static final INamedTag<Item> DINOSAUR_MEAT_FOOD = createModTag("dinosaur_meat");
 		public static final INamedTag<Item> KIBBLE = createModTag("kibble");
 		public static final INamedTag<Item> TIME_MACHINE_CONSUMABLE = createModTag("time_machine_consumable");
-		
+
+		public static final INamedTag<Item> REDWOOD_LOG = createModTag("redwood_log");
+
 		public static ITag.INamedTag<Item> createModTag(String name){
 			return ItemTags.makeWrapperTag(new ResourceLocation(Dinosexpansion.MODID, name).toString());
 		}

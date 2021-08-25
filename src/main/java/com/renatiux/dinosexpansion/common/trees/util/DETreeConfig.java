@@ -26,7 +26,7 @@ public class DETreeConfig implements IFeatureConfig {
         }), BlockStateProvider.CODEC.fieldOf("leaves_provider").orElse(new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState())).forGetter((config) -> {
             return config.leavesProvider;
         }), BlockStateProvider.CODEC.fieldOf("ground_replacement_provider").orElse(new SimpleBlockStateProvider(Blocks.DIRT.getDefaultState())).forGetter((config) -> {
-            return config.groundReplacementProvider;
+            return config.groundReplacementProvider;//TODO: Remove Ground Replacement Provider
         }), BlockStateProvider.CODEC.fieldOf("disk_provider").orElse(new SimpleBlockStateProvider(Blocks.PODZOL.getDefaultState())).forGetter((config) -> {
             return config.diskProvider;
         }), Codec.INT.fieldOf("min_height").orElse(15).forGetter((config) -> {
@@ -39,6 +39,7 @@ public class DETreeConfig implements IFeatureConfig {
             return config.whitelist.stream().map(Block::getDefaultState).collect(Collectors.toList());
         })).apply(codecRecorder, DETreeConfig::new);
     });
+
 
     private final BlockStateProvider trunkProvider;
     private final BlockStateProvider leavesProvider;
@@ -62,9 +63,13 @@ public class DETreeConfig implements IFeatureConfig {
         this.whitelist = whitelist.stream().map(AbstractBlock.AbstractBlockState::getBlock).collect(Collectors.toSet());
     }
 
+    /**
+     * Used to generate trees from saplings
+     */
     public void forcePlacement() {
         forcedPlacement = true;
     }
+
 
     public BlockStateProvider getTrunkProvider() {
         return this.trunkProvider;
@@ -101,9 +106,9 @@ public class DETreeConfig implements IFeatureConfig {
 
     public int getMaxPossibleHeight() {
         int returnValue = this.maxHeight - minHeight;
-        if (returnValue <= 0) {
+        if (returnValue <= 0)
             returnValue = 1;
-        }
+
         return returnValue;
     }
 
@@ -127,6 +132,7 @@ public class DETreeConfig implements IFeatureConfig {
         return mirror;
     }
 
+
     public static class Builder {
         private BlockStateProvider trunkProvider = new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState());
         private BlockStateProvider leavesProvider = new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState());
@@ -135,7 +141,7 @@ public class DETreeConfig implements IFeatureConfig {
         private BlockStateProvider diskProvider = new SimpleBlockStateProvider(Blocks.PODZOL.getDefaultState());
         private List<Block> whitelist = ImmutableList.of(Blocks.GRASS_BLOCK);
         private int minHeight = 15;
-        private int maxPossibleHieght = 1;
+        private int maxPossibleHeight = 1;
         private int diskRadius = 0;
 
         public Builder setTrunkBlock(Block block) {
@@ -143,6 +149,7 @@ public class DETreeConfig implements IFeatureConfig {
                 trunkProvider = new SimpleBlockStateProvider(block.getDefaultState());
             else
                 trunkProvider = new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState());
+
             return this;
         }
 
@@ -151,6 +158,7 @@ public class DETreeConfig implements IFeatureConfig {
                 trunkProvider = new SimpleBlockStateProvider(state);
             else
                 trunkProvider = new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState());
+
             return this;
         }
 
@@ -159,6 +167,7 @@ public class DETreeConfig implements IFeatureConfig {
                 trunkProvider = stateProvider;
             else
                 trunkProvider = new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState());
+
             return this;
         }
 
@@ -167,6 +176,7 @@ public class DETreeConfig implements IFeatureConfig {
                 leavesProvider = new SimpleBlockStateProvider(block.getDefaultState());
             else
                 leavesProvider = new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState());
+
             return this;
         }
 
@@ -175,6 +185,7 @@ public class DETreeConfig implements IFeatureConfig {
                 leavesProvider = new SimpleBlockStateProvider(state);
             else
                 leavesProvider = new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState());
+
             return this;
         }
 
@@ -183,6 +194,7 @@ public class DETreeConfig implements IFeatureConfig {
                 leavesProvider = stateProvider;
             else
                 leavesProvider = new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState());
+
             return this;
         }
 
@@ -192,6 +204,7 @@ public class DETreeConfig implements IFeatureConfig {
                 groundReplacementProvider = new SimpleBlockStateProvider(block.getDefaultState());
             else
                 groundReplacementProvider = new SimpleBlockStateProvider(Blocks.DIRT.getDefaultState());
+
             return this;
         }
 
@@ -201,6 +214,7 @@ public class DETreeConfig implements IFeatureConfig {
                 groundReplacementProvider = new SimpleBlockStateProvider(state);
             else
                 groundReplacementProvider = new SimpleBlockStateProvider(Blocks.AIR.getDefaultState());
+
             return this;
         }
 
@@ -210,14 +224,17 @@ public class DETreeConfig implements IFeatureConfig {
                 groundReplacementProvider = stateProvider;
             else
                 groundReplacementProvider = new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState());
+
             return this;
         }
+
 
         public Builder setDiskBlock(Block block) {
             if (block != null)
                 diskProvider = new SimpleBlockStateProvider(block.getDefaultState());
             else
                 diskProvider = new SimpleBlockStateProvider(Blocks.AIR.getDefaultState());
+
             return this;
         }
 
@@ -226,6 +243,7 @@ public class DETreeConfig implements IFeatureConfig {
                 diskProvider = new SimpleBlockStateProvider(state);
             else
                 diskProvider = new SimpleBlockStateProvider(Blocks.AIR.getDefaultState());
+
             return this;
         }
 
@@ -234,6 +252,7 @@ public class DETreeConfig implements IFeatureConfig {
                 diskProvider = stateProvider;
             else
                 diskProvider = new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState());
+
             return this;
         }
 
@@ -244,9 +263,9 @@ public class DETreeConfig implements IFeatureConfig {
 
         public Builder setMaxHeight(int maxPossibleHeight) {
             if (maxPossibleHeight != 0)
-                this.maxPossibleHieght = maxPossibleHeight + 1;
+                this.maxPossibleHeight = maxPossibleHeight + 1;
             else
-                this.maxPossibleHieght = 1;
+                this.maxPossibleHeight = 1;
             return this;
         }
 
@@ -260,12 +279,12 @@ public class DETreeConfig implements IFeatureConfig {
             return this;
         }
 
-        public Builder copy (DETreeConfig config) {
+        public Builder copy(DETreeConfig config) {
             this.trunkProvider = config.trunkProvider;
             this.leavesProvider = config.leavesProvider;
             this.groundReplacementProvider = config.groundReplacementProvider;
             this.diskProvider = config.diskProvider;
-            this.maxPossibleHieght = config.maxHeight;
+            this.maxPossibleHeight = config.maxHeight;
             this.minHeight = config.minHeight;
             this.diskRadius = config.diskRadius;
             this.whitelist = ImmutableList.copyOf(config.whitelist);
@@ -273,8 +292,7 @@ public class DETreeConfig implements IFeatureConfig {
         }
 
         public DETreeConfig build() {
-            return new DETreeConfig(this.trunkProvider, this.leavesProvider, this.groundReplacementProvider, this.diskProvider, this.minHeight, this.maxPossibleHieght, this.diskRadius, this.whitelist.stream().map(Block::getDefaultState).collect(Collectors.toList()));
+            return new DETreeConfig(this.trunkProvider, this.leavesProvider, this.groundReplacementProvider, this.diskProvider, this.minHeight, this.maxPossibleHeight, this.diskRadius, this.whitelist.stream().map(Block::getDefaultState).collect(Collectors.toList()));
         }
-
     }
 }

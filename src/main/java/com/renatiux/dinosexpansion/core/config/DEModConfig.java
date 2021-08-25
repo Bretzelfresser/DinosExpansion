@@ -2,13 +2,18 @@ package com.renatiux.dinosexpansion.core.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
+import java.util.Random;
+
 public class DEModConfig {
 
+    public static final Random random = new Random();
     public static BoomerangConfig BOOMERANGCONFIG;
+    public static ToolsConfig TOOLCONFIG;
 
     public static ForgeConfigSpec init(ForgeConfigSpec.Builder builder) {
 
         BOOMERANGCONFIG = new BoomerangConfig(builder);
+        TOOLCONFIG = new ToolsConfig(builder);
 
         return builder.build();
     }
@@ -62,5 +67,24 @@ public static class BoomerangConfig {
             builder.pop();
         }
 
+    }
+
+    public static class ToolsConfig {
+
+        public final ForgeConfigSpec.IntValue hammerDuraLossMulti;
+        public final ForgeConfigSpec.IntValue greataxeDuraLossMulti;
+        public final ForgeConfigSpec.IntValue excavatorDuraLossMulti;
+
+        public final ForgeConfigSpec.BooleanValue weaponfireability;
+
+        public ToolsConfig(ForgeConfigSpec.Builder builder) {
+
+            builder.comment(" Dinos Expansion Tool config \n These multipliers affect the amount of damage tools take per use.").push("Tool");
+            hammerDuraLossMulti = builder.defineInRange("HammerDuraLossMulti", 2, 1, Integer.MAX_VALUE);
+            greataxeDuraLossMulti = builder.defineInRange("GreataxeDuraLossMulti", 3, 1, Integer.MAX_VALUE);
+            excavatorDuraLossMulti = builder.defineInRange("ExcavatorDuraLossMulti", 2, 1, Integer.MAX_VALUE);
+            weaponfireability = builder.comment("Fire Ability").define("Turn on the enemy",true);
+            builder.pop();
+        }
     }
 }

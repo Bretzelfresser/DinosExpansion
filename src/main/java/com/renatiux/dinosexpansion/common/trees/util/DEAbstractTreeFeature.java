@@ -122,21 +122,6 @@ public abstract class DEAbstractTreeFeature<TFC extends DETreeConfig> extends Fe
     }
 
 
-    public void placeNetherTrunk(BlockPos startPos, DETreeConfig config, Random random, Set<BlockPos> blockSet, ISeedReader reader, BlockPos pos, MutableBoundingBox boundingBox) {
-        pos = getTransformedPos(config, startPos, pos);
-        if (canLogPlaceHereNether(reader, pos)) {
-            this.setFinalBlockState(startPos, config, blockSet, reader, pos, config.getTrunkProvider().getBlockState(random, pos), boundingBox);
-        }
-    }
-
-    public void placeNetherBranch(BlockPos startPos, DETreeConfig config, Random random, Set<BlockPos> blockSet, ISeedReader reader, BlockPos pos, MutableBoundingBox boundingBox) {
-        pos = getTransformedPos(config, startPos, pos);
-        if (canLogPlaceHereNether(reader, pos)) {
-            this.setFinalBlockState(startPos, config, blockSet, reader, pos, config.getTrunkProvider().getBlockState(random, pos), boundingBox);
-        }
-    }
-
-
     /**
      * We use this to determine if a sapling's tree can grow at the given pos.
      * This is likely if not guaranteed to be used in a for loop checking the surrounding in another method as it's useless like this.
@@ -148,7 +133,7 @@ public abstract class DEAbstractTreeFeature<TFC extends DETreeConfig> extends Fe
     public boolean canSaplingGrowHere(IWorldGenerationBaseReader reader, BlockPos pos) {
         return reader.hasBlockState(pos, (state) -> {
             Block block = state.getBlock();
-            return block.isIn(BlockTags.LOGS) || block.isIn(BlockTags.LEAVES) || state.isAir() || state.getMaterial() == Material.PLANTS  || state.getMaterial() == Material.TALL_PLANTS  || state.getMaterial() == Material.OCEAN_PLANT  || state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.EARTH;
+            return block.isIn(BlockTags.LOGS) || block.isIn(BlockTags.LEAVES) || state.isAir() || state.getMaterial() == Material.PLANTS || state.getMaterial() == Material.TALL_PLANTS || state.getMaterial() == Material.OCEAN_PLANT || state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.EARTH;
         });
     }
 
@@ -182,32 +167,6 @@ public abstract class DEAbstractTreeFeature<TFC extends DETreeConfig> extends Fe
                 return block.isIn(Tags.Blocks.DIRT) || block == block1;
             }
             return block.isIn(Tags.Blocks.DIRT);
-        });
-    }
-
-    public static boolean isDesiredGroundwNetherTags(IWorldGenerationBaseReader reader, BlockPos pos, DETreeConfig config) {
-        if (config.isPlacementForced())
-            return true;
-
-        return reader.hasBlockState(pos, (state) -> {
-            Block block = state.getBlock();
-            for (Block block1 : config.getWhitelist()) {
-                return block.isIn(Tags.Blocks.NETHERRACK) || block.isIn(BlockTags.NYLIUM) || block.isIn(BlockTags.SOUL_FIRE_BASE_BLOCKS) || block == block1;
-            }
-            return block.isIn(Tags.Blocks.NETHERRACK) || block.isIn(BlockTags.NYLIUM) || block.isIn(BlockTags.SOUL_FIRE_BASE_BLOCKS);
-        });
-    }
-
-    public static boolean isDesiredGroundwEndTags(IWorldGenerationBaseReader reader, BlockPos pos, DETreeConfig config) {
-        if (config.isPlacementForced())
-            return true;
-
-        return reader.hasBlockState(pos, (state) -> {
-            Block block = state.getBlock();
-            for (Block block1 : config.getWhitelist()) {
-                return block.isIn(Tags.Blocks.END_STONES) || block == block1;
-            }
-            return block.isIn(Tags.Blocks.END_STONES);
         });
     }
 
@@ -631,7 +590,6 @@ public abstract class DEAbstractTreeFeature<TFC extends DETreeConfig> extends Fe
         SPREADABLE_TO_NON_SPREADABLE.put(Blocks.MYCELIUM, Blocks.DIRT);
         SPREADABLE_TO_NON_SPREADABLE.put(Blocks.GRASS_PATH, Blocks.DIRT);
         SPREADABLE_TO_NON_SPREADABLE.put(Blocks.PODZOL, Blocks.DIRT);
-
     }
 
     public static final class PooledMutable extends BlockPos.Mutable implements AutoCloseable {
