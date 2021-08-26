@@ -8,7 +8,6 @@ import com.renatiux.dinosexpansion.datagen.client.ModItemModelsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModBlockTagsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModEntityTypeTagsProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModItemTagsProvider;
-import com.renatiux.dinosexpansion.datagen.server.ModLanguageProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModLootTableProvider;
 import com.renatiux.dinosexpansion.datagen.server.ModRecipeProvider;
 

@@ -5,6 +5,7 @@ import com.renatiux.dinosexpansion.client.renderer.*;
 import com.renatiux.dinosexpansion.common.screens.AllosaurusScreen;
 import com.renatiux.dinosexpansion.common.screens.DinosaurTamingScreen;
 import com.renatiux.dinosexpansion.common.screens.MortarScreen;
+import com.renatiux.dinosexpansion.common.screens.OrderScreen;
 import com.renatiux.dinosexpansion.common.screens.RaftScreen;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
 import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
@@ -38,6 +39,8 @@ public class ClientEvents {
 		ScreenManager.registerFactory(ContainerTypeInit.MORTAR_CONTAINER_TYPE.get(), MortarScreen::new);
 		
 		ScreenManager.registerFactory(ContainerTypeInit.DINOSAUR_TAMING_INVENTORY.get(), DinosaurTamingScreen::new);
+		
+		ScreenManager.registerFactory(ContainerTypeInit.DINOSAUR_ORDER_CONTAINER.get(), OrderScreen::new);
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.WOOD_BOOMERANG.get(), new BoomerangRenderer.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.IRON_BOOMERANG.get(), new BoomerangRenderer.Factory());

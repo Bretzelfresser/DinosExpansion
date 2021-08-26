@@ -2,6 +2,7 @@
 	"container.dinosexpansion.allosaurus":"Allosaurus",
 	"container.dinosexpansion.mortar":"Mortar",
 	"container.dinosexpansion.taming":"Taming",
+	"container.dinosexpansion.order":"Orders",
 	
 	
 	"block.dinosexpansion.mortar":"Mortar",
@@ -74,6 +75,15 @@
 	
 	"category.dinosexpansion.mortar_recipe":"Mortar",
 
-	"dinosexpansion.mortar.time.seconds": "%ss"
+	"dinosexpansion.mortar.time.seconds": "%ss",
+	
+	"screen.dinosexpansion.idle":"Idle",
+	"screen.dinosexpansion.hostile":"Hostile",
+	"screen.dinosexpansion.wander":"Wander",
+	"screen.dinosexpansion.sit":"Sit",
+	"screen.dinosexpansion.follow":"Follow",
+	"screen.dinosexpansion.protecting":"Protecting",
+	"screen.dinosexpansion.breed":"Breed",
+	"screen.dinosexpansion.sleep":"Sleep"
 	
 }

@@ -4,6 +4,7 @@ import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.container.AllosaurusContainer;
 import com.renatiux.dinosexpansion.common.container.DinosaurTamingInventory;
 import com.renatiux.dinosexpansion.common.container.MortarContainer;
+import com.renatiux.dinosexpansion.common.container.OrderContainer;
 import com.renatiux.dinosexpansion.common.container.RaftContainer;
 
 import net.minecraft.inventory.container.ContainerType;
@@ -28,4 +29,7 @@ public class ContainerTypeInit {
 	
 	public static final RegistryObject<ContainerType<DinosaurTamingInventory>> DINOSAUR_TAMING_INVENTORY = CONTAINER_TYPES.register("taming", 
 			() -> IForgeContainerType.create(DinosaurTamingInventory::new));
+	
+	public static final RegistryObject<ContainerType<OrderContainer>> DINOSAUR_ORDER_CONTAINER = CONTAINER_TYPES.register("order", 
+			() -> IForgeContainerType.create(OrderContainer::new));
 }

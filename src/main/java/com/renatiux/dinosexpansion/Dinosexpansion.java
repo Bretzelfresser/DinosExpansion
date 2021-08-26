@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion;
 import com.renatiux.dinosexpansion.client.dimension.DinoDimensionRenderInfo;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
 import com.renatiux.dinosexpansion.core.init.*;
+import com.renatiux.dinosexpansion.core.network.DENetwork;
 import com.renatiux.dinosexpansion.util.CompostablesDE;
 import com.renatiux.dinosexpansion.util.FlammablesDE;
 import com.renatiux.dinosexpansion.util.StrippablesDE;
@@ -86,6 +87,7 @@ public class Dinosexpansion {
 	private void setup(final FMLCommonSetupEvent event) {
 
 		event.enqueueWork(DimensionInit::initBiomeSourcesAndChunkGenerator);
+		DENetwork.init();
 		
 	}
 

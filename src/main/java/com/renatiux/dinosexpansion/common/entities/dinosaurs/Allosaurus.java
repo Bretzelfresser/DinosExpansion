@@ -4,6 +4,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 import com.renatiux.dinosexpansion.common.container.AllosaurusContainer;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.AllosaurusTamingBahviour;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
 import com.renatiux.dinosexpansion.common.goals.DinosaurFollowGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurLookAtGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurLookRandomlyGoal;
@@ -114,7 +116,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		if (player instanceof ServerPlayerEntity) {
 			// interaction of the dead Dinosaur
 			if (deathTime > 0) {
-				if (getDroppedItems() != null && player.getHeldItem(hand).isEmpty()) {
+				if (getDroppedItems() != null && player.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
 					getDroppedItems().forEach(player::addItemStackToInventory);
 					player.giveExperiencePoints(this.experienceValue);
 					this.remove();
@@ -123,7 +125,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			}
 
 			else if (isTame() && isOwner(player) && (!hasChest() || !isSaddled())) {
-				ItemStack stack = player.getHeldItem(hand);
+				ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
 				// shortcut to put chest in inventory
 				if (!isSaddled() && stack.getItem() == Items.SADDLE) {
 					dinosaurInventory.setInventorySlotContents(0, new ItemStack(stack.getItem()));
@@ -137,14 +139,15 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 					return ActionResultType.SUCCESS;
 				}
 			}
+			ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
 			// opens the gui
-			if (isTame() && isOwner(player) && (player.isSneaking() || !isSaddled())) {
+			if (isTame() && isOwner(player) && (player.isSneaking() || !isSaddled()) && stack.getItem() != Items.STICK) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, this, buf -> buf.writeVarInt(getEntityId()));
 				return ActionResultType.SUCCESS;
 			}
 			// riding
 			else if (isTame() && isOwner(player) && !player.isSneaking() && isSaddled() && !this.isBeingRidden()
-					&& !isKnockout() && deathTime <= 0) {
+					&& !isKnockout() && deathTime <= 0 && stack.getItem() != Items.STICK) {
 				player.startRiding(this);
 				return ActionResultType.SUCCESS;
 			}
@@ -254,7 +257,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			continuesAnimation = true;
 			return PlayState.CONTINUE;
 		}
-		if (status == DinosaurStatus.SITTING) {
+		if (getStatus() == DinosaurStatus.SITTING) {
 			event.getController().transitionLengthTicks = 30;
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_SitIdle.new", true));
 			continuesAnimation = true;
@@ -346,7 +349,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	}
 
 	@Override
-	protected int shrinkNarcotic(int narcotic) {
+	public int shrinkNarcotic(int narcotic) {
 		if (this.rand.nextDouble() <= 0.1) {
 			return narcotic - 1;
 		}
@@ -371,6 +374,11 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	@Override
 	public boolean canBreed() {
 		return true;
+	}
+
+	@Override
+	protected TamingBahviour getTamingBehaviour() {
+		return new AllosaurusTamingBahviour();
 	}
 	
 

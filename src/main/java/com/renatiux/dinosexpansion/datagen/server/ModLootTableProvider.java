@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
@@ -19,9 +18,9 @@ import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.loot.LootParameterSet;
 import net.minecraft.loot.LootParameterSets;
 import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTable.Builder;
 import net.minecraft.loot.LootTableManager;
 import net.minecraft.loot.ValidationTracker;
-import net.minecraft.loot.LootTable.Builder;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -45,21 +44,31 @@ public class ModLootTableProvider extends LootTableProvider{
 	
 	public static class ModBlockLootTable extends BlockLootTables{
 		
+		private ArrayList<Block> list = new ArrayList<>();
+		
 		@Override
 		protected void addTables() {
 			registerMachines();
+			registerSelfDrop(BlockInit.REDWOOD_LOG.get());
+			registerSelfDrop(BlockInit.REDWOOD_PLANKS.get());
+			registerSelfDrop(BlockInit.REDWOOD_SAPLING.get());
+			registerSelfDrop(BlockInit.DINO_SAND.get());
+			registerSelfDrop(BlockInit.DINO_SILT.get());
 		}
 		
 		private void registerMachines(){
 			BlockInit.MACHINES.getEntries().stream().map(RegistryObject::get).forEach(block ->{
-				registerDropSelfLootTable(block);
+				registerSelfDrop(block);
 			});
+		}
+		
+		private void registerSelfDrop(Block b) {
+			list.add(b);
+			registerDropSelfLootTable(b);
 		}
 		
 		@Override
 		protected Iterable<Block> getKnownBlocks() {
-			ArrayList<Block> list = new ArrayList<>();
-			list.addAll(BlockInit.MACHINES.getEntries().stream().map(RegistryObject::get).collect(Collectors.toList()));
 			return list;
 		}
 	}

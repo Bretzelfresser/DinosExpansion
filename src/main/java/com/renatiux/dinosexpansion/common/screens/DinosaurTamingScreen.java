@@ -57,7 +57,11 @@ public class DinosaurTamingScreen extends ContainerScreen<DinosaurTamingInventor
 	protected double calculateHungerPercentage(Dinosaur dino) {
 		double hunger = dino.getHunger();
 		double maxHunger = dino.getMaxHunger();
-		return (hunger) / maxHunger;
+		double percentage = hunger / maxHunger;
+		if(percentage > 1) {
+			percentage = 1;
+		}
+		return percentage;
 	}
 
 	@Override
