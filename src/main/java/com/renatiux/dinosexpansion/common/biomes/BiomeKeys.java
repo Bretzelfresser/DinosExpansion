@@ -14,6 +14,8 @@ public class BiomeKeys {
     public static final RegistryKey<Biome> DEEP_DINO_OCEAN = register("deep_dino_ocean");
     public static final RegistryKey<Biome> WARM_DEEP_DINO_OCEAN = register("warm_deep_dino_ocean");
 
+    public static final RegistryKey<Biome> REDWOOD_FOREST = register("redwood_forest");
+
 
 
     private static RegistryKey<Biome> register(String id)

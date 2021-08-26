@@ -28,4 +28,7 @@ public class BiomeInit {
     public static final RegistryObject<Biome> DEEP_DINO_OCEAN = BIOMES.register("deep_dino_ocean", DEBiomeMaker::deepDinoOcean);
     public static final RegistryObject<Biome> WARM_DEEP_DINO_OCEAN = BIOMES.register("warm_deep_dino_ocean", DEBiomeMaker::warmDeepDinoOcean);
 
+    public static final RegistryObject<Biome> REDWOOD_FOREST = BIOMES.register("redwood_forest", DEBiomeMaker::redwoodForest);
+
+
 }
