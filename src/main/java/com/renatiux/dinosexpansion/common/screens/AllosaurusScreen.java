@@ -43,5 +43,4 @@ public class AllosaurusScreen extends ContainerScreen<AllosaurusContainer> {
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
 	}
-
 }

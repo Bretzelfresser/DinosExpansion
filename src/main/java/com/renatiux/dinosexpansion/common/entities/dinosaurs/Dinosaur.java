@@ -172,6 +172,8 @@ public abstract class Dinosaur extends MonsterEntity
 		}
 	}
 	
+	
+	
 	/**
 	 * determines whether the Dino can Breed or not
 	 * @return
@@ -248,6 +250,7 @@ public abstract class Dinosaur extends MonsterEntity
 	 * algorithm here
 	 */
 	protected void poop() {
+		System.out.println("hi");
 		this.world.addEntity(new Poop(world, getPoopSize()));
 	}
 
@@ -453,12 +456,17 @@ public abstract class Dinosaur extends MonsterEntity
 
 	public void setStatus(DinosaurStatus status) {
 		this.dataManager.set(STATUS, status.getID());
-		if(status == DinosaurStatus.SLEEPING) {
-			forcedSleep = true;
-		}
-		else if(forcedSleep) {
+		if(forcedSleep) {
 			forcedSleep = false;
 		}
+	}
+	
+	/**
+	 * just used for the orders given from the player so the dino can´t wake up when set to sleep, even when it is day
+	 */
+	public void setForcedSleep() {
+		setStatus(DinosaurStatus.SLEEPING);
+		forcedSleep = true;
 	}
 
 	public DinosaurStatus getStatus() {

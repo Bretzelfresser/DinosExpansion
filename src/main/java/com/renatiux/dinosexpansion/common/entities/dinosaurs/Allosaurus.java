@@ -90,7 +90,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		this.goalSelector.addGoal(8, new DinosaurLookRandomlyGoal(this));
 		this.goalSelector.addGoal(9, new DinosaureWalkRandomlyGoal(this, 0.5d));
 		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 0.5f, true));
-		this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 0.5f, 3, 10));
+		this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 1.0f, 3, 10));
 	}
 
 	@Override
@@ -122,6 +122,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 					this.remove();
 					return ActionResultType.SUCCESS;
 				}
+				return ActionResultType.PASS;
 			}
 
 			else if (isTame() && isOwner(player) && (!hasChest() || !isSaddled())) {

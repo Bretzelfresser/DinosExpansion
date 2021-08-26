@@ -41,7 +41,11 @@ public class DinoaurStatusPacket {
 			Entity entity = player.world.getEntityByID(packet.dinoId);
 			if(entity instanceof Dinosaur) {
 				Dinosaur dino = (Dinosaur) entity;
-				dino.setStatus(DinosaurStatus.getStatus(packet.id));
+				DinosaurStatus status = DinosaurStatus.getStatus(packet.id);
+				if(status == DinosaurStatus.SLEEPING) {
+					dino.setForcedSleep();
+				}else
+					dino.setStatus(status);
 			}
 		});
 		context.setPacketHandled(true);
