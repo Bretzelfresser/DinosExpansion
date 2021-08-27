@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.common.blocks.DEOreBlock;
 import com.renatiux.dinosexpansion.common.blocks.DESapling;
 import com.renatiux.dinosexpansion.common.blocks.machine.Mortar;
 
@@ -9,6 +10,7 @@ import com.renatiux.dinosexpansion.common.blocks.plants.DEFlowerBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DETripleFlowerBlock;
 import com.renatiux.dinosexpansion.common.trees.DETreeSpawners;
 import com.renatiux.dinosexpansion.core.tags.Tags;
+import com.renatiux.dinosexpansion.util.LightUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -106,6 +108,29 @@ public class BlockInit {
 
 	public static final RegistryObject<Block> DINO_SILT = MACHINES.register("dino_silt",
 			()-> new Block(AbstractBlock.Properties.create(Material.CLAY, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
+
+
+	//Ores
+	public static final RegistryObject<Block> DINO_COAL_ORE = MACHINES.register("dino_coal_ore",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+	public static final RegistryObject<Block> DINO_IRON_ORE = MACHINES.register("dino_iron_ore",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+	public static final RegistryObject<Block> DINO_GOLD_ORE = MACHINES.register("dino_gold_ore",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+	public static final RegistryObject<Block> DINO_DIAMOND_ORE = MACHINES.register("dino_diamond_ore",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+	public static final RegistryObject<Block> DINO_EMERALD_ORE = MACHINES.register("dino_emerald_ore",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+
+	public static final RegistryObject<Block> DINO_REDSTONE_ORE = MACHINES.register("dino_redstone_ore",
+			()-> new RedstoneOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().tickRandomly().setLightLevel(LightUtil.getLightValueLit(9)).hardnessAndResistance(3.0F, 3.0F)));
+	public static final RegistryObject<Block> DINO_LAPIS_ORE = MACHINES.register("dino_lapis_ore",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+
+	public static final RegistryObject<Block> DINO_PURPLE_GEN_ORE = MACHINES.register("dino_purple_gen_ore",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+	public static final RegistryObject<Block> DINO_BROWNSTONE_ORE = MACHINES.register("dino_brownstone_ore",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
 
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem

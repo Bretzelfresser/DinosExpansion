@@ -30,5 +30,6 @@ public class BiomeInit {
 
     public static final RegistryObject<Biome> REDWOOD_FOREST = BIOMES.register("redwood_forest", DEBiomeMaker::redwoodForest);
 
+    public static final RegistryObject<Biome> DINO_DESERT = BIOMES.register("dino_desert", DEBiomeMaker::dinoDesert);
 
 }

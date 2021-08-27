@@ -13,19 +13,18 @@ public class DinoBiomeLayer implements IAreaTransformer0 {
             {
                     DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_DINO_OCEAN),
                     DinoLayerUtil.getBiomeId(BiomeKeys.DINO_OCEAN),
-
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT),
             };
 
     protected int[] uncommonBiomes = (new int[]
             {
                     DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DEEP_DINO_OCEAN),
-                    DinoLayerUtil.getBiomeId(BiomeKeys.REDWOOD_FOREST),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DINO_OCEAN),
 
             });
     protected int[] rareBiomes = (new int[]
             {
-                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DINO_OCEAN),
-
+                    DinoLayerUtil.getBiomeId(BiomeKeys.REDWOOD_FOREST),
             });
 
     public DinoBiomeLayer(){

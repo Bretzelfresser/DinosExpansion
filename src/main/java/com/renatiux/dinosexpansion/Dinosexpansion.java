@@ -4,20 +4,18 @@ import com.renatiux.dinosexpansion.client.dimension.DinoDimensionRenderInfo;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
 import com.renatiux.dinosexpansion.core.init.*;
 import com.renatiux.dinosexpansion.core.network.DENetwork;
-import com.renatiux.dinosexpansion.util.CompostablesDE;
-import com.renatiux.dinosexpansion.util.FlammablesDE;
-import com.renatiux.dinosexpansion.util.StrippablesDE;
+import com.renatiux.dinosexpansion.util.*;
 import net.minecraft.client.world.DimensionRenderInfo;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
-import com.renatiux.dinosexpansion.util.CutoutRendersDE;
 
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
@@ -62,6 +60,7 @@ public class Dinosexpansion {
 		bus.addGenericListener(IRecipeSerializer.class ,RecipeInit::registerRecipes);
 
 		// Register ourselves for server and other game events we are interested in
+		MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::addOres);
 		MinecraftForge.EVENT_BUS.register(this);
 
 		BlockInit.MACHINES.register(bus);

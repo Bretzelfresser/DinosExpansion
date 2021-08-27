@@ -68,4 +68,15 @@ public class DEBiomeMaker {
         return (new Biome.Builder()).precipitation(Biome.RainType.RAIN).category(Biome.Category.FOREST).depth(0.2F).scale(0.2F).temperature(0.2F).downfall(0.9F).setEffects((new BiomeAmbience.Builder()).setWaterColor(4159204).setWaterFogColor(329011).setFogColor(12638463).withSkyColor(BiomeUtil.calcSkyColor(0.8F)).withGrassColor(8896351).withFoliageColor(8896351).setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build()).withMobSpawnSettings(spawnBuilder.build()).withGenerationSettings(generationBuilder.build()).build();
     }
 
+    public static Biome dinoDesert()
+    {
+        MobSpawnInfo.Builder spawnBuilder = new MobSpawnInfo.Builder();
+
+        BiomeGenerationSettings.Builder generationBuilder = (new BiomeGenerationSettings.Builder()).withSurfaceBuilder(ConfiguredSurfaceBuilders.DESERT);
+
+
+        return (new Biome.Builder()).precipitation(Biome.RainType.NONE).category(Biome.Category.DESERT).depth(0.125F).scale(0.05F).temperature(2.0F).downfall(0.9F).setEffects((new BiomeAmbience.Builder()).setWaterColor(4159204).setWaterFogColor(329011).setFogColor(12638463).withSkyColor(BiomeUtil.calcSkyColor(2.0F)).withGrassColor(8896351).withFoliageColor(8896351).setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build()).withMobSpawnSettings(spawnBuilder.build()).withGenerationSettings(generationBuilder.build()).build();
+
+    }
+
 }
