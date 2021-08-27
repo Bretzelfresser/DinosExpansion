@@ -129,7 +129,12 @@ public class BlockInit {
 
 	public static final RegistryObject<Block> DINO_PURPLE_GEN_ORE = MACHINES.register("dino_purple_gen_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+	public static final RegistryObject<Block> DINO_PURPLE_GEN_BLOCK = MACHINES.register("dino_purple_gen_block",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+
 	public static final RegistryObject<Block> DINO_BROWNSTONE_ORE = MACHINES.register("dino_brownstone_ore",
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+	public static final RegistryObject<Block> DINO_BROWNSTONE_BLOCK = MACHINES.register("dino_brownstone_block",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
 
 	/*
