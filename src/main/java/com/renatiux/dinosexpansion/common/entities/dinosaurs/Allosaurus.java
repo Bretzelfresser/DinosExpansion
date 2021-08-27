@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.renatiux.dinosexpansion.common.container.AllosaurusContainer;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.AllosaurusTamingBahviour;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
+import com.renatiux.dinosexpansion.common.goals.DinosaurBreedGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurFollowGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurLookAtGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurLookRandomlyGoal;
@@ -40,6 +41,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.PlayState;
@@ -66,7 +68,11 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	private boolean growl, continuesAnimation = false;
 
 	public Allosaurus(EntityType<? extends Dinosaur> type, World worldIn) {
-		super(type, worldIn, 18);
+		this(type, worldIn, false);
+	}
+	
+	public Allosaurus(EntityType<? extends Dinosaur> type, World worldIn, boolean child) {
+		super(type, worldIn, 18, child);
 		attackCounter = 0;
 		this.setPathPriority(PathNodeType.WATER, -1.0f);
 		this.setPathPriority(PathNodeType.LAVA, -2.0f);
@@ -91,6 +97,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		this.goalSelector.addGoal(9, new DinosaureWalkRandomlyGoal(this, 0.5d));
 		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 0.5f, true));
 		this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 1.0f, 3, 10));
+		this.goalSelector.addGoal(0, new DinosaurBreedGoal(this, 0.8f));
 	}
 
 	@Override
@@ -106,7 +113,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
 		if (growlCooldown > 0)
 			growlCooldown--;
-		//System.out.println(getNarcoticValue() + "|" + needeNarcotic);
 	}
 
 	@Override
@@ -347,6 +353,11 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	@Override
 	public boolean canEat(ItemStack stack) {
 		return Tags.Items.DINOSAUR_MEAT_FOOD.contains(stack.getItem());
+	}
+	
+	@Override
+	public void spawnChild(ServerWorld world, Dinosaur dino) {
+		super.spawnChild(world, dino);
 	}
 
 	@Override

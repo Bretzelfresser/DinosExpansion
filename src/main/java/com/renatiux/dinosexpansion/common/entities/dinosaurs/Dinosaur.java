@@ -55,6 +55,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeHooks;
@@ -79,6 +80,8 @@ public abstract class Dinosaur extends MonsterEntity
 			DataSerializers.BOOLEAN);
 	public static final DataParameter<Boolean> HAS_ARMOR = EntityDataManager.createKey(Dinosaur.class,
 			DataSerializers.BOOLEAN);
+	public static final DataParameter<Boolean> CHILD = EntityDataManager.createKey(Dinosaur.class,
+			DataSerializers.BOOLEAN);
 	public static final DataParameter<Boolean> KNOCKOUT = EntityDataManager.createKey(Dinosaur.class,
 			DataSerializers.BOOLEAN);
 	public static final DataParameter<Integer> STUNNED = EntityDataManager.createKey(Dinosaur.class,
@@ -87,9 +90,9 @@ public abstract class Dinosaur extends MonsterEntity
 			DataSerializers.VARINT);
 	public static final DataParameter<Integer> STATUS = EntityDataManager.createKey(Dinosaur.class,
 			DataSerializers.VARINT);
-	
+
 	protected final int sizeInventory;
-	protected int sleepCooldown, hungerCounter;
+	protected int sleepCooldown, hungerCounter, growingAge;
 	protected AnimationFactory factory = new AnimationFactory(this);
 	protected Inventory dinosaurInventory, tamingInventory;
 
@@ -103,16 +106,19 @@ public abstract class Dinosaur extends MonsterEntity
 	 * @param worldIn
 	 * @param sizeInventory     - the size for slots that should be available, also
 	 *                          counting saddle, armor and chest slot
-	 * @param needeNarcotic     - needed narcotics in order to be knock-outed
-	 * @param needHunger        - needed Hunger in order to be tamed
-	 * @param timeBetweenEating - the time between the Dinosaur can eat
+	 * @param child - whether the Dino should be a child or not
 	 */
-	public Dinosaur(EntityType<? extends Dinosaur> type, World worldIn, int sizeInventory) {
+	public Dinosaur(EntityType<? extends Dinosaur> type, World worldIn, int sizeInventory, boolean child) {
 		super(type, worldIn);
 		this.sizeInventory = sizeInventory;
 		this.hungerCounter = 0;
 		dead = false;
 		forcedSleep = false;
+		if (child)
+			growingAge = -getGrowingTime();
+		else
+			growingAge = 0;
+		setToChild(child);
 		prevStatus = DinosaurStatus.IDLE;
 		this.ignoreFrustumCheck = true;
 		this.stacksToDrop = new LinkedList<>();
@@ -124,23 +130,22 @@ public abstract class Dinosaur extends MonsterEntity
 	@Override
 	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
 		if (!world.isRemote) {
-			if (getTamingBehaviour().canBeTamed(this) && !getTamingBehaviour().isReadyToTame(this) && !isTame()) {
+			if (getTamingBehaviour().canBeTamed(this) && !getTamingBehaviour().isReadyToTame(this) && !isTame()
+					&& isKnockout()) {
 				getTamingBehaviour().openGui(player, this);
 				return ActionResultType.SUCCESS;
-			}
-			else if(getTamingBehaviour().isReadyToTame(this) && !isTame()) {
+			} else if (getTamingBehaviour().isReadyToTame(this) && !isTame() && isKnockout()) {
 				setTamedBy(player);
 				setNarcotic(0);
 				return ActionResultType.SUCCESS;
-			}
-			else if(isTame() && isOwner(player) && player.getHeldItem(hand).getItem() == Items.STICK) {
+			} else if (isTame() && isOwner(player) && player.getHeldItem(hand).getItem() == Items.STICK) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
-					
+
 					@Override
 					public Container createMenu(int id, PlayerInventory inv, PlayerEntity arg2) {
 						return getOrderContainer(id, inv);
 					}
-					
+
 					@Override
 					public ITextComponent getDisplayName() {
 						return new TranslationTextComponent("container." + Dinosexpansion.MODID + ".order");
@@ -151,7 +156,7 @@ public abstract class Dinosaur extends MonsterEntity
 		}
 		return super.applyPlayerInteraction(player, vec, hand);
 	}
-	
+
 	private Container getOrderContainer(int id, PlayerInventory inv) {
 		return new OrderContainer(id, inv, this);
 	}
@@ -171,29 +176,57 @@ public abstract class Dinosaur extends MonsterEntity
 			sleepCooldown = 350;
 		}
 	}
-	
-	
-	
+
 	/**
 	 * determines whether the Dino can Breed or not
+	 * 
 	 * @return
 	 */
 	public abstract boolean canBreed();
+
 	/**
-	 * checks whether it can breed with a certain Dinosaur, default is it breeds with every Dinosaur
-	 * override in order to make the DIno be able to breed with certain animals
+	 * checks whether it can breed with a certain Dinosaur, default is it breeds
+	 * with every Dinosaur override in order to make the DIno be able to breed with
+	 * certain animals
 	 */
 	public boolean canBreedWith(Dinosaur dino) {
 		return dino instanceof Dinosaur;
 	}
-	
+
+	/**
+	 * spawns the child of the current dino, default is do nothing, override this
+	 * method in order to spawn a child
+	 */
+	public void spawnChild(ServerWorld world, Dinosaur dino) {
+		world.setEntityState(this, (byte)6);
+		world.setEntityState(dino, (byte)6);
+	}
+
 	/**
 	 * 
-	 * @return whether the Dino has been set to breeing mode, so it searches 4 other Dinos it can breed with
+	 * @return the time in ticks that the Dino needs to get an adult
+	 */
+	protected int getGrowingTime() {
+		return 1200;
+	}
+
+	public boolean isChild() {
+		return this.dataManager.get(CHILD);
+	}
+
+	protected void setToChild(boolean child) {
+		this.dataManager.set(CHILD, child);
+	}
+
+	/**
+	 * 
+	 * @return whether the Dino has been set to breeing mode, so it searches 4 other
+	 *         Dinos it can breed with
 	 */
 	public boolean isReadyToBreed() {
 		return getStatus() == DinosaurStatus.BREED;
 	}
+
 	/**
 	 * synchronized with the client
 	 */
@@ -250,7 +283,6 @@ public abstract class Dinosaur extends MonsterEntity
 	 * algorithm here
 	 */
 	protected void poop() {
-		System.out.println("hi");
 		this.world.addEntity(new Poop(world, getPoopSize()));
 	}
 
@@ -296,9 +328,9 @@ public abstract class Dinosaur extends MonsterEntity
 	 */
 	public void findAndAddNarcotic() {
 		for (int i = 0; i < tamingInventory.getSizeInventory(); i++) {
-			if(tamingInventory.getStackInSlot(i).getItem() instanceof NarcoticItem) {
+			if (tamingInventory.getStackInSlot(i).getItem() instanceof NarcoticItem) {
 				NarcoticItem narcotic = (NarcoticItem) tamingInventory.getStackInSlot(i).getItem();
-				if(getMaxNarcotic() - getNarcoticValue() >= narcotic.getNarcoticValue()) {
+				if (getMaxNarcotic() - getNarcoticValue() >= narcotic.getNarcoticValue()) {
 					addNarcotic(narcotic.getNarcoticValue());
 					tamingInventory.getStackInSlot(i).shrink(1);
 				}
@@ -314,7 +346,8 @@ public abstract class Dinosaur extends MonsterEntity
 			hungerCounter--;
 		} else {
 			for (int i = 0; i < tamingInventory.getSizeInventory(); i++) {
-				if (canEat(tamingInventory.getStackInSlot(i)) || Tags.Items.KIBBLE.contains(tamingInventory.getStackInSlot(i).getItem())) {
+				if (canEat(tamingInventory.getStackInSlot(i))
+						|| Tags.Items.KIBBLE.contains(tamingInventory.getStackInSlot(i).getItem())) {
 					addHunger((int) tamingInventory.getStackInSlot(i).getItem().getFood().getHealing());
 					hungerCounter = getTimeBetweenEating();
 					this.tamingInventory.getStackInSlot(i).shrink(1);
@@ -418,6 +451,7 @@ public abstract class Dinosaur extends MonsterEntity
 		this.dataManager.register(HUNGER, 0);
 		this.dataManager.register(PLAYER_KNOCKOUTED_ID, Optional.empty());
 		this.dataManager.register(STATUS, DinosaurStatus.IDLE.getID());
+		this.dataManager.register(CHILD, false);
 	}
 
 	/**
@@ -456,13 +490,14 @@ public abstract class Dinosaur extends MonsterEntity
 
 	public void setStatus(DinosaurStatus status) {
 		this.dataManager.set(STATUS, status.getID());
-		if(forcedSleep) {
+		if (forcedSleep) {
 			forcedSleep = false;
 		}
 	}
-	
+
 	/**
-	 * just used for the orders given from the player so the dino can´t wake up when set to sleep, even when it is day
+	 * just used for the orders given from the player so the dino can´t wake up when
+	 * set to sleep, even when it is day
 	 */
 	public void setForcedSleep() {
 		setStatus(DinosaurStatus.SLEEPING);
@@ -476,7 +511,7 @@ public abstract class Dinosaur extends MonsterEntity
 	public void setPlayerKnockouted(PlayerEntity player) {
 		this.dataManager.set(PLAYER_KNOCKOUTED_ID, Optional.ofNullable(player.getUniqueID()));
 	}
-	
+
 	protected void setPlayerKnockouted(UUID player) {
 		this.dataManager.set(PLAYER_KNOCKOUTED_ID, Optional.ofNullable(player));
 	}
@@ -504,8 +539,7 @@ public abstract class Dinosaur extends MonsterEntity
 				return false;
 			}
 		}
-		// adding the narcotic Value when this is a narcotic arrow
-		getTamingBehaviour().onHit(source, amount, this);
+		amount = getTamingBehaviour().onHit(source, amount, this);
 		return super.attackEntityFrom(source, amount);
 	}
 
@@ -929,17 +963,19 @@ public abstract class Dinosaur extends MonsterEntity
 			this.playSound(getChestEquipSound(), 0.5F, 1.0F);
 		}
 	}
+
 	/**
 	 * gets the value of food needed in order to be tamed
 	 */
 	public abstract int getMaxHunger();
+
 	/**
 	 * gets the value of the narcotic neede to be knockouted
 	 */
 	public abstract int getMaxNarcotic();
+
 	/**
-	 * gets the time the Dino needs between he ate and can eat again
-	 * time in ticks
+	 * gets the time the Dino needs between he ate and can eat again time in ticks
 	 */
 	public abstract int getTimeBetweenEating();
 
@@ -954,7 +990,7 @@ public abstract class Dinosaur extends MonsterEntity
 	public void addHunger(int toAdd) {
 		this.dataManager.set(HUNGER, getHunger() + toAdd);
 	}
-	
+
 	public Inventory getTamingInventory() {
 		return this.tamingInventory;
 	}
@@ -1011,7 +1047,7 @@ public abstract class Dinosaur extends MonsterEntity
 	 * @return - the new value of the narcotic
 	 */
 	public abstract int shrinkNarcotic(int narcotic);
-	
+
 	protected abstract TamingBahviour getTamingBehaviour();
 
 }

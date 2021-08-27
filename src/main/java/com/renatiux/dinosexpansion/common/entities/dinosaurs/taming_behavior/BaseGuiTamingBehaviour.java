@@ -63,19 +63,21 @@ public abstract class BaseGuiTamingBehaviour implements TamingBahviour{
 	}
 	
 	@Override
-	public void onHit(DamageSource source, float amount, Dinosaur dino) {
+	public float onHit(DamageSource source, float amount, Dinosaur dino) {
+			// sets the Player that Knockouted the Dino and narcotic Projectiles to not do any damage
 		if (source.getImmediateSource() instanceof NarcoticArrowEntity) {
 			NarcoticArrowEntity narcoticArrow = (NarcoticArrowEntity) source.getImmediateSource();
 			dino.addNarcotic(narcoticArrow.getNarcoticValue());
 			amount = 0;
-			// sets the Player that Knockouted the Dino
-			if (source.getTrueSource() instanceof PlayerEntity) {
-				PlayerEntity player = (PlayerEntity) source.getTrueSource();
-				if (dino.getNarcoticValue() >= dino.getMaxNarcotic()) {
-					dino.setPlayerKnockouted(player);
-				}
+		}
+		//sets the player that has knockouted the dino
+		if (source.getTrueSource() instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) source.getTrueSource();
+			if (dino.getNarcoticValue() >= dino.getMaxNarcotic()) {
+				dino.setPlayerKnockouted(player);
 			}
 		}
+		return amount;
 	}
 
 

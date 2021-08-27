@@ -30,7 +30,8 @@ public interface TamingBahviour {
 	public void tick(Dinosaur dino);
 	/**
 	 * executed when the dino is hit to make the narcoticArrows work 4 example
+	 * @return the new amount of the damage that the Dino should take
 	 */
-	public void onHit(DamageSource source, float amount, Dinosaur dino);
+	public float onHit(DamageSource source, float amount, Dinosaur dino);
 
 }

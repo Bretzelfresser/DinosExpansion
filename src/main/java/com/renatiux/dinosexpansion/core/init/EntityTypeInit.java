@@ -18,7 +18,7 @@ public class EntityTypeInit {
 	public static final DeferredRegister<EntityType<?>> ARROW_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Dinosexpansion.MODID);
 	
 	public static final RegistryObject<EntityType<Allosaurus>> ALLOSAURUS = ENTITY_TYPES.register("allosaurus", () -> 
-	EntityType.Builder.create(Allosaurus::new, EntityClassification.MONSTER).size(1.8f, 2.7f).build(Dinosexpansion.modLoc("allosaurus").toString()));
+	EntityType.Builder.<Allosaurus>create(Allosaurus::new, EntityClassification.MONSTER).size(1.8f, 2.7f).build(Dinosexpansion.modLoc("allosaurus").toString()));
 
 	public static final RegistryObject<EntityType<TranquilizerArrowEntity>> TRANQUILIZER_ARROW = ARROW_ENTITY_TYPES.register("tranquillizer_arrow", 
 			() -> EntityType.Builder.<TranquilizerArrowEntity>create(TranquilizerArrowEntity::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("tranquillizer_arrow").toString()));
