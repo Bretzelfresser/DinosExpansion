@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "dinosexpansion:polished_brownstone_from_smelting"
+    ]
+  },
+  "criteria": {
+    "has_raw_brownstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "dinosexpansion:raw_brownstone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "dinosexpansion:polished_brownstone_from_smelting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_raw_brownstone",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "dinosexpansion:dino_purple_gen_ore"
+  },
+  "result": "dinosexpansion:purple_gem",
+  "experience": 1.0,
+  "cookingtime": 200
+}
