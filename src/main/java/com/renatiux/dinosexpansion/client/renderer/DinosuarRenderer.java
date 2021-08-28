@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
@@ -39,6 +40,11 @@ public abstract class DinosuarRenderer<T extends Dinosaur> extends GeoEntityRend
 	@Override
 	protected float getDeathMaxRotation(T entityLivingBaseIn) {
 		return 0;
+	}
+	
+	@Override
+	public ResourceLocation getEntityTexture(T entity) {
+		return getGeoModelProvider().getTextureLocation(entity);
 	}
 
 }

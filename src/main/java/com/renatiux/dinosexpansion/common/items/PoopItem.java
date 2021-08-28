@@ -5,9 +5,10 @@ import java.util.Map;
 
 import com.renatiux.dinosexpansion.core.init.ItemGroupInit;
 
+import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.Item;
 
-public class PoopItem extends Item{
+public class PoopItem extends BoneMealItem{
 	
 
 	public PoopItem() {

@@ -14,7 +14,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public abstract class BaseGuiTamingBehaviour implements TamingBahviour{
+public abstract class BaseGuiTamingBehaviour<T extends Dinosaur> implements TamingBahviour<T>{
 
 	@Override
 	public boolean hasGui() {
@@ -22,7 +22,7 @@ public abstract class BaseGuiTamingBehaviour implements TamingBahviour{
 	}
 
 	@Override
-	public void openGui(PlayerEntity player, Dinosaur dino) {
+	public void openGui(PlayerEntity player, T dino) {
 		NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
 			
 			@Override
@@ -37,20 +37,20 @@ public abstract class BaseGuiTamingBehaviour implements TamingBahviour{
 		}, buf -> buf.writeVarInt(dino.getEntityId()));
 		
 	}
-	protected abstract Container getTamingContainer(int id, PlayerInventory inv, Dinosaur dino);
+	protected abstract Container getTamingContainer(int id, PlayerInventory inv, T dino);
 
 	@Override
-	public boolean canBeTamed(Dinosaur dino) {
+	public boolean canBeTamed(T dino) {
 		return true;
 	}
 
 	@Override
-	public boolean isReadyToTame(Dinosaur dino) {
+	public boolean isReadyToTame(T dino) {
 		return dino.getHunger() >= dino.getMaxHunger();
 	}
 
 	@Override
-	public void tick(Dinosaur dino) {
+	public void tick(T dino) {
 		if (dino.getNarcoticValue() > 0) {
 			dino.setNarcotic(dino.shrinkNarcotic(dino.getNarcoticValue()));
 			dino.findAndAddNarcotic();
@@ -63,7 +63,17 @@ public abstract class BaseGuiTamingBehaviour implements TamingBahviour{
 	}
 	
 	@Override
-	public float onHit(DamageSource source, float amount, Dinosaur dino) {
+	public boolean shouldKnockout(T dino) {
+		return dino.getNarcoticValue() >= dino.getMaxNarcotic();
+	}
+	
+	@Override
+	public void reset(T dino) {
+		dino.setNarcotic(0);
+	}
+	
+	@Override
+	public float onHit(DamageSource source, float amount, T dino) {
 			// sets the Player that Knockouted the Dino and narcotic Projectiles to not do any damage
 		if (source.getImmediateSource() instanceof NarcoticArrowEntity) {
 			NarcoticArrowEntity narcoticArrow = (NarcoticArrowEntity) source.getImmediateSource();

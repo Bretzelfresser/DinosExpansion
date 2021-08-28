@@ -1,0 +1,551 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.Dodo.Sleep.new": {
+			"loop": true,
+			"animation_length": 2.08,
+			"bones": {
+				"Body": {
+					"position": {
+						"vector": [0, -3.5, 0]
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"0.0": {
+							"vector": [-22.5, 57.5, 0]
+						},
+						"1.04": {
+							"vector": [-21.5, 57.5, 0]
+						},
+						"2.08": {
+							"vector": [-22.5, 57.5, 0]
+						}
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": [0, 152.5, 0]
+					}
+				},
+				"HeadTop": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"LegRight": {
+					"position": {
+						"vector": [1, 0, 0]
+					}
+				},
+				"LegLeft": {
+					"position": {
+						"vector": [-1, 0, 0]
+					}
+				},
+				"Dodo": {
+					"position": {
+						"0.0": {
+							"vector": [0, -8, 0]
+						},
+						"2.08": {
+							"vector": [0, -8, 0]
+						}
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"0.0": {
+							"vector": [-7.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [-5, 0, 0]
+						},
+						"2.08": {
+							"vector": [-7.5, 0, 0]
+						}
+					}
+				},
+				"Left_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-90, 0, 0]
+						},
+						"2.08": {
+							"vector": [-90, 0, 0]
+						}
+					}
+				},
+				"Right_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-90, 0, 0]
+						},
+						"2.08": {
+							"vector": [-90, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"Dodo.Walk.new": {
+			"loop": true,
+			"animation_length": 1.04,
+			"bones": {
+				"Neck": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.52": {
+							"vector": [-7.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.52": {
+							"vector": [7.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"RightEyebrow": {
+					"scale": {
+						"0.8": {
+							"vector": [1, 0, 1]
+						},
+						"0.88": {
+							"vector": [1, 1, 1]
+						},
+						"0.96": {
+							"vector": [1, 0, 1]
+						}
+					}
+				},
+				"LeftEyeBrow": {
+					"scale": {
+						"0.8": {
+							"vector": [1, 0, 1]
+						},
+						"0.88": {
+							"vector": [1, 1, 1]
+						},
+						"0.96": {
+							"vector": [1, 0, 1]
+						}
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.52": {
+							"vector": [-2.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Left_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [27.5, 0, 0]
+						},
+						"0.52": {
+							"vector": [-20, 0, 0]
+						},
+						"1.04": {
+							"vector": [27.5, 0, 0]
+						}
+					}
+				},
+				"Right_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-20, 0, 0]
+						},
+						"0.52": {
+							"vector": [27.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [-20, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"Dodo.KnockOut.new": {
+			"loop": true,
+			"animation_length": 2.08,
+			"bones": {
+				"Dodo": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -65]
+						},
+						"2.08": {
+							"vector": [0, 0, -65]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, -9, 0]
+						},
+						"2.08": {
+							"vector": [0, -9, 0]
+						}
+					}
+				},
+				"Torso": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.04": {
+							"vector": [1, 1.01, 1]
+						},
+						"2.08": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"vector": [0, 27.5, -17.5]
+					}
+				},
+				"Jaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"2.08": {
+							"vector": [10, 0, 0]
+						}
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"0.0": {
+							"vector": [-32.5, -17.5, 0]
+						},
+						"2.08": {
+							"vector": [-32.5, -17.5, 0]
+						}
+					}
+				},
+				"LeftWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [-90, 0, -2.5]
+						},
+						"2.08": {
+							"vector": [-90, 0, -2.5]
+						}
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"RightWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [-90, 0, 135]
+						},
+						"2.08": {
+							"vector": [-90, 0, 135]
+						}
+					}
+				},
+				"Left_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-12.5, 0, 22.5]
+						},
+						"2.08": {
+							"vector": [-12.5, 0, 22.5]
+						}
+					}
+				},
+				"Right_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [37.5, 0, -20]
+						},
+						"2.08": {
+							"vector": [37.5, 0, -20]
+						}
+					}
+				}
+			}
+		},
+		"Dodo.Flee.new": {
+			"loop": true,
+			"animation_length": 1.04,
+			"bones": {
+				"Neck": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [-7.5, 0, 0]
+						},
+						"0.52": {
+							"vector": [0, 0, 0]
+						},
+						"0.8": {
+							"vector": [-7.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"Head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [7.5, 0, 0]
+						},
+						"0.52": {
+							"vector": [0, 0, 0]
+						},
+						"0.8": {
+							"vector": [7.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"RightEyebrow": {
+					"scale": {
+						"vector": [1, 0, 1]
+					}
+				},
+				"LeftEyeBrow": {
+					"scale": {
+						"vector": [1, 0, 1]
+					}
+				},
+				"Jaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [15, 0, 0]
+						},
+						"0.28": {
+							"vector": [12.5, 0, 0]
+						},
+						"0.52": {
+							"vector": [15, 0, 0]
+						},
+						"0.8": {
+							"vector": [12.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [15, 0, 0]
+						}
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [-2.5, 0, 0]
+						},
+						"0.52": {
+							"vector": [0, 0, 0]
+						},
+						"0.8": {
+							"vector": [-2.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"LeftWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 20, 0]
+						},
+						"0.28": {
+							"vector": [0, 40, 0]
+						},
+						"0.52": {
+							"vector": [0, 20, 0]
+						},
+						"0.8": {
+							"vector": [0, 40, 0]
+						},
+						"1.04": {
+							"vector": [0, 20, 0]
+						}
+					}
+				},
+				"RightWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -20, 0]
+						},
+						"0.28": {
+							"vector": [0, -40, 0]
+						},
+						"0.52": {
+							"vector": [0, -20, 0]
+						},
+						"0.8": {
+							"vector": [0, -40, 0]
+						},
+						"1.04": {
+							"vector": [0, -20, 0]
+						}
+					}
+				},
+				"Left_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [27.5, 0, 0]
+						},
+						"0.28": {
+							"vector": [-20, 0, 0]
+						},
+						"0.52": {
+							"vector": [27.5, 0, 0]
+						},
+						"0.8": {
+							"vector": [-20, 0, 0]
+						},
+						"1.04": {
+							"vector": [27.5, 0, 0]
+						}
+					}
+				},
+				"Right_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-20, 0, 0]
+						},
+						"0.28": {
+							"vector": [27.5, 0, 0]
+						},
+						"0.52": {
+							"vector": [-20, 0, 0]
+						},
+						"0.8": {
+							"vector": [27.5, 0, 0]
+						},
+						"1.04": {
+							"vector": [-20, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"Dodo.Death.new": {
+			"animation_length": 0.52,
+			"bones": {
+				"Dodo": {
+					"rotation": {
+						"vector": [0, 0, -65]
+					},
+					"position": {
+						"vector": [0, -9, 0]
+					}
+				},
+				"Torso": {
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"Neck": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 27.5, -17.5]
+						},
+						"0.52": {
+							"vector": [0, 35, -17.5]
+						}
+					}
+				},
+				"Jaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"0.52": {
+							"vector": [17.5, 0, 0]
+						}
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"0.0": {
+							"vector": [-32.5, -17.5, 0]
+						},
+						"0.52": {
+							"vector": [-32.5, -20, 0]
+						}
+					}
+				},
+				"LeftWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [-90, 0, -2.5]
+						},
+						"0.52": {
+							"vector": [-82.5, 0, -2.5]
+						}
+					}
+				},
+				"RightWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [-90, 0, 135]
+						},
+						"0.52": {
+							"vector": [-90, 7.5, 135]
+						}
+					}
+				},
+				"Left_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-12.5, 0, 22.5]
+						},
+						"0.52": {
+							"vector": [-12.5, 0, 25]
+						}
+					}
+				},
+				"Right_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [37.5, 0, -20]
+						},
+						"0.52": {
+							"vector": [40, 0, -20]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

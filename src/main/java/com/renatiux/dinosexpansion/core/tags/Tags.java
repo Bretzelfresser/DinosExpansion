@@ -52,6 +52,7 @@ public class Tags {
 	
 	public static class Items{
 		public static final INamedTag<Item> DINOSAUR_MEAT_FOOD = createModTag("dinosaur_meat");
+		public static final INamedTag<Item> DINOSAUR_PLANT_FOOD = createModTag("dinosaur_plant_food");
 		public static final INamedTag<Item> KIBBLE = createModTag("kibble");
 		public static final INamedTag<Item> TIME_MACHINE_CONSUMABLE = createModTag("time_machine_consumable");
 

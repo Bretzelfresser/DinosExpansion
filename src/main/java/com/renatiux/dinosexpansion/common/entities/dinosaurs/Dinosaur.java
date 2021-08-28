@@ -92,7 +92,7 @@ public abstract class Dinosaur extends MonsterEntity
 			DataSerializers.VARINT);
 
 	protected final int sizeInventory;
-	protected int sleepCooldown, hungerCounter, growingAge;
+	protected int sleepCooldown, hungerCounter, growingAge, poopCooldown;
 	protected AnimationFactory factory = new AnimationFactory(this);
 	protected Inventory dinosaurInventory, tamingInventory;
 
@@ -128,15 +128,24 @@ public abstract class Dinosaur extends MonsterEntity
 	}
 
 	@Override
-	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+	public final ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
 		if (!world.isRemote) {
-			if (getTamingBehaviour().canBeTamed(this) && !getTamingBehaviour().isReadyToTame(this) && !isTame()
+			if (deathTime > 0) {
+				if (getDroppedItems() != null && player.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+					getDroppedItems().forEach(player::addItemStackToInventory);
+					player.giveExperiencePoints(this.experienceValue);
+					this.remove();
+					return ActionResultType.SUCCESS;
+				}
+				return ActionResultType.PASS;
+			}
+			if (getTamingBehaviour().hasGui() && getTamingBehaviour().canBeTamed(this) && !getTamingBehaviour().isReadyToTame(this) && !isTame()
 					&& isKnockout()) {
 				getTamingBehaviour().openGui(player, this);
 				return ActionResultType.SUCCESS;
 			} else if (getTamingBehaviour().isReadyToTame(this) && !isTame() && isKnockout()) {
 				setTamedBy(player);
-				setNarcotic(0);
+				getTamingBehaviour().reset(this);
 				return ActionResultType.SUCCESS;
 			} else if (isTame() && isOwner(player) && player.getHeldItem(hand).getItem() == Items.STICK) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
@@ -154,7 +163,19 @@ public abstract class Dinosaur extends MonsterEntity
 				return ActionResultType.SUCCESS;
 			}
 		}
-		return super.applyPlayerInteraction(player, vec, hand);
+		ActionResultType type = handlePlayerInteraction(player, vec, hand);
+		if(type == ActionResultType.FAIL)
+			return super.applyPlayerInteraction(player, vec, hand);
+		else
+			return type;
+	}
+	/**
+	 * handles the player interaction so it is done in the right order
+	 * it is called after the normal logic from the Dinosaur to prevent issues when adding a new Interaction behavior
+	 * @return return the ActionResultType, if it is Fail, the super from mobEntity is called otherwise the resultType is returned
+	 */
+	protected ActionResultType handlePlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+		return ActionResultType.FAIL;
 	}
 
 	private Container getOrderContainer(int id, PlayerInventory inv) {
@@ -266,9 +287,11 @@ public abstract class Dinosaur extends MonsterEntity
 	 * defines when to poop, called every tick
 	 */
 	protected boolean randomChancePoop() {
-		if (isSleeping() || isKnockout())
+		if (isSleeping() || isKnockout() || poopCooldown > 0) {
+			poopCooldown--;
 			return false;
-		return this.rand.nextDouble() < 0.065d;
+		}
+		return this.rand.nextDouble() < 0.005d;
 	}
 
 	/**
@@ -283,7 +306,12 @@ public abstract class Dinosaur extends MonsterEntity
 	 * algorithm here
 	 */
 	protected void poop() {
-		this.world.addEntity(new Poop(world, getPoopSize()));
+		poopCooldown = timeBetweenPooping();
+		Poop poop = new Poop(world, getPoopSize());
+		Vector3d lookVec = this.getLookVec();
+		lookVec = lookVec.scale(-2);
+		poop.setPosition(this.getPosX() + lookVec.x, this.getPosY() + 1, this.getPosZ() + lookVec.z);
+		this.world.addEntity(poop);
 	}
 
 	/**
@@ -315,6 +343,13 @@ public abstract class Dinosaur extends MonsterEntity
 	}
 
 	public abstract boolean canEat(ItemStack stack);
+	/**
+	 * 
+	 * @return the time after which the dinosaur can poop again in ticks
+	 */
+	public int timeBetweenPooping() {
+		return 1200;
+	}
 
 	/**
 	 * synchronized with the client
@@ -390,9 +425,9 @@ public abstract class Dinosaur extends MonsterEntity
 		super.livingTick();
 		if (!this.world.isRemote) {
 			getTamingBehaviour().tick(this);
-			if (getNarcoticValue() <= 0)
+			if (!getTamingBehaviour().shouldKnockout(this))
 				this.setKnockedOut(false);
-			if (getNarcoticValue() >= getMaxNarcotic()) {
+			else {
 				this.setKnockedOut(true);
 			}
 		}
@@ -407,7 +442,7 @@ public abstract class Dinosaur extends MonsterEntity
 				setSleep(true);
 			}
 		}
-		if (randomChancePoop()) {
+		if (canPoop() && randomChancePoop()) {
 			poop();
 		}
 	}
@@ -1048,6 +1083,6 @@ public abstract class Dinosaur extends MonsterEntity
 	 */
 	public abstract int shrinkNarcotic(int narcotic);
 
-	protected abstract TamingBahviour getTamingBehaviour();
+	protected abstract <T extends Dinosaur> TamingBahviour<T> getTamingBehaviour();
 
 }

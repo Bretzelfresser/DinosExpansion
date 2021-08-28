@@ -24,12 +24,17 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 		makeArrows();
 		makeKibble();
 		makeTimeMachineConsumable();
+		makePlantFood();
 	}
 	
 	private void makeArrows() {
 		ItemInit.ARROWS.getEntries().stream().map(RegistryObject::get).forEach(item -> {
 			getOrCreateBuilder(ItemTags.ARROWS).add(item);
 		});
+	}
+	
+	private void makePlantFood() {
+		getOrCreateBuilder(Tags.Items.DINOSAUR_PLANT_FOOD).add(ItemInit.NARCOTIC_BERRY.get(), Items.SWEET_BERRIES);
 	}
 	
 	private void makeKibble() {

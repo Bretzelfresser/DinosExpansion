@@ -12,6 +12,7 @@ import com.renatiux.dinosexpansion.common.goals.DinosaurLookAtGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurLookRandomlyGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurNearestAttackableTarget;
 import com.renatiux.dinosexpansion.common.goals.DinosaureWalkRandomlyGoal;
+import com.renatiux.dinosexpansion.common.items.PoopItem.PoopSize;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 
 import net.minecraft.block.Blocks;
@@ -116,22 +117,11 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	}
 
 	@Override
-	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+	public ActionResultType handlePlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
 		if (player.world.isRemote)
 			return ActionResultType.PASS;
 		if (player instanceof ServerPlayerEntity) {
-			// interaction of the dead Dinosaur
-			if (deathTime > 0) {
-				if (getDroppedItems() != null && player.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
-					getDroppedItems().forEach(player::addItemStackToInventory);
-					player.giveExperiencePoints(this.experienceValue);
-					this.remove();
-					return ActionResultType.SUCCESS;
-				}
-				return ActionResultType.PASS;
-			}
-
-			else if (isTame() && isOwner(player) && (!hasChest() || !isSaddled())) {
+			if (isTame() && isOwner(player) && (!hasChest() || !isSaddled())) {
 				ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
 				// shortcut to put chest in inventory
 				if (!isSaddled() && stack.getItem() == Items.SADDLE) {
@@ -146,20 +136,19 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 					return ActionResultType.SUCCESS;
 				}
 			}
-			ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
 			// opens the gui
-			if (isTame() && isOwner(player) && (player.isSneaking() || !isSaddled()) && stack.getItem() != Items.STICK) {
+			if (isTame() && isOwner(player) && (player.isSneaking() || !isSaddled())) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, this, buf -> buf.writeVarInt(getEntityId()));
 				return ActionResultType.SUCCESS;
 			}
 			// riding
 			else if (isTame() && isOwner(player) && !player.isSneaking() && isSaddled() && !this.isBeingRidden()
-					&& !isKnockout() && deathTime <= 0 && stack.getItem() != Items.STICK) {
+					&& !isKnockout() && deathTime <= 0) {
 				player.startRiding(this);
 				return ActionResultType.SUCCESS;
 			}
 		}
-		return super.applyPlayerInteraction(player, vec, hand);
+		return ActionResultType.FAIL;
 	}
 
 	@Override
@@ -388,9 +377,20 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	protected TamingBahviour getTamingBehaviour() {
+	protected TamingBahviour<Allosaurus> getTamingBehaviour() {
 		return new AllosaurusTamingBahviour();
+	}
+
+	@Override
+	public int timeBetweenPooping() {
+		return 1200;
+	}
+	
+	@Override
+	protected PoopSize getPoopSize() {
+		return PoopSize.MEDIUM;
 	}
 	
 

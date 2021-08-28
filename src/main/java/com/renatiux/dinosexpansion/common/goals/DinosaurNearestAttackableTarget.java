@@ -80,7 +80,17 @@ public class DinosaurNearestAttackableTarget<T extends LivingEntity> extends Nea
 	public boolean shouldExecute() {
 		if ((!this.dinosaurGowalOwner.isTame() || this.dinosaurGowalOwner.getStatus() == DinosaurStatus.HOSTILE)
 				&& !dinosaurGowalOwner.isSleeping() && !dinosaurGowalOwner.isKnockout() && dinosaurGowalOwner.deathTime <= 0)
-			return super.shouldExecute();
+			return super.shouldExecute() && checkOwner();
+		return false;
+	}
+	
+	private boolean checkOwner() {
+		if(this.target == null)
+			return false;
+		else if(this.target instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) this.target;
+			return this.dinosaurGowalOwner.isOwner(player);
+		}
 		return false;
 	}
 
