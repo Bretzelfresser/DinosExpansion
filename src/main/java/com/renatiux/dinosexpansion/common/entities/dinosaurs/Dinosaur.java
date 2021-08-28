@@ -104,9 +104,9 @@ public abstract class Dinosaur extends MonsterEntity
 	 * 
 	 * @param type
 	 * @param worldIn
-	 * @param sizeInventory     - the size for slots that should be available, also
-	 *                          counting saddle, armor and chest slot
-	 * @param child - whether the Dino should be a child or not
+	 * @param sizeInventory - the size for slots that should be available, also
+	 *                      counting saddle, armor and chest slot
+	 * @param child         - whether the Dino should be a child or not
 	 */
 	public Dinosaur(EntityType<? extends Dinosaur> type, World worldIn, int sizeInventory, boolean child) {
 		super(type, worldIn);
@@ -139,8 +139,8 @@ public abstract class Dinosaur extends MonsterEntity
 				}
 				return ActionResultType.PASS;
 			}
-			if (getTamingBehaviour().hasGui() && getTamingBehaviour().canBeTamed(this) && !getTamingBehaviour().isReadyToTame(this) && !isTame()
-					&& isKnockout()) {
+			if (getTamingBehaviour().hasGui() && getTamingBehaviour().canBeTamed(this)
+					&& !getTamingBehaviour().isReadyToTame(this) && !isTame() && isKnockout()) {
 				getTamingBehaviour().openGui(player, this);
 				return ActionResultType.SUCCESS;
 			} else if (getTamingBehaviour().isReadyToTame(this) && !isTame() && isKnockout()) {
@@ -164,15 +164,19 @@ public abstract class Dinosaur extends MonsterEntity
 			}
 		}
 		ActionResultType type = handlePlayerInteraction(player, vec, hand);
-		if(type == ActionResultType.FAIL)
+		if (type == ActionResultType.FAIL)
 			return super.applyPlayerInteraction(player, vec, hand);
 		else
 			return type;
 	}
+
 	/**
-	 * handles the player interaction so it is done in the right order
-	 * it is called after the normal logic from the Dinosaur to prevent issues when adding a new Interaction behavior
-	 * @return return the ActionResultType, if it is Fail, the super from mobEntity is called otherwise the resultType is returned
+	 * handles the player interaction so it is done in the right order it is called
+	 * after the normal logic from the Dinosaur to prevent issues when adding a new
+	 * Interaction behavior
+	 * 
+	 * @return return the ActionResultType, if it is Fail, the super from mobEntity
+	 *         is called otherwise the resultType is returned
 	 */
 	protected ActionResultType handlePlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
 		return ActionResultType.FAIL;
@@ -219,8 +223,8 @@ public abstract class Dinosaur extends MonsterEntity
 	 * method in order to spawn a child
 	 */
 	public void spawnChild(ServerWorld world, Dinosaur dino) {
-		world.setEntityState(this, (byte)6);
-		world.setEntityState(dino, (byte)6);
+		world.setEntityState(this, (byte) 6);
+		world.setEntityState(dino, (byte) 6);
 	}
 
 	/**
@@ -343,6 +347,7 @@ public abstract class Dinosaur extends MonsterEntity
 	}
 
 	public abstract boolean canEat(ItemStack stack);
+
 	/**
 	 * 
 	 * @return the time after which the dinosaur can poop again in ticks
@@ -1028,6 +1033,22 @@ public abstract class Dinosaur extends MonsterEntity
 
 	public Inventory getTamingInventory() {
 		return this.tamingInventory;
+	}
+
+	public boolean isInventoryFull() {
+		for (int i = 0; i < dinosaurInventory.getSizeInventory(); i++) {
+			if(dinosaurInventory.getStackInSlot(i).isEmpty())
+				return false;
+		}
+		return true;
+	}
+	
+	public boolean isInventoryEmpty() {
+		for (int i = 0; i < dinosaurInventory.getSizeInventory(); i++) {
+			if(!dinosaurInventory.getStackInSlot(i).isEmpty())
+				return false;
+		}
+		return true;
 	}
 
 	/**

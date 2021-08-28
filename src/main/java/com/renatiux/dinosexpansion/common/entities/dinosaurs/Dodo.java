@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.common.entities.dinosaurs;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.DododTamingBehaviour;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
 import com.renatiux.dinosexpansion.common.entities.util.IFleeingDinosaur;
+import com.renatiux.dinosexpansion.common.goals.CollectSeedsGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurBreedGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurFleeFromAttackerGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurFollowGoal;
@@ -54,12 +55,12 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(5, new DinosaurBreedGoal(this, 0.6));
 		this.goalSelector.addGoal(10, new DinosaureWalkRandomlyGoal(this, 0.5));
 		this.goalSelector.addGoal(10, new DinosaurLookRandomlyGoal(this));
 		this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 0.9f, 3, 10));
 		this.goalSelector.addGoal(0, new DinosaurBreedGoal(this, 0.8f));
-		this.goalSelector.addGoal(1, new DinosaurFleeFromAttackerGoal(this));
+		this.goalSelector.addGoal(1, new DinosaurFleeFromAttackerGoal(this, 0.9f));
+		this.goalSelector.addGoal(2, new CollectSeedsGoal(this, 0.9f));
 	}
 
 	@Override

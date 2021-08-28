@@ -36,6 +36,8 @@ public class Tags {
 		public static final INamedTag<Block> WELWITSCHIA_IN_GROUND = createModTag("welwitschia_in_ground");
 		public static final INamedTag<Block> PACHYPODA_IN_GROUND = createModTag("pachypoda_in_ground");
 		public static final INamedTag<Block> AMORPHOPHALLUS_IN_GROUND = createModTag("amorphophallus_in_ground");
+		
+		public static final INamedTag<Block> DODO_BUSHES = createModTag("dodo_bushes");
 
 
 		//Sapling
@@ -57,6 +59,8 @@ public class Tags {
 		public static final INamedTag<Item> TIME_MACHINE_CONSUMABLE = createModTag("time_machine_consumable");
 
 		public static final INamedTag<Item> REDWOOD_LOG = createModTag("redwood_log");
+		
+		public static final INamedTag<Item> DODO_COLLECTABLES = createModTag("dodo_collectables");
 
 		public static ITag.INamedTag<Item> createModTag(String name){
 			return ItemTags.makeWrapperTag(new ResourceLocation(Dinosexpansion.MODID, name).toString());

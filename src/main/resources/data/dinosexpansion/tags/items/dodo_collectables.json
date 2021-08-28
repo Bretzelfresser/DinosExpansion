@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:melon_seeds",
+    "minecraft:wheat_seeds",
+    "dinosexpansion:narcotic_berry",
+    "minecraft:beetroot_seeds",
+    "minecraft:pumpkin_seeds"
+  ]
+}

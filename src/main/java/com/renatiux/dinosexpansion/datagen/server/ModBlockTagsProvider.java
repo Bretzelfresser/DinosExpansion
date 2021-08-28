@@ -37,6 +37,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider{
 		getOrCreateBuilder(Tags.Blocks.WELWITSCHIA_IN_GROUND).add(Blocks.GRASS_BLOCK);
 		getOrCreateBuilder(Tags.Blocks.PACHYPODA_IN_GROUND).add(Blocks.GRASS_BLOCK);
 		getOrCreateBuilder(Tags.Blocks.AMORPHOPHALLUS_IN_GROUND).add(Blocks.GRASS_BLOCK);
+		
+		getOrCreateBuilder(Tags.Blocks.DODO_BUSHES).add(Blocks.GRASS, Blocks.SWEET_BERRY_BUSH);
 
 
 		//Sapling
