@@ -1,5 +1,8 @@
 package com.renatiux.dinosexpansion;
 
+import com.renatiux.dinosexpansion.core.init.*;
+import com.renatiux.dinosexpansion.util.*;
+import net.minecraft.world.gen.carver.WorldCarver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,23 +11,7 @@ import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
-import com.renatiux.dinosexpansion.core.init.BiomeInit;
-import com.renatiux.dinosexpansion.core.init.BlockInit;
-import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
-import com.renatiux.dinosexpansion.core.init.DimensionInit;
-import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
-import com.renatiux.dinosexpansion.core.init.ItemInit;
-import com.renatiux.dinosexpansion.core.init.RecipeInit;
-import com.renatiux.dinosexpansion.core.init.SoundInit;
-import com.renatiux.dinosexpansion.core.init.SurfaceBuilderInit;
-import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
-import com.renatiux.dinosexpansion.core.init.WorldTypeInit;
 import com.renatiux.dinosexpansion.core.network.DENetwork;
-import com.renatiux.dinosexpansion.util.CompostablesDE;
-import com.renatiux.dinosexpansion.util.CutoutRendersDE;
-import com.renatiux.dinosexpansion.util.FlammablesDE;
-import com.renatiux.dinosexpansion.util.OreGeneration;
-import com.renatiux.dinosexpansion.util.StrippablesDE;
 
 import net.minecraft.client.world.DimensionRenderInfo;
 import net.minecraft.entity.LivingEntity;
@@ -45,6 +32,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import software.bernie.geckolib3.GeckoLib;
+
+import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("dinosexpansion")
@@ -131,7 +120,13 @@ public class Dinosexpansion {
 		@SubscribeEvent
 		public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
 			DEFeatures.init();
-			DEFeatures.features.forEach(feature -> event.getRegistry().register(feature));
+			features.forEach(feature -> event.getRegistry().register(feature));
+		}
+
+		@SubscribeEvent
+		public static void onRegisterWorldCarvers(RegistryEvent.Register<WorldCarver<?>> event)
+		{
+			CarverInit.init(event);
 		}
 
 	}
