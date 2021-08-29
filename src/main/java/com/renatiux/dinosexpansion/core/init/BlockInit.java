@@ -112,33 +112,33 @@ public class BlockInit {
 
 	//Ores
 	public static final RegistryObject<Block> DINO_COAL_ORE = MACHINES.register("dino_coal_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE)));
 	public static final RegistryObject<Block> DINO_IRON_ORE = MACHINES.register("dino_iron_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
 	public static final RegistryObject<Block> DINO_GOLD_ORE = MACHINES.register("dino_gold_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 	public static final RegistryObject<Block> DINO_DIAMOND_ORE = MACHINES.register("dino_diamond_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 	public static final RegistryObject<Block> DINO_EMERALD_ORE = MACHINES.register("dino_emerald_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 
 	public static final RegistryObject<Block> DINO_REDSTONE_ORE = MACHINES.register("dino_redstone_ore",
-			()-> new RedstoneOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().tickRandomly().setLightLevel(LightUtil.getLightValueLit(9)).hardnessAndResistance(3.0F, 3.0F)));
+			()-> new RedstoneOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().tickRandomly().setLightLevel(LightUtil.getLightValueLit(9)).hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 	public static final RegistryObject<Block> DINO_LAPIS_ORE = MACHINES.register("dino_lapis_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 
 	public static final RegistryObject<Block> DINO_PURPLE_GEN_ORE = MACHINES.register("dino_purple_gen_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 	public static final RegistryObject<Block> DINO_PURPLE_GEN_BLOCK = MACHINES.register("dino_purple_gen_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 
 	public static final RegistryObject<Block> DINO_BROWNSTONE_ORE = MACHINES.register("dino_brownstone_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 	public static final RegistryObject<Block> DINO_BROWNSTONE_BLOCK = MACHINES.register("dino_brownstone_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
+			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 
 	public static final RegistryObject<Block> DINO_STONE = MACHINES.register("dino_stone",
-			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.5F, 6.0F).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
 	 */
