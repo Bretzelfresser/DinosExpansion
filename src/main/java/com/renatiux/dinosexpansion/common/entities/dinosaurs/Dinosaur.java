@@ -973,7 +973,7 @@ public abstract class Dinosaur extends MonsterEntity
 	public void onInventoryChanged(IInventory invBasic) {
 		updateSaddled();
 		updateHasArmor();
-		setChested(!dinosaurInventory.getStackInSlot(1).isEmpty());
+		updateHasChest();
 	}
 
 	/*

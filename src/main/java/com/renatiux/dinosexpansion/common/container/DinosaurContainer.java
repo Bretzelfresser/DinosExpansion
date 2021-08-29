@@ -41,6 +41,25 @@ public abstract class DinosaurContainer<T extends Dinosaur> extends UtilContaine
 	public T getDinosaure() {
 		return dinosaure;
 	}
+	
+	protected int addHorizontalSlots(IInventory handler, int Index, int x, int y, int amount,
+			int distanceBetweenSlots, IDinosaurInventorySlotProvider provider) {
+		for (int i = 0; i < amount; i++) {
+			addSlot(provider.createSlot(getDinosaure(), Index, x, y));
+			Index++;
+			x += distanceBetweenSlots;
+		}
+		return Index;
+	}
+	
+	protected int addSlotField(IInventory handler, int StartIndex, int x, int y, int horizontalAmount,
+			int horizontalDistance, int verticalAmount, int VerticalDistance, IDinosaurInventorySlotProvider provider) {
+		for (int i = 0; i < verticalAmount; i++) {
+			StartIndex = addHorizontalSlots(handler, StartIndex, x, y, horizontalAmount, horizontalDistance, provider);
+			y += VerticalDistance;
+		}
+		return StartIndex;
+	}
 
 
 	protected abstract void init();
@@ -130,6 +149,22 @@ public abstract class DinosaurContainer<T extends Dinosaur> extends UtilContaine
 			return super.onTake(thePlayer, stack);
 			
 		}
+	}
+	
+	public static class BaseDinosaurInventorySlot extends Slot{
+
+		protected final Dinosaur dino;
+		
+		public BaseDinosaurInventorySlot(Dinosaur dino, int index, int xPosition, int yPosition) {
+			super(dino.getDinosaurInventory(), index, xPosition, yPosition);
+			this.dino = dino;
+		}
+		
+		@Override
+			public boolean isEnabled() {
+				return dino.hasChest();
+			}
+		
 	}
 
 }

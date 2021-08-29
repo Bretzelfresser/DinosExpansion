@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.core.init;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.container.AllosaurusContainer;
 import com.renatiux.dinosexpansion.common.container.DinosaurTamingInventory;
+import com.renatiux.dinosexpansion.common.container.DodoContainer;
 import com.renatiux.dinosexpansion.common.container.MortarContainer;
 import com.renatiux.dinosexpansion.common.container.OrderContainer;
 import com.renatiux.dinosexpansion.common.container.RaftContainer;
@@ -32,4 +33,7 @@ public class ContainerTypeInit {
 	
 	public static final RegistryObject<ContainerType<OrderContainer>> DINOSAUR_ORDER_CONTAINER = CONTAINER_TYPES.register("order", 
 			() -> IForgeContainerType.create(OrderContainer::new));
+	
+	public static final RegistryObject<ContainerType<DodoContainer>> DODO_CONTAINER = CONTAINER_TYPES.register("dodo_container", () ->
+	IForgeContainerType.create(DodoContainer::new));
 }

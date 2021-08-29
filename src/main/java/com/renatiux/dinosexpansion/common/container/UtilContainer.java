@@ -2,6 +2,8 @@ package com.renatiux.dinosexpansion.common.container;
 
 import java.util.Objects;
 
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -47,6 +49,10 @@ public abstract class UtilContainer extends Container{
 		y += 58;
 		// Hotbar
 		addHorizontalSlots(playerInventory, 0, x, y, 9, 18);
+	}
+	
+	protected static interface IDinosaurInventorySlotProvider{
+		public Slot createSlot(Dinosaur dino, int index, int x, int y);
 	}
 	
 	protected static class LockedSlot extends Slot {

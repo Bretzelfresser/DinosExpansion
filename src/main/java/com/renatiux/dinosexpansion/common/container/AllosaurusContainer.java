@@ -33,7 +33,7 @@ public class AllosaurusContainer extends DinosaurContainer<Allosaurus> {
 	}
 
 	private void addChestSlots() {
-		addSlotField(dinosaure.getDinosaurInventory(), 3, 80, 18, 5, 18, 3, 18);
+		addSlotField(dinosaure.getDinosaurInventory(), 3, 80, 18, 5, 18, 3, 18, BaseDinosaurInventorySlot::new);
 	}
 	
 	
