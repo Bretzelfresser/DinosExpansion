@@ -137,6 +137,8 @@ public class BlockInit {
 	public static final RegistryObject<Block> DINO_BROWNSTONE_BLOCK = MACHINES.register("dino_brownstone_block",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F)));
 
+	public static final RegistryObject<Block> DINO_STONE = MACHINES.register("dino_stone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
 	 */
