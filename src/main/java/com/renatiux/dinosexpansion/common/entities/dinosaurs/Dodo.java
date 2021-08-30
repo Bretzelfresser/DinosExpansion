@@ -164,17 +164,17 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 		}
 		return PlayState.STOP;
 	}
-	
+
 	@Override
-	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return SoundInit.DODO_HURT.get();
 	}
-	
+
 	@Override
-	protected SoundEvent getAmbientSound() {
+	protected SoundEvent getAmbientSoundDino() {
 		return SoundInit.DODO_IDLE.get();
 	}
-	
+
 	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundInit.DODO_DIE.get();
@@ -201,7 +201,7 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 	public void increaseHits() {
 		hits++;
 	}
-	
+
 	public int getCurrentTicks() {
 		return currentTicks;
 	}
@@ -213,11 +213,11 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 	@Override
 	protected void updateSaddled() {
 	}
-	
+
 	@Override
 	protected void updateHasArmor() {
 	}
-	
+
 	@Override
 	protected void updateHasChest() {
 		boolean prevHasChest = hasChest();

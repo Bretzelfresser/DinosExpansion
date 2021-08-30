@@ -433,7 +433,7 @@ public abstract class Dinosaur extends MonsterEntity
 			if (getTamingBehaviour().shouldKnockout(this)) {
 				this.setKnockedOut(true);
 				getTamingBehaviour().onKnockout(this);
-			}else if(getTamingBehaviour().shouldWakeUp(this)){
+			} else if (getTamingBehaviour().shouldWakeUp(this)) {
 				this.setKnockedOut(false);
 			}
 		}
@@ -1038,15 +1038,15 @@ public abstract class Dinosaur extends MonsterEntity
 
 	public boolean isInventoryFull() {
 		for (int i = 0; i < dinosaurInventory.getSizeInventory(); i++) {
-			if(dinosaurInventory.getStackInSlot(i).isEmpty())
+			if (dinosaurInventory.getStackInSlot(i).isEmpty())
 				return false;
 		}
 		return true;
 	}
-	
+
 	public boolean isInventoryEmpty() {
 		for (int i = 0; i < dinosaurInventory.getSizeInventory(); i++) {
-			if(!dinosaurInventory.getStackInSlot(i).isEmpty())
+			if (!dinosaurInventory.getStackInSlot(i).isEmpty())
 				return false;
 		}
 		return true;
@@ -1061,6 +1061,21 @@ public abstract class Dinosaur extends MonsterEntity
 		if (deathTime <= 0)
 			return null;
 		return stacksToDrop;
+	}
+
+	@Override
+	protected final SoundEvent getAmbientSound() {
+		if (!isSleeping() && !isKnockout())
+			return getAmbientSoundDino();
+		return null;
+	}
+
+	/**
+	 * this method is called when the player get near the Dino and the DIno isnt sleep or knockouted
+	 * @return the sound event played when the player gets near the Dino
+	 */
+	protected SoundEvent getAmbientSoundDino() {
+		return null;
 	}
 
 	/**

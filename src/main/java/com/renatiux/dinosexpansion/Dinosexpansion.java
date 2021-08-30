@@ -9,11 +9,13 @@ import org.apache.logging.log4j.Logger;
 import com.renatiux.dinosexpansion.client.dimension.DinoDimensionRenderInfo;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
+import com.renatiux.dinosexpansion.common.items.CustomSpawnEgg;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import com.renatiux.dinosexpansion.core.network.DENetwork;
 
 import net.minecraft.client.world.DimensionRenderInfo;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
@@ -127,6 +129,11 @@ public class Dinosexpansion {
 		public static void onRegisterWorldCarvers(RegistryEvent.Register<WorldCarver<?>> event)
 		{
 			CarverInit.init(event);
+		}
+		
+		@SubscribeEvent
+		public static void onRegisterEntities(RegistryEvent.Register<EntityType<?>> event) {
+			CustomSpawnEgg.initSpawnEggs();
 		}
 
 	}
