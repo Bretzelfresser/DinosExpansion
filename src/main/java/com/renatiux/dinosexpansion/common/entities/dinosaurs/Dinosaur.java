@@ -430,10 +430,11 @@ public abstract class Dinosaur extends MonsterEntity
 		super.livingTick();
 		if (!this.world.isRemote) {
 			getTamingBehaviour().tick(this);
-			if (!getTamingBehaviour().shouldKnockout(this))
-				this.setKnockedOut(false);
-			else {
+			if (getTamingBehaviour().shouldKnockout(this)) {
 				this.setKnockedOut(true);
+				getTamingBehaviour().onKnockout(this);
+			}else if(getTamingBehaviour().shouldWakeUp(this)){
+				this.setKnockedOut(false);
 			}
 		}
 		if (sleepCooldown > 0)

@@ -62,6 +62,10 @@
 	"item.boomerang_loop":"Boomerang Flying",
 	"sound.boomerang_loop":"Boomerang Flying",
 	
+	"entity.dodo_idle":"Dodo",
+	"entity.dodo_hurt":"Hurt Dodo",
+	"entity.dodo_die":"Dying Dodo",
+	
 	"itemGroup.dinosexpansion.machines":"Machines",
 	"itemGroup.dinosexpansion.projectiles":"Weapons and Projectiles",
 	"itemGroup.dinosexpansion.misc":"Misc",

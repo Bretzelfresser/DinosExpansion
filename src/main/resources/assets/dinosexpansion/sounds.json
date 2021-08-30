@@ -18,5 +18,35 @@
 				"stream":true
 			}
 		]
+	},
+	"entity.dodo_idle":{
+		"category":"item",
+		"subtitle":"entity.dodo_idle",
+		"sounds":[
+			{
+				"name": "dinosexpansion:entity/dodo/dodo_idle",
+				"stream":true
+			}
+		]
+	},
+	"entity.dodo_hurt":{
+		"category":"item",
+		"subtitle":"entity.dodo_hurt",
+		"sounds":[
+			{
+				"name": "dinosexpansion:entity/dodo/dodo_hurt",
+				"stream":true
+			}
+		]
+	},
+	"entity.dodo_die":{
+		"category":"item",
+		"subtitle":"entity.dodo_die",
+		"sounds":[
+			{
+				"name": "dinosexpansion:entity/dodo/dodo_die",
+				"stream":true
+			}
+		]
 	}
 }

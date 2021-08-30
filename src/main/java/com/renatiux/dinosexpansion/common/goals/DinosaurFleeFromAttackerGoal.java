@@ -21,7 +21,7 @@ public class DinosaurFleeFromAttackerGoal extends PanicGoal {
 	 */
 	public boolean shouldExecute() {
 		LivingEntity livingentity = dino.getRevengeTarget();
-		if (livingentity != null && (dino.getStatus() == DinosaurStatus.WANDER || !dino.isTame()) && dino.getDistanceSq(livingentity) < 100.0D && super.shouldExecute()) {
+		if (!dino.isSleeping() && !dino.isKnockout() && livingentity != null && (dino.getStatus() == DinosaurStatus.WANDER || !dino.isTame()) && dino.getDistanceSq(livingentity) < 100.0D && super.shouldExecute()) {
 			setFleeingIfPossible(true);
 			return true;
 		} else {

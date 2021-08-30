@@ -33,7 +33,7 @@ public class DinosaurTamingScreen extends ContainerScreen<DinosaurTamingInventor
 		//hunger drawn
 		this.blit(matrixStack, middleX + 7, middleY + 69, 0, 174, (int) (84*calculateHungerPercentage(dino)), 6);
 		// entity drawn
-		InventoryScreen.drawEntityOnScreen(middleX + 40, middleY + 40, scale, (float) (middleX + 51) - this.mouseX,
+		InventoryScreen.drawEntityOnScreen(middleX + 50, middleY + 40, scale, (float) (middleX + 51) - this.mouseX,
 				(float) (middleY + 75 - 50) - this.mouseY, dino);
 
 	}

@@ -10,6 +10,7 @@ import com.renatiux.dinosexpansion.common.goals.DinosaurFleeFromAttackerGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurFollowGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurLookRandomlyGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaureWalkRandomlyGoal;
+import com.renatiux.dinosexpansion.core.init.SoundInit;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 
 import net.minecraft.entity.EntityType;
@@ -25,7 +26,9 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -47,11 +50,12 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 	public static final DataParameter<Boolean> FLEEING = EntityDataManager.createKey(Dodo.class,
 			DataSerializers.BOOLEAN);
 
-	private int hits;
+	private int hits, currentTicks;
 
 	public Dodo(EntityType<? extends Dinosaur> type, World worldIn, boolean child) {
 		super(type, worldIn, 7, child);
 		hits = 0;
+		currentTicks = 0;
 	}
 
 	public Dodo(EntityType<? extends Dinosaur> type, World world) {
@@ -160,6 +164,21 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 		}
 		return PlayState.STOP;
 	}
+	
+	@Override
+	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+		return SoundInit.DODO_HURT.get();
+	}
+	
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return SoundInit.DODO_IDLE.get();
+	}
+	
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundInit.DODO_DIE.get();
+	}
 
 	@Override
 	public void setFleeing(boolean fleeing) {
@@ -183,6 +202,14 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 		hits++;
 	}
 	
+	public int getCurrentTicks() {
+		return currentTicks;
+	}
+
+	public void setCurrentTicks(int currentTicks) {
+		this.currentTicks = currentTicks;
+	}
+
 	@Override
 	protected void updateSaddled() {
 	}

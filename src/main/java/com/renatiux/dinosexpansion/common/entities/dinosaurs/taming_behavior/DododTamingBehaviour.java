@@ -17,7 +17,6 @@ public class DododTamingBehaviour implements TamingBahviour<Dodo>{
 
 	@Override
 	public void openGui(PlayerEntity player, Dodo dino) {
-		System.out.println("hi");
 	}
 
 	@Override
@@ -56,6 +55,17 @@ public class DododTamingBehaviour implements TamingBahviour<Dodo>{
 	@Override
 	public void reset(Dodo dino) {
 		dino.setHits(0);
+		dino.setCurrentTicks(0);
+	}
+
+	@Override
+	public boolean shouldWakeUp(Dodo dino) {
+		return dino.ticksExisted - dino.getCurrentTicks() >= 6000;
+	}
+	
+	@Override
+	public void onKnockout(Dodo dino) {
+		dino.setCurrentTicks(dino.ticksExisted);
 	}
 
 }

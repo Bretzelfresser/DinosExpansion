@@ -223,7 +223,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
 	@Override
 	public void registerControllers(AnimationData data) {
-		data.addAnimationController(new AnimationController<Allosaurus>(this, "controller", 0, this));
+		data.addAnimationController(new AnimationController<Allosaurus>(this, "controller", 30, this));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -282,11 +282,11 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			idleCooldown = 0;
 		} else if (event.getController().getAnimationState() == AnimationState.Stopped || continuesAnimation) {
 			event.getController().transitionLengthTicks = 0;
+			//System.out.println(event.getController().transitionLengthTicks);
 			continuesAnimation = false;
 			event.getController()
 					.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
 		}
-
 		return PlayState.CONTINUE;
 	}
 

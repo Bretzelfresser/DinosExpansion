@@ -31,7 +31,7 @@ public class CollectSeedsGoal extends Goal {
 
 	@Override
 	public boolean shouldExecute() {
-		if (dodo.isKnockout() || dodo.isSleeping() || dodo.getStatus() != DinosaurStatus.WANDER)
+		if (dodo.isKnockout() || dodo.isSleeping() || dodo.getStatus() != DinosaurStatus.WANDER || !dodo.hasChest())
 			return false;
 		return findBush();
 	}
@@ -79,7 +79,7 @@ public class CollectSeedsGoal extends Goal {
 
 	@Override
 	public boolean shouldContinueExecuting() {
-		return !dodo.isInventoryFull();
+		return !dodo.isInventoryFull() && !dodo.isSleeping() && !dodo.isKnockout();
 	}
 
 }

@@ -68,6 +68,11 @@ public abstract class BaseGuiTamingBehaviour<T extends Dinosaur> implements Tami
 	}
 	
 	@Override
+	public boolean shouldWakeUp(T dino) {
+		return dino.getNarcoticValue() <= 0;
+	}
+	
+	@Override
 	public void reset(T dino) {
 		dino.setNarcotic(0);
 	}

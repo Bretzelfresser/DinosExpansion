@@ -15,5 +15,12 @@ public class SoundInit {
 			() -> new SoundEvent(Dinosexpansion.modLoc("item.boomerang_throw")));
 	public static final RegistryObject<SoundEvent> BOOMERANG_LOOP = SOUNDS.register("item.boomerang_loop", 
 			() -> new SoundEvent(Dinosexpansion.modLoc("item.boomerang_loop")));
+	
+	public static final RegistryObject<SoundEvent> DODO_IDLE = SOUNDS.register("entity.dodo_idle", 
+			() -> new SoundEvent(Dinosexpansion.modLoc("entity.dodo_idle")));
+	public static final RegistryObject<SoundEvent> DODO_HURT = SOUNDS.register("entity.dodo_hurt", 
+			() -> new SoundEvent(Dinosexpansion.modLoc("entity.dodo_hurt")));
+	public static final RegistryObject<SoundEvent> DODO_DIE = SOUNDS.register("entity.dodo_die", 
+			() -> new SoundEvent(Dinosexpansion.modLoc("entity.dodo_die")));
 
 }

@@ -27,6 +27,10 @@ public interface TamingBahviour<T extends Dinosaur> {
 	 * determines whether the dino should knochout
 	 */
 	public boolean shouldKnockout(T dino);
+	/**
+	 * determines whether the dino should wake up from the knockout
+	 */
+	public boolean shouldWakeUp(T dino);
 	
 	/**
 	 * this is called every tick, to make the dino tameable
@@ -42,4 +46,10 @@ public interface TamingBahviour<T extends Dinosaur> {
 	 */
 	public float onHit(DamageSource source, float amount, T dino);
 
+	/**
+	 * called when the dino gets knocked out from taming
+	 */
+	default void onKnockout(T dino) {
+		
+	}
 }
