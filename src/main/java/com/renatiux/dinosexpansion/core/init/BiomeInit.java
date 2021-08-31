@@ -10,13 +10,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class BiomeInit {
 
-	/*
-    public static Biome register(String id, Biome biome)
-    {
-        biome.setRegistryName(Dinosexpansion.modLoc(id));
-        ForgeRegistries.BIOMES.register(biome);
-        return biome;
-    }*/
     
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Dinosexpansion.MODID);
 
@@ -29,7 +22,23 @@ public class BiomeInit {
     public static final RegistryObject<Biome> WARM_DEEP_DINO_OCEAN = BIOMES.register("warm_deep_dino_ocean", DEBiomeMaker::warmDeepDinoOcean);
 
     public static final RegistryObject<Biome> REDWOOD_FOREST = BIOMES.register("redwood_forest", DEBiomeMaker::redwoodForest);
+    public static final RegistryObject<Biome> REDWOOD_FOREST_HILLS = BIOMES.register("redwood_forest_hills", DEBiomeMaker::redwoodForestHills);
 
     public static final RegistryObject<Biome> DINO_DESERT = BIOMES.register("dino_desert", DEBiomeMaker::dinoDesert);
+    public static final RegistryObject<Biome> DINO_DESERT_HILLS = BIOMES.register("dino_desert_hills", DEBiomeMaker::dinoDesertHills);
 
+    public static final RegistryObject<Biome> DINO_PLAINS = BIOMES.register("dino_plains", DEBiomeMaker::dinoPlains);
+    public static final RegistryObject<Biome> DINO_PLAINS_HILLS = BIOMES.register("dino_plains_hills", DEBiomeMaker::dinoPlainsHills);
+
+    public static final RegistryObject<Biome> DINO_SWAMP = BIOMES.register("dino_swamp", DEBiomeMaker::dinoSwamp);
+
+    public static final RegistryObject<Biome> DINO_RIVER = BIOMES.register("dino_river", DEBiomeMaker::dinoRiver);
+
+    public static final RegistryObject<Biome> DINO_MOUNTAIN = BIOMES.register("dino_mountain", DEBiomeMaker::dinoMountain);
+
+    public static final RegistryObject<Biome> DINO_BEACH = BIOMES.register("dino_beach", DEBiomeMaker::dinoBeach);
+    public static final RegistryObject<Biome> DINO_STONE_BEACH = BIOMES.register("dino_stone_beach", DEBiomeMaker::dinoStoneBeach);
+
+    public static final RegistryObject<Biome> DINO_CONIFER_FOREST = BIOMES.register("dino_conifer_forest", DEBiomeMaker::dinoConiferForest);
+    public static final RegistryObject<Biome> DINO_CONIFER_FOREST_HILLS = BIOMES.register("dino_conifer_forest_hills", DEBiomeMaker::dinoConiferForestHills);
 }

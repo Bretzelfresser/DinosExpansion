@@ -15,8 +15,25 @@ public class BiomeKeys {
     public static final RegistryKey<Biome> WARM_DEEP_DINO_OCEAN = register("warm_deep_dino_ocean");
 
     public static final RegistryKey<Biome> REDWOOD_FOREST = register("redwood_forest");
+    public static final RegistryKey<Biome> REDWOOD_FOREST_HILLS = register("redwood_forest_hills");
 
     public static final RegistryKey<Biome> DINO_DESERT = register("dino_desert");
+    public static final RegistryKey<Biome> DINO_DESERT_HILLS = register("dino_desert_hills");
+
+    public static final RegistryKey<Biome> DINO_PLAINS = register("dino_plains");
+    public static final RegistryKey<Biome> DINO_PLAINS_HILLS = register("dino_plains_hills");
+
+    public static final RegistryKey<Biome> DINO_SWAMP = register("dino_swamp");
+
+    public static final RegistryKey<Biome> DINO_RIVER = register("dino_river");
+
+    public static final RegistryKey<Biome> DINO_MOUNTAINS = register("dino_mountain");
+
+    public static final RegistryKey<Biome> DINO_BEACH = register("dino_beach");
+    public static final RegistryKey<Biome> DINO_STONE_BEACH = register("dino_stone_beach");
+
+    public static final RegistryKey<Biome> DINO_CONIFER_FOREST = register("dino_conifer_forest");
+    public static final RegistryKey<Biome> DINO_CONIFER_FOREST_HILLS = register("dino_conifer_forest_hills");
 
     private static RegistryKey<Biome> register(String id)
     {
