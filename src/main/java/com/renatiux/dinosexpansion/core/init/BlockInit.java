@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.core.init;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.blocks.DEOreBlock;
 import com.renatiux.dinosexpansion.common.blocks.DESapling;
+import com.renatiux.dinosexpansion.common.blocks.eggs.AllosaurusEggBlock;
 import com.renatiux.dinosexpansion.common.blocks.machine.Mortar;
 
 import com.renatiux.dinosexpansion.common.blocks.plants.DEDoubleFlowerBlock;
@@ -32,6 +33,7 @@ public class BlockInit {
 	
 	public static final DeferredRegister<Block> MACHINES = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 	public static final DeferredRegister<Block> PLANTS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
+	public static final DeferredRegister<Block> EGGS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 
 	//Machine
 	public static final RegistryObject<Block> MORTAR = MACHINES.register("mortar", Mortar::new);
@@ -99,7 +101,8 @@ public class BlockInit {
 	public static final RegistryObject<Block> REDWOOD_PLANKS = PLANTS.register("redwood_planks",
 			()-> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
 
-
+	//eggs
+	public static final RegistryObject<Block> ALLOSAURUS_EGG = EGGS.register("allosaurus_egg", AllosaurusEggBlock::new);
 
 
 	//Soils
