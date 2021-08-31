@@ -11,20 +11,28 @@ public class DinoBiomeLayer implements IAreaTransformer0 {
 
     protected int[] commonBiomes = new int[]
             {
-                    DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_DINO_OCEAN),
-                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_OCEAN),
                     DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT_HILLS),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_PLAINS),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_PLAINS_HILLS),
+
             };
 
     protected int[] uncommonBiomes = (new int[]
             {
-                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DEEP_DINO_OCEAN),
-                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DINO_OCEAN),
-
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_SWAMP),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_CONIFER_FOREST),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_CONIFER_FOREST_HILLS),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_MOUNTAINS),
             });
     protected int[] rareBiomes = (new int[]
             {
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_DINO_OCEAN),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DINO_OCEAN),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DEEP_DINO_OCEAN),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DINO_OCEAN),
                     DinoLayerUtil.getBiomeId(BiomeKeys.REDWOOD_FOREST),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.REDWOOD_FOREST_HILLS),
             });
 
     public DinoBiomeLayer(){
