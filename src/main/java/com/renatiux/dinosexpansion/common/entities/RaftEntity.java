@@ -68,14 +68,14 @@ public class RaftEntity extends BoatEntity implements INamedContainerProvider{
 	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
 		if(player.isSecondaryUseActive()) {
 			System.out.println("hi");
-			if (player.isSneaking() && !hasChest() && player.getHeldItem(hand).getItem() == Items.CHEST) {
-				player.getHeldItem(hand).shrink(1);
+			if (player.isSneaking() && !hasChest() && player.getHeldItem(Hand.MAIN_HAND).getItem() == Items.CHEST) {
+				player.getHeldItem(Hand.MAIN_HAND).shrink(1);
 				setChested(true);
 				return ActionResultType.SUCCESS;
-			} else if (!player.world.isRemote && player.isSneaking() && hasChest() && !player.getHeldItem(hand).isEmpty()) {
+			} else if (!player.world.isRemote && player.isSneaking() && hasChest() && !player.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, this, buf -> buf.writeVarInt(getEntityId()));
 				return ActionResultType.SUCCESS;
-			} else if (player.isSneaking() && hasChest() && player.getHeldItem(hand).isEmpty()) {
+			} else if (player.isSneaking() && hasChest() && player.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
 				dropInventory();
 				this.entityDropItem(new ItemStack(Items.CHEST));
 				setChested(false);
