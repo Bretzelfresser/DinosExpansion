@@ -1,0 +1,7 @@
+{
+  "parent": "dinosexpansion:block/three_allosaurus_egg",
+  "textures": {
+    "particle": "dinosexpansion:block/allosaurus_egg_very_cracked",
+    "all": "dinosexpansion:block/allosaurus_egg_very_cracked"
+  }
+}

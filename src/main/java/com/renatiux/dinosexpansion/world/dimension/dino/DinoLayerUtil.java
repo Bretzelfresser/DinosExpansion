@@ -18,9 +18,7 @@ import net.minecraft.world.gen.LazyAreaLayerContext;
 import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.area.IAreaFactory;
 import net.minecraft.world.gen.area.LazyArea;
-import net.minecraft.world.gen.layer.Layer;
-import net.minecraft.world.gen.layer.SmoothLayer;
-import net.minecraft.world.gen.layer.ZoomLayer;
+import net.minecraft.world.gen.layer.*;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer1;
 
 public class DinoLayerUtil {
@@ -45,27 +43,27 @@ public class DinoLayerUtil {
         return iareafactory;
     }
 
-    public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> makeLayers(LongFunction<C> contextFactory, Registry<Biome> registry)
-    {
+    public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> makeLayers(LongFunction<C> contextFactory, Registry<Biome> registry) {
         biomeRegistry = registry;
 
-        IAreaFactory<T> dinoIsland = DinoIslandLayer.INSTANCE.apply(contextFactory.apply(1L));
-        dinoIsland = ZoomLayer.FUZZY.apply(contextFactory.apply(2000L), dinoIsland);
-        dinoIsland = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(1L), dinoIsland);
-        dinoIsland = ZoomLayer.NORMAL.apply(contextFactory.apply(2001L), dinoIsland);
-        dinoIsland = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(2L), dinoIsland);
-        dinoIsland = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(50L), dinoIsland);
-        dinoIsland = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(70L), dinoIsland);
-        dinoIsland = DinoRemoveTooMuchOceanLayer.INSTANCE.apply(contextFactory.apply(2L), dinoIsland);
-        IAreaFactory<T> oceanLayer = DinoOceanLayer.INSTANCE.apply(contextFactory.apply(2L));
-        oceanLayer = zoom(2001L, ZoomLayer.NORMAL, oceanLayer, 6, contextFactory);
-        dinoIsland = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(3L), dinoIsland);
-        dinoIsland = ZoomLayer.NORMAL.apply(contextFactory.apply(2002L), dinoIsland);
-        dinoIsland = ZoomLayer.NORMAL.apply(contextFactory.apply(2003L), dinoIsland);
-        dinoIsland = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(4L), dinoIsland);
-        dinoIsland = DinoDeepOceanLayer.INSTANCE.apply(contextFactory.apply(4L), dinoIsland);
-        dinoIsland = zoom(1000L, ZoomLayer.NORMAL, dinoIsland, 0, contextFactory);
-        IAreaFactory<T> riverLayer = zoom(1000L, ZoomLayer.NORMAL, dinoIsland, 0, contextFactory);
+        IAreaFactory<T> firstStep = DinoIslandLayer.INSTANCE.apply(contextFactory.apply(1L));
+        firstStep = ZoomLayer.FUZZY.apply(contextFactory.apply(2000L), firstStep);
+        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(1L), firstStep);
+        firstStep = ZoomLayer.NORMAL.apply(contextFactory.apply(2001L), firstStep);
+        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(2L), firstStep);
+        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(50L), firstStep);
+        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(70L), firstStep);
+        firstStep = DinoRemoveTooMuchOceanLayer.INSTANCE.apply(contextFactory.apply(2L), firstStep);
+        IAreaFactory<T> secondStep = DinoOceanLayer.INSTANCE.apply(contextFactory.apply(2L));
+        secondStep = zoom(2001L, ZoomLayer.NORMAL, secondStep, 6, contextFactory);
+        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(3L), firstStep);
+        firstStep = ZoomLayer.NORMAL.apply(contextFactory.apply(2002L), firstStep);
+        firstStep = ZoomLayer.NORMAL.apply(contextFactory.apply(2003L), firstStep);
+        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(4L), firstStep);
+        firstStep = DinoDeepOceanLayer.INSTANCE.apply(contextFactory.apply(4L), firstStep);
+        firstStep = zoom(1000L, ZoomLayer.NORMAL, firstStep, 0, contextFactory);
+        IAreaFactory<T> thirdStep = zoom(1000L, ZoomLayer.NORMAL, firstStep, 0, contextFactory);
+        //thirdStep = DinoStartRiverLayer.INSTANCE.run(contextFactory.apply(100L), thirdStep);
         IAreaFactory<T> biomes = new DinoBiomeLayer().apply(contextFactory.apply(1L));
         biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1000), biomes);
         biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1001), biomes);
@@ -73,11 +71,12 @@ public class DinoLayerUtil {
         biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1003), biomes);
         biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1004), biomes);
         biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1005), biomes);
-        IAreaFactory<T> hillLayer = zoom(1000L, ZoomLayer.NORMAL, riverLayer, 2, contextFactory);
-        biomes = DinoHillsLayer.INSTANCE.apply(contextFactory.apply(1000L), biomes, hillLayer);
-        riverLayer = zoom(1000L, ZoomLayer.NORMAL, riverLayer, 2, contextFactory);
-        riverLayer = zoom(1000L, ZoomLayer.NORMAL, riverLayer, 4, contextFactory);
-        riverLayer = SmoothLayer.INSTANCE.apply(contextFactory.apply(1000L), riverLayer);
+        IAreaFactory<T> fithStep = zoom(1000L, ZoomLayer.NORMAL, thirdStep, 2, contextFactory);
+        biomes = DinoHillsLayer.INSTANCE.apply(contextFactory.apply(1000L), biomes, fithStep);
+        thirdStep = zoom(1000L, ZoomLayer.NORMAL, thirdStep, 2, contextFactory);
+        thirdStep = zoom(1000L, ZoomLayer.NORMAL, thirdStep, 4, contextFactory);
+        //thirdStep = DinoRiverLayer.INSTANCE.run(contextFactory.apply(1L), biomes);
+        thirdStep = SmoothLayer.INSTANCE.apply(contextFactory.apply(1000L), thirdStep);
 
         for(int i = 0; i < 4; ++i)
         {
@@ -89,12 +88,11 @@ public class DinoLayerUtil {
         }
 
         biomes = SmoothLayer.INSTANCE.apply(contextFactory.apply(1000L), biomes);
+        //biomes = DinoRiverMixLayer.INSTANCE.run(contextFactory.apply(100L), biomes, thirdStep);
 
-        return DinoMixOceansLayer.INSTANCE.apply(contextFactory.apply(100L), biomes, oceanLayer);
-
+        return DinoMixOceansLayer.INSTANCE.apply(contextFactory.apply(100L), biomes, secondStep);
     }
-
-    public static boolean isSame(int biomeSeed1, int biomeSeed2)
+    public static boolean areBiomesSimilar(int biomeSeed1, int biomeSeed2)
     {
         if(biomeSeed1 == biomeSeed2)
         {
