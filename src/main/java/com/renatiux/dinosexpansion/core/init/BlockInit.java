@@ -154,6 +154,12 @@ public class BlockInit {
 			blockItem.setRegistryName(block.getRegistryName());
 			registry.register(blockItem);
 		});
+		BlockInit.EGGS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
+			final Item.Properties properties = new Item.Properties().group(ItemGroupInit.MISC);
+			final BlockItem blockItem = new BlockItem(block, properties);
+			blockItem.setRegistryName(block.getRegistryName());
+			registry.register(blockItem);
+		});
 	}
 
 	@SubscribeEvent

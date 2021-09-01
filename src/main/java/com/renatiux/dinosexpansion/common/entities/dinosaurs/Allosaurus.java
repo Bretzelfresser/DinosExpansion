@@ -13,8 +13,10 @@ import com.renatiux.dinosexpansion.common.goals.DinosaurLookRandomlyGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurNearestAttackableTarget;
 import com.renatiux.dinosexpansion.common.goals.DinosaureWalkRandomlyGoal;
 import com.renatiux.dinosexpansion.common.items.PoopItem.PoopSize;
+import com.renatiux.dinosexpansion.core.init.BlockInit;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -346,6 +348,10 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	
 	@Override
 	public void spawnChild(ServerWorld world, Dinosaur dino) {
+		BlockState state = world.getBlockState(this.getPosition().down());
+		if(state.isSolid()) {
+			world.setBlockState(this.getPosition(), BlockInit.ALLOSAURUS_EGG.get().getDefaultState());
+		}
 		super.spawnChild(world, dino);
 	}
 

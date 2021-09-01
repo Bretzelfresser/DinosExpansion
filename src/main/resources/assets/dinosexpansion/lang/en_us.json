@@ -29,6 +29,7 @@
 	"block.dinosexpansion.tempskya":"Tempskya",
 	"block.dinosexpansion.dino_sand":"Dino Sand",
 	"block.dinosexpansion.dino_silt":"Dino Silt",
+	"block.dinosexpansion.allosaurus_egg":"Allosaurus Egg",
 	
 	"item.dinosexpansion.tranquillizer_arrow":"Tranquillizer Arrow",
 	"item.dinosexpansion.net_item.name":"Net",
@@ -54,6 +55,9 @@
 	"item.dinosexpansion.time_machine":"Time Machine",
 	"item.dinosexpansion.allosaurus_spawn_egg":"Allosaurus Spawn Egg",
 	"item.dinosexpansion.dodo_spawn_egg":"Dodo Spawn Egg",
+	"item.dinosexpansion.raw_brownstone":"Raw Brownstone",
+	"item.dinosexpansion.polished_brownstone":"Polished Brownstone",
+	"item.dinosexpansion.purple_gem":"Purple Pem",
 	
 	"entity.dinosexpansion.allosaurus":"Allosaurus",
 	"entity.dinosexpansion.raft":"Raft",

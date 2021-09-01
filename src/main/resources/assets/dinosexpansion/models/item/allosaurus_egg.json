@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "dinosexpansion:item/allosaurus_egg"
+    "layer0": "dinosexpansion:block/allosaurus_egg"
   }
 }
