@@ -57,7 +57,10 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 		hits = 0;
 		currentTicks = 0;
 	}
-
+	
+	
+	
+	
 	public Dodo(EntityType<? extends Dinosaur> type, World world) {
 		this(type, world, false);
 	}

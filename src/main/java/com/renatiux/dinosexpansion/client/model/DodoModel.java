@@ -22,5 +22,7 @@ public class DodoModel extends AnimatedGeoModel<Dodo>{
 	public ResourceLocation getTextureLocation(Dodo object) {
 		return Dinosexpansion.modLoc("textures/entity/dinosaur/dodo.png");
 	}
+	
+	
 
 }

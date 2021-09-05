@@ -92,11 +92,12 @@ public abstract class Dinosaur extends MonsterEntity
 			DataSerializers.VARINT);
 
 	protected final int sizeInventory;
-	protected int sleepCooldown, hungerCounter, growingAge, poopCooldown;
+	protected int sleepCooldown, hungerCounter, growingAge, poopCooldown, breedCooldown;
 	protected AnimationFactory factory = new AnimationFactory(this);
 	protected Inventory dinosaurInventory, tamingInventory;
 
 	private boolean dead, forcedSleep;
+	private Sex sex;
 	private List<ItemStack> stacksToDrop;
 	private DinosaurStatus prevStatus;
 
@@ -112,6 +113,7 @@ public abstract class Dinosaur extends MonsterEntity
 		super(type, worldIn);
 		this.sizeInventory = sizeInventory;
 		this.hungerCounter = 0;
+		this.breedCooldown = 0;
 		dead = false;
 		forcedSleep = false;
 		if (child)
@@ -121,6 +123,7 @@ public abstract class Dinosaur extends MonsterEntity
 		setToChild(child);
 		prevStatus = DinosaurStatus.IDLE;
 		this.ignoreFrustumCheck = true;
+		this.sex = getInitialSex();
 		this.stacksToDrop = new LinkedList<>();
 		initInventory(sizeInventory);
 		InitTamingInventory(12);
@@ -147,7 +150,7 @@ public abstract class Dinosaur extends MonsterEntity
 				setTamedBy(player);
 				getTamingBehaviour().reset(this);
 				return ActionResultType.SUCCESS;
-			} else if (isTame() && isOwner(player) && player.getHeldItem(hand).getItem() == Items.STICK) {
+			} else if (isTame() && isOwner(player) && player.getHeldItem(Hand.MAIN_HAND).getItem() == Items.STICK) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
 
 					@Override
@@ -208,6 +211,14 @@ public abstract class Dinosaur extends MonsterEntity
 	 * @return
 	 */
 	public abstract boolean canBreed();
+	
+	/**
+	 * 
+	 * @return the cooldown the dino has after bred, default is 10 mins, value is in ticks
+	 */
+	public int getBreedCooldown() {
+		return 12000;
+	}
 
 	/**
 	 * checks whether it can breed with a certain Dinosaur, default is it breeds
@@ -225,6 +236,7 @@ public abstract class Dinosaur extends MonsterEntity
 	public void spawnChild(ServerWorld world, Dinosaur dino) {
 		world.setEntityState(this, (byte) 6);
 		world.setEntityState(dino, (byte) 6);
+		this.breedCooldown = getBreedCooldown();
 	}
 
 	/**
@@ -249,7 +261,7 @@ public abstract class Dinosaur extends MonsterEntity
 	 *         Dinos it can breed with
 	 */
 	public boolean isReadyToBreed() {
-		return getStatus() == DinosaurStatus.BREED;
+		return getStatus() == DinosaurStatus.BREED && breedCooldown == 0;
 	}
 
 	/**
@@ -439,6 +451,9 @@ public abstract class Dinosaur extends MonsterEntity
 		}
 		if (sleepCooldown > 0)
 			sleepCooldown--;
+		if(breedCooldown > 0) {
+			breedCooldown--;
+		}
 		if (!this.world.isRemote) {
 			if (isSleeping()) {
 				if (shouldWakeUp()) {
@@ -1121,5 +1136,22 @@ public abstract class Dinosaur extends MonsterEntity
 	public abstract int shrinkNarcotic(int narcotic);
 
 	protected abstract <T extends Dinosaur> TamingBahviour<T> getTamingBehaviour();
+	
+	public Sex getInitialSex() {
+		if(this.rand.nextInt(100) % 2 == 0)
+			return Sex.MALE;
+		return Sex.FEMALE;
+	}
+	
+	public Sex getSex() {
+		return sex;
+	}
+	
+	
+	public static enum Sex{
+		MALE,
+		FEMALE,
+		ASEXUAL;
+	}
 
 }

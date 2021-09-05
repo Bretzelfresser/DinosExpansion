@@ -39,9 +39,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -73,7 +75,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	public Allosaurus(EntityType<? extends Dinosaur> type, World worldIn) {
 		this(type, worldIn, false);
 	}
-	
+
 	public Allosaurus(EntityType<? extends Dinosaur> type, World worldIn, boolean child) {
 		super(type, worldIn, 18, child);
 		attackCounter = 0;
@@ -284,7 +286,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			idleCooldown = 0;
 		} else if (event.getController().getAnimationState() == AnimationState.Stopped || continuesAnimation) {
 			event.getController().transitionLengthTicks = 0;
-			//System.out.println(event.getController().transitionLengthTicks);
+			// System.out.println(event.getController().transitionLengthTicks);
 			continuesAnimation = false;
 			event.getController()
 					.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
@@ -345,12 +347,17 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	public boolean canEat(ItemStack stack) {
 		return Tags.Items.DINOSAUR_MEAT_FOOD.contains(stack.getItem());
 	}
-	
+
 	@Override
 	public void spawnChild(ServerWorld world, Dinosaur dino) {
-		BlockState state = world.getBlockState(this.getPosition().down());
-		if(state.isSolid()) {
-			world.setBlockState(this.getPosition(), BlockInit.ALLOSAURUS_EGG.get().getDefaultState());
+		BlockPos pos = this.getPosition();
+		while (true) {
+			pos = pos.down();
+			BlockState state = world.getBlockState(pos);
+			if (state.isSolid()) {
+				world.setBlockState(pos.up(), BlockInit.ALLOSAURUS_EGG.get().getDefaultState().with(BlockStateProperties.EGGS_1_4, this.rand.nextInt(4)));
+				break;
+			}
 		}
 		super.spawnChild(world, dino);
 	}
@@ -383,6 +390,19 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		return true;
 	}
 
+	@Override
+	public boolean canBreedWith(Dinosaur dino) {
+		if (dino instanceof Allosaurus) {
+			if (this.getSex() == Sex.MALE) {
+				return dino.getSex() == Sex.FEMALE;
+			}
+			if (this.getSex() == Sex.FEMALE) {
+				return dino.getSex() == Sex.MALE;
+			}
+		}
+		return super.canBreedWith(dino);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected TamingBahviour<Allosaurus> getTamingBehaviour() {
@@ -393,11 +413,10 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	public int timeBetweenPooping() {
 		return 1200;
 	}
-	
+
 	@Override
 	protected PoopSize getPoopSize() {
 		return PoopSize.MEDIUM;
 	}
-	
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur.Sex;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.DinosaurStatus;
 
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -14,7 +16,7 @@ import net.minecraft.world.server.ServerWorld;
 
 public class DinosaurBreedGoal extends Goal {
 	   private static final EntityPredicate field_220689_d = (new EntityPredicate()).setDistance(8.0D).allowInvulnerable().allowFriendlyFire();
-	   protected final Dinosaur animal;
+	   protected final Dinosaur dino;
 	   private final Class<? extends Dinosaur> mateClass;
 	   protected final World world;
 	   protected Dinosaur targetMate;
@@ -32,7 +34,7 @@ public class DinosaurBreedGoal extends Goal {
 	    * mates with the given class
 	    */
 	   public DinosaurBreedGoal(Dinosaur animal, double moveSpeed, Class<? extends Dinosaur> mateClass) {
-	      this.animal = animal;
+	      this.dino = animal;
 	      this.world = animal.world;
 	      this.mateClass = mateClass;
 	      this.moveSpeed = moveSpeed;
@@ -44,7 +46,7 @@ public class DinosaurBreedGoal extends Goal {
 	    * method as well.
 	    */
 	   public boolean shouldExecute() {
-	      if (!this.animal.isReadyToBreed()) {
+	      if (!this.dino.isReadyToBreed()) {
 	         return false;
 	      } else {
 	         this.targetMate = this.getNearbyMate();
@@ -65,16 +67,17 @@ public class DinosaurBreedGoal extends Goal {
 	   public void resetTask() {
 	      this.targetMate = null;
 	      this.spawnBabyDelay = 0;
+	      this.dino.setStatus(DinosaurStatus.IDLE);
 	   }
 
 	   /**
 	    * Keep ticking a continuous task that has already been started
 	    */
 	   public void tick() {
-	      this.animal.getLookController().setLookPositionWithEntity(this.targetMate, 10.0F, (float)this.animal.getVerticalFaceSpeed());
-	      this.animal.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);
+	      this.dino.getLookController().setLookPositionWithEntity(this.targetMate, 10.0F, (float)this.dino.getVerticalFaceSpeed());
+	      this.dino.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);
 	      ++this.spawnBabyDelay;
-	      if (this.spawnBabyDelay >= 60 && this.animal.getDistanceSq(this.targetMate) < 9.0D) {
+	      if (this.spawnBabyDelay >= 60 && this.dino.getDistanceSq(this.targetMate) < 9.0D) {
 	         this.spawnBaby();
 	      }
 
@@ -86,14 +89,14 @@ public class DinosaurBreedGoal extends Goal {
 	    */
 	   @Nullable
 	   private Dinosaur getNearbyMate() {
-	      List<Dinosaur> list = this.world.getTargettableEntitiesWithinAABB(this.mateClass, field_220689_d, this.animal, this.animal.getBoundingBox().grow(8.0D));
+	      List<Dinosaur> list = this.world.getTargettableEntitiesWithinAABB(this.mateClass, field_220689_d, this.dino, this.dino.getBoundingBox().grow(8.0D));
 	      double d0 = Double.MAX_VALUE;
 	      Dinosaur animalentity = null;
 
 	      for(Dinosaur animalentity1 : list) {
-	         if (this.animal.canBreedWith(animalentity1) && this.animal.getDistanceSq(animalentity1) < d0) {
+	         if (this.dino.canBreedWith(animalentity1) && this.dino.getDistanceSq(animalentity1) < d0) {
 	            animalentity = animalentity1;
-	            d0 = this.animal.getDistanceSq(animalentity1);
+	            d0 = this.dino.getDistanceSq(animalentity1);
 	         }
 	      }
 
@@ -104,7 +107,8 @@ public class DinosaurBreedGoal extends Goal {
 	    * Spawns a baby animal of the same type.
 	    */
 	   protected void spawnBaby() {
-	      this.animal.spawnChild((ServerWorld)this.world, this.targetMate);
+		   if(dino.getSex() == Sex.FEMALE)
+			   this.dino.spawnChild((ServerWorld)this.world, this.targetMate);
 	   }
 	}
 
