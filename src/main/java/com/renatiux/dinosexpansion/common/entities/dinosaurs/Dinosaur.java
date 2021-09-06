@@ -88,8 +88,8 @@ public abstract class Dinosaur extends MonsterEntity
 			DataSerializers.VARINT);
 	public static final DataParameter<Integer> HUNGER = EntityDataManager.createKey(Dinosaur.class,
 			DataSerializers.VARINT);
-	public static final DataParameter<Integer> STATUS = EntityDataManager.createKey(Dinosaur.class,
-			DataSerializers.VARINT);
+	public static final DataParameter<Integer> STATUS = EntityDataManager.createKey(Dinosaur.class,DataSerializers.VARINT);
+	public static final DataParameter<String> RARITY = EntityDataManager.createKey(Dinosaur.class, DataSerializers.STRING);
 
 	protected final int sizeInventory;
 	protected int sleepCooldown, hungerCounter, growingAge, poopCooldown, breedCooldown;
@@ -124,6 +124,7 @@ public abstract class Dinosaur extends MonsterEntity
 		prevStatus = DinosaurStatus.IDLE;
 		this.ignoreFrustumCheck = true;
 		this.sex = getInitialSex();
+		getInitialRarity();
 		this.stacksToDrop = new LinkedList<>();
 		initInventory(sizeInventory);
 		InitTamingInventory(12);
@@ -322,7 +323,6 @@ public abstract class Dinosaur extends MonsterEntity
 	 * algorithm here
 	 */
 	protected void poop() {
-		poopCooldown = timeBetweenPooping();
 		Poop poop = new Poop(world, getPoopSize());
 		Vector3d lookVec = this.getLookVec();
 		lookVec = lookVec.scale(-2);
@@ -465,6 +465,7 @@ public abstract class Dinosaur extends MonsterEntity
 		}
 		if (canPoop() && randomChancePoop()) {
 			poop();
+			poopCooldown = timeBetweenPooping();
 		}
 	}
 
@@ -508,6 +509,7 @@ public abstract class Dinosaur extends MonsterEntity
 		this.dataManager.register(PLAYER_KNOCKOUTED_ID, Optional.empty());
 		this.dataManager.register(STATUS, DinosaurStatus.IDLE.getID());
 		this.dataManager.register(CHILD, false);
+		this.dataManager.register(RARITY, getInitialRarity().name());
 	}
 
 	/**
@@ -1137,10 +1139,32 @@ public abstract class Dinosaur extends MonsterEntity
 
 	protected abstract <T extends Dinosaur> TamingBahviour<T> getTamingBehaviour();
 	
-	public Sex getInitialSex() {
+	protected Sex getInitialSex() {
 		if(this.rand.nextInt(100) % 2 == 0)
 			return Sex.MALE;
 		return Sex.FEMALE;
+	}
+	
+	protected Rarity getInitialRarity() {
+		if(this.rand.nextDouble() < 0.1d)
+			return Rarity.LEGENDARY;
+		if(this.rand.nextDouble() < 0.2d)
+			return Rarity.EPIC;
+		if(this.rand.nextDouble() < 0.4d)
+			return Rarity.RARE;
+		return Rarity.COMMON;
+	}
+	/**
+	 * synced with the client
+	 */
+	public Rarity getRarity() {
+		return Rarity.valueOf(this.dataManager.get(RARITY));
+	}
+	/**
+	 * sets the Rarity, used by dinosaurs to set the rarity of the child
+	 */
+	protected void setRarity(Rarity rarity) {
+		this.dataManager.set(RARITY, rarity.name());
 	}
 	
 	public Sex getSex() {
@@ -1152,6 +1176,13 @@ public abstract class Dinosaur extends MonsterEntity
 		MALE,
 		FEMALE,
 		ASEXUAL;
+	}
+	
+	public static enum Rarity{
+		COMMON,
+		RARE,
+		EPIC,
+		LEGENDARY;
 	}
 
 }

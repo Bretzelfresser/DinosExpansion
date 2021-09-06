@@ -28,6 +28,7 @@ public class ModItemModelsProvider extends ItemModelProvider{
 		registerSimpleModel(ItemInit.KIBBLE_BASIC.get());
 		registerSpawnEgg(ItemInit.ALLOSAURUS_SPAWN_EGG.get());
 		registerSpawnEgg(ItemInit.DODO_SPAWN_EGG.get());
+		registerSpawnEgg(ItemInit.CHIMERARACHNE_SPAWN_EGG.get());
 	}
 	
 	private void registerArrows() {

@@ -3,10 +3,12 @@ package com.renatiux.dinosexpansion.core.init;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.RaftEntity;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.entities.projectiles.*;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;
@@ -18,10 +20,9 @@ public class EntityTypeInit {
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Dinosexpansion.MODID);
 	public static final DeferredRegister<EntityType<?>> ARROW_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Dinosexpansion.MODID);
 	
-	public static final RegistryObject<EntityType<Allosaurus>> ALLOSAURUS = ENTITY_TYPES.register("allosaurus", () -> 
-	EntityType.Builder.<Allosaurus>create(Allosaurus::new, EntityClassification.MONSTER).size(1.8f, 2.7f).build(Dinosexpansion.modLoc("allosaurus").toString()));
-	public static final RegistryObject<EntityType<Dodo>> DODO = ENTITY_TYPES.register("dodo", () ->
-	EntityType.Builder.<Dodo>create(Dodo::new, EntityClassification.CREATURE).size(1.0f, 1.5f).build(Dinosexpansion.modLoc("dodo").toString()));
+	public static final RegistryObject<EntityType<Allosaurus>> ALLOSAURUS = register("allosaurus", EntityType.Builder.<Allosaurus>create(Allosaurus::new, EntityClassification.MONSTER).size(1.8f, 2.7f));
+	public static final RegistryObject<EntityType<Dodo>> DODO = register("dodo", EntityType.Builder.<Dodo>create(Dodo::new, EntityClassification.CREATURE).size(1.0f, 1.5f));
+	public static final RegistryObject<EntityType<Chimerarachne>> CHIMERARACHNE = register("chimerarachne", EntityType.Builder.<Chimerarachne>create(Chimerarachne::new, EntityClassification.MONSTER).size(2.0f, 0.7f));
 
 	public static final RegistryObject<EntityType<TranquilizerArrowEntity>> TRANQUILIZER_ARROW = ARROW_ENTITY_TYPES.register("tranquillizer_arrow", 
 			() -> EntityType.Builder.<TranquilizerArrowEntity>create(TranquilizerArrowEntity::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("tranquillizer_arrow").toString()));
@@ -40,4 +41,9 @@ public class EntityTypeInit {
 	
 	public static final RegistryObject<EntityType<DiamondBoomerang>> DIAMOND_BOOMERANG = ENTITY_TYPES.register("diamond_boomerang", 
 			() -> EntityType.Builder.<DiamondBoomerang>create(DiamondBoomerang::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("diamond_boomerang").toString()));
+	
+	
+	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builer){
+		return ENTITY_TYPES.register(name, () -> builer.build(Dinosexpansion.modLoc(name).toString()));
+	}
 }

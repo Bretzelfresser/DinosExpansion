@@ -24,6 +24,9 @@ public abstract class DinosuarRenderer<T extends Dinosaur> extends GeoEntityRend
 	public void render(GeoModel model, T animatable, float partialTicks, RenderType type, MatrixStack matrixStackIn,
 			IRenderTypeBuffer renderTypeBuffer, IVertexBuilder vertexBuilder, int packedLightIn, int packedOverlayIn,
 			float red, float green, float blue, float alpha) {
+		if(animatable.isChild()) {
+			matrixStackIn.scale(0.5f, 0.5f, 0.5f);
+		}
 		if (renderTypeBuffer != null) {
 			vertexBuilder = renderTypeBuffer.getBuffer(type);
 		}

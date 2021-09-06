@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.renatiux.dinosexpansion.client.dimension.DinoDimensionRenderInfo;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
 import com.renatiux.dinosexpansion.common.items.CustomSpawnEgg;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
@@ -115,6 +116,7 @@ public class Dinosexpansion {
 		event.put(EntityTypeInit.ALLOSAURUS.get(), Allosaurus.setCustomAttributes().create());
 		event.put(EntityTypeInit.POOP.get(), LivingEntity.registerAttributes().create());
 		event.put(EntityTypeInit.DODO.get(), Dodo.setCustomAttributes().create());
+		event.put(EntityTypeInit.CHIMERARACHNE.get(), Chimerarachne.registerAttributes().create());
 	}
 
 	@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

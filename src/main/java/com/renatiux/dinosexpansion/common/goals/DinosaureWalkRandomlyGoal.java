@@ -26,8 +26,10 @@ public class DinosaureWalkRandomlyGoal extends RandomWalkingGoal{
 	
 	@Override
 	public boolean shouldExecute() {
-		if(interruptionCases())
-			return super.shouldExecute();
+		if(interruptionCases()) {
+			boolean temp = super.shouldExecute();
+			return temp;
+		}
 		return false;
 	}
 	

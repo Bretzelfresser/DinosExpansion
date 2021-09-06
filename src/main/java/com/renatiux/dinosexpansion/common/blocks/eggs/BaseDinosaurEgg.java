@@ -42,6 +42,7 @@ public abstract class BaseDinosaurEgg extends Block {
 				this.stateContainer.getBaseState().with(HATCH, Integer.valueOf(0)).with(EGGS, Integer.valueOf(1)));
 	}
 
+	
 	/**
 	 * Called when the given entity walks on this Block
 	 */
