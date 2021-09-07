@@ -55,7 +55,7 @@ public class Dinosexpansion {
 	}
 
 	public static boolean ENABLE_OVERWORLD_TREES = true;
-
+	public static final String ARMOR_DIR = MODID + ":textures/armor/";
 	public Dinosexpansion() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, DEModConfig.init(new ForgeConfigSpec.Builder()));

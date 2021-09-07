@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import com.renatiux.dinosexpansion.common.biomes.BiomeKeys;
 import com.renatiux.dinosexpansion.world.dimension.WorldSeedHolder;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.SharedConstants;
@@ -24,14 +25,34 @@ public class DinoBiomeProvider extends BiomeProvider {
     private final long seed;
     private final Registry<Biome> registry;
     private final Layer genBiomes;
-    private static final List<RegistryKey<Biome>> BIOMES = ImmutableList.of();
+    private static final List<RegistryKey<Biome>> POSSIBLE_BIOMES  = ImmutableList.of(
+
+            BiomeKeys.DEEP_DINO_OCEAN,
+            BiomeKeys.DINO_DESERT,
+            BiomeKeys.DINO_CONIFER_FOREST,
+            BiomeKeys.DINO_BEACH,
+            BiomeKeys.DINO_PLAINS,
+            BiomeKeys.DINO_CONIFER_FOREST_HILLS,
+            BiomeKeys.DINO_DESERT_HILLS,
+            BiomeKeys.DINO_MOUNTAINS,
+            BiomeKeys.DINO_OCEAN,
+            BiomeKeys.DINO_PLAINS_HILLS,
+            BiomeKeys.DINO_RIVER,
+            BiomeKeys.DINO_STONE_BEACH,
+            BiomeKeys.DINO_SWAMP,
+            BiomeKeys.REDWOOD_FOREST,
+            BiomeKeys.REDWOOD_FOREST_HILLS,
+            BiomeKeys.WARM_DEEP_DINO_OCEAN,
+            BiomeKeys.WARM_DINO_OCEAN
+
+    );
 
     public DinoBiomeProvider(long seed, Registry<Biome> registry)
     {
-        super(BIOMES.stream().map(define -> () -> registry.getOrThrow(define)));
+        super(POSSIBLE_BIOMES.stream().map(define -> () -> registry.getOrThrow(define)));
         this.seed = WorldSeedHolder.getSeed();
         this.registry = registry;
-        this.genBiomes = DinoLayerUtil.makeLayers(seed, registry);
+        this.genBiomes = DinoLayerUtil.buildDino(WorldSeedHolder.getSeed(), registry);
     }
 
     @Override
@@ -45,28 +66,8 @@ public class DinoBiomeProvider extends BiomeProvider {
     }
 
     @Override
-    public Biome getNoiseBiome(int x, int y, int z) {
-        return this.getBiomeFromPos(registry, x, z);
-    }
-
-    public Biome getBiomeFromPos(Registry<Biome> registry, int x, int z)
+    public Biome getNoiseBiome(int x, int y, int z)
     {
-        int i = genBiomes.field_215742_b.getValue(x, z);
-        Biome biome = registry.getByValue(i);
-        if(biome == null)
-        {
-            if(SharedConstants.developmentMode)
-            {
-                throw Util.pauseDevMode(new IllegalStateException("Unknown biome id: " + i));
-            }
-            else
-            {
-                return registry.getOrThrow(BiomeRegistry.getKeyFromID(0));
-            }
-        }
-        else
-        {
-            return biome;
-        }
+        return this.genBiomes.func_242936_a(this.registry, x, z);
     }
 }

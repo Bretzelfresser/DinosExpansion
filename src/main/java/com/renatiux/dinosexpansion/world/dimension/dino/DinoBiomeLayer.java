@@ -3,8 +3,9 @@ package com.renatiux.dinosexpansion.world.dimension.dino;
 import com.renatiux.dinosexpansion.common.biomes.BiomeKeys;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
+import net.minecraft.world.gen.layer.traits.IC0Transformer;
 
-public class DinoBiomeLayer implements IAreaTransformer0 {
+public class DinoBiomeLayer implements IC0Transformer {
 
     private static final int UNCOMMON_BIOME_CHANCE = 8;
     private static final int RARE_BIOME_CHANCE = 16;
@@ -40,7 +41,7 @@ public class DinoBiomeLayer implements IAreaTransformer0 {
     }
 
     @Override
-    public int apply(INoiseRandom iNoiseRandom, int i, int i1) {
+    public int apply(INoiseRandom iNoiseRandom, int rand) {
         if(iNoiseRandom.random(RARE_BIOME_CHANCE)==0)
         {
             return rareBiomes[iNoiseRandom.random(rareBiomes.length)];

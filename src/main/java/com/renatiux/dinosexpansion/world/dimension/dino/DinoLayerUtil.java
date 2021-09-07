@@ -3,13 +3,7 @@ package com.renatiux.dinosexpansion.world.dimension.dino;
 import java.util.function.LongFunction;
 
 import com.renatiux.dinosexpansion.common.biomes.BiomeKeys;
-import com.renatiux.dinosexpansion.world.dimension.layers.hills.DinoHillsLayer;
-import com.renatiux.dinosexpansion.world.dimension.layers.island.DinoAddIslandLayer;
-import com.renatiux.dinosexpansion.world.dimension.layers.island.DinoIslandLayer;
-import com.renatiux.dinosexpansion.world.dimension.layers.ocean.DinoDeepOceanLayer;
-import com.renatiux.dinosexpansion.world.dimension.layers.ocean.DinoMixOceansLayer;
-import com.renatiux.dinosexpansion.world.dimension.layers.ocean.DinoOceanLayer;
-import com.renatiux.dinosexpansion.world.dimension.layers.ocean.DinoRemoveTooMuchOceanLayer;
+import com.renatiux.dinosexpansion.world.dimension.layers.*;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -31,75 +25,63 @@ public class DinoLayerUtil {
         return biomeRegistry.getId(biome);
     }
 
-    public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> zoom(long times, IAreaTransformer1 transformer, IAreaFactory<T> factory, int intager, LongFunction<C> contextFactory)
+    public static Layer buildDino(long seed, Registry<Biome> registry)
     {
-        IAreaFactory<T> iareafactory = factory;
-
-        for(int i = 0; intager < i; ++i)
-        {
-            iareafactory = transformer.apply(contextFactory.apply(times + (long)i), iareafactory);
-        }
-
-        return iareafactory;
-    }
-
-    public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> makeLayers(LongFunction<C> contextFactory, Registry<Biome> registry) {
         biomeRegistry = registry;
 
-        IAreaFactory<T> firstStep = DinoIslandLayer.INSTANCE.apply(contextFactory.apply(1L));
-        firstStep = ZoomLayer.FUZZY.apply(contextFactory.apply(2000L), firstStep);
-        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(1L), firstStep);
-        firstStep = ZoomLayer.NORMAL.apply(contextFactory.apply(2001L), firstStep);
-        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(2L), firstStep);
-        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(50L), firstStep);
-        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(70L), firstStep);
-        firstStep = DinoRemoveTooMuchOceanLayer.INSTANCE.apply(contextFactory.apply(2L), firstStep);
-        IAreaFactory<T> secondStep = DinoOceanLayer.INSTANCE.apply(contextFactory.apply(2L));
-        secondStep = zoom(2001L, ZoomLayer.NORMAL, secondStep, 6, contextFactory);
-        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(3L), firstStep);
-        firstStep = ZoomLayer.NORMAL.apply(contextFactory.apply(2002L), firstStep);
-        firstStep = ZoomLayer.NORMAL.apply(contextFactory.apply(2003L), firstStep);
-        firstStep = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(4L), firstStep);
-        firstStep = DinoDeepOceanLayer.INSTANCE.apply(contextFactory.apply(4L), firstStep);
-        firstStep = zoom(1000L, ZoomLayer.NORMAL, firstStep, 0, contextFactory);
-        IAreaFactory<T> thirdStep = zoom(1000L, ZoomLayer.NORMAL, firstStep, 0, contextFactory);
-        //thirdStep = DinoStartRiverLayer.INSTANCE.run(contextFactory.apply(100L), thirdStep);
-        IAreaFactory<T> biomes = new DinoBiomeLayer().apply(contextFactory.apply(1L));
-        biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1000), biomes);
-        biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1001), biomes);
-        biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1002), biomes);
-        biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1003), biomes);
-        biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1004), biomes);
-        biomes = ZoomLayer.NORMAL.apply(contextFactory.apply(1005), biomes);
-        IAreaFactory<T> fithStep = zoom(1000L, ZoomLayer.NORMAL, thirdStep, 2, contextFactory);
-        biomes = DinoHillsLayer.INSTANCE.apply(contextFactory.apply(1000L), biomes, fithStep);
-        thirdStep = zoom(1000L, ZoomLayer.NORMAL, thirdStep, 2, contextFactory);
-        thirdStep = zoom(1000L, ZoomLayer.NORMAL, thirdStep, 4, contextFactory);
-        //thirdStep = DinoRiverLayer.INSTANCE.run(contextFactory.apply(1L), biomes);
-        thirdStep = SmoothLayer.INSTANCE.apply(contextFactory.apply(1000L), thirdStep);
-
-        for(int i = 0; i < 4; ++i)
-        {
-            biomes = ZoomLayer.NORMAL.apply(contextFactory.apply((long)(1000 + i)), biomes);
-            if(i == 0)
-            {
-                biomes = DinoAddIslandLayer.INSTANCE.apply(contextFactory.apply(3L), biomes);
-            }
-        }
-
-        biomes = SmoothLayer.INSTANCE.apply(contextFactory.apply(1000L), biomes);
-        //biomes = DinoRiverMixLayer.INSTANCE.run(contextFactory.apply(100L), biomes, thirdStep);
-
-        return DinoMixOceansLayer.INSTANCE.apply(contextFactory.apply(100L), biomes, secondStep);
+        final IAreaFactory<LazyArea> noiseLayer = makeLayers(procedure -> new LazyAreaLayerContext(25, seed, procedure), registry);
+        return new DinoLookupLayer(noiseLayer);
     }
-    public static boolean areBiomesSimilar(int biomeSeed1, int biomeSeed2)
+
+    public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> makeLayers(LongFunction<C> contextFactory, Registry<Biome> registry)
+    {
+
+        IAreaFactory<T> islandLayer = new DinoIslandLayer().apply(contextFactory.apply(1));
+        IAreaFactory<T> fuzzyZoomLayer = ZoomLayer.FUZZY.apply(contextFactory.apply(2000), islandLayer);
+        IAreaFactory<T> addIslandLayer = DinoAddIslandLayer.desert3().apply(contextFactory.apply(3), fuzzyZoomLayer);
+        IAreaFactory<T> zoomLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(2000), addIslandLayer);
+
+        IAreaFactory<T> oceanLayer = new DinoAddInlandLayer(20).apply(contextFactory.apply(9), zoomLayer);
+        oceanLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(9), oceanLayer);
+        addIslandLayer = DinoAddIslandLayer.mountains().apply(contextFactory.apply(6), oceanLayer);
+        zoomLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(2001), addIslandLayer);
+        zoomLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(2004), zoomLayer);
+        addIslandLayer = DinoAddIslandLayer.desert2().apply(contextFactory.apply(8), zoomLayer);
+
+        IAreaFactory<T> biomeLayerGen = new DinoBiomeLayer().apply(contextFactory.apply(15), addIslandLayer);
+        IAreaFactory<T> oceanLayerGen = DinoAddWeightedSubBiomeLayer.ocean().apply(contextFactory.apply(16), biomeLayerGen);
+        IAreaFactory<T> coniferForest = DinoAddSubBiomeLayer.coniferForest().apply(contextFactory.apply(17), oceanLayerGen);
+        zoomLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(2002), coniferForest);
+        IAreaFactory<T> desert = DinoAddSubBiomeLayer.desert().apply(contextFactory.apply(17), oceanLayerGen);
+        zoomLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(2002), desert);
+        IAreaFactory<T> plains = DinoAddSubBiomeLayer.plains().apply(contextFactory.apply(17), oceanLayerGen);
+        zoomLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(2002), plains);
+        IAreaFactory<T> redwood = DinoAddSubBiomeLayer.redwoodForest().apply(contextFactory.apply(17), oceanLayerGen);
+        zoomLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(2002), redwood);
+
+
+        IAreaFactory<T> riverLayer = zoomLayer;
+        riverLayer = new DinoRiverInitLayer().apply(contextFactory.apply(12), riverLayer);
+        riverLayer = magnify(2007, ZoomLayer.NORMAL, riverLayer, 5, contextFactory);
+        riverLayer = new DinoRiverLayer().apply(contextFactory.apply(13), riverLayer);
+        riverLayer = SmoothLayer.INSTANCE.apply(contextFactory.apply(2008L), riverLayer);
+
+        IAreaFactory<T> magnifyLayer = magnify(2007L, ZoomLayer.NORMAL, zoomLayer, 3, contextFactory);
+        IAreaFactory<T> biomeLayer = new DinoShoreLayer().apply(contextFactory.apply(20), magnifyLayer);
+        biomeLayer = magnify(20, ZoomLayer.NORMAL, biomeLayer, 2, contextFactory);
+
+        biomeLayer = SmoothLayer.INSTANCE.apply(contextFactory.apply(17L), biomeLayer);
+        biomeLayer = new DinoRiverMixLayer().apply(contextFactory.apply(17), biomeLayer, riverLayer);
+
+        return biomeLayer;
+
+    }
+    public static boolean isSame(int biomeSeed1, int biomeSeed2)
     {
         if(biomeSeed1 == biomeSeed2)
         {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -109,16 +91,24 @@ public class DinoLayerUtil {
         return biomeSeed == getBiomeId(BiomeKeys.DINO_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.WARM_DINO_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.DEEP_DINO_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.WARM_DEEP_DINO_OCEAN);
     }
 
-    public static boolean isShallowOcean(int biomeSeed)
+    public static boolean isRiver(int biomeSeed)
     {
-        return biomeSeed == getBiomeId(BiomeKeys.DINO_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.WARM_DINO_OCEAN);
+        return biomeSeed == getBiomeId(BiomeKeys.DINO_RIVER);
     }
 
-    public static Layer makeLayers(long seed, Registry<Biome> registry)
+    public static boolean isLand(int biomeSeed)
     {
-        biomeRegistry = registry;
-        IAreaFactory<LazyArea> areaFactory = makeLayers((contextSeed) -> new LazyAreaLayerContext(25, seed, contextSeed), registry);
-        return new Layer(areaFactory);
+        return biomeSeed == getBiomeId(BiomeKeys.REDWOOD_FOREST) || biomeSeed == getBiomeId(BiomeKeys.REDWOOD_FOREST_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_DESERT) || biomeSeed == getBiomeId(BiomeKeys.DINO_DESERT_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_PLAINS) || biomeSeed == getBiomeId(BiomeKeys.DINO_PLAINS_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_MOUNTAINS) || biomeSeed == getBiomeId(BiomeKeys.DINO_BEACH) || biomeSeed == getBiomeId(BiomeKeys.DINO_STONE_BEACH) || biomeSeed == getBiomeId(BiomeKeys.DINO_CONIFER_FOREST) || biomeSeed == getBiomeId(BiomeKeys.DINO_CONIFER_FOREST_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_SWAMP);
+    }
+
+    private static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> magnify(final long seed, final IAreaTransformer1 zoomLayer, final IAreaFactory<T> layer, final int count, final LongFunction<C> context)
+    {
+        IAreaFactory<T> result = layer;
+        for(int i = 0; i < count; i++)
+        {
+            result = zoomLayer.apply(context.apply(seed + i), result);
+        }
+        return result;
     }
 
 }

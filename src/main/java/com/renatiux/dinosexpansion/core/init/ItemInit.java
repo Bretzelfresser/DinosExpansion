@@ -6,6 +6,9 @@ import com.renatiux.dinosexpansion.common.entities.projectiles.IronBoomerang;
 import com.renatiux.dinosexpansion.common.entities.projectiles.WoodBoomerang;
 import com.renatiux.dinosexpansion.common.items.*;
 
+import com.renatiux.dinosexpansion.common.items.armor.ChimerarachneArmorItem;
+import com.renatiux.dinosexpansion.util.enums.DEArmorMaterial;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraftforge.fml.RegistryObject;
@@ -64,4 +67,10 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> PURPLE_GEM = ITEMS.register("purple_gem",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+	//Armor
+	public static final RegistryObject<Item> CHIMERARACHNE_HELMET = ITEMS.register("chimerarachne_helmet", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> CHIMERARACHNE_CHESTPLATE = ITEMS.register("chimerarachne_chestplate", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> CHIMERARACHNE_LEGGINGS = ITEMS.register("chimerarachne_leggings", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> CHIMERARACHNE_BOOTS = ITEMS.register("chimerarachne_boots", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
 }

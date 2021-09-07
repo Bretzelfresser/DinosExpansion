@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.client.events;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.*;
+import com.renatiux.dinosexpansion.common.items.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.common.screens.AllosaurusScreen;
 import com.renatiux.dinosexpansion.common.screens.DinosaurTamingScreen;
 import com.renatiux.dinosexpansion.common.screens.DodoScreen;
@@ -23,40 +24,45 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @EventBusSubscriber(modid = Dinosexpansion.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
-	
+
 	@SubscribeEvent
 	public static void clientSetup(FMLClientSetupEvent event) {
 		entityRenderer();
 		tileEntityRenderer();
 		screenBinding();
+		armorModel();
 	}
-	
-	private static final void entityRenderer() {
+
+	private static void entityRenderer() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.ALLOSAURUS.get(), AllosaurusRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.DODO.get(), DodoRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.CHIMERARACHNE.get(), ChimerarachneRenderer::new);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.TRANQUILIZER_ARROW.get(), TranquilizerArrowRender::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.MEGALODON_ARROW.get(), MegalodonToothArrowRender::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.RAFT.get(), RaftRenderer::new);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.POOP.get(), PoopRenderer::new);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.WOOD_BOOMERANG.get(), new BoomerangRenderer.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.IRON_BOOMERANG.get(), new BoomerangRenderer.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.DIAMOND_BOOMERANG.get(), new BoomerangRenderer.Factory());
 	}
-	
-	private static final void tileEntityRenderer() {
+
+	private static void tileEntityRenderer() {
 		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.MORTAR_TILE_ENTITY_TYPE.get(), MortarRenderer::new);
 	}
-	private static final void screenBinding() {
+	private static void screenBinding() {
 		ScreenManager.registerFactory(ContainerTypeInit.ALLOSAURUS_CONTAINER_TYPE.get(), AllosaurusScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.RAFT.get(), RaftScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.MORTAR_CONTAINER_TYPE.get(), MortarScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.DINOSAUR_TAMING_INVENTORY.get(), DinosaurTamingScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.DINOSAUR_ORDER_CONTAINER.get(), OrderScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.DODO_CONTAINER.get(), DodoScreen::new);
+	}
+
+	private static void armorModel(){
+		ChimerarachneArmorItem.initArmorModel();
 	}
 
 }
