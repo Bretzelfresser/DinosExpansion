@@ -35,17 +35,17 @@ public class ChimerarachneArmorItem extends ArmorItem {
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
         if (slot == EquipmentSlotType.LEGS || slot == EquipmentSlotType.CHEST) {
-            return Dinosexpansion.ARMOR_DIR + "armor_leggings.png";
+            return Dinosexpansion.ARMOR_DIR + "chimerarachne_layer_2.png";
         } else {
-            return Dinosexpansion.ARMOR_DIR + "armor_main.png";
+            return Dinosexpansion.ARMOR_DIR + "chimerarachne_layer_1.png";
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void initArmorModel() {
-        chimerarachneArmorModel.put(EquipmentSlotType.HEAD, new ChimerarachneArmorModel(EquipmentSlotType.HEAD, 0.75F));
-        chimerarachneArmorModel.put(EquipmentSlotType.CHEST, new ChimerarachneArmorModel(EquipmentSlotType.CHEST, 1.0F));
-        chimerarachneArmorModel.put(EquipmentSlotType.LEGS, new ChimerarachneArmorModel(EquipmentSlotType.LEGS, 0.5F));
-        chimerarachneArmorModel.put(EquipmentSlotType.FEET, new ChimerarachneArmorModel(EquipmentSlotType.FEET, 1.0F));
+        chimerarachneArmorModel.put(EquipmentSlotType.HEAD, new ChimerarachneArmorModel(EquipmentSlotType.HEAD,0.5F));
+        chimerarachneArmorModel.put(EquipmentSlotType.CHEST, new ChimerarachneArmorModel(EquipmentSlotType.CHEST,1.0F));
+        chimerarachneArmorModel.put(EquipmentSlotType.LEGS, new ChimerarachneArmorModel(EquipmentSlotType.LEGS,0.5F));
+        chimerarachneArmorModel.put(EquipmentSlotType.FEET, new ChimerarachneArmorModel(EquipmentSlotType.FEET,1.0F));
     }
 }

@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion;
 import com.renatiux.dinosexpansion.core.init.*;
 import com.renatiux.dinosexpansion.util.*;
 import net.minecraft.world.gen.carver.WorldCarver;
+import net.minecraftforge.fml.DistExecutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,7 +54,6 @@ public class Dinosexpansion {
 	{
 		return new TranslationTextComponent(type + "." + MODID + "." + key);
 	}
-
 	public static boolean ENABLE_OVERWORLD_TREES = true;
 	public static final String ARMOR_DIR = MODID + ":textures/armor/";
 	public Dinosexpansion() {
@@ -96,7 +96,6 @@ public class Dinosexpansion {
 
 		event.enqueueWork(DimensionInit::initBiomeSourcesAndChunkGenerator);
 		DENetwork.init();
-		
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
@@ -111,7 +110,7 @@ public class Dinosexpansion {
 		DimensionRenderInfo.field_239208_a_.put(Dinosexpansion.modLoc("dino_render"), baseRender);
 
 	}
-	
+
 	private void registerEntityAttributes(EntityAttributeCreationEvent event) {
 		event.put(EntityTypeInit.ALLOSAURUS.get(), Allosaurus.setCustomAttributes().create());
 		event.put(EntityTypeInit.POOP.get(), LivingEntity.registerAttributes().create());
