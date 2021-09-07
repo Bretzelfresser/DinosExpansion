@@ -34,7 +34,7 @@ public class ChimerarachneArmorItem extends ArmorItem {
     @Nullable
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-        if (slot == EquipmentSlotType.LEGS || slot == EquipmentSlotType.CHEST) {
+        if (slot == EquipmentSlotType.LEGS ) {
             return Dinosexpansion.ARMOR_DIR + "chimerarachne_layer_2.png";
         } else {
             return Dinosexpansion.ARMOR_DIR + "chimerarachne_layer_1.png";
