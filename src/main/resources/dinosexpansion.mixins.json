@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "com.renatiux.dinosexpansion.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "refmap": "dinosexpansion.refmap.json",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "conformVisibility": true
+  },
+  "mixins": [
+    "DimensionGeneratorSettingsMixin"
+  ],
+  "client": [
+  ]
+}

@@ -68,6 +68,10 @@ public class ItemInit {
 	public static final RegistryObject<Item> PURPLE_GEM = ITEMS.register("purple_gem",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
+	public static final RegistryObject<Item> CHIMERARACHNE_CHITIN = ITEMS.register("chimerarachne_chitin",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+
 	//Armor
 	public static final RegistryObject<Item> CHIMERARACHNE_HELMET = ITEMS.register("chimerarachne_helmet", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
 	public static final RegistryObject<Item> CHIMERARACHNE_CHESTPLATE = ITEMS.register("chimerarachne_chestplate", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));

@@ -20,7 +20,9 @@ import net.minecraft.world.gen.layer.Layer;
 
 public class DinoBiomeProvider extends BiomeProvider {
 
-    public static final Codec<DinoBiomeProvider> CODEC = RecordCodecBuilder.create((instance) -> instance.group(Codec.LONG.fieldOf("seed").orElse(DinoChunkGenerator.hackSeed).forGetter((obj) -> obj.seed), RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter((obj) -> obj.registry)).apply(instance, instance.stable(DinoBiomeProvider::new)));
+    public static final Codec<DinoBiomeProvider> CODEC = RecordCodecBuilder.create((instance)
+            -> instance.group(Codec.LONG.fieldOf("seed").orElse(DinoChunkGenerator.hackSeed).forGetter((obj) -> obj.seed),
+            RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter((obj) -> obj.registry)).apply(instance, instance.stable(DinoBiomeProvider::new)));
 
     private final long seed;
     private final Registry<Biome> registry;

@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.util.enums;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.core.init.ItemInit;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
@@ -14,8 +15,8 @@ import java.util.function.Supplier;
 
 public enum DEArmorMaterial implements IArmorMaterial {
 
-    CHIMERARACHNE_ARMOR(Dinosexpansion.MODID + ":chimerarachne", 1, new int[] { 1, 1, 2, 1 }, 15,
-            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, () -> { return Ingredient.fromItems(Blocks.COBBLESTONE); }, 0),;
+    CHIMERARACHNE_ARMOR(Dinosexpansion.MODID + ":chimerarachne", 15, new int[]{2, 5, 6, 2}, 9,
+            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 0),;
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[] { 13, 15, 16, 11 };
     private final String name;
