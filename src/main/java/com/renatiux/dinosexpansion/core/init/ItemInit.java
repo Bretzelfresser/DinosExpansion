@@ -6,7 +6,7 @@ import com.renatiux.dinosexpansion.common.entities.projectiles.IronBoomerang;
 import com.renatiux.dinosexpansion.common.entities.projectiles.WoodBoomerang;
 import com.renatiux.dinosexpansion.common.items.*;
 
-import com.renatiux.dinosexpansion.common.items.armor.ChimerarachneArmorItem;
+import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.util.enums.DEArmorMaterial;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;

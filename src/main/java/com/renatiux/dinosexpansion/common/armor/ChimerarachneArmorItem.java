@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.items.armor;
+package com.renatiux.dinosexpansion.common.armor;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.model.armor.ChimerarachneArmorModel;
