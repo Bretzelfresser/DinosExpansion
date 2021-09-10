@@ -7,11 +7,9 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "overwrites": {
-    "conformVisibility": true
-  },
   "mixins": [
-    "DimensionGeneratorSettingsMixin"
+    "DimensionGeneratorSettingsMixin",
+    "LivingEntityMixin"
   ],
   "client": [
   ]

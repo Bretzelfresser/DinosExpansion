@@ -122,6 +122,8 @@
 	"screen.dinosexpansion.follow":"Follow",
 	"screen.dinosexpansion.protecting":"Protecting",
 	"screen.dinosexpansion.breed":"Breed",
-	"screen.dinosexpansion.sleep":"Sleep"
-	
+	"screen.dinosexpansion.sleep":"Sleep",
+
+
+	"effect.dinosexpansion.climb_effect": "Climb"
 }

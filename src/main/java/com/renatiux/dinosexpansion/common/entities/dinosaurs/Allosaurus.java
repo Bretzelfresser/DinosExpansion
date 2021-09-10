@@ -63,7 +63,8 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", 1.2F, AttributeModifier.Operation.MULTIPLY_BASE);
 
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-		return MonsterEntity.func_234295_eP_().createMutableAttribute(Attributes.ATTACK_DAMAGE, 10.0)
+		return MonsterEntity.func_234295_eP_()
+				.createMutableAttribute(Attributes.ATTACK_DAMAGE, 10.0)
 				.createMutableAttribute(Attributes.MAX_HEALTH, 40.0)
 				.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5d)
 				.createMutableAttribute(Attributes.FOLLOW_RANGE, 30.0D);

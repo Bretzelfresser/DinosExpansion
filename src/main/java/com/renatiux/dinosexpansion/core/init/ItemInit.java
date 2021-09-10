@@ -70,7 +70,7 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> CHIMERARACHNE_CHITIN = ITEMS.register("chimerarachne_chitin",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
-	public static final RegistryObject<Item> CHIMERARACHNE_TWEEZERS = ITEMS.register("chimerarachne_tweezers",
+	public static final RegistryObject<Item> CHIMERARACHNE_FANGS = ITEMS.register("chimerarachne_fangs",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHIMERARACHNE_STINGER = ITEMS.register("chimerarachne_stinger",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
