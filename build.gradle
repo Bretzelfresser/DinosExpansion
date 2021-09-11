@@ -44,7 +44,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            arg "-mixin.config=dinosexpansion.mixins.json"
+            args '--mixin.config', 'dinosexpansion.mixins.json'
             // Recommended logging data for a userdev environment
             // The markers can be changed as needed.
             // "SCAN": For mods scan.
@@ -66,7 +66,7 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=dinosexpansion.mixins.json"
+            args '--mixin.config', 'dinosexpansion.mixins.json'
             // Recommended logging data for a userdev environment
             // The markers can be changed as needed.
             // "SCAN": For mods scan.
