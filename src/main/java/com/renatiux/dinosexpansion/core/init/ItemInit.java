@@ -74,7 +74,45 @@ public class ItemInit {
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHIMERARACHNE_STINGER = ITEMS.register("chimerarachne_stinger",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	//Food
+	public static final RegistryObject<Item> ALLOSAURUS_RAW_MEAT = ITEMS.register("allosaurus_raw_meat",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC).food(FoodInit.ALLOSAURUS_RAW_MEAT)));
+	public static final RegistryObject<Item> ALLOSAURUS_COOKED_MEAT = ITEMS.register("allosaurus_cooked_meat",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC).food(FoodInit.ALLOSAURUS_COOKED_MEAT)));
 
+	//Bone
+	public static final RegistryObject<Item> ALLOSAURUS_BONE_ARM = ITEMS.register("allosaurus_bone_arm",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_FRESH_BONE_ARM = ITEMS.register("allosaurus_fresh_bone_arm",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_BONE_LEG = ITEMS.register("allosaurus_bone_leg",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_FRESH_BONE_LEG = ITEMS.register("allosaurus_fresh_bone_leg",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_BONE_NECK = ITEMS.register("allosaurus_bone_neck",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_FRESH_BONE_NECK = ITEMS.register("allosaurus_fresh_bone_neck",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_BONE_PELVIS = ITEMS.register("allosaurus_bone_pelvis",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_FRESH_BONE_PELVIS = ITEMS.register("allosaurus_fresh_bone_pelvis",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_BONE_RIBCAGE = ITEMS.register("allosaurus_bone_ribcage",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_FRESH_BONE_RIBCAGE = ITEMS.register("allosaurus_fresh_bone_ribcage",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_SKULL = ITEMS.register("allosaurus_skull",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_FRESH_SKULL = ITEMS.register("allosaurus_fresh_skull",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_BONE_TAIL = ITEMS.register("allosaurus_bone_tail",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_FRESH_BONE_TAIL = ITEMS.register("allosaurus_fresh_bone_tail",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_TOOTH = ITEMS.register("allosaurus_tooth",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_FRESH_TOOTH = ITEMS.register("allosaurus_fresh_tooth",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	//Armor
 	public static final RegistryObject<Item> CHIMERARACHNE_HELMET = ITEMS.register("chimerarachne_helmet", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));

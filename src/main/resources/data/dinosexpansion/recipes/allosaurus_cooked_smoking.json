@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "dinosexpansion:allosaurus_raw_meat"
+  },
+  "result": "dinosexpansion:allosaurus_cooked_meat",
+  "experience": 0.35,
+  "cookingtime": 100
+}

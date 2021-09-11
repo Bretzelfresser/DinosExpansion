@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "dinosexpansion:raw_brownstone"
+  },
+  "result": "dinosexpansion:polished_brownstone",
+  "experience": 1.0,
+  "cookingtime": 200
+}

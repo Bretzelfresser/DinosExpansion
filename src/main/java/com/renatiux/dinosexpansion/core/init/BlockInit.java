@@ -130,9 +130,9 @@ public class BlockInit {
 	public static final RegistryObject<Block> DINO_LAPIS_ORE = MACHINES.register("dino_lapis_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 
-	public static final RegistryObject<Block> DINO_PURPLE_GEN_ORE = MACHINES.register("dino_purple_gen_ore",
+	public static final RegistryObject<Block> DINO_PURPLE_GEN_ORE = MACHINES.register("dino_purple_gem_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
-	public static final RegistryObject<Block> DINO_PURPLE_GEN_BLOCK = MACHINES.register("dino_purple_gen_block",
+	public static final RegistryObject<Block> DINO_PURPLE_GEN_BLOCK = MACHINES.register("dino_purple_gem_block",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 
 	public static final RegistryObject<Block> DINO_BROWNSTONE_ORE = MACHINES.register("dino_brownstone_ore",

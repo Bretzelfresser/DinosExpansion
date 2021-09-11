@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "dinosexpansion:allosaurus_raw_meat"
+  },
+  "result": "dinosexpansion:allosaurus_cooked_meat",
+  "experience": 0.35,
+  "cookingtime": 200
+}
