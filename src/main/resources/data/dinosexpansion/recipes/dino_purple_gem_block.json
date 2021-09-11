@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "iii",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "dinosexpansion:purple_gem"
+    }
+  },
+  "result": {
+    "item": "dinosexpansion:dino_purple_gem_block",
+    "count": 1
+  }
+}

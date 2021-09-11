@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "dinosexpansion:dino_brownstone_block"
+    }
+  },
+  "result": {
+    "item": "dinosexpansion:polished_brownstone",
+    "count": 9
+  }
+}
