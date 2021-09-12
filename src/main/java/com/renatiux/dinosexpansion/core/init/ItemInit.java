@@ -74,6 +74,10 @@ public class ItemInit {
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHIMERARACHNE_STINGER = ITEMS.register("chimerarachne_stinger",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+	public static final RegistryObject<Item> ALLOSAURUS_CREST = ITEMS.register("allosaurus_crest",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
 	//Food
 	public static final RegistryObject<Item> ALLOSAURUS_RAW_MEAT = ITEMS.register("allosaurus_raw_meat",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC).food(FoodInit.ALLOSAURUS_RAW_MEAT)));
