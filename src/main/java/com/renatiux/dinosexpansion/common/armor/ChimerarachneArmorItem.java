@@ -48,7 +48,7 @@ public class ChimerarachneArmorItem extends ArmorItem {
 
     @OnlyIn(Dist.CLIENT)
     public static void initArmorModel() {
-        chimerarachneArmorModel.put(EquipmentSlotType.HEAD, new ChimerarachneArmorModel(EquipmentSlotType.HEAD,0.5F));
+        chimerarachneArmorModel.put(EquipmentSlotType.HEAD, new ChimerarachneArmorModel(EquipmentSlotType.HEAD,0.75F));
         chimerarachneArmorModel.put(EquipmentSlotType.CHEST, new ChimerarachneArmorModel(EquipmentSlotType.CHEST,1.0F));
         chimerarachneArmorModel.put(EquipmentSlotType.LEGS, new ChimerarachneArmorModel(EquipmentSlotType.LEGS,0.5F));
         chimerarachneArmorModel.put(EquipmentSlotType.FEET, new ChimerarachneArmorModel(EquipmentSlotType.FEET,1.0F));

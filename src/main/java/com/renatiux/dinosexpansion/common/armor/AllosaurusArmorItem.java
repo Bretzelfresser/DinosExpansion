@@ -44,7 +44,7 @@ public class AllosaurusArmorItem extends ArmorItem {
 
     @OnlyIn(Dist.CLIENT)
     public static void initArmorModel() {
-        allosaurusArmorModel.put(EquipmentSlotType.HEAD, new AllosaurusArmorModel(EquipmentSlotType.HEAD,0.5F));
+        allosaurusArmorModel.put(EquipmentSlotType.HEAD, new AllosaurusArmorModel(EquipmentSlotType.HEAD,0.75F));
         allosaurusArmorModel.put(EquipmentSlotType.CHEST, new AllosaurusArmorModel(EquipmentSlotType.CHEST,0.5F));
         allosaurusArmorModel.put(EquipmentSlotType.LEGS, new AllosaurusArmorModel(EquipmentSlotType.LEGS,0.4F));
         allosaurusArmorModel.put(EquipmentSlotType.FEET, new AllosaurusArmorModel(EquipmentSlotType.FEET,0.5F));
