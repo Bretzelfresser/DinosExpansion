@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "dinosexpansion:dino_purple_gen_ore"
+    "item": "dinosexpansion:dino_purple_gem_ore"
   },
   "result": "dinosexpansion:purple_gem",
   "experience": 1.0,

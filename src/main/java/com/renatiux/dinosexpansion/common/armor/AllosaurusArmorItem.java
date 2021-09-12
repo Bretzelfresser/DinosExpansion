@@ -1,6 +1,8 @@
 package com.renatiux.dinosexpansion.common.armor;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.client.model.armor.AllosaurusArmorModel;
+import com.renatiux.dinosexpansion.client.model.armor.ChimerarachneArmorModel;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -24,9 +26,10 @@ public class AllosaurusArmorItem extends ArmorItem {
     }
 
     @Nullable
+    @SuppressWarnings("unchecked")
     @Override
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
-        return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
+        return (A) allosaurusArmorModel.get(armorSlot);
     }
 
     @Nullable
@@ -41,6 +44,9 @@ public class AllosaurusArmorItem extends ArmorItem {
 
     @OnlyIn(Dist.CLIENT)
     public static void initArmorModel() {
-
+        allosaurusArmorModel.put(EquipmentSlotType.HEAD, new AllosaurusArmorModel(EquipmentSlotType.HEAD,0.5F));
+        allosaurusArmorModel.put(EquipmentSlotType.CHEST, new AllosaurusArmorModel(EquipmentSlotType.CHEST,0.5F));
+        allosaurusArmorModel.put(EquipmentSlotType.LEGS, new AllosaurusArmorModel(EquipmentSlotType.LEGS,0.4F));
+        allosaurusArmorModel.put(EquipmentSlotType.FEET, new AllosaurusArmorModel(EquipmentSlotType.FEET,0.5F));
     }
 }
