@@ -16,13 +16,13 @@ import java.util.function.Supplier;
 public enum DEArmorMaterial implements IArmorMaterial {
 
     CHIMERARACHNE_ARMOR(Dinosexpansion.MODID + ":chimerarachne", 10, new int[]{2, 3, 4, 2}, 13,
-            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.2F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 0.2F),
+            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.2F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 0.02F),
 
     DODO_ARMOR(Dinosexpansion.MODID + ":dodo", 15, new int[]{1, 2, 3, 1}, 20,
             SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 0.0F),
 
     ALLOSAURUS_ARMOR(Dinosexpansion.MODID + ":allosaurus", 10, new int[]{2, 5, 6, 2}, 10,
-            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 1.0F);
+            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 0.1F);
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[] { 13, 15, 16, 11 };
     private final String name;

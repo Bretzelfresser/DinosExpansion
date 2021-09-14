@@ -123,7 +123,10 @@
 	"itemGroup.dinosexpansion.machines":"Machines",
 	"itemGroup.dinosexpansion.projectiles":"Weapons and Projectiles",
 	"itemGroup.dinosexpansion.misc":"Misc",
-	"itemGroup.dinosexpansion.flower":"Flower",
+	"itemGroup.dinosexpansion.flower":"Flowers",
+	"itemGroup.dinosexpansion.block":"Blocks",
+	"itemGroup.dinosexpansion.food":"Foods",
+	"itemGroup.dinosexpansion.armor":"Armors",
 	
 	"biome.dinosexpansion.deep_dino_ocean":"Deep Dino Ocean",
 	"biome.dinosexpansion.dino_ocean":"Dino Ocean",

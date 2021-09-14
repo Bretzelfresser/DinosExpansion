@@ -73,17 +73,21 @@ public class ItemInit {
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHIMERARACHNE_FANGS = ITEMS.register("chimerarachne_fangs",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
-	public static final RegistryObject<Item> CHIMERARACHNE_STINGER = ITEMS.register("chimerarachne_stinger",
+	public static final RegistryObject<Item> CHIMERARACHNE_TAIL = ITEMS.register("chimerarachne_tail",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	public static final RegistryObject<Item> ALLOSAURUS_CREST = ITEMS.register("allosaurus_crest",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_EYE_SPIKES = ITEMS.register("allosaurus_eye_spikes",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ALLOSAURUS_SCALES = ITEMS.register("allosaurus_scales",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	//Food
 	public static final RegistryObject<Item> ALLOSAURUS_RAW_MEAT = ITEMS.register("allosaurus_raw_meat",
-			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC).food(FoodInit.ALLOSAURUS_RAW_MEAT)));
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ALLOSAURUS_RAW_MEAT)));
 	public static final RegistryObject<Item> ALLOSAURUS_COOKED_MEAT = ITEMS.register("allosaurus_cooked_meat",
-			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC).food(FoodInit.ALLOSAURUS_COOKED_MEAT)));
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ALLOSAURUS_COOKED_MEAT)));
 
 	//Bone
 	public static final RegistryObject<Item> ALLOSAURUS_BONE_ARM = ITEMS.register("allosaurus_bone_arm",
@@ -120,13 +124,13 @@ public class ItemInit {
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	//Armor
-	public static final RegistryObject<Item> CHIMERARACHNE_HELMET = ITEMS.register("chimerarachne_helmet", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
-	public static final RegistryObject<Item> CHIMERARACHNE_CHESTPLATE = ITEMS.register("chimerarachne_chestplate", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
-	public static final RegistryObject<Item> CHIMERARACHNE_LEGGINGS = ITEMS.register("chimerarachne_leggings", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
-	public static final RegistryObject<Item> CHIMERARACHNE_BOOTS = ITEMS.register("chimerarachne_boots", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> CHIMERARACHNE_HELMET = ITEMS.register("chimerarachne_helmet", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> CHIMERARACHNE_CHESTPLATE = ITEMS.register("chimerarachne_chestplate", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> CHIMERARACHNE_LEGGINGS = ITEMS.register("chimerarachne_leggings", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> CHIMERARACHNE_BOOTS = ITEMS.register("chimerarachne_boots", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 
-	public static final RegistryObject<Item> ALLOSAURUS_HELMET = ITEMS.register("allosaurus_helmet", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
-	public static final RegistryObject<Item> ALLOSAURUS_CHESTPLATE = ITEMS.register("allosaurus_chestplate", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
-	public static final RegistryObject<Item> ALLOSAURUS_LEGGINGS = ITEMS.register("allosaurus_leggings", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
-	public static final RegistryObject<Item> ALLOSAURUS_BOOTS = ITEMS.register("allosaurus_boots", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroupInit.MISC).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> ALLOSAURUS_HELMET = ITEMS.register("allosaurus_helmet", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> ALLOSAURUS_CHESTPLATE = ITEMS.register("allosaurus_chestplate", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> ALLOSAURUS_LEGGINGS = ITEMS.register("allosaurus_leggings", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> ALLOSAURUS_BOOTS = ITEMS.register("allosaurus_boots", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 }

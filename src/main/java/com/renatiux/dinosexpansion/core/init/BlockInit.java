@@ -34,6 +34,7 @@ public class BlockInit {
 	public static final DeferredRegister<Block> MACHINES = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 	public static final DeferredRegister<Block> PLANTS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 	public static final DeferredRegister<Block> EGGS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
+	public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 
 	//Machine
 	public static final RegistryObject<Block> MORTAR = MACHINES.register("mortar", Mortar::new);
@@ -106,41 +107,41 @@ public class BlockInit {
 
 
 	//Soils
-	public static final RegistryObject<Block> DINO_SAND = MACHINES.register("dino_sand",
+	public static final RegistryObject<Block> DINO_SAND = BLOCK.register("dino_sand",
 			()-> new SandBlock(14406560, AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
 
-	public static final RegistryObject<Block> DINO_SILT = MACHINES.register("dino_silt",
+	public static final RegistryObject<Block> DINO_SILT = BLOCK.register("dino_silt",
 			()-> new Block(AbstractBlock.Properties.create(Material.CLAY, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
 
 
 	//Ores
-	public static final RegistryObject<Block> DINO_COAL_ORE = MACHINES.register("dino_coal_ore",
+	public static final RegistryObject<Block> DINO_COAL_ORE = BLOCK.register("dino_coal_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE)));
-	public static final RegistryObject<Block> DINO_IRON_ORE = MACHINES.register("dino_iron_ore",
+	public static final RegistryObject<Block> DINO_IRON_ORE = BLOCK.register("dino_iron_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
-	public static final RegistryObject<Block> DINO_GOLD_ORE = MACHINES.register("dino_gold_ore",
+	public static final RegistryObject<Block> DINO_GOLD_ORE = BLOCK.register("dino_gold_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
-	public static final RegistryObject<Block> DINO_DIAMOND_ORE = MACHINES.register("dino_diamond_ore",
+	public static final RegistryObject<Block> DINO_DIAMOND_ORE = BLOCK.register("dino_diamond_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
-	public static final RegistryObject<Block> DINO_EMERALD_ORE = MACHINES.register("dino_emerald_ore",
+	public static final RegistryObject<Block> DINO_EMERALD_ORE = BLOCK.register("dino_emerald_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 
-	public static final RegistryObject<Block> DINO_REDSTONE_ORE = MACHINES.register("dino_redstone_ore",
+	public static final RegistryObject<Block> DINO_REDSTONE_ORE = BLOCK.register("dino_redstone_ore",
 			()-> new RedstoneOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().tickRandomly().setLightLevel(LightUtil.getLightValueLit(9)).hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
-	public static final RegistryObject<Block> DINO_LAPIS_ORE = MACHINES.register("dino_lapis_ore",
+	public static final RegistryObject<Block> DINO_LAPIS_ORE = BLOCK.register("dino_lapis_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 
-	public static final RegistryObject<Block> DINO_PURPLE_GEN_ORE = MACHINES.register("dino_purple_gem_ore",
+	public static final RegistryObject<Block> DINO_PURPLE_GEN_ORE = BLOCK.register("dino_purple_gem_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
-	public static final RegistryObject<Block> DINO_PURPLE_GEN_BLOCK = MACHINES.register("dino_purple_gem_block",
+	public static final RegistryObject<Block> DINO_PURPLE_GEN_BLOCK = BLOCK.register("dino_purple_gem_block",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 
-	public static final RegistryObject<Block> DINO_BROWNSTONE_ORE = MACHINES.register("dino_brownstone_ore",
+	public static final RegistryObject<Block> DINO_BROWNSTONE_ORE = BLOCK.register("dino_brownstone_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
-	public static final RegistryObject<Block> DINO_BROWNSTONE_BLOCK = MACHINES.register("dino_brownstone_block",
+	public static final RegistryObject<Block> DINO_BROWNSTONE_BLOCK = BLOCK.register("dino_brownstone_block",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 
-	public static final RegistryObject<Block> DINO_STONE = MACHINES.register("dino_stone",
+	public static final RegistryObject<Block> DINO_STONE = BLOCK.register("dino_stone",
 			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.5F, 6.0F).harvestLevel(0).harvestTool(ToolType.PICKAXE)));
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
@@ -173,5 +174,14 @@ public class BlockInit {
 		});
 	}
 
-
+	@SubscribeEvent
+	public static void registerBlockItems(RegistryEvent.Register<Item> event) {
+		final IForgeRegistry<Item> registry = event.getRegistry();
+		BlockInit.BLOCK.getEntries().stream().map(RegistryObject::get).forEach(block -> {
+			final Item.Properties properties = new Item.Properties().group(ItemGroupInit.BLOCK);
+			final BlockItem blockItem = new BlockItem(block, properties);
+			blockItem.setRegistryName(block.getRegistryName());
+			registry.register(blockItem);
+		});
+	}
 }

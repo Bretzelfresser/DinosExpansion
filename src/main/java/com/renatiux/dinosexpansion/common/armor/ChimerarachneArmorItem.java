@@ -57,7 +57,7 @@ public class ChimerarachneArmorItem extends ArmorItem {
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (hasFullArmor(player)) {
-            player.addPotionEffect(new EffectInstance(PotionInit.CLIMB_EFFECT.get(), 250, 0));
+            player.addPotionEffect(new EffectInstance(PotionInit.CLIMB_EFFECT.get(), 250, 0, false, false, true));
         }
     }
 
