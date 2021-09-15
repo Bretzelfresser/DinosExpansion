@@ -6,7 +6,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class WorldTypeInit {
 
-    public static RiftWorldType rift = new RiftWorldType();
+    public static final RiftWorldType rift = new RiftWorldType();
 
     public static void setup()
     {
