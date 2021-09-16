@@ -28,6 +28,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
@@ -46,6 +47,7 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -130,12 +132,16 @@ public abstract class Dinosaur extends MonsterEntity
 		InitTamingInventory(12);
 
 	}
+	
 
 	@Override
 	public final ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
 		if (!world.isRemote) {
 			if (deathTime > 0) {
 				if (getDroppedItems() != null && player.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+					NonNullList<ItemStack> toDrop = NonNullList.create();
+					getDroppedItems().forEach(stack -> toDrop.add(stack));
+					InventoryHelper.dropItems(world, getPosition(), toDrop);
 					getDroppedItems().forEach(player::addItemStackToInventory);
 					player.giveExperiencePoints(this.experienceValue);
 					this.remove();

@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.common.container.AdvancedSmithingTableContainer;
 import com.renatiux.dinosexpansion.common.container.AllosaurusContainer;
 import com.renatiux.dinosexpansion.common.container.DinosaurTamingInventory;
 import com.renatiux.dinosexpansion.common.container.DodoContainer;
@@ -24,6 +25,9 @@ public class ContainerTypeInit {
 	
 	public static final RegistryObject<ContainerType<MortarContainer>> MORTAR_CONTAINER_TYPE = CONTAINER_TYPES
 			.register("mortar_container", () -> IForgeContainerType.create(MortarContainer::new));
+	
+	public static final RegistryObject<ContainerType<AdvancedSmithingTableContainer>> ADVANCED_SMITHING_TABLE_CONTAINER_TYPE = CONTAINER_TYPES.register("advanced_smithing_table_container",
+			() -> IForgeContainerType.create(AdvancedSmithingTableContainer::new));
 
 	public static final RegistryObject<ContainerType<RaftContainer>> RAFT = CONTAINER_TYPES.register("raft_container",
 			() -> IForgeContainerType.create(RaftContainer::new));

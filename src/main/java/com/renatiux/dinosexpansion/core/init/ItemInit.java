@@ -68,12 +68,14 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> PURPLE_GEM = ITEMS.register("purple_gem",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
-
+	//Chimerarachne
 	public static final RegistryObject<Item> CHIMERARACHNE_CHITIN = ITEMS.register("chimerarachne_chitin",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHIMERARACHNE_FANGS = ITEMS.register("chimerarachne_fangs",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHIMERARACHNE_TAIL = ITEMS.register("chimerarachne_tail",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> CHIMERARACHNE_CHROME = ITEMS.register("chimerarachne_chrome",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	public static final RegistryObject<Item> ALLOSAURUS_CREST = ITEMS.register("allosaurus_crest",
