@@ -17,13 +17,19 @@ public class AdvancedSmithingTableScreen extends ContainerScreen<AdvancedSmithin
 			ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
 	}
+	
+	@Override
+	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+		 this.font.drawText(matrixStack, this.title, (float)this.titleX, (float)this.titleY, 4210752);
+	      this.font.drawText(matrixStack, this.playerInventory.getDisplayName(), (float)this.playerInventoryTitleX, (float)this.playerInventoryTitleY + 30, 4210752);
+	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
 		this.minecraft.textureManager.bindTexture(GUI);
 		int middleX = (this.width - this.xSize) / 2;
 		int middleY = (this.height - this.ySize) / 2;
-		this.blit(matrixStack, middleX, middleY, 0, 0, 176, 166);
+		this.blit(matrixStack, middleX, middleY, 0, 0, 176, 198);
 		
 	}
 

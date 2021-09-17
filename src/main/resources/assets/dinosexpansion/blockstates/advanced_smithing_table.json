@@ -1,7 +1,19 @@
 {
-  "variants": {
-    "": {
-      "model": "dinosexpansion:block/advanced_smithing_table"
-    }
-  }
+	"variants": {
+		"facing=north": {
+			"model": "dinosexpansion:block/advanced_smithing_table"
+		},
+		"facing=east": {
+			"model": "dinosexpansion:block/advanced_smithing_table",
+			"y": 90
+		},
+		"facing=south": {
+			"model": "dinosexpansion:block/advanced_smithing_table",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "dinosexpansion:block/advanced_smithing_table",
+			"y": 270
+		}
+	}
 }

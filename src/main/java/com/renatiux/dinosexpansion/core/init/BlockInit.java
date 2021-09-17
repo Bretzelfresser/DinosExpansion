@@ -5,6 +5,7 @@ import com.renatiux.dinosexpansion.common.blocks.DEOreBlock;
 import com.renatiux.dinosexpansion.common.blocks.DESapling;
 import com.renatiux.dinosexpansion.common.blocks.eggs.AllosaurusEggBlock;
 import com.renatiux.dinosexpansion.common.blocks.machine.AdvancedSmithingTable;
+import com.renatiux.dinosexpansion.common.blocks.machine.IndustrialGrill;
 import com.renatiux.dinosexpansion.common.blocks.machine.Mortar;
 
 import com.renatiux.dinosexpansion.common.blocks.plants.DEDoubleFlowerBlock;
@@ -40,6 +41,7 @@ public class BlockInit {
 	//Machine
 	public static final RegistryObject<Block> MORTAR = MACHINES.register("mortar", Mortar::new);
 	public static final RegistryObject<Block> ADVANCED_SMITHING_TABLE = MACHINES.register("advanced_smithing_table", AdvancedSmithingTable::new);
+	public static final RegistryObject<Block> INDUSTRIAL_GRILL = MACHINES.register("industrial_grill", IndustrialGrill::new);
 
 	//Flower
 	public static final RegistryObject<Block> LAVENDER = PLANTS.register("lavender",

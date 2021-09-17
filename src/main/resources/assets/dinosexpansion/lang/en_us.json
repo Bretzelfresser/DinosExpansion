@@ -4,6 +4,7 @@
 	"container.dinosexpansion.taming":"Taming",
 	"container.dinosexpansion.order":"Orders",
 	"container.dinosexpansion.dodo":"Dodo Inventory",
+	"container.dinosexpansion.advanced_smithing_table":"Advanced Smithing Table",
 	
 	
 	"block.dinosexpansion.mortar":"Mortar",
@@ -42,6 +43,7 @@
 	"block.dinosexpansion.dino_brownstone_block":"Dino Brownstone Block",
 	"block.dinosexpansion.dino_stone":"Dino Stone",
 	"block.dinosexpansion.allosaurus_egg":"Allosaurus Egg",
+	"block.dinosexpansion.advanced_smithing_table":"Advanced Smithing Table",
 
 	"block.dinosexpansion.redwood_sapling":"Redwood Sapling",
 	"block.dinosexpansion.redwood_leaves":"Redwood Leaves",
