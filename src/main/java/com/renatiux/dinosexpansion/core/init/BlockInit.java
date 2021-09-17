@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.core.init;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.blocks.DEOreBlock;
 import com.renatiux.dinosexpansion.common.blocks.DESapling;
+import com.renatiux.dinosexpansion.common.blocks.bush.DEBerryBush;
 import com.renatiux.dinosexpansion.common.blocks.eggs.AllosaurusEggBlock;
 import com.renatiux.dinosexpansion.common.blocks.machine.AdvancedSmithingTable;
 import com.renatiux.dinosexpansion.common.blocks.machine.IndustrialGrill;
@@ -37,6 +38,7 @@ public class BlockInit {
 	public static final DeferredRegister<Block> PLANTS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 	public static final DeferredRegister<Block> EGGS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 	public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
+	public static final DeferredRegister<Block> BUSH = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 
 	//Machine
 	public static final RegistryObject<Block> MORTAR = MACHINES.register("mortar", Mortar::new);
@@ -147,6 +149,11 @@ public class BlockInit {
 
 	public static final RegistryObject<Block> DINO_STONE = BLOCK.register("dino_stone",
 			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.5F, 6.0F).harvestLevel(0).harvestTool(ToolType.PICKAXE)));
+
+	//Bush
+	public static final RegistryObject<Block> NARCOTIC_BERRY_BUSH = BUSH.register("narcotic_berry_bush",
+			()-> new DEBerryBush(AbstractBlock.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH), ItemInit.NARCOTIC_BERRY));
+
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
 	 */
