@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.common.blocks.machine;
 
 import com.renatiux.dinosexpansion.common.blocks.ShapedBlock;
 import com.renatiux.dinosexpansion.common.tileEntities.IndustrialGrillTileEntity;
+import com.renatiux.dinosexpansion.core.init.BlockInit;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 
 import net.minecraft.block.AbstractBlock;
@@ -16,6 +17,7 @@ import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -36,6 +38,7 @@ public class IndustrialGrill extends ShapedBlock {
 	public IndustrialGrill() {
 		super(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().harvestLevel(1)
 				.harvestTool(ToolType.PICKAXE).notSolid(), SHAPE);
+		setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).with(LIT, false).with(POWERED, false));
 	}
 
 	@Override
@@ -71,7 +74,7 @@ public class IndustrialGrill extends ShapedBlock {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!worldIn.isRemote) {
+		if (!worldIn.isRemote && !state.matchesBlock(this)) {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if (te instanceof IndustrialGrillTileEntity) {
 				IndustrialGrillTileEntity industrialGrill = (IndustrialGrillTileEntity) te;

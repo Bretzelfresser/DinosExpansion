@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Lists;
+import com.renatiux.dinosexpansion.common.container.IndustrialGrillContainer;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
@@ -22,12 +23,14 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.SmokingRecipe;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.util.Constants;
 
 public class IndustrialGrillTileEntity extends ContainerTileEntity implements ITickableTileEntity {
 
@@ -47,7 +50,7 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 
 	@Override
 	protected Container createContainer(int id, PlayerInventory inventory) {
-		return null;
+		return new IndustrialGrillContainer(id, inventory, this);
 	}
 
 	@Override
@@ -59,20 +62,49 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 	public void tick() {
 		if (world.isRemote)
 			return;
+		BlockState state = world.getBlockState(getPos());
+		if (state.get(BlockStateProperties.POWERED) != counter > 0) {
+			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, counter > 0),
+					Constants.BlockFlags.NOTIFY_NEIGHBORS + Constants.BlockFlags.BLOCK_UPDATE);
+
+		}
+		if (state.get(BlockStateProperties.LIT) != fuel > 0) {
+			world.setBlockState(pos, state.with(BlockStateProperties.LIT, fuel > 0),
+					Constants.BlockFlags.NOTIFY_NEIGHBORS + Constants.BlockFlags.BLOCK_UPDATE);
+
+		}
 		Map<SmokingRecipe, Integer> map = getMatchingRecipes();
-		if (map.isEmpty())
+		if (map.isEmpty()) {
+			reset();
+			decreaseFuel();
 			return;
+		}
 		if (canWork(map) && checkFuel()) {
 			if (counter <= 0) {
 				counter = COOK_TIME_TOTAL;
 			}
-			if (counter < 0) {
+			if (counter > 0) {
 				counter--;
+				decreaseFuel();
 				if (counter == 0) {
 					finishWork(map);
 				}
 			}
+		}else {
+			reset();
+			decreaseFuel();
 		}
+	}
+	
+	private void decreaseFuel() {
+		if(fuel > 0)
+			fuel--;
+	}
+	/**
+	 * resets the task when cancled while processing
+	 */
+	private void reset() {
+		counter = 0;
 	}
 
 	private void finishWork(Map<SmokingRecipe, Integer> map) {
@@ -85,20 +117,26 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 		}
 
 		for (SmokingRecipe recipe : map.keySet()) {
-			boolean done = false;
-			for (ItemStack stack : getOutputItems()) {
-				if (!stack.isEmpty() && stack.getItem().equals(recipe.getRecipeOutput().getItem())
-						&& stack.getCount() + recipe.getRecipeOutput().getCount() <= stack.getMaxStackSize()) {
-					stack.grow(recipe.getRecipeOutput().getCount());
-					done = true;
-					break;
+			for (int j = 0; j < map.get(recipe); j++) {
+				boolean done = false;
+				for (int i = 9; i < 18; i++) {
+					ItemStack stack = getStackInSlot(i);
+					if (!stack.isEmpty() && stack.getItem().equals(recipe.getRecipeOutput().getItem())
+							&& stack.getCount() + recipe.getRecipeOutput().getCount() <= stack.getMaxStackSize()) {
+						stack.grow(recipe.getRecipeOutput().getCount());
+						done = true;
+						break;
+					}
 				}
-			}
-			if(done)
-				continue;
-			for (ItemStack stack : getOutputItems()) {
-				if(stack.isEmpty())
-					stack = recipe.getRecipeOutput().copy();
+				if (done)
+					continue;
+				for (int i = 9; i < 18; i++) {
+					if (getStackInSlot(i).isEmpty()) {
+						System.out.println("das hat mal funktioniert");
+						setInventorySlotContents(i, recipe.getRecipeOutput().copy());
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -110,6 +148,7 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 		if (!getFuelStack().isEmpty()) {
 			fuel = ForgeHooks.getBurnTime(getFuelStack(), IRecipeType.SMOKING);
 			maxFuel = fuel;
+			getFuelStack().shrink(1);
 			return true;
 		}
 		return false;
@@ -119,8 +158,8 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 		List<ItemStack> outputs = getOutputItemsCopied();
 		for (java.util.Map.Entry<SmokingRecipe, Integer> entry : map.entrySet()) {
 			for (int i = 0; i < entry.getValue(); i++) {
-				if (hasItemSpace(outputs, entry.getKey()) || hasEmptySpace(outputs, entry.getKey()))
-					;
+				if (!hasItemSpace(outputs, entry.getKey()) && !hasEmptySpace(outputs, entry.getKey()))
+					return false;
 			}
 		}
 
@@ -155,27 +194,32 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 		Map<SmokingRecipe, Integer> map = new HashMap<>();
 		int counter = 0;
 		for (SmokingRecipe recipe : getRecipes()) {
-			int counter4Recipe = 0;
 			Ingredient ing = getIngredient(recipe);
 			for (ItemStack stack : getInputItemsCopied()) {
 				if (!stack.isEmpty()) {
 					for (int i = 0; i < SMOKE_AT_ONCE; i++) {
-						if (counter == SMOKE_AT_ONCE) {
-							map.put(recipe, counter4Recipe);
-							return map;
-						}
 						if (ing.test(stack)) {
 							stack.shrink(1);
-							counter4Recipe++;
+							addOrIncrease(map, recipe);
 							counter++;
+						}
+						if (counter == SMOKE_AT_ONCE) {
+							return map;
 						}
 
 					}
 				}
 			}
-			map.put(recipe, counter4Recipe);
 		}
 		return map;
+	}
+
+	private void addOrIncrease(Map<SmokingRecipe, Integer> map, SmokingRecipe recipe) {
+		if (map.containsKey(recipe)) {
+			map.replace(recipe, map.get(recipe) + 1);
+		} else {
+			map.put(recipe, 1);
+		}
 	}
 
 	private Ingredient getIngredient(SmokingRecipe recipe) {
@@ -221,15 +265,6 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 		for (int i = 9; i < 18; i++) {
 			ItemStack stack = getStackInSlot(i);
 			inputs.add(stack.copy());
-		}
-		return inputs;
-	}
-
-	private List<ItemStack> getOutputItems() {
-		List<ItemStack> inputs = new ArrayList<>();
-		for (int i = 9; i < 18; i++) {
-			ItemStack stack = getStackInSlot(i);
-			inputs.add(stack);
 		}
 		return inputs;
 	}
@@ -296,5 +331,31 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 		}
 
 	}
+
+	public int getCounter() {
+		return counter;
+	}
+
+	public void setCounter(int counter) {
+		this.counter = counter;
+	}
+
+	public int getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(int fuel) {
+		this.fuel = fuel;
+	}
+
+	public int getMaxFuel() {
+		return maxFuel;
+	}
+
+	public void setMaxFuel(int maxFuel) {
+		this.maxFuel = maxFuel;
+	}
+	
+	
 
 }

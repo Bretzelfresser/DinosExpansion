@@ -8,6 +8,7 @@ import com.renatiux.dinosexpansion.common.screens.AdvancedSmithingTableScreen;
 import com.renatiux.dinosexpansion.common.screens.AllosaurusScreen;
 import com.renatiux.dinosexpansion.common.screens.DinosaurTamingScreen;
 import com.renatiux.dinosexpansion.common.screens.DodoScreen;
+import com.renatiux.dinosexpansion.common.screens.IndustrialGrillScreen;
 import com.renatiux.dinosexpansion.common.screens.MortarScreen;
 import com.renatiux.dinosexpansion.common.screens.OrderScreen;
 import com.renatiux.dinosexpansion.common.screens.RaftScreen;
@@ -62,6 +63,7 @@ public class ClientEvents {
 		ScreenManager.registerFactory(ContainerTypeInit.DINOSAUR_ORDER_CONTAINER.get(), OrderScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.DODO_CONTAINER.get(), DodoScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.ADVANCED_SMITHING_TABLE_CONTAINER_TYPE.get(), AdvancedSmithingTableScreen::new);
+		ScreenManager.registerFactory(ContainerTypeInit.INDUSTRIAL_GRILL_CONTAINER_TYPE.get(), IndustrialGrillScreen::new);
 	}
 
 	private static void armorModel(){

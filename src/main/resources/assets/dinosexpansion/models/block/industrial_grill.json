@@ -1,10 +1,9 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "industrial_grill",
 	"texture_size": [128, 128],
 	"textures": {
-		"0": "Desktop/industrial_grill",
-		"particle": "Desktop/industrial_grill"
+		"0": "dinosexpansion:block/industrial_grill",
+		"particle": "dinosexpansion:block/industrial_grill"
 	},
 	"elements": [
 		{

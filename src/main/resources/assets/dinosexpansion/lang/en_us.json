@@ -5,6 +5,7 @@
 	"container.dinosexpansion.order":"Orders",
 	"container.dinosexpansion.dodo":"Dodo Inventory",
 	"container.dinosexpansion.advanced_smithing_table":"Advanced Smithing Table",
+	"container.dinosexpansion.industrial_grill":"Industrial Grill",
 	
 	
 	"block.dinosexpansion.mortar":"Mortar",
@@ -44,6 +45,7 @@
 	"block.dinosexpansion.dino_stone":"Dino Stone",
 	"block.dinosexpansion.allosaurus_egg":"Allosaurus Egg",
 	"block.dinosexpansion.advanced_smithing_table":"Advanced Smithing Table",
+	"block.dinosexpansion.industrial_grill":"Industrial Grill",
 
 	"block.dinosexpansion.redwood_sapling":"Redwood Sapling",
 	"block.dinosexpansion.redwood_leaves":"Redwood Leaves",
