@@ -46,6 +46,7 @@
 	"block.dinosexpansion.allosaurus_egg":"Allosaurus Egg",
 	"block.dinosexpansion.advanced_smithing_table":"Advanced Smithing Table",
 	"block.dinosexpansion.industrial_grill":"Industrial Grill",
+	"block.dinosexpansion.narcotic_berry_bush":"Narcotic Berry",
 
 	"block.dinosexpansion.redwood_sapling":"Redwood Sapling",
 	"block.dinosexpansion.redwood_leaves":"Redwood Leaves",
@@ -69,7 +70,7 @@
 	"poop.medium":"Medium",
 	"poop.large":"Large",
 	"item.dinosexpansion.narcotics":"Narcotics",
-	"item.dinosexpansion.narcotic_berry":"Narcotic Berry",
+
 	"item.dinosexpansion.wood_boomerang":"Wood Boomerang",
 	"item.dinosexpansion.iron_boomerang":"Iron Boomerang",
 	"item.dinosexpansion.diamond_boomerang":"Diamond Boomerang",
