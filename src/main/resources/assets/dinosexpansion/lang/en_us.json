@@ -111,7 +111,12 @@
 	"item.dinosexpansion.allosaurus_raw_meat":"Allosaurus Raw Meat",
 	"item.dinosexpansion.allosaurus_cooked_meat":"Allosaurus Cooked Meat",
 
-	
+	"item.dinosexpansion.blackberry":"Blackberry",
+	"item.dinosexpansion.blueberry":"Blueberry",
+	"item.dinosexpansion.raspberry":"Raspberry",
+	"item.dinosexpansion.strawberry":"Strawberry",
+	"item.dinosexpansion.narcotic_berry":"Narcotic Berry",
+
 	"entity.dinosexpansion.allosaurus":"Allosaurus",
 	"entity.dinosexpansion.raft":"Raft",
 	

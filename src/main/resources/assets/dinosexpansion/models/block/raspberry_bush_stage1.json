@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "dinosexpansion:block/raspberry_bush_stage1"
+  }
+}

@@ -45,6 +45,11 @@ public class CutoutRendersDE {
 
         //Bush
         RenderTypeLookup.setRenderLayer(BlockInit.NARCOTIC_BERRY_BUSH.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.BLACKBERRY_BUSH.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.BLUEBERRY_BUSH.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.RASPBERRY_BUSH.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.STRAWBERRY_BUSH.get(), RenderType.getCutout());
+
     }
 
 

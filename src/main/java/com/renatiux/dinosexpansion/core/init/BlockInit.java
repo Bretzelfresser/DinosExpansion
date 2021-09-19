@@ -153,7 +153,14 @@ public class BlockInit {
 	//Bush
 	public static final RegistryObject<Block> NARCOTIC_BERRY_BUSH = BUSH.register("narcotic_berry_bush",
 			()-> new DEBerryBush(AbstractBlock.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH), ItemInit.NARCOTIC_BERRY));
-
+	public static final RegistryObject<Block> BLACKBERRY_BUSH = BUSH.register("blackberry_bush",
+			()-> new DEBerryBush(AbstractBlock.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH), ItemInit.BLACKBERRY));
+	public static final RegistryObject<Block> BLUEBERRY_BUSH = BUSH.register("blueberry_bush",
+			()-> new DEBerryBush(AbstractBlock.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH), ItemInit.BLUEBERRY));
+	public static final RegistryObject<Block> RASPBERRY_BUSH = BUSH.register("raspberry_bush",
+			()-> new DEBerryBush(AbstractBlock.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH), ItemInit.RASPBERRY));
+	public static final RegistryObject<Block> STRAWBERRY_BUSH = BUSH.register("strawberry_bush",
+			()-> new DEBerryBush(AbstractBlock.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH), ItemInit.STRAWBERRY));
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
 	 */
