@@ -15,6 +15,6 @@ public class DENarcoticBlock extends BlockItem {
 
     @Override
     public String getTranslationKey() {
-        return super.getTranslationKey();
+        return this.getDefaultTranslationKey();
     }
 }

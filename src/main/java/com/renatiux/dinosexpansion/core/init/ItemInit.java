@@ -93,6 +93,12 @@ public class ItemInit {
 	public static final RegistryObject<Item> ALLOSAURUS_COOKED_MEAT = ITEMS.register("allosaurus_cooked_meat",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ALLOSAURUS_COOKED_MEAT)));
 
+	public static final RegistryObject<Item> ONION = ITEMS.register("onion",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ONION)));
+
+	//Seed
+	public static final RegistryObject<Item> ONION_SEED = ITEMS.register("onion_seed",
+			()-> new BlockNamedItem(BlockInit.ONION_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
 
 	//Bush
 	public static final RegistryObject<Item> NARCOTIC_BERRY = ITEMS.register("narcotic_berry",

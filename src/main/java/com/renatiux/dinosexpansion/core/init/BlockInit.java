@@ -4,6 +4,7 @@ import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.blocks.DEOreBlock;
 import com.renatiux.dinosexpansion.common.blocks.DESapling;
 import com.renatiux.dinosexpansion.common.blocks.bush.DEBerryBush;
+import com.renatiux.dinosexpansion.common.blocks.crops.DECropsBlock;
 import com.renatiux.dinosexpansion.common.blocks.eggs.AllosaurusEggBlock;
 import com.renatiux.dinosexpansion.common.blocks.machine.AdvancedSmithingTable;
 import com.renatiux.dinosexpansion.common.blocks.machine.IndustrialGrill;
@@ -161,6 +162,11 @@ public class BlockInit {
 			()-> new DEBerryBush(AbstractBlock.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH), ItemInit.RASPBERRY));
 	public static final RegistryObject<Block> STRAWBERRY_BUSH = BUSH.register("strawberry_bush",
 			()-> new DEBerryBush(AbstractBlock.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH), ItemInit.STRAWBERRY));
+
+	//Crops
+	public static final RegistryObject<Block> ONION_CROP_BLOCK = BUSH.register("onion_crop_block",
+			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.ONION_SEED));
+
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
 	 */

@@ -50,6 +50,8 @@ public class CutoutRendersDE {
         RenderTypeLookup.setRenderLayer(BlockInit.RASPBERRY_BUSH.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BlockInit.STRAWBERRY_BUSH.get(), RenderType.getCutout());
 
+        //Crops
+        RenderTypeLookup.setRenderLayer(BlockInit.ONION_CROP_BLOCK.get(), RenderType.getCutout());
     }
 
 
