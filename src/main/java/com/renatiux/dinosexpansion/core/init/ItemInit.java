@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
+import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
 import com.renatiux.dinosexpansion.common.blocks.bush.DENarcoticBlock;
 import com.renatiux.dinosexpansion.common.entities.projectiles.DiamondBoomerang;
 import com.renatiux.dinosexpansion.common.entities.projectiles.IronBoomerang;
@@ -156,4 +157,9 @@ public class ItemInit {
 	public static final RegistryObject<Item> ALLOSAURUS_CHESTPLATE = ITEMS.register("allosaurus_chestplate", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 	public static final RegistryObject<Item> ALLOSAURUS_LEGGINGS = ITEMS.register("allosaurus_leggings", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 	public static final RegistryObject<Item> ALLOSAURUS_BOOTS = ITEMS.register("allosaurus_boots", () -> new AllosaurusArmorItem(DEArmorMaterial.ALLOSAURUS_ARMOR, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+
+	public static final RegistryObject<Item> STEEL_HELMET = ITEMS.register("steel_helmet", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> STEEL_CHESTPLATE = ITEMS.register("steel_chestplate", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> STEEL_LEGGINGS = ITEMS.register("steel_leggings", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> STEEL_BOOTS = ITEMS.register("steel_boots", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 }

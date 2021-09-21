@@ -4,6 +4,7 @@ import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.*;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
+import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
 import com.renatiux.dinosexpansion.common.screens.AdvancedSmithingTableScreen;
 import com.renatiux.dinosexpansion.common.screens.AllosaurusScreen;
 import com.renatiux.dinosexpansion.common.screens.DinosaurTamingScreen;
@@ -69,6 +70,7 @@ public class ClientEvents {
 	private static void armorModel(){
 		ChimerarachneArmorItem.initArmorModel();
 		AllosaurusArmorItem.initArmorModel();
+		SteelArmorItem.initArmorModel();
 	}
 
 }

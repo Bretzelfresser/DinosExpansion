@@ -22,7 +22,10 @@ public enum DEArmorMaterial implements IArmorMaterial {
             SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 0.0F),
 
     ALLOSAURUS_ARMOR(Dinosexpansion.MODID + ":allosaurus", 10, new int[]{2, 5, 6, 2}, 10,
-            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 0.1F);
+            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 0.1F),
+
+    STEEL_ARMOR(Dinosexpansion.MODID + ":steel", 10, new int[]{3, 6, 7, 3}, 10,
+            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 2.0F, () -> { return Ingredient.fromItems(ItemInit.CHIMERARACHNE_CHITIN.get()); }, 0.5F);
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[] { 13, 15, 16, 11 };
     private final String name;
