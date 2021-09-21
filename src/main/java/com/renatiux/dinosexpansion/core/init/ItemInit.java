@@ -71,6 +71,10 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> PURPLE_GEM = ITEMS.register("purple_gem",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+	public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
 	//Chimerarachne
 	public static final RegistryObject<Item> CHIMERARACHNE_CHITIN = ITEMS.register("chimerarachne_chitin",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
@@ -96,10 +100,14 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> ONION = ITEMS.register("onion",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ONION)));
+	public static final RegistryObject<Item> BUCKWHEAT = ITEMS.register("buckwheat",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.BUCKWHEAT)));
 
 	//Seed
 	public static final RegistryObject<Item> ONION_SEED = ITEMS.register("onion_seed",
 			()-> new BlockNamedItem(BlockInit.ONION_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
+	public static final RegistryObject<Item> BUCKWHEAT_SEED = ITEMS.register("buckwheat_seed",
+			()-> new BlockNamedItem(BlockInit.BUCKWHEAT_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
 
 	//Bush
 	public static final RegistryObject<Item> NARCOTIC_BERRY = ITEMS.register("narcotic_berry",

@@ -37,7 +37,6 @@ public class SteelArmorModel extends DEArmorModel{
         cube_r1.setTextureOffset(24, 61).addBox(-2.1F, -0.5F, -1.0F, 4.0F, 1.0F, 2.0F, 0.0F, false);
 
         bipedLeftLeg.setRotationPoint(1.9F, 12.0F, 0.0F);
-        bipedLeftLeg.setTextureOffset(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 1.0F, true);
         bipedLeftLeg.setTextureOffset(24, 61).addBox(-2.0F, 12.0F, -5.0F, 4.0F, 1.0F, 2.0F, 0.0F, false);
 
         ModelRenderer cube_r2 = new ModelRenderer(this);
