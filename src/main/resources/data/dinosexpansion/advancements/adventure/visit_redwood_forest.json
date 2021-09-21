@@ -1,0 +1,32 @@
+{
+    "display": {
+        "title": {
+            "text": "What a wonderful forest",
+            "color": "dark_green"
+        },
+        "description": {
+            "text": "Visit the redwood Forest"
+        },
+        "icon": {
+            "item": "minecraft:stone"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "isInRedwoodForst": {
+            "trigger": "minecraft:location",
+            "conditions": {
+                "biome": "dinosexpansion:redwood_forest"
+            }
+        }
+    },
+    "requirements": [
+        [
+            "isInRedwoodForst"
+        ]
+    ],
+    "parent": "dinosexpansion:adventure/goto_dino_dimension"
+}

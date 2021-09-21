@@ -1,0 +1,36 @@
+{
+    "display": {
+        "title": {
+            "text": "Revolutionary Grilling",
+            "color": "dark_green"
+        },
+        "description": {
+            "text": "craft a industrial grill"
+        },
+        "icon": {
+            "item": "minecraft:stone"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "hasIndustrialGrill": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "dinosexpansion:industrial_grill"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "hasIndustrialGrill"
+        ]
+    ],
+    "parent": "dinosexpansion:adventure/time_machine"
+}

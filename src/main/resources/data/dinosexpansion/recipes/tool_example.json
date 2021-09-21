@@ -1,10 +1,10 @@
 {
   "type": "dinosexpansion:advanced_smithing_recipe",
   "pattern": [
+    " ii ",
     "iiii",
     "iiii",
-    "iiii",
-    "iiii"
+    " ii "
   ],
   "key": {
     "i": {

@@ -45,6 +45,11 @@ public class AdvancedSmithingTableRecipe implements IRecipe<AdvancedSmithingTabl
 		this.recipeWidth = recipeWidth;
 		this.recipeHeight = recipeHeight;
 	}
+	
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return ingredients;
+	}
 
 	@Override
 	public boolean matches(AdvancedSmithingTableTileEntity inv, World worldIn) {

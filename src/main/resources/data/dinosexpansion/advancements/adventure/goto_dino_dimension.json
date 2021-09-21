@@ -1,0 +1,33 @@
+{
+    "display": {
+        "title": {
+            "text": "The Land Before Time",
+            "color": "dark_purple",
+            "bold": true
+        },
+        "description": {
+            "text": "visit a whole new Land u couldnt imagine"
+        },
+        "icon": {
+            "item": "minecraft:stone"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "getToDinos": {
+            "trigger": "minecraft:changed_dimension",
+            "conditions": {
+                "to": "dinosexpansion:dino"
+            }
+        }
+    },
+    "requirements": [
+        [
+            "getToDinos"
+        ]
+    ],
+    "parent": "dinosexpansion:adventure/time_machine"
+}

@@ -68,7 +68,7 @@ public class IndustrialGrill extends ShapedBlock {
 				return ActionResultType.SUCCESS;
 			}
 		}
-		return ActionResultType.PASS;
+		return ActionResultType.SUCCESS;
 	}
 
 	@SuppressWarnings("deprecation")

@@ -1,0 +1,36 @@
+{
+    "display": {
+        "title": {
+            "text": "Welcome to the advanced Crafting",
+            "color": "dark_green"
+        },
+        "description": {
+            "text": "craft a advanced smithing table"
+        },
+        "icon": {
+            "item": "dinosexpansion:advanced_smithing_table"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "hasAdvancedSmithingTable": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "dinosexpansion:advanced_smithing_table"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "hasAdvancedSmithingTable"
+        ]
+    ],
+    "parent": "dinosexpansion:adventure/goto_dino_dimension"
+}

@@ -1,0 +1,36 @@
+{
+    "display": {
+        "title": {
+            "text": "Let the taming begin!",
+            "color": "dark_green"
+        },
+        "description": {
+            "text": "craft a narcotic in the mortar"
+        },
+        "icon": {
+            "item": "minecraft:stone"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "hasNarcotics": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "dinosexpansion:narcotics"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "hasNarcotics"
+        ]
+    ],
+    "parent": "goto_dino_dimension"
+}

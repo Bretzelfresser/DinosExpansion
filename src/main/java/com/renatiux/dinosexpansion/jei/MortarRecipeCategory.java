@@ -96,6 +96,7 @@ public class MortarRecipeCategory implements IRecipeCategory<MortarRecipe> {
         itemStackGroup.set(ingredients);
     }
 
+    @Override
     public void draw(MortarRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         staticMortar.draw(matrixStack, 1, 19);
 

@@ -84,8 +84,9 @@ public class Mortar extends ShapedBlock {
 			TileEntity te = world.getTileEntity(pos);
 			if (te instanceof MortarTileEntity)
 				NetworkHooks.openGui((ServerPlayerEntity) player, (MortarTileEntity) te, pos);
+			return ActionResultType.SUCCESS;
 		}
-		return ActionResultType.SUCCESS;
+		return ActionResultType.PASS;
 	}
 	
 	@Override

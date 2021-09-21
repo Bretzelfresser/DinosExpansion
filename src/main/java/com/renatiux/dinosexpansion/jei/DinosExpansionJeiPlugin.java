@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.jei;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.core.init.RecipeInit;
+
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -16,9 +17,9 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @JeiPlugin
-public class MortarJeiPlugin implements IModPlugin {
+public class DinosExpansionJeiPlugin implements IModPlugin {
 
-    private static final ResourceLocation PLUGIN_ID =  new ResourceLocation(Dinosexpansion.MODID, "mortar_plugin");
+    private static final ResourceLocation PLUGIN_ID =  new ResourceLocation(Dinosexpansion.MODID, "dinosexpansion_plugin");
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -31,6 +32,7 @@ public class MortarJeiPlugin implements IModPlugin {
 		RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
 
         registration.addRecipes(getRecipes(manager, RecipeInit.MORTAR_RECIPE), MortarRecipeCategory.ID);
+        registration.addRecipes(getRecipes(manager, RecipeInit.ADVANCED_SMITHING_TABLE_RECIPE), AdvancedSmithingTableCategory.ID);
     }
 
     @Override
@@ -38,6 +40,8 @@ public class MortarJeiPlugin implements IModPlugin {
         IGuiHelper helper = registration.getJeiHelpers().getGuiHelper();
 
         registration.addRecipeCategories(new MortarRecipeCategory(helper));
+        
+        registration.addRecipeCategories(new AdvancedSmithingTableCategory(helper));
     }
 
     public static Collection<?> getRecipes(RecipeManager manager, IRecipeType<?> type){

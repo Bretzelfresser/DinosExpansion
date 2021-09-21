@@ -133,6 +133,12 @@ public abstract class Dinosaur extends MonsterEntity
 
 	}
 	
+	@Override
+	public void setCustomName(ITextComponent name) {
+		setCustomNameVisible(true);
+		super.setCustomName(name);
+	}
+	
 
 	@Override
 	public final ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {

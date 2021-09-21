@@ -49,6 +49,7 @@ public class AdvancedSmithingTable extends ShapedBlock{
 			TileEntity te = worldIn.getTileEntity(pos);
 			if(te instanceof AdvancedSmithingTableTileEntity) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, (AdvancedSmithingTableTileEntity) te, pos);
+				 return ActionResultType.SUCCESS;
 			}
 		}
 		return ActionResultType.PASS;

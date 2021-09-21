@@ -1,0 +1,36 @@
+{
+    "display": {
+        "title": {
+            "text": "What a Strange Machine?",
+            "color": "dark_green"
+        },
+        "description": {
+            "text": "craft a Time Machine"
+        },
+        "icon": {
+            "item": "dinosexpansion:time_machine"
+        },
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "hasTimeMachine": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "dinosexpansion:time_machine"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "hasTimeMachine"
+        ]
+    ],
+    "parent": "dinosexpansion:adventure/root"
+}
