@@ -52,6 +52,8 @@ public class CutoutRendersDE {
 
         //Crops
         RenderTypeLookup.setRenderLayer(BlockInit.ONION_CROP_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.BUCKWHEAT_CROP_BLOCK.get(), RenderType.getCutout());
+
     }
 
 

@@ -24,7 +24,7 @@ public class DECropsBlock extends CropsBlock{
         SHAPES = null;
     }
 
-    public DECropsBlock(Block.Properties properties, Supplier<Item> itemSupplier, Supplier<Item> seedItemSupplier, VoxelShape[] voxelShapes) {
+    public DECropsBlock(Block.Properties properties, Supplier<Item> seedItemSupplier, VoxelShape[] voxelShapes) {
         super(properties);
         this.seedItemSupplier = seedItemSupplier;
         this.SHAPES = voxelShapes;

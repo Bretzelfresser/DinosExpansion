@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "dinosexpansion:onion_crop_block"
+    "dinosexpansion:onion_crop_block",
+    "dinosexpansion:buckwheat_crop_block"
   ]
 }

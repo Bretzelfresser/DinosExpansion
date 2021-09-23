@@ -25,6 +25,7 @@ public class FoodInit {
 	public static final Food STRAWBERRY = new Food.Builder().hunger(2).saturation(0.1F).build();
 
 	public static final Food ONION = new Food.Builder().hunger(3).saturation(0.6F).build();
+	public static final Food BUCKWHEAT = new Food.Builder().hunger(3).saturation(0.6F).build();
 
 	private static Food.Builder addNegativeEffects(Food.Builder builder){
 		builder.effect(() -> new EffectInstance(Effects.NAUSEA, 1200, 2), 1);
