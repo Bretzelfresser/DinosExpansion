@@ -29,6 +29,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -228,6 +229,16 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 		if (this.ticksExisted > 20 && prevHasChest != hasChest()) {
 			this.playSound(getChestEquipSound(), 0.5F, 1.0F);
 		}
+	}
+	
+	@Override
+	protected AxisAlignedBB getChildBoundingBox(AxisAlignedBB superBox) {
+		return superBox;
+	}
+
+	@Override
+	protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
+		return superBox;
 	}
 
 }

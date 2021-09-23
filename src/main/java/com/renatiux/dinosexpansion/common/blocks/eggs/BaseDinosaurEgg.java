@@ -4,9 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
-import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -38,11 +36,9 @@ public abstract class BaseDinosaurEgg extends Block {
 
 	public BaseDinosaurEgg(Properties properties) {
 		super(properties);
-		this.setDefaultState(
-				this.stateContainer.getBaseState().with(HATCH, Integer.valueOf(0)).with(EGGS, Integer.valueOf(1)));
+		this.setDefaultState(this.stateContainer.getBaseState().with(HATCH, Integer.valueOf(0)));
 	}
 
-	
 	/**
 	 * Called when the given entity walks on this Block
 	 */
@@ -55,20 +51,21 @@ public abstract class BaseDinosaurEgg extends Block {
 	 * Block's chance to react to a living entity falling on it.
 	 */
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
+		tryTrample(worldIn, pos, entityIn, 2);
 		super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
 	}
 
-	private void tryTrample(World worldIn, BlockPos pos, Entity trampler, int p_203167_4_) {
+	private void tryTrample(World worldIn, BlockPos pos, Entity trampler, int oneOutOf) {
 		if (!this.canTrample(worldIn, trampler)) {
 			super.onEntityWalk(worldIn, pos, trampler);
 		} else {
-			if (!worldIn.isRemote && worldIn.rand.nextInt(p_203167_4_) == 0) {
+			if (!worldIn.isRemote && worldIn.rand.nextInt(oneOutOf) == 0) {
 				this.removeOneEgg(worldIn, pos, worldIn.getBlockState(pos));
 			}
 
 		}
 	}
-
+	
 	private void removeOneEgg(World worldIn, BlockPos pos, BlockState state) {
 		worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_TURTLE_EGG_BREAK, SoundCategory.BLOCKS, 0.7F,
 				0.9F + worldIn.rand.nextFloat() * 0.2F);
@@ -81,10 +78,11 @@ public abstract class BaseDinosaurEgg extends Block {
 		}
 
 	}
-
+	@Override
 	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-		if (this.canGrow(worldIn) && this.hasProperHabitat(worldIn, pos)) {
+		if (this.hasProperHabitat(worldIn, pos)) {
 			int i = state.get(HATCH);
+			System.out.println(i);
 			if (i < 2) {
 				worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_TURTLE_EGG_CRACK, SoundCategory.BLOCKS,
 						0.7F, 0.9F + rand.nextFloat() * 0.2F);
@@ -96,16 +94,17 @@ public abstract class BaseDinosaurEgg extends Block {
 
 				for (int j = 0; j < state.get(EGGS); ++j) {
 					worldIn.playEvent(2001, pos, Block.getStateId(state));
-					Allosaurus allosaurusentity = EntityTypeInit.ALLOSAURUS.get().create(worldIn);
-					// allosaurusentity.setGrowingAge(-24000); not implemented
-					allosaurusentity.setLocationAndAngles((double) pos.getX() + 0.3D + (double) j * 0.2D,
+					Dinosaur dino = createChildEntity(worldIn);
+					dino.setLocationAndAngles((double) pos.getX() + 0.3D + (double) j * 0.2D,
 							(double) pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
-					worldIn.addEntity(allosaurusentity);
+					worldIn.addEntity(dino);
 				}
 			}
 		}
 
 	}
+	
+	protected abstract Dinosaur createChildEntity(World world);
 
 	private boolean hasProperHabitat(IBlockReader blockReader, BlockPos pos) {
 		return blockReader.getBlockState(pos.down()).getBlock() == Blocks.SAND
@@ -127,7 +126,7 @@ public abstract class BaseDinosaurEgg extends Block {
 		if ((double) f < 0.69D && (double) f > 0.65D) {
 			return true;
 		} else {
-			return worldIn.rand.nextInt(500) == 0;
+			return true;
 		}
 	}
 
@@ -169,8 +168,10 @@ public abstract class BaseDinosaurEgg extends Block {
 				return false;
 			}
 		}
-		return !(trampler instanceof LivingEntity) || trampler instanceof PlayerEntity
-				|| net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(worldIn, trampler);
+		if (!(trampler instanceof LivingEntity)) {
+			return false;
+		}
+		return trampler instanceof PlayerEntity || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(worldIn, trampler);
 	}
 
 	protected abstract <T extends Dinosaur> Class<T>[] canTrampleOn();

@@ -18,7 +18,7 @@ public class FoodInit {
 	public static final Food ALLOSAURUS_COOKED_MEAT = new Food.Builder().hunger(3).saturation(0.3F).meat().build();
 	public static final Food ALLOSAURUS_RAW_MEAT = new Food.Builder().hunger(8).saturation(0.8F).meat().build();
 
-	public static final Food NARCOTIC_BERRY = new Food.Builder().hunger(2).saturation(0.1F).effect(new EffectInstance(Effects.NAUSEA, 200, 0), 1.0F).build();
+	public static final Food NARCOTIC_BERRY = new Food.Builder().hunger(2).saturation(0.1F).effect(() -> new EffectInstance(Effects.NAUSEA, 200, 0), 1.0F).build();
 	public static final Food BLACKBERRY = new Food.Builder().hunger(2).saturation(0.1F).build();
 	public static final Food BLUEBERRY = new Food.Builder().hunger(2).saturation(0.1F).build();
 	public static final Food RASPBERRY = new Food.Builder().hunger(2).saturation(0.1F).build();

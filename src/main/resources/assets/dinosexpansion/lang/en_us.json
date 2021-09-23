@@ -159,6 +159,11 @@
 	"screen.dinosexpansion.protecting":"Protecting",
 	"screen.dinosexpansion.breed":"Breed",
 	"screen.dinosexpansion.sleep":"Sleep",
+	
+	"dinosexpansion.sex":"Sex : %s",
+	"sex.dinosexpansion.male":"Male",
+	"sex.dinosexpansion.female":"Female",
+	"sex.dinosexpansion.asexual":"Asexual",
 
 
 	"effect.dinosexpansion.climb_effect": "Climb"

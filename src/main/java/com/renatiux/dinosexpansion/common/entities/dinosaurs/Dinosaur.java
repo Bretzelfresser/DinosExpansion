@@ -14,6 +14,7 @@ import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.Tam
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.items.NarcoticItem;
 import com.renatiux.dinosexpansion.common.items.PoopItem.PoopSize;
+import com.renatiux.dinosexpansion.core.init.AdvancementTriggerInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 
@@ -51,6 +52,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
@@ -90,8 +92,13 @@ public abstract class Dinosaur extends MonsterEntity
 			DataSerializers.VARINT);
 	public static final DataParameter<Integer> HUNGER = EntityDataManager.createKey(Dinosaur.class,
 			DataSerializers.VARINT);
-	public static final DataParameter<Integer> STATUS = EntityDataManager.createKey(Dinosaur.class,DataSerializers.VARINT);
-	public static final DataParameter<String> RARITY = EntityDataManager.createKey(Dinosaur.class, DataSerializers.STRING);
+	public static final DataParameter<Integer> STATUS = EntityDataManager.createKey(Dinosaur.class,
+			DataSerializers.VARINT);
+	public static final DataParameter<String> RARITY = EntityDataManager.createKey(Dinosaur.class,
+			DataSerializers.STRING);
+	public static final DataParameter<String> SEX = EntityDataManager.createKey(Dinosaur.class, DataSerializers.STRING);
+	public static final DataParameter<Integer> GROWTH = EntityDataManager.createKey(Dinosaur.class,
+			DataSerializers.VARINT);
 
 	protected final int sizeInventory;
 	protected int sleepCooldown, hungerCounter, growingAge, poopCooldown, breedCooldown;
@@ -99,7 +106,6 @@ public abstract class Dinosaur extends MonsterEntity
 	protected Inventory dinosaurInventory, tamingInventory;
 
 	private boolean dead, forcedSleep;
-	private Sex sex;
 	private List<ItemStack> stacksToDrop;
 	private DinosaurStatus prevStatus;
 
@@ -118,27 +124,30 @@ public abstract class Dinosaur extends MonsterEntity
 		this.breedCooldown = 0;
 		dead = false;
 		forcedSleep = false;
-		if (child)
+		if (child) {
 			growingAge = -getGrowingTime();
-		else
+		} else {
 			growingAge = 0;
+		}
 		setToChild(child);
 		prevStatus = DinosaurStatus.IDLE;
 		this.ignoreFrustumCheck = true;
-		this.sex = getInitialSex();
 		getInitialRarity();
 		this.stacksToDrop = new LinkedList<>();
 		initInventory(sizeInventory);
 		InitTamingInventory(12);
 
 	}
-	
+
 	@Override
 	public void setCustomName(ITextComponent name) {
 		setCustomNameVisible(true);
 		super.setCustomName(name);
 	}
-	
+
+	protected abstract AxisAlignedBB getChildBoundingBox(AxisAlignedBB superBox);
+
+	protected abstract AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox);
 
 	@Override
 	public final ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
@@ -156,10 +165,10 @@ public abstract class Dinosaur extends MonsterEntity
 				return ActionResultType.PASS;
 			}
 			if (getTamingBehaviour().hasGui() && getTamingBehaviour().canBeTamed(this)
-					&& !getTamingBehaviour().isReadyToTame(this) && !isTame() && isKnockout()) {
+					&& !getTamingBehaviour().isReadyToTame(this) && !isTame() && isKnockout() && !isChild()) {
 				getTamingBehaviour().openGui(player, this);
 				return ActionResultType.SUCCESS;
-			} else if (getTamingBehaviour().isReadyToTame(this) && !isTame() && isKnockout()) {
+			} else if (getTamingBehaviour().isReadyToTame(this) && !isTame() && isKnockout() && !isChild()) {
 				setTamedBy(player);
 				getTamingBehaviour().reset(this);
 				return ActionResultType.SUCCESS;
@@ -224,10 +233,11 @@ public abstract class Dinosaur extends MonsterEntity
 	 * @return
 	 */
 	public abstract boolean canBreed();
-	
+
 	/**
 	 * 
-	 * @return the cooldown the dino has after bred, default is 10 mins, value is in ticks
+	 * @return the cooldown the dino has after bred, default is 10 mins, value is in
+	 *         ticks
 	 */
 	public int getBreedCooldown() {
 		return 12000;
@@ -264,7 +274,7 @@ public abstract class Dinosaur extends MonsterEntity
 		return this.dataManager.get(CHILD);
 	}
 
-	protected void setToChild(boolean child) {
+	public void setToChild(boolean child) {
 		this.dataManager.set(CHILD, child);
 	}
 
@@ -307,11 +317,12 @@ public abstract class Dinosaur extends MonsterEntity
 
 	/**
 	 * override to control whether the dino should poop
+	 * default is yes when the dino isnt a child
 	 */
 	protected boolean canPoop() {
-		return true;
+		return !isChild();
 	}
-
+	
 	/**
 	 * defines when to poop, called every tick
 	 */
@@ -352,6 +363,8 @@ public abstract class Dinosaur extends MonsterEntity
 		dropTamingInventory();
 		setKnockedOut(false);
 		this.world.setEntityState(this, (byte) 6);
+		if (player instanceof ServerPlayerEntity)
+			AdvancementTriggerInit.TAMED_DINOSAUR.trigger((ServerPlayerEntity) player, this);
 		return true;
 	}
 
@@ -463,7 +476,7 @@ public abstract class Dinosaur extends MonsterEntity
 		}
 		if (sleepCooldown > 0)
 			sleepCooldown--;
-		if(breedCooldown > 0) {
+		if (breedCooldown > 0) {
 			breedCooldown--;
 		}
 		if (!this.world.isRemote) {
@@ -478,6 +491,23 @@ public abstract class Dinosaur extends MonsterEntity
 		if (canPoop() && randomChancePoop()) {
 			poop();
 			poopCooldown = timeBetweenPooping();
+		}
+		if (isChild()) {
+			updateChild();
+		}
+	}
+
+	protected void updateChild() {
+		System.out.println(growingAge);
+		if (growingAge < 0) {
+			growingAge++;
+		} else if (growingAge >= 0) {
+			if (getGrowthState() >= 2) {
+				setToChild(false);
+			} else {
+				increaseGrowthState();
+				growingAge = -getGrowingTime();
+			}
 		}
 	}
 
@@ -506,6 +536,19 @@ public abstract class Dinosaur extends MonsterEntity
 		this.dataManager.set(STUNNED, getNarcoticValue() + toAdd);
 	}
 
+	public void setGrowthState(int state) {
+		this.dataManager.set(GROWTH, state);
+	}
+
+	public int getGrowthState() {
+		return this.dataManager.get(GROWTH);
+	}
+
+	protected void increaseGrowthState() {
+		this.world.setEntityState(this, (byte) 8);
+		this.dataManager.set(GROWTH, this.dataManager.get(GROWTH) + 1);
+	}
+
 	@Override
 	protected void registerData() {
 		super.registerData();
@@ -522,6 +565,8 @@ public abstract class Dinosaur extends MonsterEntity
 		this.dataManager.register(STATUS, DinosaurStatus.IDLE.getID());
 		this.dataManager.register(CHILD, false);
 		this.dataManager.register(RARITY, getInitialRarity().name());
+		this.dataManager.register(SEX, getInitialSex().name());
+		this.dataManager.register(GROWTH, 0);
 	}
 
 	/**
@@ -886,6 +931,19 @@ public abstract class Dinosaur extends MonsterEntity
 
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	protected void spawnGrowthParticles() {
+
+		for (int i = 0; i < 10; ++i) {
+			double d0 = this.rand.nextGaussian() * 0.02D;
+			double d1 = this.rand.nextGaussian() * 0.02D;
+			double d2 = this.rand.nextGaussian() * 0.02D;
+			this.world.addParticle(ParticleTypes.AMBIENT_ENTITY_EFFECT, this.getPosXRandom(.5D),
+					this.getPosYRandom() + 0.5D, this.getPosZRandom(.5D), d0, d1, d2);
+		}
+
+	}
+
 	/**
 	 * sets the dino dead, syncs with the Client
 	 */
@@ -906,6 +964,9 @@ public abstract class Dinosaur extends MonsterEntity
 			break;
 		case 7:
 			spawnParticles(false);
+			break;
+		case 8:
+			spawnGrowthParticles();
 			break;
 		case 14:
 			this.dead = true;
@@ -1100,7 +1161,9 @@ public abstract class Dinosaur extends MonsterEntity
 	}
 
 	/**
-	 * this method is called when the player get near the Dino and the DIno isnt sleep or knockouted
+	 * this method is called when the player get near the Dino and the DIno isnt
+	 * sleep or knockouted
+	 * 
 	 * @return the sound event played when the player gets near the Dino
 	 */
 	protected SoundEvent getAmbientSoundDino() {
@@ -1150,51 +1213,59 @@ public abstract class Dinosaur extends MonsterEntity
 	public abstract int shrinkNarcotic(int narcotic);
 
 	protected abstract <T extends Dinosaur> TamingBahviour<T> getTamingBehaviour();
-	
+
 	protected Sex getInitialSex() {
-		if(this.rand.nextInt(100) % 2 == 0)
+		if (this.rand.nextInt(100) % 2 == 0)
 			return Sex.MALE;
 		return Sex.FEMALE;
 	}
-	
+
 	protected Rarity getInitialRarity() {
-		if(this.rand.nextDouble() < 0.1d)
+		if (this.rand.nextDouble() < 0.1d)
 			return Rarity.LEGENDARY;
-		if(this.rand.nextDouble() < 0.2d)
+		if (this.rand.nextDouble() < 0.2d)
 			return Rarity.EPIC;
-		if(this.rand.nextDouble() < 0.4d)
+		if (this.rand.nextDouble() < 0.4d)
 			return Rarity.RARE;
 		return Rarity.COMMON;
 	}
+
 	/**
 	 * synced with the client
 	 */
 	public Rarity getRarity() {
 		return Rarity.valueOf(this.dataManager.get(RARITY));
 	}
+
 	/**
 	 * sets the Rarity, used by dinosaurs to set the rarity of the child
 	 */
 	protected void setRarity(Rarity rarity) {
 		this.dataManager.set(RARITY, rarity.name());
 	}
-	
+
 	public Sex getSex() {
-		return sex;
+		return Sex.valueOf(this.dataManager.get(SEX));
 	}
-	
-	
-	public static enum Sex{
-		MALE,
-		FEMALE,
-		ASEXUAL;
+
+	public static enum Sex {
+		MALE("male"), FEMALE("female"),
+		/** TODO isnt implemented yet */
+		ASEXUAL("asexual");
+
+		private String translationKey;
+
+		private Sex(String translationKey) {
+			this.translationKey = translationKey;
+		}
+
+		public TranslationTextComponent getName() {
+			return new TranslationTextComponent("sex." + Dinosexpansion.MODID + "." + translationKey);
+		}
 	}
-	
-	public static enum Rarity{
-		COMMON,
-		RARE,
-		EPIC,
-		LEGENDARY;
+
+	public static enum Rarity {
+		COMMON, RARE, EPIC, LEGENDARY;
 	}
 
 }

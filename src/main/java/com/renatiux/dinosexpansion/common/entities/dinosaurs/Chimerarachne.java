@@ -18,6 +18,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.ClimberPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.PlayState;
@@ -186,6 +187,16 @@ public class Chimerarachne extends Dinosaur{
 	
 	@Override
 	protected void poop() {
+	}
+
+	@Override
+	protected AxisAlignedBB getChildBoundingBox(AxisAlignedBB superBox) {
+		return superBox;
+	}
+
+	@Override
+	protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
+		return superBox;
 	}
 
 }

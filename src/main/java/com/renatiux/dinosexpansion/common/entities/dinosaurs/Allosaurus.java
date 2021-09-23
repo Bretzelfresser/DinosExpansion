@@ -8,6 +8,7 @@ import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.All
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
 import com.renatiux.dinosexpansion.common.goals.DinosaurBreedGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurFollowGoal;
+import com.renatiux.dinosexpansion.common.goals.DinosaurFollowParentGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurLookAtGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurLookRandomlyGoal;
 import com.renatiux.dinosexpansion.common.goals.DinosaurNearestAttackableTarget;
@@ -43,6 +44,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -104,6 +106,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 0.5f, true));
 		this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 1.0f, 3, 10));
 		this.goalSelector.addGoal(0, new DinosaurBreedGoal(this, 0.8f));
+		this.goalSelector.addGoal(3, new DinosaurFollowParentGoal(this, 0.8f));
 	}
 
 	@Override
@@ -119,6 +122,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
 		if (growlCooldown > 0)
 			growlCooldown--;
+		
 	}
 
 	@Override
@@ -419,5 +423,16 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	protected PoopSize getPoopSize() {
 		return PoopSize.MEDIUM;
 	}
+
+	@Override
+	protected AxisAlignedBB getChildBoundingBox(AxisAlignedBB superBox) {
+		return superBox.contract(0, 1.5, 0);
+	}
+
+	@Override
+	protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
+		return superBox.contract(0, 0.5, 0);
+	}
+	
 
 }

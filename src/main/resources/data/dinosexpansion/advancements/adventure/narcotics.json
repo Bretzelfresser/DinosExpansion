@@ -32,5 +32,5 @@
             "hasNarcotics"
         ]
     ],
-    "parent": "goto_dino_dimension"
+    "parent": "dinosexpansion:adventure/goto_dino_dimension"
 }
