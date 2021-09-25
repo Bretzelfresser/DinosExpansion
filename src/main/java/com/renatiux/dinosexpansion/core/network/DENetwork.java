@@ -18,5 +18,6 @@ public class DENetwork {
 	
 	public static void init() {
 		CHANNEL1.registerMessage(0, DinoaurStatusPacket.class, DinoaurStatusPacket::encode,DinoaurStatusPacket::decode, DinoaurStatusPacket::handle);
+		CHANNEL1.registerMessage(1, AttackPacket.class, AttackPacket::write, AttackPacket::read, AttackPacket::handle);
 	}
 }

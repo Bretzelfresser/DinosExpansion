@@ -30,7 +30,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import software.bernie.geckolib3.core.PlayState;
@@ -84,14 +83,14 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 	}
 
 	@Override
-	protected ActionResultType handlePlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+	protected ActionResultType handlePlayerInteraction(PlayerEntity player, Hand hand) {
 		if (!world.isRemote) {
 			if (isTame() && isOwner(player)) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, this, buf -> buf.writeVarInt(this.getEntityId()));
 				return ActionResultType.SUCCESS;
 			}
 		}
-		return super.handlePlayerInteraction(player, vec, hand);
+		return super.handlePlayerInteraction(player, hand);
 	}
 
 	@Override

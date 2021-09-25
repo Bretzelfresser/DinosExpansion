@@ -105,7 +105,7 @@ public abstract class Dinosaur extends MonsterEntity
 	protected AnimationFactory factory = new AnimationFactory(this);
 	protected Inventory dinosaurInventory, tamingInventory;
 
-	private boolean dead, forcedSleep;
+	private boolean dead, day;
 	private List<ItemStack> stacksToDrop;
 	private DinosaurStatus prevStatus;
 
@@ -123,7 +123,7 @@ public abstract class Dinosaur extends MonsterEntity
 		this.hungerCounter = 0;
 		this.breedCooldown = 0;
 		dead = false;
-		forcedSleep = false;
+		day = world.isDaytime();
 		if (child) {
 			growingAge = -getGrowingTime();
 		} else {
@@ -150,7 +150,7 @@ public abstract class Dinosaur extends MonsterEntity
 	protected abstract AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox);
 
 	@Override
-	public final ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+	public final ActionResultType getEntityInteractionResult(PlayerEntity player, Hand hand) {
 		if (!world.isRemote) {
 			if (deathTime > 0) {
 				if (getDroppedItems() != null && player.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
@@ -188,9 +188,9 @@ public abstract class Dinosaur extends MonsterEntity
 				return ActionResultType.SUCCESS;
 			}
 		}
-		ActionResultType type = handlePlayerInteraction(player, vec, hand);
+		ActionResultType type = handlePlayerInteraction(player, hand);
 		if (type == ActionResultType.FAIL)
-			return super.applyPlayerInteraction(player, vec, hand);
+			return super.getEntityInteractionResult(player, hand);
 		else
 			return type;
 	}
@@ -203,7 +203,7 @@ public abstract class Dinosaur extends MonsterEntity
 	 * @return return the ActionResultType, if it is Fail, the super from mobEntity
 	 *         is called otherwise the resultType is returned
 	 */
-	protected ActionResultType handlePlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+	protected ActionResultType handlePlayerInteraction(PlayerEntity player, Hand hand) {
 		return ActionResultType.FAIL;
 	}
 
@@ -304,11 +304,15 @@ public abstract class Dinosaur extends MonsterEntity
 	protected boolean shouldSleep() {
 		if (sleepCooldown > 0 || world.isDaytime() || this.getAttackTarget() != null || this.isBeingRidden())
 			return false;
-		return randomChanceSleep();
+		if(randomChanceSleep() && day) {
+			day = world.isDaytime();
+			return true;
+		}
+		return false;
 	}
 
 	protected boolean shouldWakeUp() {
-		return world.isDaytime() && randomChanceSleep() && !forcedSleep;
+		return world.isDaytime() && randomChanceSleep() && !day;
 	}
 
 	protected boolean randomChanceSleep() {
@@ -605,20 +609,9 @@ public abstract class Dinosaur extends MonsterEntity
 
 	public void setStatus(DinosaurStatus status) {
 		this.dataManager.set(STATUS, status.getID());
-		if (forcedSleep) {
-			forcedSleep = false;
-		}
 	}
-
-	/**
-	 * just used for the orders given from the player so the dino can´t wake up when
-	 * set to sleep, even when it is day
-	 */
-	public void setForcedSleep() {
-		setStatus(DinosaurStatus.SLEEPING);
-		forcedSleep = true;
-	}
-
+	
+	
 	public DinosaurStatus getStatus() {
 		return DinosaurStatus.getStatus(this.dataManager.get(STATUS));
 	}

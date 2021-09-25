@@ -105,7 +105,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		this.goalSelector.addGoal(9, new DinosaureWalkRandomlyGoal(this, 0.5d));
 		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 0.5f, true));
 		this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 1.0f, 3, 10));
-		this.goalSelector.addGoal(0, new DinosaurBreedGoal(this, 0.8f));
+		this.goalSelector.addGoal(3, new DinosaurBreedGoal(this, 0.8f));
 		this.goalSelector.addGoal(3, new DinosaurFollowParentGoal(this, 0.8f));
 	}
 
@@ -126,7 +126,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	}
 
 	@Override
-	public ActionResultType handlePlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+	public ActionResultType handlePlayerInteraction(PlayerEntity player, Hand hand) {
 		if (player.world.isRemote)
 			return ActionResultType.PASS;
 		if (player instanceof ServerPlayerEntity) {
@@ -176,7 +176,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 				if (f1 <= 0.0F) {
 					f1 *= 0.25F;
 				}
-				this.setAIMoveSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+				this.setAIMoveSpeed((float) 0.4f);
 				super.travel(new Vector3d((double) f, pos.y, (double) f1));
 			} else
 				super.travel(pos);
