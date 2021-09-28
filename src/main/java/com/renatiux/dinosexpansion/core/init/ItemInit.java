@@ -103,12 +103,36 @@ public class ItemInit {
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ONION)));
 	public static final RegistryObject<Item> BUCKWHEAT = ITEMS.register("buckwheat",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.BUCKWHEAT)));
+	public static final RegistryObject<Item> SPINACH = ITEMS.register("spinach",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.SPINACH)));
+	public static final RegistryObject<Item> TOMATO = ITEMS.register("tomato",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.TOMATO)));
+	public static final RegistryObject<Item> CORN = ITEMS.register("corn",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.CORN)));
+	public static final RegistryObject<Item> CUCUMBER = ITEMS.register("cucumber",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.CUCUMBER)));
+	public static final RegistryObject<Item> EGGPLANT = ITEMS.register("eggplant",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.EGGPLANT)));
+	public static final RegistryObject<Item> LETTUCE = ITEMS.register("lettuce",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.LETTUCE)));
 
 	//Seed
 	public static final RegistryObject<Item> ONION_SEED = ITEMS.register("onion_seed",
 			()-> new BlockNamedItem(BlockInit.ONION_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
 	public static final RegistryObject<Item> BUCKWHEAT_SEED = ITEMS.register("buckwheat_seed",
 			()-> new BlockNamedItem(BlockInit.BUCKWHEAT_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
+	public static final RegistryObject<Item> SPINACH_SEED = ITEMS.register("spinach_seed",
+			()-> new BlockNamedItem(BlockInit.SPINACH_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
+	public static final RegistryObject<Item> TOMATO_SEED = ITEMS.register("tomato_seed",
+			()-> new BlockNamedItem(BlockInit.TOMATO_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
+	public static final RegistryObject<Item> CORN_SEED = ITEMS.register("corn_seed",
+			()-> new BlockNamedItem(BlockInit.CORN_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
+	public static final RegistryObject<Item> CUCUMBER_SEED = ITEMS.register("cucumber_seed",
+			()-> new BlockNamedItem(BlockInit.CUCUMBER_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
+	public static final RegistryObject<Item> EGGPLANT_SEED = ITEMS.register("eggplant_seed",
+			()-> new BlockNamedItem(BlockInit.EGGPLANT_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
+	public static final RegistryObject<Item> LETTUCE_SEED = ITEMS.register("lettuce_seed",
+			()-> new BlockNamedItem(BlockInit.LETTUCE_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));
 
 	//Bush
 	public static final RegistryObject<Item> NARCOTIC_BERRY = ITEMS.register("narcotic_berry",

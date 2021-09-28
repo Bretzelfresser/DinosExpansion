@@ -28,10 +28,8 @@ public class DinoBiomeLayer implements IC0Transformer {
             });
     protected int[] rareBiomes = (new int[]
             {
-                    DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_DINO_OCEAN),
                     DinoLayerUtil.getBiomeId(BiomeKeys.DINO_OCEAN),
-                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DEEP_DINO_OCEAN),
-                    DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DINO_OCEAN),
+                    DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_DINO_OCEAN),
                     DinoLayerUtil.getBiomeId(BiomeKeys.REDWOOD_FOREST),
                     DinoLayerUtil.getBiomeId(BiomeKeys.REDWOOD_FOREST_HILLS),
             });

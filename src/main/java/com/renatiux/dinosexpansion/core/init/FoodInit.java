@@ -26,6 +26,12 @@ public class FoodInit {
 
 	public static final Food ONION = new Food.Builder().hunger(3).saturation(0.6F).build();
 	public static final Food BUCKWHEAT = new Food.Builder().hunger(3).saturation(0.6F).build();
+	public static final Food SPINACH = new Food.Builder().hunger(3).saturation(0.6F).build();
+	public static final Food TOMATO = new Food.Builder().hunger(3).saturation(0.6F).build();
+	public static final Food CORN = new Food.Builder().hunger(3).saturation(0.6F).build();
+	public static final Food CUCUMBER = new Food.Builder().hunger(3).saturation(0.6F).build();
+	public static final Food EGGPLANT = new Food.Builder().hunger(3).saturation(0.6F).build();
+	public static final Food LETTUCE = new Food.Builder().hunger(3).saturation(0.6F).build();
 
 	private static Food.Builder addNegativeEffects(Food.Builder builder){
 		builder.effect(() -> new EffectInstance(Effects.NAUSEA, 1200, 2), 1);
