@@ -1,0 +1,6 @@
+{
+  "parent": "dinosexpansion:block/cross_crop",
+  "textures": {
+    "cross_crop": "dinosexpansion:block/corn_stage6"
+  }
+}

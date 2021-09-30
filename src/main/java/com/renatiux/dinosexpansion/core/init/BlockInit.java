@@ -7,6 +7,7 @@ import com.renatiux.dinosexpansion.common.blocks.DESapling;
 import com.renatiux.dinosexpansion.common.blocks.MachineBarrierBlock;
 import com.renatiux.dinosexpansion.common.blocks.bush.DEBerryBush;
 import com.renatiux.dinosexpansion.common.blocks.crops.DECropsBlock;
+import com.renatiux.dinosexpansion.common.blocks.crops.DEDoubleCropsBlock;
 import com.renatiux.dinosexpansion.common.blocks.eggs.AllosaurusEggBlock;
 import com.renatiux.dinosexpansion.common.blocks.machine.AdvancedSmithingTable;
 import com.renatiux.dinosexpansion.common.blocks.machine.Incubator;
@@ -192,6 +193,18 @@ public class BlockInit {
 			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.ONION_SEED));
 	public static final RegistryObject<Block> BUCKWHEAT_CROP_BLOCK = BUSH.register("buckwheat_crop_block",
 			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.BUCKWHEAT_SEED));
+	public static final RegistryObject<Block> SPINACH_CROP_BLOCK = BUSH.register("spinach_crop_block",
+			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.SPINACH_SEED));
+	public static final RegistryObject<Block> TOMATO_CROP_BLOCK = BUSH.register("tomato_crop_block",
+			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.TOMATO_SEED));
+	public static final RegistryObject<Block> CORN_CROP_BLOCK = BUSH.register("corn_crop_block",
+			()-> new DEDoubleCropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.CORN_SEED));
+	public static final RegistryObject<Block> CUCUMBER_CROP_BLOCK = BUSH.register("cucumber_crop_block",
+			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.CUCUMBER_SEED));
+	public static final RegistryObject<Block> EGGPLANT_CROP_BLOCK = BUSH.register("eggplant_crop_block",
+			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.EGGPLANT_SEED));
+	public static final RegistryObject<Block> LETTUCE_CROP_BLOCK = BUSH.register("lettuce_crop_block",
+			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.LETTUCE_SEED));
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
 	 */

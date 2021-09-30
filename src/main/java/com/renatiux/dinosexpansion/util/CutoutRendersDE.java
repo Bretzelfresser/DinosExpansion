@@ -53,6 +53,13 @@ public class CutoutRendersDE {
         //Crops
         RenderTypeLookup.setRenderLayer(BlockInit.ONION_CROP_BLOCK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BlockInit.BUCKWHEAT_CROP_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.SPINACH_CROP_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.TOMATO_CROP_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.CORN_CROP_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.CUCUMBER_CROP_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.EGGPLANT_CROP_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.LETTUCE_CROP_BLOCK.get(), RenderType.getCutout());
+
 
     }
 
