@@ -4,9 +4,7 @@ package com.renatiux.dinosexpansion.common.tileEntities;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.LockableLootTileEntity;
@@ -20,7 +18,7 @@ public abstract class ContainerTileEntity extends LockableLootTileEntity{
 	protected final int slots;
 	protected NonNullList<ItemStack> items;
 	
-	protected ContainerTileEntity(TileEntityType<?> tileEntityTypeIn, int slots) {
+	public ContainerTileEntity(TileEntityType<?> tileEntityTypeIn, int slots) {
 		super(tileEntityTypeIn);
 		this.slots = slots;
 		this.items = NonNullList.withSize(slots, ItemStack.EMPTY);
@@ -47,11 +45,6 @@ public abstract class ContainerTileEntity extends LockableLootTileEntity{
 	}
 	
 	@Override
-	protected Container createMenu(int id, PlayerInventory player) {
-		return createContainer(id, player);
-	}
-	
-	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		compound = super.write(compound);
 		if(!this.checkLootAndWrite(compound))
@@ -68,6 +61,5 @@ public abstract class ContainerTileEntity extends LockableLootTileEntity{
 	}
 	
 	
-	protected abstract Container createContainer(int id, PlayerInventory inventory);
 	protected abstract String setName();
 }

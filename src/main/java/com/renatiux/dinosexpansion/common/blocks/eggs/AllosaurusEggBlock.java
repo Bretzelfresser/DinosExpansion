@@ -24,7 +24,7 @@ public class AllosaurusEggBlock extends BaseDinosaurEgg {
 	}
 
 	@Override
-	protected Dinosaur createChildEntity(World world) {
+	public Dinosaur createChildEntity(World world) {
 		return new Allosaurus(EntityTypeInit.ALLOSAURUS.get(), world, true);
 	}
 

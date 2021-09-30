@@ -12,15 +12,14 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 
-public class AdvancedSmithingTableTileEntity extends ContainerTileEntity implements ITickableTileEntity {
+public class AdvancedSmithingTableTileEntity extends MasterSlaveTileEntity implements ITickableTileEntity {
 
 	public AdvancedSmithingTableTileEntity() {
-		super(TileEntityTypesInit.ADVANCED_SMITHING_TABLE_TILE_ENTITY_TYPE.get(), 17);
+		super(TileEntityTypesInit.ADVANCED_SMITHING_TABLE_TILE_ENTITY_TYPE.get(), 17, true);
 	}
-
-	@Override
-	protected Container createContainer(int id, PlayerInventory inventory) {
-		return new AdvancedSmithingTableContainer(id, inventory, this);
+	
+	public AdvancedSmithingTableTileEntity(boolean master) {
+		super(TileEntityTypesInit.ADVANCED_SMITHING_TABLE_TILE_ENTITY_TYPE.get(), 17, master);
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class AdvancedSmithingTableTileEntity extends ContainerTileEntity impleme
 
 	@Override
 	public void tick() {
-		if (world.isRemote)
+		if (world.isRemote || !isMaster)
 			return;
 		if(hasItem()) {
 			AdvancedSmithingTableRecipe recipe = getRecipe();
@@ -59,6 +58,11 @@ public class AdvancedSmithingTableTileEntity extends ContainerTileEntity impleme
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Container createMasterContainer(int id, PlayerInventory inv) {
+		return new AdvancedSmithingTableContainer(id, inv, this);
 	}
 
 }

@@ -13,11 +13,14 @@ import com.renatiux.dinosexpansion.common.screens.IndustrialGrillScreen;
 import com.renatiux.dinosexpansion.common.screens.MortarScreen;
 import com.renatiux.dinosexpansion.common.screens.OrderScreen;
 import com.renatiux.dinosexpansion.common.screens.RaftScreen;
+import com.renatiux.dinosexpansion.core.init.BlockInit;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
 import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -35,6 +38,7 @@ public class ClientEvents {
 		tileEntityRenderer();
 		screenBinding();
 		armorModel();
+		registerBlockRenders();
 	}
 
 	private static void entityRenderer() {
@@ -71,6 +75,11 @@ public class ClientEvents {
 		ChimerarachneArmorItem.initArmorModel();
 		AllosaurusArmorItem.initArmorModel();
 		SteelArmorItem.initArmorModel();
+	}
+	
+	private static void registerBlockRenders() {
+		RenderTypeLookup.setRenderLayer(BlockInit.MORTAR.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(BlockInit.ADVANCED_SMITHING_TABLE.getPrimary(), RenderType.getCutout());
 	}
 
 }

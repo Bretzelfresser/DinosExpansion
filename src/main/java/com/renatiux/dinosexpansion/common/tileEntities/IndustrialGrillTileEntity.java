@@ -32,7 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Constants;
 
-public class IndustrialGrillTileEntity extends ContainerTileEntity implements ITickableTileEntity {
+public class IndustrialGrillTileEntity extends MasterSlaveTileEntity implements ITickableTileEntity{
 
 	private static final int SMOKE_AT_ONCE = 3;
 	public static final int COOK_TIME_TOTAL = 200;
@@ -42,14 +42,18 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 	private int counter, fuel, maxFuel;
 
 	public IndustrialGrillTileEntity() {
-		super(TileEntityTypesInit.INDUSTRIAL_GRILL_TILE_ENTITY_TYPE.get(), 19);
+		this(true);
+	}
+	
+	public IndustrialGrillTileEntity(boolean master) {
+		super(TileEntityTypesInit.INDUSTRIAL_GRILL_TILE_ENTITY_TYPE.get(), 19, master);
 		counter = 0;
 		fuel = 0;
 		maxFuel = 1;
 	}
 
 	@Override
-	protected Container createContainer(int id, PlayerInventory inventory) {
+	public Container createMasterContainer(int id, PlayerInventory inventory) {
 		return new IndustrialGrillContainer(id, inventory, this);
 	}
 
@@ -60,7 +64,7 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 
 	@Override
 	public void tick() {
-		if (world.isRemote)
+		if (world.isRemote || !isMaster)
 			return;
 		BlockState state = world.getBlockState(getPos());
 		if (state.get(BlockStateProperties.POWERED) != counter > 0) {
@@ -79,6 +83,7 @@ public class IndustrialGrillTileEntity extends ContainerTileEntity implements IT
 			decreaseFuel();
 			return;
 		}
+		System.out.println(canWork(map) + " | " + checkFuel());
 		if (canWork(map) && checkFuel()) {
 			if (counter <= 0) {
 				counter = COOK_TIME_TOTAL;

@@ -25,7 +25,7 @@ public class AdvancedSmithingTableCategory implements IRecipeCategory<AdvancedSm
 
 	public AdvancedSmithingTableCategory(IGuiHelper helper) {
 		back = helper.createDrawable(GUI, 6, 21, 152, 79);
-		icon = helper.createDrawableIngredient(new ItemStack(BlockInit.ADVANCED_SMITHING_TABLE.get()));
+		icon = helper.createDrawableIngredient(new ItemStack(BlockInit.ADVANCED_SMITHING_TABLE.getPrimary()));
 	}
 
 	@Override

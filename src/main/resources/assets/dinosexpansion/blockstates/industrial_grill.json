@@ -1,18 +1,33 @@
 {
 	"variants": {
-		"facing=north": {
-			"model": "dinosexpansion:block/industrial_grill"
+		"facing=north,lit=false": {
+			"model": "dinosexpansion:block/industrial_grill_off"
 		},
-		"facing=east": {
-			"model": "dinosexpansion:block/industrial_grill",
+		"facing=east,lit=false": {
+			"model": "dinosexpansion:block/industrial_grill_off",
 			"y": 90
 		},
-		"facing=south": {
-			"model": "dinosexpansion:block/industrial_grill",
+		"facing=south,lit=false": {
+			"model": "dinosexpansion:block/industrial_grill_off",
 			"y": 180
 		},
-		"facing=west": {
-			"model": "dinosexpansion:block/industrial_grill",
+		"facing=west,lit=false": {
+			"model": "dinosexpansion:block/industrial_grill_off",
+			"y": 270
+		},
+		"facing=north,lit=true": {
+			"model": "dinosexpansion:block/industrial_grill_on"
+		},
+		"facing=east,lit=true": {
+			"model": "dinosexpansion:block/industrial_grill_on",
+			"y": 90
+		},
+		"facing=south,lit=true": {
+			"model": "dinosexpansion:block/industrial_grill_on",
+			"y": 180
+		},
+		"facing=west,lit=true": {
+			"model": "dinosexpansion:block/industrial_grill_on",
 			"y": 270
 		}
 	}

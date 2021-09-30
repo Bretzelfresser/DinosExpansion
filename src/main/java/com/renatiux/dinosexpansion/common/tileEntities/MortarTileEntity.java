@@ -130,7 +130,7 @@ public class MortarTileEntity extends ContainerTileEntity implements IAnimatable
 	}
 
 	@Override
-	protected Container createContainer(int id, PlayerInventory inventory) {
+	protected Container createMenu(int id, PlayerInventory inventory) {
 		return new MortarContainer(id, inventory, this);
 	}
 

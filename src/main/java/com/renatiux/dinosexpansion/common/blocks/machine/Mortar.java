@@ -44,7 +44,7 @@ public class Mortar extends ShapedBlock {
 			IBooleanFunction.OR);
 
 	public Mortar() {
-		super(AbstractBlock.Properties.from(Blocks.STONE), SHAPE);
+		super(AbstractBlock.Properties.from(Blocks.STONE).notSolid(), SHAPE);
 	}
 	
 	@Override

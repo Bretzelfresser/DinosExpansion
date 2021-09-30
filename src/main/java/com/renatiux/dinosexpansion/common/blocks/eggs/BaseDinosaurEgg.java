@@ -27,7 +27,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public abstract class BaseDinosaurEgg extends Block {
+public abstract class BaseDinosaurEgg extends Block implements IIncubatorEgg{
 
 	private static final VoxelShape ONE_EGG_SHAPE = Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D);
 	private static final VoxelShape MULTI_EGG_SHAPE = Block.makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D);
@@ -82,7 +82,6 @@ public abstract class BaseDinosaurEgg extends Block {
 	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
 		if (this.hasProperHabitat(worldIn, pos)) {
 			int i = state.get(HATCH);
-			System.out.println(i);
 			if (i < 2) {
 				worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_TURTLE_EGG_CRACK, SoundCategory.BLOCKS,
 						0.7F, 0.9F + rand.nextFloat() * 0.2F);
@@ -103,8 +102,6 @@ public abstract class BaseDinosaurEgg extends Block {
 		}
 
 	}
-	
-	protected abstract Dinosaur createChildEntity(World world);
 
 	private boolean hasProperHabitat(IBlockReader blockReader, BlockPos pos) {
 		return blockReader.getBlockState(pos.down()).getBlock() == Blocks.SAND
