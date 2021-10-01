@@ -1,29 +1,31 @@
 package com.renatiux.dinosexpansion.world.dimension.layers;
 
+import com.renatiux.dinosexpansion.common.biomes.BiomeKeys;
 import com.renatiux.dinosexpansion.world.dimension.dino.DinoLayerUtil;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer2;
 import net.minecraft.world.gen.layer.traits.IDimOffset0Transformer;
 
-public class DinoRiverMixLayer implements IAreaTransformer2, IDimOffset0Transformer
+public enum DinoRiverMixLayer implements IAreaTransformer2, IDimOffset0Transformer
 {
-    public DinoRiverMixLayer() { }
+
+    INSTANCE;
+
+    DinoRiverMixLayer() { }
 
     @Override
-    public int apply(INoiseRandom random, IArea parent1, IArea parent2, int x, int y)
+    public int apply(INoiseRandom random, IArea area1, IArea area2, int val1, int val2)
     {
-        final int biome = parent1.getValue(getOffsetX(x), getOffsetZ(y));
-        final int river = parent2.getValue(getOffsetX(x), getOffsetZ(y));
-
-        if(!DinoLayerUtil.isOcean(biome))
+        int i = area1.getValue(this.getOffsetX(val1), this.getOffsetZ(val2));
+        int j = area2.getValue(this.getOffsetX(val1), this.getOffsetZ(val2));
+        if(j == DinoLayerUtil.getBiomeId(BiomeKeys.DINO_RIVER))
         {
-            if(DinoLayerUtil.isRiver(river))
-            {
-                return river;
-            }
+            return j;
         }
-
-        return biome;
+        else
+        {
+            return i;
+        }
     }
 }

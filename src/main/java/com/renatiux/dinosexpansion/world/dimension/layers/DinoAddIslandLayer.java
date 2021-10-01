@@ -26,10 +26,11 @@ public class DinoAddIslandLayer implements IBishopTransformer {
         return new DinoAddIslandLayer(3, DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT));
     }
 
-    public static DinoAddIslandLayer desert8()
+    /*public static DinoAddIslandLayer desert8()
     {
         return new DinoAddIslandLayer(8, DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT));
     }
+    */
 
     public static DinoAddIslandLayer mountains()
     {

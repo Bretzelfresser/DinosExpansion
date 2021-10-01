@@ -59,19 +59,14 @@ public class DinoLayerUtil {
         IAreaFactory<T> redwood = DinoAddSubBiomeLayer.redwoodForest().apply(contextFactory.apply(17), oceanLayerGen);
         zoomLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(2002), redwood);
 
-
         IAreaFactory<T> riverLayer = zoomLayer;
-        riverLayer = new DinoRiverInitLayer().apply(contextFactory.apply(12), riverLayer);
         riverLayer = magnify(2007, ZoomLayer.NORMAL, riverLayer, 5, contextFactory);
-        riverLayer = new DinoRiverLayer().apply(contextFactory.apply(13), riverLayer);
         riverLayer = SmoothLayer.INSTANCE.apply(contextFactory.apply(2008L), riverLayer);
 
         IAreaFactory<T> magnifyLayer = magnify(2007L, ZoomLayer.NORMAL, zoomLayer, 3, contextFactory);
         IAreaFactory<T> biomeLayer = new DinoShoreLayer().apply(contextFactory.apply(20), magnifyLayer);
-        biomeLayer = magnify(20, ZoomLayer.NORMAL, biomeLayer, 2, contextFactory);
 
         biomeLayer = SmoothLayer.INSTANCE.apply(contextFactory.apply(17L), biomeLayer);
-        biomeLayer = new DinoRiverMixLayer().apply(contextFactory.apply(17), biomeLayer, riverLayer);
 
         return biomeLayer;
 
