@@ -15,8 +15,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
@@ -24,18 +27,31 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.SmokingRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
-public class IndustrialGrillTileEntity extends MasterSlaveTileEntity implements ITickableTileEntity{
+public class IndustrialGrillTileEntity extends MasterSlaveTileEntity implements ITickableTileEntity, ISidedInventory {
 
 	private static final int SMOKE_AT_ONCE = 3;
 	public static final int COOK_TIME_TOTAL = 200;
+	protected static final int[] OUTPUT_SLOTS = new int[] { 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
+	protected static final int[] INPUT_SLOTS = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+	protected static final int[] FUEL_SLOTS = new int[] { 18 };
+
+	LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.UP, Direction.DOWN,
+			Direction.NORTH);
 
 	private final Object2IntOpenHashMap<ResourceLocation> recipes = new Object2IntOpenHashMap<>();
 
@@ -44,7 +60,7 @@ public class IndustrialGrillTileEntity extends MasterSlaveTileEntity implements 
 	public IndustrialGrillTileEntity() {
 		this(true);
 	}
-	
+
 	public IndustrialGrillTileEntity(boolean master) {
 		super(TileEntityTypesInit.INDUSTRIAL_GRILL_TILE_ENTITY_TYPE.get(), 19, master);
 		counter = 0;
@@ -83,7 +99,6 @@ public class IndustrialGrillTileEntity extends MasterSlaveTileEntity implements 
 			decreaseFuel();
 			return;
 		}
-		System.out.println(canWork(map) + " | " + checkFuel());
 		if (canWork(map) && checkFuel()) {
 			if (counter <= 0) {
 				counter = COOK_TIME_TOTAL;
@@ -95,16 +110,17 @@ public class IndustrialGrillTileEntity extends MasterSlaveTileEntity implements 
 					finishWork(map);
 				}
 			}
-		}else {
+		} else {
 			reset();
 			decreaseFuel();
 		}
 	}
-	
+
 	private void decreaseFuel() {
-		if(fuel > 0)
+		if (fuel > 0)
 			fuel--;
 	}
+
 	/**
 	 * resets the task when cancled while processing
 	 */
@@ -360,7 +376,64 @@ public class IndustrialGrillTileEntity extends MasterSlaveTileEntity implements 
 	public void setMaxFuel(int maxFuel) {
 		this.maxFuel = maxFuel;
 	}
-	
-	
 
+	@Override
+	public int[] getSlotsForFace(Direction side) {
+		if (side == Direction.DOWN)
+			return OUTPUT_SLOTS;
+		if (side == Direction.UP)
+			return INPUT_SLOTS;
+		return FUEL_SLOTS;
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		if (index == 18) {
+			return AbstractFurnaceTileEntity.isFuel(stack);
+		}
+		for (int i = 0; i < OUTPUT_SLOTS.length; i++) {
+			if (OUTPUT_SLOTS[i] == index) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {
+		return isItemValidForSlot(index, itemStackIn);
+	}
+
+	@Override
+	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+		if (direction == Direction.DOWN && index == 18) {
+			Item item = stack.getItem();
+			if (item != Items.BUCKET) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	@Override
+	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+		if (!this.removed && side != null && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			if (side == Direction.UP)
+				return handlers[0].cast();
+			else if (side == Direction.DOWN)
+				return handlers[1].cast();
+			else
+				return handlers[2].cast();
+		}
+		return super.getCapability(cap, side);
+	}
+
+	@Override
+	protected void invalidateCaps() {
+		super.invalidateCaps();
+		for (LazyOptional<? extends IItemHandler> handler : handlers) {
+			handler.invalidate();
+		}
+	}
 }

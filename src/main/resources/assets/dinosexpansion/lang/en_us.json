@@ -156,5 +156,7 @@
 	"key.dinosexpansion.attack": "Dino attack",
 	"key.category.dinosexpansion": "Dinosexpansion",
 	
-	"effect.dinosexpansion.climb_effect": "Climb"
+	"effect.dinosexpansion.climb_effect": "Climb",
+	
+	"message.dinosexpansion.isnt_owner":"You don´t own this incubator, destroy and playe it or askt the owner"
 }

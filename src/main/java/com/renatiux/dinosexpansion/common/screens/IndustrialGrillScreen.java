@@ -37,7 +37,6 @@ public class IndustrialGrillScreen extends ContainerScreen<IndustrialGrillContai
 		}
 		if (container.isLit()) {
 			int offset = (int) (14d * container.getFuelPercentage());
-			System.out.println(offset);
 			this.blit(matrixStack, middleX + 37, middleY + 72 + 14 - offset, 176, 14 - offset, 14, offset);
 		}
 	}

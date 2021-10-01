@@ -20,7 +20,11 @@ public class IncubatorRenderer extends TileEntityRenderer<IncubatorTileEntity>{
 			int combinedOverlayIn) {
 		if(te.getEgg() != null) {
 			Minecraft mc = Minecraft.getInstance();
-			mc.getBlockRendererDispatcher().renderBlock(te.getEgg(), stack, buffer, combinedLightIn, combinedOverlayIn, EmptyModelData.INSTANCE);
+			stack.push();
+			stack.scale(0.7f, 0.7f, 0.7f);
+			stack.translate(0.3, 0.5, 0.3);
+			mc.getBlockRendererDispatcher().renderBlock(te.getEgg(), stack, buffer, 200, combinedOverlayIn, EmptyModelData.INSTANCE);
+			stack.pop();
 		}
 	}
 

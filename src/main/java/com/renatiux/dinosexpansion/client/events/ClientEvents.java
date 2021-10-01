@@ -59,6 +59,7 @@ public class ClientEvents {
 
 	private static void tileEntityRenderer() {
 		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.MORTAR_TILE_ENTITY_TYPE.get(), MortarRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.INCUBATOR.get(), IncubatorRenderer::new);
 	}
 	private static void screenBinding() {
 		ScreenManager.registerFactory(ContainerTypeInit.ALLOSAURUS_CONTAINER_TYPE.get(), AllosaurusScreen::new);
@@ -80,6 +81,7 @@ public class ClientEvents {
 	private static void registerBlockRenders() {
 		RenderTypeLookup.setRenderLayer(BlockInit.MORTAR.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(BlockInit.ADVANCED_SMITHING_TABLE.getPrimary(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(BlockInit.INCUBATOR.get(), RenderType.getTranslucent());
 	}
 
 }

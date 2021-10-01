@@ -502,7 +502,6 @@ public abstract class Dinosaur extends MonsterEntity
 	}
 
 	protected void updateChild() {
-		System.out.println(growingAge);
 		if (growingAge < 0) {
 			growingAge++;
 		} else if (growingAge >= 0) {

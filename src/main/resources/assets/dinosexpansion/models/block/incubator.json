@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "proyectodino/incubatortexture",
-		"particle": "proyectodino/incubatortexture"
+		"0": "dinosexpansion:block/incubator",
+		"particle": "dinosexpansion:block/incubator"
 	},
 	"elements": [
 		{

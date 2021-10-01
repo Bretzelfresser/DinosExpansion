@@ -1,13 +1,27 @@
 package com.renatiux.dinosexpansion.common.blocks.machine;
 
 import com.renatiux.dinosexpansion.common.blocks.ShapedBlock;
+import com.renatiux.dinosexpansion.common.blocks.eggs.IIncubatorEgg;
+import com.renatiux.dinosexpansion.common.tileEntities.IncubatorTileEntity;
+import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
@@ -24,10 +38,71 @@ public class Incubator extends ShapedBlock{
 		return true;
 	}
 	
+	@Override
+	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+			Hand handIn, BlockRayTraceResult hit) {
+		if(!worldIn.isRemote) {
+			TileEntity te = worldIn.getTileEntity(pos);
+			IncubatorTileEntity incubatorTe = null;
+			if(te instanceof IncubatorTileEntity) {
+				incubatorTe = (IncubatorTileEntity) te;
+			}
+			if(incubatorTe != null && !incubatorTe.isOwner(player)) {
+				player.sendMessage(new TranslationTextComponent("message.dinosexpansion.isnt_owner"), player.getUniqueID());
+				return ActionResultType.FAIL;
+			}
+			ItemStack heldItems = player.getHeldItem(handIn);
+			ItemStack incubatorItem = incubatorTe.getStackInSlot(0);
+			if(incubatorTe != null && !heldItems.isEmpty() && heldItems.getItem() instanceof BlockItem && ((BlockItem)heldItems.getItem()).getBlock() instanceof IIncubatorEgg) {
+				int toShrink = 0;
+				if(incubatorItem.isEmpty()) {
+					toShrink = Math.min(4, heldItems.getCount());
+					incubatorTe.setInventorySlotContents(0, new ItemStack(heldItems.getItem(), toShrink));
+					heldItems.shrink(toShrink);
+					worldIn.notifyBlockUpdate(pos, state, state, 5);
+					return ActionResultType.SUCCESS;
+				}else if(incubatorItem.getItem() == heldItems.getItem()) {
+					toShrink = Math.min(4 - incubatorItem.getCount(), heldItems.getCount());
+					incubatorItem.grow(toShrink);
+					heldItems.shrink(toShrink);
+					worldIn.notifyBlockUpdate(pos, state, state, 5);
+					return ActionResultType.SUCCESS;
+				}
+				
+				
+			}
+		}
+		return ActionResultType.FAIL;
+	}
+	
+	@Override
+	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+		return TileEntityTypesInit.INCUBATOR.get().create();
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+		if(!state.matchesBlock(newState.getBlock())) {
+			TileEntity entity = worldIn.getTileEntity(pos);
+			if(entity instanceof IncubatorTileEntity) {
+				IncubatorTileEntity tileEntity = (IncubatorTileEntity) entity;
+				InventoryHelper.dropInventoryItems(worldIn, pos, tileEntity);
+				worldIn.updateComparatorOutputLevel(pos, this);
+			}
+		}
 		super.onReplaced(state, worldIn, pos, newState, isMoving);
+	}
+	
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		if(!worldIn.isRemote) {
+			TileEntity te = worldIn.getTileEntity(pos);
+			if(te != null && te instanceof IncubatorTileEntity && placer instanceof PlayerEntity) {
+				IncubatorTileEntity incubatorTe = (IncubatorTileEntity) te;
+				incubatorTe.setOwner((PlayerEntity) placer);
+			}
+		}
 	}
 
 }
