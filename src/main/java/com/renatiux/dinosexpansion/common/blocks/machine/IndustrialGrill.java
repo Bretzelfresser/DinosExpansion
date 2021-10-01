@@ -81,7 +81,7 @@ public class IndustrialGrill extends BaseMultiBlock {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!worldIn.isRemote && !state.matchesBlock(this)) {
+		if (!worldIn.isRemote && !newState.matchesBlock(this)) {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if (te instanceof IndustrialGrillTileEntity) {
 				IndustrialGrillTileEntity industrialGrill = (IndustrialGrillTileEntity) te;
@@ -109,6 +109,7 @@ public class IndustrialGrill extends BaseMultiBlock {
 	private void destroyAllStructureBlocks(World world, BlockPos pos, BlockState state) {
 		for(BlockPos current : getStructurePos(pos, state)) {
 			world.destroyBlock(current, true);
+			state.updateNeighbours(world, current, 3);
 		}
 	}
 	
@@ -139,7 +140,6 @@ public class IndustrialGrill extends BaseMultiBlock {
 		if (!worldIn.isRemote) {
 			for(BlockPos currentPos : getStructurePos(pos, state)) {
 				worldIn.setBlockState(currentPos, BlockInit.STRUCTURE_INDUSTRIAL_GRILL.get().getDefaultState());
-				state.updateNeighbours(worldIn, currentPos, 3);
 			}
 			state.updateNeighbours(worldIn, pos, 3);
 			

@@ -1,6 +1,5 @@
 package com.renatiux.dinosexpansion.util.registration;
 
-import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
