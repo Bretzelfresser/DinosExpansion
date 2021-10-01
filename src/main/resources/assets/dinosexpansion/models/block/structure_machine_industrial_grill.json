@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "particle": "dinosexpansion:block/advanced_smithing_table"
+    "particle": "dinosexpansion:block/industrial_grill_off"
   }
 }

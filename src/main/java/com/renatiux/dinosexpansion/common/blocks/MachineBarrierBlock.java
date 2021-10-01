@@ -35,6 +35,7 @@ public class MachineBarrierBlock extends Block {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if (te instanceof MasterSlaveTileEntity) {
 				machine.destroyBlock(worldIn, ((MasterSlaveTileEntity) te).getMaster().getPos());
+				state.updateNeighbours(worldIn, pos, 3);
 			}
 		}
 		super.onReplaced(state, worldIn, pos, newState, isMoving);

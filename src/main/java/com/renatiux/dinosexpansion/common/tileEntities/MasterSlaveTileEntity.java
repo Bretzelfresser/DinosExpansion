@@ -1,6 +1,6 @@
 package com.renatiux.dinosexpansion.common.tileEntities;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
@@ -39,7 +39,7 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 	}
 
 	private void findMaster() {
-		List<MasterSlaveTileEntity> finished = new ArrayList<>();
+		List<MasterSlaveTileEntity> finished = new LinkedList<>();
 		Stack<MasterSlaveTileEntity> stack = new Stack<>();
 		stack.add(this);
 
@@ -50,12 +50,10 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 				TileEntity tileEntity = this.world.getTileEntity(inProgress.getPos().offset(dir));
 				if (tileEntity != null && tileEntity instanceof MasterSlaveTileEntity) {
 					MasterSlaveTileEntity masterSlave = (MasterSlaveTileEntity) tileEntity;
-					if (masterSlave.isMaster) {
-						master = Optional.of(masterSlave.getPos());
+					if(checkMaster(stack, finished, masterSlave)) {
+						System.out.println("master found in direction" + dir);
 						return;
 					}
-					if (!masterSlave.hasMaster() && !finished.contains(masterSlave))
-						stack.add(masterSlave);
 				}
 
 				dir = dir.rotateY();
@@ -63,23 +61,18 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 			TileEntity tileEntity = this.world.getTileEntity(inProgress.getPos().up());
 			if (tileEntity != null && tileEntity instanceof MasterSlaveTileEntity) {
 				MasterSlaveTileEntity masterSlave = (MasterSlaveTileEntity) tileEntity;
-				if (masterSlave.isMaster) {
-					master = Optional.of(masterSlave.getPos());
+				if(checkMaster(stack, finished, masterSlave)) {
+					System.out.println("master found in upwards");
 					return;
 				}
-				if (!masterSlave.hasMaster() && !finished.contains(masterSlave))
-					stack.add(masterSlave);
 			}
 			TileEntity tileEntity2 = this.world.getTileEntity(inProgress.getPos().down());
 			if (tileEntity2 != null && tileEntity2 instanceof MasterSlaveTileEntity) {
 				MasterSlaveTileEntity masterSlave = (MasterSlaveTileEntity) tileEntity2;
-				if (masterSlave.isMaster) {
-					master = Optional.of(masterSlave.getPos());
-					Block.replaceBlockState(world.getBlockState(pos), world.getBlockState(pos), world, pos, 3, 512);
+				if(checkMaster(stack, finished, masterSlave)) {
+					System.out.println("master found in downwards");
 					return;
 				}
-				if (!masterSlave.hasMaster() && !finished.contains(masterSlave))
-					stack.add(masterSlave);
 			}
 
 			finished.add(inProgress);
@@ -88,6 +81,29 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 		throw new IllegalStateException("Slave didnt find a master slave Pos: " + getPos().getX() + "|"
 				+ getPos().getY() + " | " + getPos().getZ());
 
+	}
+	/**
+	 * checks whether the current TileEntity has found its Master
+	 * @return whether the Master got found or not
+	 */
+	private boolean checkMaster(Stack<MasterSlaveTileEntity> stack, List<MasterSlaveTileEntity> finished, MasterSlaveTileEntity toProcess) {
+		if (toProcess.isMaster) {
+			master = Optional.of(toProcess.getPos());
+			Block.replaceBlockState(world.getBlockState(pos), world.getBlockState(pos), world, pos, 3, 512);
+			return true;
+		}
+		if(toProcess.hasMaster()) {
+			master = Optional.of(toProcess.getMaster().getPos());
+			Block.replaceBlockState(world.getBlockState(pos), world.getBlockState(pos), world, pos, 3, 512);
+			return true;
+		}
+		if (!toProcess.hasMaster() && !finished.contains(toProcess)) {
+			stack.add(toProcess);
+			System.out.println("added To Stack");
+			return false;
+		}
+		System.out.println("nothing Added");
+		return false;
 	}
 
 	public MasterSlaveTileEntity getMaster() {
@@ -179,7 +195,7 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 	}
 
 	public boolean hasMaster() {
-		return isMaster || !master.isPresent();
+		return isMaster || master.isEmpty();
 	}
 
 	@Override
