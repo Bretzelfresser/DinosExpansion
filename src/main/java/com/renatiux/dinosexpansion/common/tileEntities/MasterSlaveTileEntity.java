@@ -51,7 +51,6 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 				if (tileEntity != null && tileEntity instanceof MasterSlaveTileEntity) {
 					MasterSlaveTileEntity masterSlave = (MasterSlaveTileEntity) tileEntity;
 					if(checkMaster(stack, finished, masterSlave)) {
-						System.out.println("master found in direction" + dir);
 						return;
 					}
 				}
@@ -62,7 +61,6 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 			if (tileEntity != null && tileEntity instanceof MasterSlaveTileEntity) {
 				MasterSlaveTileEntity masterSlave = (MasterSlaveTileEntity) tileEntity;
 				if(checkMaster(stack, finished, masterSlave)) {
-					System.out.println("master found in upwards");
 					return;
 				}
 			}
@@ -70,7 +68,6 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 			if (tileEntity2 != null && tileEntity2 instanceof MasterSlaveTileEntity) {
 				MasterSlaveTileEntity masterSlave = (MasterSlaveTileEntity) tileEntity2;
 				if(checkMaster(stack, finished, masterSlave)) {
-					System.out.println("master found in downwards");
 					return;
 				}
 			}
@@ -99,10 +96,8 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 		}
 		if (!toProcess.hasMaster() && !finished.contains(toProcess)) {
 			stack.add(toProcess);
-			System.out.println("added To Stack");
 			return false;
 		}
-		System.out.println("nothing Added");
 		return false;
 	}
 
