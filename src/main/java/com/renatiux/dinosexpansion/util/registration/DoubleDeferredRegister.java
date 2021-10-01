@@ -1,6 +1,5 @@
 package com.renatiux.dinosexpansion.util.registration;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -16,7 +15,6 @@ public class DoubleDeferredRegister<PRIM extends IForgeRegistryEntry<PRIM>, SECO
 
 	private final DeferredRegister<PRIM> primary;
 	private final DeferredRegister<SECOND> secondary;
-	private final List<DoubleRegistryObject<? extends IForgeRegistryEntry<PRIM>, ? extends IForgeRegistryEntry<SECOND>>> list = new LinkedList<>();
 
 	public DoubleDeferredRegister(String modid, IForgeRegistry<PRIM> primaryRegistry,
 			IForgeRegistry<SECOND> secondaryRegistry) {
@@ -28,7 +26,6 @@ public class DoubleDeferredRegister<PRIM extends IForgeRegistryEntry<PRIM>, SECO
 			BiFunction<RegistryObject<P>, RegistryObject<S>, W> objectWrapper) {
 		W toRegister = objectWrapper.apply(primary.register(name, primarySupplier),
 				secondary.register(name, secondarySupplier));
-		list.add(toRegister);
 		return toRegister;
 
 	}
@@ -39,17 +36,12 @@ public class DoubleDeferredRegister<PRIM extends IForgeRegistryEntry<PRIM>, SECO
 		RegistryObject<P> primaryObject = primary.register(name, primarySupplier);
 		W toRegister = objectWrapper.apply(primaryObject,
 				secondary.register(name, () -> secondarySupplier.apply(primaryObject.get())));
-		list.add(toRegister);
 		return toRegister;
 	}
 
 	public void register(IEventBus bus) {
 		primary.register(bus);
 		secondary.register(bus);
-	}
-	
-	public List<DoubleRegistryObject<? extends IForgeRegistryEntry<PRIM>, ? extends IForgeRegistryEntry<SECOND>>> getEntries(){
-		return list;
 	}
 
 }
