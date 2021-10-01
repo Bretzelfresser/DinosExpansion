@@ -195,7 +195,7 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 	}
 
 	public boolean hasMaster() {
-		return isMaster || master.isEmpty();
+		return isMaster || !master.isPresent();
 	}
 
 	@Override
