@@ -33,7 +33,7 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 	@Override
 	public void setWorldAndPos(World world, BlockPos pos) {
 		super.setWorldAndPos(world, pos);
-		if (!world.isRemote && !isMaster && master.isEmpty()) {
+		if (!world.isRemote && !isMaster && !master.isPresent()) {
 			findMaster();
 		}
 	}
@@ -179,7 +179,7 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 	}
 
 	public boolean hasMaster() {
-		return isMaster || master.isEmpty();
+		return isMaster || !master.isPresent();
 	}
 
 	@Override

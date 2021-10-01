@@ -1,6 +1,6 @@
 package com.renatiux.dinosexpansion.util.registration;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -16,7 +16,7 @@ public class DoubleDeferredRegister<PRIM extends IForgeRegistryEntry<PRIM>, SECO
 
 	private final DeferredRegister<PRIM> primary;
 	private final DeferredRegister<SECOND> secondary;
-	private final List<DoubleRegistryObject<? extends PRIM, ? extends SECOND>> list = new ArrayList<>();
+	private final List<DoubleRegistryObject<? extends IForgeRegistryEntry<PRIM>, ? extends IForgeRegistryEntry<SECOND>>> list = new LinkedList<>();
 
 	public DoubleDeferredRegister(String modid, IForgeRegistry<PRIM> primaryRegistry,
 			IForgeRegistry<SECOND> secondaryRegistry) {
@@ -48,7 +48,7 @@ public class DoubleDeferredRegister<PRIM extends IForgeRegistryEntry<PRIM>, SECO
 		secondary.register(bus);
 	}
 	
-	public List<DoubleRegistryObject<? extends PRIM, ? extends SECOND>> getEntries(){
+	public List<DoubleRegistryObject<? extends IForgeRegistryEntry<PRIM>, ? extends IForgeRegistryEntry<SECOND>>> getEntries(){
 		return list;
 	}
 
