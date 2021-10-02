@@ -1,0 +1,40 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "cable_base",
+	"elements": [
+		{
+			"from": [7, 2, 5.5],
+			"to": [9, 4, 9],
+			"color": 0,
+			"faces": {
+				"north": {"uv": [3, 3, 5, 5], "texture": "#missing"},
+				"east": {"uv": [0, 3, 3, 5], "texture": "#missing"},
+				"south": {"uv": [8, 3, 10, 5], "texture": "#missing"},
+				"west": {"uv": [5, 3, 8, 5], "texture": "#missing"},
+				"up": {"uv": [5, 3, 3, 0], "texture": "#missing"},
+				"down": {"uv": [7, 0, 5, 3], "texture": "#missing"}
+			}
+		},
+		{
+			"from": [6.8, 1.8, 9],
+			"to": [9.2, 4.2, 11.5],
+			"color": 7,
+			"faces": {
+				"north": {"uv": [2, 2, 4, 4], "texture": "#missing"},
+				"east": {"uv": [0, 2, 2, 4], "texture": "#missing"},
+				"south": {"uv": [6, 2, 8, 4], "texture": "#missing"},
+				"west": {"uv": [4, 2, 6, 4], "texture": "#missing"},
+				"up": {"uv": [4, 2, 2, 0], "texture": "#missing"},
+				"down": {"uv": [6, 0, 4, 2], "texture": "#missing"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "base",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

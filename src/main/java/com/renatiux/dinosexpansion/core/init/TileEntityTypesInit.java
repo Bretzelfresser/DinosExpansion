@@ -5,6 +5,7 @@ import com.renatiux.dinosexpansion.common.tileEntities.AdvancedSmithingTableTile
 import com.renatiux.dinosexpansion.common.tileEntities.IncubatorTileEntity;
 import com.renatiux.dinosexpansion.common.tileEntities.IndustrialGrillTileEntity;
 import com.renatiux.dinosexpansion.common.tileEntities.MortarTileEntity;
+import com.renatiux.dinosexpansion.common.tileEntities.cable.BasicEnergyCableTileEntity;
 
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
@@ -23,4 +24,6 @@ public class TileEntityTypesInit {
 			() -> TileEntityType.Builder.create(IndustrialGrillTileEntity::new, BlockInit.INDUSTRIAL_GRILL.getPrimary()).build(null));
 	public static final RegistryObject<TileEntityType<IncubatorTileEntity>> INCUBATOR = TILE_ENTITY_TYPES.register("incubator",
 			() -> TileEntityType.Builder.create(IncubatorTileEntity::new, BlockInit.INCUBATOR.get()).build(null));
+	public static final RegistryObject<TileEntityType<BasicEnergyCableTileEntity>> BASIC_ENERGY_CABLE = TILE_ENTITY_TYPES.register("basic_energy_cable",
+			() -> TileEntityType.Builder.create(BasicEnergyCableTileEntity::new, BlockInit.BASIC_ENERGY_CABLE.getPrimary()).build(null));
 }

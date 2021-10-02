@@ -1,0 +1,106 @@
+{
+	"variants": {
+		"connection_state=default,facing=north": {
+			"model": "dinosexpansion:block/cable/one_sided_energy_cable"
+		},
+		"connection_state=default,facing=east": {
+			"model": "dinosexpansion:block/cable/one_sided_energy_cable",
+			"y": 90
+		},
+		"connection_state=default,facing=south": {
+			"model": "dinosexpansion:block/cable/one_sided_energy_cable",
+			"y": 180
+		},
+		"connection_state=default,facing=west": {
+			"model": "dinosexpansion:block/cable/one_sided_energy_cable",
+			"y": 270
+		},
+		
+		
+		"connection_state=one_sided,facing=north": {
+			"model": "dinosexpansion:block/cable/one_sided_energy_cable"
+		},
+		"connection_state=one_sided,facing=east": {
+			"model": "dinosexpansion:block/cable/one_sided_energy_cable",
+			"y": 90
+		},
+		"connection_state=one_sided,facing=south": {
+			"model": "dinosexpansion:block/cable/one_sided_energy_cable",
+			"y": 180
+		},
+		"connection_state=one_sided,facing=west": {
+			"model": "dinosexpansion:block/cable/one_sided_energy_cable",
+			"y": 270
+		},
+		
+		
+		
+		"connection_state=straight,facing=north": {
+			"model": "dinosexpansion:block/cable/straight_energy_cable"
+		},
+		"connection_state=straight,facing=east": {
+			"model": "dinosexpansion:block/cable/straight_energy_cable",
+			"y": 90
+		},
+		"connection_state=straight,facing=south": {
+			"model": "dinosexpansion:block/cable/straight_energy_cable",
+			"y": 180
+		},
+		"connection_state=straight,facing=west": {
+			"model": "dinosexpansion:block/cable/straight_energy_cable",
+			"y": 270
+		},
+		
+		
+		"connection_state=corner,facing=north": {
+			"model": "dinosexpansion:block/cable/corner_energy_cable"
+		},
+			"connection_state=corner,facing=east": {
+			"model": "dinosexpansion:block/cable/corner_energy_cable",
+			"y": 90
+		},
+			"connection_state=corner,facing=south": {
+			"model": "dinosexpansion:block/cable/corner_energy_cable",
+			"y": 180
+		},
+			"connection_state=corner,facing=west": {
+			"model": "dinosexpansion:block/cable/corner_energy_cable",
+			"y": 270
+		},
+		
+		
+		"connection_state=t_cross,facing=north": {
+			"model": "dinosexpansion:block/cable/3_corner_energy_cable"
+		},
+		"connection_state=t_cross,facing=east": {
+			"model": "dinosexpansion:block/cable/3_corner_energy_cable",
+			"y": 90
+		},
+		"connection_state=t_cross,facing=south": {
+			"model": "dinosexpansion:block/cable/3_corner_energy_cable",
+			"y": 180
+		},
+		"connection_state=t_cross,facing=west": {
+			"model": "dinosexpansion:block/cable/3_corner_energy_cable",
+			"y": 270
+		},
+		
+		
+		
+		"connection_state=cross,facing=north": {
+			"model": "dinosexpansion:block/cable/cross_energy_cable"
+		},
+		"connection_state=cross,facing=east": {
+			"model": "dinosexpansion:block/cable/cross_energy_cable",
+			"y": 90
+		},
+		"connection_state=cross,facing=south": {
+			"model": "dinosexpansion:block/cable/cross_energy_cable",
+			"y": 180
+		},
+		"connection_state=cross,facing=west": {
+			"model": "dinosexpansion:block/cable/cross_energy_cable",
+			"y": 270
+		}
+	}
+}

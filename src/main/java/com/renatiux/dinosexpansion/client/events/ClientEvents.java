@@ -82,6 +82,7 @@ public class ClientEvents {
 		RenderTypeLookup.setRenderLayer(BlockInit.MORTAR.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(BlockInit.ADVANCED_SMITHING_TABLE.getPrimary(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(BlockInit.INCUBATOR.get(), RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(BlockInit.BASIC_ENERGY_CABLE.getPrimary(), RenderType.getTranslucent());
 	}
 
 }

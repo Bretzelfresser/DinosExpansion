@@ -6,6 +6,7 @@ import com.renatiux.dinosexpansion.common.blocks.DEOreBlock;
 import com.renatiux.dinosexpansion.common.blocks.DESapling;
 import com.renatiux.dinosexpansion.common.blocks.MachineBarrierBlock;
 import com.renatiux.dinosexpansion.common.blocks.bush.DEBerryBush;
+import com.renatiux.dinosexpansion.common.blocks.cables.BasicEnergyCable;
 import com.renatiux.dinosexpansion.common.blocks.crops.DECropsBlock;
 import com.renatiux.dinosexpansion.common.blocks.crops.DEDoubleCropsBlock;
 import com.renatiux.dinosexpansion.common.blocks.eggs.AllosaurusEggBlock;
@@ -36,6 +37,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -66,6 +68,9 @@ public class BlockInit {
 	public static final RegistryObject<Incubator> INCUBATOR = MACHINES.register("incubator", Incubator::new);
 	public static final DoubleRegistryObject<BaseMultiBlock, BlockItem> ADVANCED_SMITHING_TABLE = CUSTOM.register("advanced_smithing_table", AdvancedSmithingTable::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
 	public static final DoubleRegistryObject<BaseMultiBlock, BlockItem> INDUSTRIAL_GRILL = CUSTOM.register("industrial_grill", IndustrialGrill::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
+	
+	//cables
+	public static final DoubleRegistryObject<BasicEnergyCable, BlockItem> BASIC_ENERGY_CABLE = CUSTOM.register("basic_energy_cable", BasicEnergyCable::new, ItemGroup.REDSTONE);
 	
 	//Structure block
 	public static final RegistryObject<Block> STRUCTURE_SMITHING_TABLE = BLOCK.register("structure_machine_smithing_table", () -> new MachineBarrierBlock(ADVANCED_SMITHING_TABLE.getPrimary(), () -> new AdvancedSmithingTableTileEntity(false)));

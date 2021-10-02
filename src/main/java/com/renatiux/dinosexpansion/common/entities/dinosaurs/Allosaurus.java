@@ -1,5 +1,7 @@
 package com.renatiux.dinosexpansion.common.entities.dinosaurs;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -49,6 +51,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.PlayState;
@@ -57,16 +61,17 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.controller.AnimationController.IAnimationPredicate;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaurus> {
 
 	private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0FFB-87AE-4653-9556-501010E221A0");
+	private static final String CONTROLLER_NAME = "controller";
 	public static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(
 			SPEED_MODIFIER_ATTACKING_UUID, "Attacking speed boost", 1.2F, AttributeModifier.Operation.MULTIPLY_BASE);
 
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-		return MonsterEntity.func_234295_eP_()
-				.createMutableAttribute(Attributes.ATTACK_DAMAGE, 10.0)
+		return MonsterEntity.func_234295_eP_().createMutableAttribute(Attributes.ATTACK_DAMAGE, 10.0)
 				.createMutableAttribute(Attributes.MAX_HEALTH, 40.0)
 				.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5d)
 				.createMutableAttribute(Attributes.FOLLOW_RANGE, 30.0D);
@@ -74,6 +79,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
 	private int attackCounter, attackedId, growlCooldown, idleCooldown;
 	private boolean growl, continuesAnimation = false;
+	private Deque<AnimationBuilder> animationQueue = new ArrayDeque<>();
 
 	public Allosaurus(EntityType<? extends Dinosaur> type, World worldIn) {
 		this(type, worldIn, false);
@@ -90,6 +96,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		idleCooldown = 0;
 		growl = false;
 		this.stepHeight = 1.0f;
+		animationQueue.add(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
 	}
 
 	@Override
@@ -122,7 +129,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
 		if (growlCooldown > 0)
 			growlCooldown--;
-		
+
 	}
 
 	@Override
@@ -232,7 +239,58 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
 	@Override
 	public void registerControllers(AnimationData data) {
-		data.addAnimationController(new AnimationController<Allosaurus>(this, "controller", 30, this));
+		data.addAnimationController(new AnimationController<Allosaurus>(this, CONTROLLER_NAME, 30, this));
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	@SuppressWarnings("unchecked")
+	protected void refreshAnimation() {
+		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
+				CONTROLLER_NAME);
+		if (!animationQueue.isEmpty() && animationQueue.size() > 1) {
+			controller.setAnimation(animationQueue.poll());
+		}else if(animationQueue.size() == 1) {
+			controller.setAnimation(animationQueue.peek());
+		}
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@SuppressWarnings("unchecked")
+	protected void refreshAnimation(int transition) {
+		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
+				CONTROLLER_NAME);
+		controller.transitionLengthTicks = transition;
+		if (!animationQueue.isEmpty() && animationQueue.size() > 1) {
+			controller.setAnimation(animationQueue.poll());
+		}else if(animationQueue.size() == 1) {
+			controller.setAnimation(animationQueue.peek());
+		}
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	@SuppressWarnings("unchecked")
+	protected void playQueue() {
+		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
+				CONTROLLER_NAME);
+		if (isPlayingIdleAnimation(controller) || controller.getAnimationState() == AnimationState.Stopped) {
+			refreshAnimation();
+		}
+
+	}
+	
+	protected void playASAP(AnimationBuilder animation) {
+		animationQueue.addFirst(animation);
+		refreshAnimation();
+	}
+	
+	protected void playASAP(AnimationBuilder animation, int transition) {
+		animationQueue.addFirst(animation);
+		refreshAnimation(transition);
+	}
+
+	protected boolean isPlayingIdleAnimation(AnimationController<Allosaurus> controller) {
+		return controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_IdleContinue.new") || 
+				controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_Idle.new");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -243,6 +301,9 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 						.equals("Alt_Allosaurus_IdleContinue.new")) {
 			idleCooldown++;
 		}
+		if(animationQueue.isEmpty()) {
+			throw new IllegalStateException("animation Queue is empty, this shouldnt happen");
+		}
 		if (shouldplayDeadAnimation()) {
 			event.getController().transitionLengthTicks = 60;
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Dead.new", true));
@@ -251,8 +312,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		}
 		if (isKnockout()) {
 			event.getController().transitionLengthTicks = 30;
-			event.getController()
-					.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Knockout.new", true));
+			playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Knockout.new", true));
 			continuesAnimation = true;
 			return PlayState.CONTINUE;
 		}
@@ -360,7 +420,8 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			pos = pos.down();
 			BlockState state = world.getBlockState(pos);
 			if (state.isSolid()) {
-				world.setBlockState(pos.up(), BlockInit.ALLOSAURUS_EGG.get().getDefaultState().with(BlockStateProperties.EGGS_1_4, this.rand.nextInt(4)));
+				world.setBlockState(pos.up(), BlockInit.ALLOSAURUS_EGG.get().getDefaultState()
+						.with(BlockStateProperties.EGGS_1_4, this.rand.nextInt(4)));
 				break;
 			}
 		}
@@ -433,6 +494,5 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
 		return superBox.contract(0, 0.5, 0);
 	}
-	
 
 }
