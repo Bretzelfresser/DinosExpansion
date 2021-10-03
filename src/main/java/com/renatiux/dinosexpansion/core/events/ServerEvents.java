@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @Mod.EventBusSubscriber(modid = Dinosexpansion.MODID, bus = Bus.FORGE)
 public class ServerEvents {
-
+	
 	@SubscribeEvent
 	public static void onPlayerHurt(LivingHurtEvent event) {
 		if (!(event.getEntityLiving() instanceof PlayerEntity))

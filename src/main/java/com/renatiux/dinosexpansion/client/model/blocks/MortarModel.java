@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.client.model;
+package com.renatiux.dinosexpansion.client.model.blocks;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.tileEntities.MortarTileEntity;

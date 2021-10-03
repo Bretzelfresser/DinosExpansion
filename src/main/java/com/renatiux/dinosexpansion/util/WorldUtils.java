@@ -35,7 +35,7 @@ public class WorldUtils {
 	 
 	@Nullable
 	public static TileEntity getTileEntity(IBlockReader world, BlockPos pos) {
-		if(isBlockLoaded(world, pos)) {
+		if(!isBlockLoaded(world, pos)) {
 			return null;
 		}
 		return world.getTileEntity(pos);

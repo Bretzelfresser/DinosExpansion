@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.common.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -19,6 +20,11 @@ public abstract class BaseMultiBlock extends ShapedBlock{
 	
 	public void destroyBlock(World world, BlockPos masterPos) {
 		world.destroyBlock(masterPos, true);
+	}
+	
+	@Override
+	public PushReaction getPushReaction(BlockState state) {
+		return PushReaction.IGNORE;
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.renatiux.dinosexpansion.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.renatiux.dinosexpansion.client.model.DodoModel;
+import com.renatiux.dinosexpansion.client.model.entities.DodoModel;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;

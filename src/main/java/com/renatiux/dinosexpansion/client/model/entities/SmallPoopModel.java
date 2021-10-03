@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.client.model;
+package com.renatiux.dinosexpansion.client.model.entities;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -7,20 +7,19 @@ import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-public class MediumPoopModel extends EntityModel<Poop>{
+public class SmallPoopModel extends EntityModel<Poop>{
 
 	private final ModelRenderer poop;
 
-	public MediumPoopModel() {
+	public SmallPoopModel() {
 		textureWidth = 16;
 		textureHeight = 16;
 
 		poop = new ModelRenderer(this);
-		poop.setRotationPoint(0.5F, 24.0F, 0.5F);
-		poop.setTextureOffset(0, 0).addBox(-2.5F, -1.0F, -2.5F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		poop.setTextureOffset(0, 0).addBox(-2.0F, -1.7F, -2.0F, 3.0F, 1.0F, 3.0F, 0.0F, false);
-		poop.setTextureOffset(0, 0).addBox(-1.5F, -2.5F, -1.5F, 2.0F, 1.0F, 2.0F, 0.0F, false);
-		poop.setTextureOffset(0, 0).addBox(-1.0F, -3.5F, -1.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
+		poop.setRotationPoint(0.0F, 24.0F, 0.0F);
+		poop.setTextureOffset(0, 0).addBox(-1.5F, -1.0F, -1.5F, 3.0F, 1.0F, 3.0F, 0.0F, false);
+		poop.setTextureOffset(0, 0).addBox(-1.0F, -1.7F, -1.0F, 2.0F, 1.0F, 2.0F, 0.0F, false);
+		poop.setTextureOffset(0, 0).addBox(-0.5F, -2.5F, -0.5F, 1.0F, 1.0F, 1.0F, 0.0F, false);
 	}
 
 	@Override
@@ -38,5 +37,4 @@ public class MediumPoopModel extends EntityModel<Poop>{
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;
 	}
-
 }

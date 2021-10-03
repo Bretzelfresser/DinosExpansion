@@ -1,6 +1,6 @@
 package com.renatiux.dinosexpansion.client.renderer;
 
-import com.renatiux.dinosexpansion.client.model.ChimerarachneModel;
+import com.renatiux.dinosexpansion.client.model.entities.ChimerarachneModel;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 
 import net.minecraft.client.renderer.entity.EntityRendererManager;

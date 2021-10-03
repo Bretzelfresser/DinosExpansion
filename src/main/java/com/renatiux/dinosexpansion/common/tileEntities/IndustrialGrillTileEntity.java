@@ -317,6 +317,19 @@ public class IndustrialGrillTileEntity extends MasterSlaveTileEntity implements 
 		compound.put("RecipesUsed", compoundnbt);
 		return compound;
 	}
+	
+	@Override
+	protected CompoundNBT writeClientData() {
+		CompoundNBT nbt = super.writeClientData();
+		nbt = writeItems(nbt);
+		return nbt;
+	}
+	
+	@Override
+	protected void readClientData(CompoundNBT nbt) {
+		super.readClientData(nbt);
+		readItems(nbt);
+	}
 
 	public void onTakeResult(PlayerEntity player) {
 		List<IRecipe<?>> list = this.grantStoredRecipeExperience(player.world, player.getPositionVec());

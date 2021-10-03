@@ -1,6 +1,6 @@
 package com.renatiux.dinosexpansion.client.renderer;
 
-import com.renatiux.dinosexpansion.client.model.MortarModel;
+import com.renatiux.dinosexpansion.client.model.blocks.MortarModel;
 import com.renatiux.dinosexpansion.common.tileEntities.MortarTileEntity;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;

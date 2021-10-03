@@ -3,9 +3,9 @@ package com.renatiux.dinosexpansion.client.renderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.client.model.LargePoopModel;
-import com.renatiux.dinosexpansion.client.model.MediumPoopModel;
-import com.renatiux.dinosexpansion.client.model.SmallPoopModel;
+import com.renatiux.dinosexpansion.client.model.entities.LargePoopModel;
+import com.renatiux.dinosexpansion.client.model.entities.MediumPoopModel;
+import com.renatiux.dinosexpansion.client.model.entities.SmallPoopModel;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;

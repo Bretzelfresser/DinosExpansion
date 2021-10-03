@@ -1,7 +1,17 @@
 package com.renatiux.dinosexpansion.client.events;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.client.renderer.*;
+import com.renatiux.dinosexpansion.client.renderer.AllosaurusRenderer;
+import com.renatiux.dinosexpansion.client.renderer.BoomerangRenderer;
+import com.renatiux.dinosexpansion.client.renderer.ChimerarachneRenderer;
+import com.renatiux.dinosexpansion.client.renderer.DodoRenderer;
+import com.renatiux.dinosexpansion.client.renderer.GeneratorRenderer;
+import com.renatiux.dinosexpansion.client.renderer.IncubatorRenderer;
+import com.renatiux.dinosexpansion.client.renderer.MegalodonToothArrowRender;
+import com.renatiux.dinosexpansion.client.renderer.MortarRenderer;
+import com.renatiux.dinosexpansion.client.renderer.PoopRenderer;
+import com.renatiux.dinosexpansion.client.renderer.RaftRenderer;
+import com.renatiux.dinosexpansion.client.renderer.TranquilizerArrowRender;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
@@ -9,6 +19,7 @@ import com.renatiux.dinosexpansion.common.screens.AdvancedSmithingTableScreen;
 import com.renatiux.dinosexpansion.common.screens.AllosaurusScreen;
 import com.renatiux.dinosexpansion.common.screens.DinosaurTamingScreen;
 import com.renatiux.dinosexpansion.common.screens.DodoScreen;
+import com.renatiux.dinosexpansion.common.screens.GeneratorScreen;
 import com.renatiux.dinosexpansion.common.screens.IndustrialGrillScreen;
 import com.renatiux.dinosexpansion.common.screens.MortarScreen;
 import com.renatiux.dinosexpansion.common.screens.OrderScreen;
@@ -60,6 +71,7 @@ public class ClientEvents {
 	private static void tileEntityRenderer() {
 		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.MORTAR_TILE_ENTITY_TYPE.get(), MortarRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.INCUBATOR.get(), IncubatorRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.GENERATOR.get(), GeneratorRenderer::new);
 	}
 	private static void screenBinding() {
 		ScreenManager.registerFactory(ContainerTypeInit.ALLOSAURUS_CONTAINER_TYPE.get(), AllosaurusScreen::new);
@@ -70,6 +82,7 @@ public class ClientEvents {
 		ScreenManager.registerFactory(ContainerTypeInit.DODO_CONTAINER.get(), DodoScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.ADVANCED_SMITHING_TABLE_CONTAINER_TYPE.get(), AdvancedSmithingTableScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.INDUSTRIAL_GRILL_CONTAINER_TYPE.get(), IndustrialGrillScreen::new);
+		ScreenManager.registerFactory(ContainerTypeInit.GENERATOR_CONTAINER_TYPE.get(), GeneratorScreen::new);
 	}
 
 	private static void armorModel(){

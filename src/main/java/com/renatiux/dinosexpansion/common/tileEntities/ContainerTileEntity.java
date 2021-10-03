@@ -62,10 +62,10 @@ public abstract class ContainerTileEntity extends LockableLootTileEntity{
 	@Override
 	public void read(BlockState state, CompoundNBT nbt) {
 		super.read(state, nbt);
-		readItems(state, nbt);
+		readItems(nbt);
 	}
 	
-	protected void readItems(BlockState state, CompoundNBT nbt) {
+	protected void readItems(CompoundNBT nbt) {
 		this.items = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
 		if(!this.checkLootAndRead(nbt))
 			ItemStackHelper.loadAllItems(nbt, this.items);

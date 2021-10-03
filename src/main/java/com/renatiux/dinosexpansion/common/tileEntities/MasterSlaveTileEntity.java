@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
 
+import com.renatiux.dinosexpansion.util.WorldUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
@@ -103,6 +105,15 @@ public abstract class MasterSlaveTileEntity extends ContainerTileEntity {
 
 	public MasterSlaveTileEntity getMaster() {
 		return (MasterSlaveTileEntity) world.getTileEntity(master.get());
+	}
+	/**
+	 * this return the master class casted or otherwise null when it cant be cast
+	 * @param <T> the type u want the master to be
+	 * @param clazz - the class of the master
+	 * @return the master class casted
+	 */
+	public <T extends TileEntity> T getMaster(Class<T> clazz) {
+		return WorldUtils.getTileEntity(clazz, this.world, master.get());
 	}
 
 	@Override

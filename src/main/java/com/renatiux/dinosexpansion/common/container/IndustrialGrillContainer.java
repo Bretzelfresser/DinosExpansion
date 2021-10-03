@@ -17,7 +17,7 @@ public class IndustrialGrillContainer extends BaseTileEntityContainer<Industrial
 	public IndustrialGrillContainer(int id, PlayerInventory inv, IndustrialGrillTileEntity tileEntity) {
 		super(ContainerTypeInit.INDUSTRIAL_GRILL_CONTAINER_TYPE.get(), id, inv, tileEntity);
 	}
-
+	
 	@Override
 	void init() {
 		addPlayerInventory(8, 113);

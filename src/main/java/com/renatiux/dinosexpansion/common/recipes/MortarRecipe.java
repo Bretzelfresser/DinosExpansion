@@ -123,6 +123,23 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 	public IRecipeType<?> getType() {
 		return RecipeInit.MORTAR_RECIPE;
 	}
+	
+	public static JsonElement getJsonElement(JsonObject obj, String name) {
+		return JSONUtils.isJsonArray(obj, name) ? JSONUtils.getJsonArray(obj, name)
+				: JSONUtils.getJsonObject(obj, name);
+	}
+	
+	public static Pair<Integer, Ingredient> deserializeItems(JsonElement el) {
+		int count = JSONUtils.getInt(el.getAsJsonObject(), "count", 1);
+		if (count <= 0)
+			throw new JsonIOException("count has to be greater then 0, u cant make a Ingredient with less then 1");
+		Ingredient input = deserializeIngredient(el);
+		return Pair.of(count, input);
+	}
+
+	public static Ingredient deserializeIngredient(JsonElement json) {
+		return Ingredient.fromItemListStream(Stream.of(Ingredient.deserializeItemList(json.getAsJsonObject())));
+	}
 
 	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>>
 			implements IRecipeSerializer<MortarRecipe> {
@@ -162,21 +179,8 @@ public class MortarRecipe implements IRecipe<MortarTileEntity> {
 			buffer.writeInt(recipe.workingTime);
 		}
 
-		private JsonElement getJsonElement(JsonObject obj, String name) {
-			return JSONUtils.isJsonArray(obj, name) ? JSONUtils.getJsonArray(obj, name)
-					: JSONUtils.getJsonObject(obj, name);
-		}
+		
 
-		private Pair<Integer, Ingredient> deserializeItems(JsonElement el) {
-			int count = JSONUtils.getInt(el.getAsJsonObject(), "count", 1);
-			if (count <= 0)
-				throw new JsonIOException("count has to be greater then 0, u cant make a Ingredient with less then 1");
-			Ingredient input = deserializeIngredient(el);
-			return Pair.of(count, input);
-		}
-
-		private Ingredient deserializeIngredient(JsonElement json) {
-			return Ingredient.fromItemListStream(Stream.of(Ingredient.deserializeItemList(json.getAsJsonObject())));
-		}
+		
 	}
 }

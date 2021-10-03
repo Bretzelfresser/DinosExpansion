@@ -1,0 +1,87 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"generatoraction": {
+			"animation_length": 2.08,
+			"bones": {
+				"mechanism": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.08": {
+							"vector": [360, 0, 0]
+						}
+					}
+				},
+				"octagon": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.08": {
+							"vector": [-360, 0, 0]
+						}
+					}
+				},
+				"pieceb": {
+					"position": {
+						"0.0": {
+							"vector": [0.25, 0, 0]
+						},
+						"0.2": {
+							"vector": [0, 0, 0]
+						},
+						"0.4": {
+							"vector": [0.25, 0, 0]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						},
+						"0.8": {
+							"vector": [0.25, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.2": {
+							"vector": [0.25, 0, 0]
+						},
+						"1.4": {
+							"vector": [0, 0, 0]
+						},
+						"1.6": {
+							"vector": [0.25, 0, 0]
+						},
+						"1.8": {
+							"vector": [0, 0, 0]
+						},
+						"2.0": {
+							"vector": [0.25, 0, 0]
+						}
+					}
+				},
+				"pieceA": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0.25, 0]
+						},
+						"0.52": {
+							"vector": [0, 0, 0]
+						},
+						"1.04": {
+							"vector": [0, 0.25, 0]
+						},
+						"1.56": {
+							"vector": [0, 0, 0]
+						},
+						"2.08": {
+							"vector": [0, 0.25, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.tileEntities.AdvancedSmithingTableTileEntity;
+import com.renatiux.dinosexpansion.common.tileEntities.GeneratorTileEntity;
 import com.renatiux.dinosexpansion.common.tileEntities.IncubatorTileEntity;
 import com.renatiux.dinosexpansion.common.tileEntities.IndustrialGrillTileEntity;
 import com.renatiux.dinosexpansion.common.tileEntities.MortarTileEntity;
@@ -26,4 +27,6 @@ public class TileEntityTypesInit {
 			() -> TileEntityType.Builder.create(IncubatorTileEntity::new, BlockInit.INCUBATOR.get()).build(null));
 	public static final RegistryObject<TileEntityType<BasicEnergyCableTileEntity>> BASIC_ENERGY_CABLE = TILE_ENTITY_TYPES.register("basic_energy_cable",
 			() -> TileEntityType.Builder.create(BasicEnergyCableTileEntity::new, BlockInit.BASIC_ENERGY_CABLE.getPrimary()).build(null));
+	public static final RegistryObject<TileEntityType<GeneratorTileEntity>> GENERATOR = TILE_ENTITY_TYPES.register("generator", 
+			() -> TileEntityType.Builder.create(GeneratorTileEntity::new, BlockInit.GENERATOR.getPrimary()).build(null));
 }

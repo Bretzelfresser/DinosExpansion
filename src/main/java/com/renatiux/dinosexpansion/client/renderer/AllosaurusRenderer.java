@@ -1,7 +1,7 @@
 package com.renatiux.dinosexpansion.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.renatiux.dinosexpansion.client.model.AllosaurusModel;
+import com.renatiux.dinosexpansion.client.model.entities.AllosaurusModel;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;

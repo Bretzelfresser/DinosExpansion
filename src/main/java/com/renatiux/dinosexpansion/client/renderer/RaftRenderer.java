@@ -3,8 +3,8 @@ package com.renatiux.dinosexpansion.client.renderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.client.model.RaftModelChested;
-import com.renatiux.dinosexpansion.client.model.RaftModelNotChested;
+import com.renatiux.dinosexpansion.client.model.entities.RaftModelChested;
+import com.renatiux.dinosexpansion.client.model.entities.RaftModelNotChested;
 import com.renatiux.dinosexpansion.common.entities.RaftEntity;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;
