@@ -201,9 +201,9 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-		Direction facing = getBlockState().get(BlockStateProperties.FACING);
+		Direction facing = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
 		if (cap == CapabilityEnergy.ENERGY
-				&& (side == facing.rotateYCCW() || side == facing.getOpposite() || side == Direction.DOWN)
+				&& (side == facing.rotateYCCW() || side == facing.getOpposite() || side == Direction.DOWN || side == null)
 				&& isMaster) {
 			return energyHandler.cast();
 		}
