@@ -146,7 +146,7 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 	@Override
 	public void handleUpdateTag(BlockState state, CompoundNBT tag) {
 		System.out.println("when is this executed?");
-		readItems(state, tag);
+		readItems(tag);
 		readOwnData(state, tag);
 
 	}
@@ -155,7 +155,7 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
 		System.out.println("this is now synced");
 		BlockState state = this.world.getBlockState(pkt.getPos());
-		readItems(state, pkt.getNbtCompound());
+		readItems(pkt.getNbtCompound());
 		readOwnData(state, pkt.getNbtCompound());
 	}
 
