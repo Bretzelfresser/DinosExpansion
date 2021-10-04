@@ -5,6 +5,7 @@ import com.renatiux.dinosexpansion.common.entities.RaftEntity;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
+import com.renatiux.dinosexpansion.common.entities.enviroment.Thaumaptilon;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.entities.projectiles.*;
 
@@ -42,6 +43,7 @@ public class EntityTypeInit {
 	public static final RegistryObject<EntityType<DiamondBoomerang>> DIAMOND_BOOMERANG = ENTITY_TYPES.register("diamond_boomerang", 
 			() -> EntityType.Builder.<DiamondBoomerang>create(DiamondBoomerang::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("diamond_boomerang").toString()));
 	
+	public static final RegistryObject<EntityType<Thaumaptilon>> THAUMAPTILON = register("thaumaptilon", EntityType.Builder.<Thaumaptilon>create(Thaumaptilon::new, EntityClassification.AMBIENT));
 	
 	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builer){
 		return ENTITY_TYPES.register(name, () -> builer.build(Dinosexpansion.modLoc(name).toString()));

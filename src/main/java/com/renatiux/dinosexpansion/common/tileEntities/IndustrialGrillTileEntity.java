@@ -54,7 +54,7 @@ public class IndustrialGrillTileEntity extends MasterSlaveTileEntity implements 
 			Direction.NORTH);
 
 	private final Object2IntOpenHashMap<ResourceLocation> recipes = new Object2IntOpenHashMap<>();
-
+	
 	private int counter, fuel, maxFuel;
 
 	public IndustrialGrillTileEntity() {

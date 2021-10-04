@@ -1,5 +1,7 @@
 package com.renatiux.dinosexpansion.common.tileEntities;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Nullable;
 
 import com.renatiux.dinosexpansion.common.container.GeneratorContainer;
@@ -15,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
@@ -60,7 +63,7 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 					Constants.BlockFlags.NOTIFY_NEIGHBORS + Constants.BlockFlags.BLOCK_UPDATE);
 		}
 		GeneratorRecipe recipe = getRecipe();
-		
+
 		if (recipe != null) {
 			ItemStack fuel = getStackInSlot(0);
 			if (canWork(recipe, fuel) && progress <= 0) {
@@ -76,6 +79,34 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 		}
 
 		progress = 0;
+		if (isMaster)
+			sendOutPower();
+	}
+
+	private void sendOutPower() {
+		AtomicInteger capacity = new AtomicInteger(storage.getEnergyStored());
+		if (capacity.get() <= 0) {
+			return;
+		}
+		Direction facing = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
+		Direction[] dirs = new Direction[] { facing.rotateYCCW(), facing.getOpposite() };
+		for (Direction dir : dirs) {
+			TileEntity te = this.world.getTileEntity(getPos().offset(dir));
+			if (te != null) {
+				boolean shouldContinue = te.getCapability(CapabilityEnergy.ENERGY, dir).map(handler -> {
+					if (handler.canReceive()) {
+						int recieved = handler.receiveEnergy(capacity.get(), false);
+						capacity.addAndGet(-recieved);
+						storage.extractEnergy(recieved, false);
+						markDirty();
+						return capacity.get() > 0;
+					}
+					return true;
+				}).orElse(true);
+				if (!shouldContinue)
+					return;
+			}
+		}
 	}
 
 	private boolean canWork(GeneratorRecipe recipe, ItemStack fuel) {
@@ -129,39 +160,39 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 	@Override
 	public void read(BlockState state, CompoundNBT nbt) {
 		super.read(state, nbt);
-		if(isMaster) {
-		storage.read(nbt);
-		progress = nbt.getInt("progress");
-		maxProgress = nbt.getInt("maxProgress");
+		if (isMaster) {
+			storage.read(nbt);
+			progress = nbt.getInt("progress");
+			maxProgress = nbt.getInt("maxProgress");
 		}
 	}
-	
+
 	@Override
 	protected CompoundNBT writeClientData() {
 		CompoundNBT nbt = super.writeClientData();
 		nbt.putInt("guiEnergy", guiEnergy);
 		return nbt;
 	}
-	
+
 	@Override
 	protected void readClientData(CompoundNBT nbt) {
 		super.readClientData(nbt);
-		if(isMaster) {
+		if (isMaster) {
 			this.guiEnergy = nbt.getInt("guiEnergy");
 		}
 	}
-	
+
 	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		compound = super.write(compound);
-		if(isMaster) {
-		compound = storage.write(compound);
-		compound.putInt("progress", progress);
-		compound.putInt("maxProgress", maxProgress);
+		if (isMaster) {
+			compound = storage.write(compound);
+			compound.putInt("progress", progress);
+			compound.putInt("maxProgress", maxProgress);
 		}
 		return compound;
 	}
-	
+
 	@Override
 	protected void invalidateCaps() {
 		super.invalidateCaps();
@@ -170,7 +201,10 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-		if (cap == CapabilityEnergy.ENERGY && side != Direction.DOWN && side != Direction.UP && isMaster) {
+		Direction facing = getBlockState().get(BlockStateProperties.FACING);
+		if (cap == CapabilityEnergy.ENERGY
+				&& (side == facing.rotateYCCW() || side == facing.getOpposite() || side == Direction.DOWN)
+				&& isMaster) {
 			return energyHandler.cast();
 		}
 		return super.getCapability(cap, side);
@@ -180,7 +214,7 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 	public Container createMasterContainer(int id, PlayerInventory inv) {
 		return new GeneratorContainer(id, inv, this);
 	}
-	
+
 	private GeneratorTileEntity getCurrentMaster() {
 		return getMaster(GeneratorTileEntity.class);
 	}
@@ -191,7 +225,7 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 	}
 
 	public int getProgress() {
-		if(isMaster)
+		if (isMaster)
 			return progress;
 		return getCurrentMaster().getProgress();
 	}
@@ -207,7 +241,6 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 	public void setMaxProgress(int maxProgress) {
 		this.maxProgress = maxProgress;
 	}
-	
 
 	public int getGuiEnergy() {
 		return guiEnergy;
@@ -219,8 +252,9 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 
 	@Override
 	public void registerControllers(AnimationData data) {
-		if(isMaster)
-			data.addAnimationController(new AnimationController<GeneratorTileEntity>(this, CONTROLLER_NAME, 30, this::predicate));
+		if (isMaster)
+			data.addAnimationController(
+					new AnimationController<GeneratorTileEntity>(this, CONTROLLER_NAME, 30, this::predicate));
 
 	}
 

@@ -11,6 +11,7 @@ import com.renatiux.dinosexpansion.client.renderer.MegalodonToothArrowRender;
 import com.renatiux.dinosexpansion.client.renderer.MortarRenderer;
 import com.renatiux.dinosexpansion.client.renderer.PoopRenderer;
 import com.renatiux.dinosexpansion.client.renderer.RaftRenderer;
+import com.renatiux.dinosexpansion.client.renderer.ThaumaptlionRenderer;
 import com.renatiux.dinosexpansion.client.renderer.TranquilizerArrowRender;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
@@ -66,6 +67,8 @@ public class ClientEvents {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.WOOD_BOOMERANG.get(), new BoomerangRenderer.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.IRON_BOOMERANG.get(), new BoomerangRenderer.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.DIAMOND_BOOMERANG.get(), new BoomerangRenderer.Factory());
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.THAUMAPTILON.get(), ThaumaptlionRenderer::new);
 	}
 
 	private static void tileEntityRenderer() {

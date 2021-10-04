@@ -55,8 +55,6 @@ public class WorldUtils {
 			 return null;
 		 else if(clazz.isInstance(te)) {
 			 return clazz.cast(te);
-		 }else {
-			 Dinosexpansion.LOGGER.warn("Tile Entity at:" + pos + " cant be cast to: " + clazz.descriptorString());
 		 }
 		 return null;
 	 }
