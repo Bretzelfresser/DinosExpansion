@@ -28,6 +28,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -64,6 +65,11 @@ public class Generator extends BaseMultiBlock{
 			worldIn.destroyBlock(pos.offset(state.get(HORIZONTAL_FACING).rotateY()), true);
 		}
 		super.onReplaced(state, worldIn, pos, newState, isMoving);
+	}
+	
+	@Override
+	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+		return worldIn.isAirBlock(pos.offset(state.get(HORIZONTAL_FACING).rotateY()));
 	}
 	
 	@Override
