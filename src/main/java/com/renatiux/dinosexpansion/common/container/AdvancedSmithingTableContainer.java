@@ -39,6 +39,32 @@ public class AdvancedSmithingTableContainer extends BaseTileEntityContainer<Adva
 		public boolean isItemValid(ItemStack stack) {
 			return false;
 		}
+		
+		@Override
+		public void onSlotChange(ItemStack oldStackIn, ItemStack newStackIn) {
+			super.onSlotChange(oldStackIn, newStackIn);
+		}
+		
+		@Override
+		public void onSlotChanged() {
+			// TODO Auto-generated method stub
+			super.onSlotChanged();
+		}
+
+		@Override
+		protected void onCrafting(ItemStack stack, int amount) {
+			for (int i = 0; i < amount; i++) {
+				onCrafting(stack);
+			}
+		}
+		
+		@Override
+		protected void onCrafting(ItemStack stack) {
+			for (int i = 0; i < inventory.getSizeInventory() - 1; i++) {
+				inventory.decrStackSize(i, 1);
+			}
+			super.onCrafting(stack);
+		}
 
 		@Override
 		public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {

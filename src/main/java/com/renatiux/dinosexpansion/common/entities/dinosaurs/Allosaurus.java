@@ -247,10 +247,10 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	protected void refreshAnimation() {
 		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
 				CONTROLLER_NAME);
-		if (!animationQueue.isEmpty() && animationQueue.size() > 1) {
+		if (!animationQueue.isEmpty()) {
 			controller.setAnimation(animationQueue.poll());
-		}else if(animationQueue.size() == 1) {
-			controller.setAnimation(animationQueue.peek());
+		}else {
+			controller.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
 		}
 	}
 	
@@ -260,10 +260,10 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
 				CONTROLLER_NAME);
 		controller.transitionLengthTicks = transition;
-		if (!animationQueue.isEmpty() && animationQueue.size() > 1) {
+		if (!animationQueue.isEmpty()) {
 			controller.setAnimation(animationQueue.poll());
-		}else if(animationQueue.size() == 1) {
-			controller.setAnimation(animationQueue.peek());
+		}else {
+			controller.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
 		}
 	}
 
@@ -276,6 +276,10 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			refreshAnimation();
 		}
 
+	}
+	
+	protected void enqueueAnimation(AnimationBuilder animation) {
+		animationQueue.add(animation);
 	}
 	
 	protected void playASAP(AnimationBuilder animation) {
@@ -304,10 +308,8 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		if(animationQueue.isEmpty()) {
 			throw new IllegalStateException("animation Queue is empty, this shouldnt happen");
 		}
-		if (shouldplayDeadAnimation()) {
-			event.getController().transitionLengthTicks = 60;
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Dead.new", true));
-			continuesAnimation = true;
+		if (shouldplayDeadAnimation() && !event.getController().getCurrentAnimation().animationName.equals("Alt_Allosaurus_Dead.new")) {
+			playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Dead.new", true), 60);
 			return PlayState.CONTINUE;
 		}
 		if (isKnockout()) {

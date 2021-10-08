@@ -29,7 +29,6 @@ public class GeneratorContainer extends BaseTileEntityContainer<GeneratorTileEnt
 		addSlot(new GeneratorSlot(tileEntity, 0, 48, 39));
 
 		this.trackIntArray(getData());
-
 	}
 
 	public double getProgressPercentage() {

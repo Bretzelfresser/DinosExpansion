@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.client.events;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.client.model.backedModels.CableModel;
 import com.renatiux.dinosexpansion.client.renderer.AllosaurusRenderer;
 import com.renatiux.dinosexpansion.client.renderer.BoomerangRenderer;
 import com.renatiux.dinosexpansion.client.renderer.ChimerarachneRenderer;
@@ -33,7 +34,12 @@ import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -51,6 +57,18 @@ public class ClientEvents {
 		screenBinding();
 		armorModel();
 		registerBlockRenders();
+	}
+	@SubscribeEvent
+	public static void onBake(ModelBakeEvent event) {
+		event.getModelRegistry().put(new ModelResourceLocation(BlockInit.BASIC_ENERGY_CABLE.getPrimary().getRegistryName(), ""),
+				new CableModel(DefaultVertexFormats.BLOCK));
+		System.out.println("model found");
+	}
+	@SubscribeEvent
+	public static void onTextureBake(TextureStitchEvent.Pre event) {
+		if(event.getMap().getTextureLocation().equals(PlayerContainer.LOCATION_BLOCKS_TEXTURE)) {
+			event.addSprite(CableModel.TEXTURE);
+		}
 	}
 
 	private static void entityRenderer() {

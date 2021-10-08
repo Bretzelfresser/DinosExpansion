@@ -43,7 +43,7 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 	public GeneratorTileEntity() {
 		this(true);
 	}
-
+	
 	public GeneratorTileEntity(boolean isMaster) {
 		super(TileEntityTypesInit.GENERATOR.get(), 1, isMaster);
 		storage = new GeneratorEnergyStorage(10000, 0, 10000);

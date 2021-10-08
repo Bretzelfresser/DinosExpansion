@@ -11,6 +11,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.HandSide;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -48,6 +49,15 @@ public class Thaumaptilon extends LivingEntity implements IAnimatable {
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		world.setEntityState(this, (byte) 9);
 		return super.attackEntityFrom(source, amount);
+	}
+	
+	@Override
+	public void applyKnockback(float strength, double ratioX, double ratioZ) {
+		//do nothing, this entity cant move
+	}
+	@Override
+	public void setMotion(Vector3d motionIn) {
+		//do nothing because this entitx cant move
 	}
 
 	@Override
