@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "dinosexpansion:block/generator",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "dinosexpansion:block/generator",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "dinosexpansion:block/generator",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "dinosexpansion:block/generator"
+    }
+  }
+}
