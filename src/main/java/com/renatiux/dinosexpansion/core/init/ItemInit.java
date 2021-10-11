@@ -76,6 +76,12 @@ public class ItemInit {
 	public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
+	public static final RegistryObject<Item> ADOBE_BRICK = ITEMS.register("adobe_brick",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+	public static final RegistryObject<Item> MUD_BALL = ITEMS.register("mud_ball",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
 	//Chimerarachne
 	public static final RegistryObject<Item> CHIMERARACHNE_CHITIN = ITEMS.register("chimerarachne_chitin",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
