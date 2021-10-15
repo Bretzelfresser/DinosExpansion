@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": [
+      { "model": "dinosexpansion:block/mud_block" },
+      { "model": "dinosexpansion:block/mud_block", "y": 90 },
+      { "model": "dinosexpansion:block/mud_block", "y": 180 },
+      { "model": "dinosexpansion:block/mud_block", "y": 270 }
+    ]
+  }
+}

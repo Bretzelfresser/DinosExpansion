@@ -18,6 +18,8 @@ import com.renatiux.dinosexpansion.common.blocks.machine.Mortar;
 import com.renatiux.dinosexpansion.common.blocks.plants.DEDoubleFlowerBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DEFlowerBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DETripleFlowerBlock;
+import com.renatiux.dinosexpansion.common.blocks.world.MudBlock;
+import com.renatiux.dinosexpansion.common.blocks.world.QuicksandBlock;
 import com.renatiux.dinosexpansion.common.items.blockItems.BaseMultiblockBlockItem;
 import com.renatiux.dinosexpansion.common.tileEntities.AdvancedSmithingTableTileEntity;
 import com.renatiux.dinosexpansion.common.tileEntities.GeneratorTileEntity;
@@ -28,17 +30,14 @@ import com.renatiux.dinosexpansion.util.LightUtil;
 import com.renatiux.dinosexpansion.util.registration.BlockDeferredRegister;
 import com.renatiux.dinosexpansion.util.registration.DoubleRegistryObject;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.RedstoneOreBlock;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SandBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -149,10 +148,31 @@ public class BlockInit {
 	//Soils
 	public static final RegistryObject<Block> DINO_SAND = BASIC_BLOCKS.register("dino_sand",
 			()-> new SandBlock(14406560, AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
+	public static final RegistryObject<Block> DINO_QUICKSAND = BASIC_BLOCKS.register("dino_quicksand",
+			()-> new QuicksandBlock(AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(1.0F, 0.5F).sound(SoundType.SAND).doesNotBlockMovement().harvestTool(ToolType.SHOVEL)));
 
 	public static final RegistryObject<Block> DINO_SILT = BASIC_BLOCKS.register("dino_silt",
 			()-> new Block(AbstractBlock.Properties.create(Material.CLAY, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
 
+	public static final RegistryObject<Block> VOLCANIC_STONE = BASIC_BLOCKS.register("volcanic_stone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+	public static final RegistryObject<Block> VOLCANIC_BRICKS = BASIC_BLOCKS.register("volcanic_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+	public static final RegistryObject<Block> CHISELED_VOLCANIC_BRICKS = BASIC_BLOCKS.register("chiseled_volcanic_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+
+	public static final RegistryObject<Block> ADOBE_BRICKS = BASIC_BLOCKS.register("adobe_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+	public static final RegistryObject<Block> CHISELED_ADOBE_BRICKS = BASIC_BLOCKS.register("chiseled_adobe_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+
+	public static final RegistryObject<Block> MUD_BLOCK = BASIC_BLOCKS.register("mud_block",
+			()-> new MudBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN_TERRACOTTA).hardnessAndResistance(0.6F).harvestLevel(0).harvestTool(ToolType.SHOVEL).sound(new SoundType(1.0F, 0.5F, SoundEvents.BLOCK_SLIME_BLOCK_BREAK, SoundEvents.BLOCK_SLIME_BLOCK_STEP, SoundEvents.BLOCK_SLIME_BLOCK_PLACE, SoundEvents.BLOCK_SLIME_BLOCK_HIT, SoundEvents.BLOCK_SLIME_BLOCK_FALL))));
+	public static final RegistryObject<Block> DRY_MUD = BASIC_BLOCKS.register("dry_mud",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+
+	public static final RegistryObject<Block> DINO_MAGMA = BASIC_BLOCKS.register("dino_magma",
+			()-> new MagmaBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().setLightLevel((state) -> 3).tickRandomly().hardnessAndResistance(0.5F).setAllowsSpawn((state, reader, pos, entity) -> entity.isImmuneToFire()).setNeedsPostProcessing(BlockInit::needsPostProcessing).setEmmisiveRendering(BlockInit::needsPostProcessing)));
 
 	//Ores
 	public static final RegistryObject<Block> DINO_COAL_ORE = BASIC_BLOCKS.register("dino_coal_ore",
@@ -213,6 +233,12 @@ public class BlockInit {
 			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.EGGPLANT_SEED));
 	public static final RegistryObject<Block> LETTUCE_CROP_BLOCK = BUSH.register("lettuce_crop_block",
 			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.LETTUCE_SEED));
+
+
+	private static boolean needsPostProcessing(BlockState state, IBlockReader reader, BlockPos pos) {
+		return true;
+	}
+
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
 	 */
