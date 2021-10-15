@@ -77,8 +77,8 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 				.createMutableAttribute(Attributes.FOLLOW_RANGE, 30.0D);
 	}
 
-	private int attackCounter, attackedId, growlCooldown, idleCooldown;
-	private boolean growl, continuesAnimation = false;
+	private int attackCounter, attackedId, growlCooldown, idleCooldown, wakeUpCooldown;
+	private boolean growl;
 	private Deque<AnimationBuilder> animationQueue = new ArrayDeque<>();
 
 	public Allosaurus(EntityType<? extends Dinosaur> type, World worldIn) {
@@ -94,6 +94,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		experienceValue = 50;
 		growlCooldown = 0;
 		idleCooldown = 0;
+		wakeUpCooldown = 0;
 		growl = false;
 		this.stepHeight = 1.0f;
 		animationQueue.add(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
@@ -129,6 +130,14 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
 		if (growlCooldown > 0)
 			growlCooldown--;
+		//resetting the status after he woke up so he don´t move during waking up
+		if(wakeUpCooldown > 0) {
+			wakeUpCooldown--;
+			System.out.println(wakeUpCooldown);
+			if(wakeUpCooldown == 0) {
+				setStatus(prevStatus);
+			}
+		}
 
 	}
 
@@ -201,7 +210,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		this.attackCounter = compound.getInt("attackCounter");
 		this.attackedId = compound.getInt("attackEntity");
 		this.idleCooldown = compound.getInt("idleCooldown");
-		this.continuesAnimation = compound.getBoolean("continuesAnimation");
 	}
 
 	@Override
@@ -210,7 +218,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		compound.putInt("attackCounter", attackCounter);
 		compound.putInt("attackEntity", attackedId);
 		compound.putInt("idleCooldown", idleCooldown);
-		compound.putBoolean("continuesAnimation", continuesAnimation);
 	}
 
 	@Override
@@ -218,12 +225,15 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		return "allosaurus";
 	}
 
+	/**
+	 * will play the growlAnimation
+	 * 
+	 * @param growl
+	 */
 	protected void setGrowl(boolean growl) {
 		this.growl = growl;
 		if (growl)
 			this.world.setEntityState(this, (byte) 10);
-		else
-			this.world.setEntityState(this, (byte) 11);
 	}
 
 	protected boolean isGrowl() {
@@ -240,6 +250,21 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	@Override
 	public void registerControllers(AnimationData data) {
 		data.addAnimationController(new AnimationController<Allosaurus>(this, CONTROLLER_NAME, 30, this));
+		data.addAnimationController(new AnimationController<Allosaurus>(this, "walking", 0, this::walkingAnimation));
+	}
+	
+	public PlayState walkingAnimation(AnimationEvent<Allosaurus> event) {
+		if (event.isMoving() && !isAttacking() && !isGrowl()) {
+			if (!Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
+					.hasModifier(SPEED_MODIFIER_ATTACKING)) {
+				event.getController()
+						.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Walk.new", true));
+			} else {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Run.new", true));
+			}
+			return PlayState.CONTINUE;
+		}
+		return PlayState.STOP;
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -247,13 +272,14 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	protected void refreshAnimation() {
 		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
 				CONTROLLER_NAME);
+		controller.transitionLengthTicks = 0;
 		if (!animationQueue.isEmpty()) {
 			controller.setAnimation(animationQueue.poll());
-		}else {
+		} else {
 			controller.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
 		}
 	}
-	
+
 	@OnlyIn(Dist.CLIENT)
 	@SuppressWarnings("unchecked")
 	protected void refreshAnimation(int transition) {
@@ -262,7 +288,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		controller.transitionLengthTicks = transition;
 		if (!animationQueue.isEmpty()) {
 			controller.setAnimation(animationQueue.poll());
-		}else {
+		} else {
 			controller.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
 		}
 	}
@@ -277,27 +303,57 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		}
 
 	}
-	
+
+	@Override
+	public void setSleep(boolean value) {
+		if (isSleeping() == value)
+			return;
+		if (value) {
+			prevStatus = getStatus();
+			setStatus(DinosaurStatus.SLEEPING);
+		} else if(wakeUpCooldown <= 0){
+			wakeUpCooldown = 25;
+			//plays the wakeUp-Animation
+			world.setEntityState(this, (byte) 12);
+			sleepCooldown = 350;
+		}
+	}
+	@OnlyIn(Dist.CLIENT)
 	protected void enqueueAnimation(AnimationBuilder animation) {
 		animationQueue.add(animation);
 	}
-	
+	@OnlyIn(Dist.CLIENT)
 	protected void playASAP(AnimationBuilder animation) {
 		animationQueue.addFirst(animation);
 		refreshAnimation();
 	}
-	
+
+	@OnlyIn(Dist.CLIENT)
+	protected void playASAPIfNotAlready(AnimationBuilder animation, int transition) {
+		@SuppressWarnings("unchecked")
+		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
+				CONTROLLER_NAME);
+		if (animation.getRawAnimationList().get(0).animationName.equals(controller.getCurrentAnimation().animationName))
+			return;
+		animationQueue.addFirst(animation);
+		refreshAnimation(transition);
+	}
+
 	protected void playASAP(AnimationBuilder animation, int transition) {
 		animationQueue.addFirst(animation);
 		refreshAnimation(transition);
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	protected boolean isPlayingIdleAnimation(AnimationController<Allosaurus> controller) {
-		return controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_IdleContinue.new") || 
-				controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_Idle.new");
+		return controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_IdleContinue.new")
+				|| controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_Idle.new");
+	}
+	@OnlyIn(Dist.CLIENT)
+	protected void playWakeUpAnimation() {
+		playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_GetUp_Sleep.new", false), 10);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public PlayState test(AnimationEvent<Allosaurus> event) {
 		if (event.getController().getCurrentAnimation() != null
@@ -305,59 +361,29 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 						.equals("Alt_Allosaurus_IdleContinue.new")) {
 			idleCooldown++;
 		}
-		if(animationQueue.isEmpty()) {
-			throw new IllegalStateException("animation Queue is empty, this shouldnt happen");
-		}
-		if (shouldplayDeadAnimation() && !event.getController().getCurrentAnimation().animationName.equals("Alt_Allosaurus_Dead.new")) {
+		if (shouldplayDeadAnimation()
+				&& !event.getController().getCurrentAnimation().animationName.equals("Alt_Allosaurus_Dead.new")) {
 			playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Dead.new", true), 60);
 			return PlayState.CONTINUE;
 		}
 		if (isKnockout()) {
-			event.getController().transitionLengthTicks = 30;
-			playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Knockout.new", true));
-			continuesAnimation = true;
+			playASAPIfNotAlready(new AnimationBuilder().addAnimation("Alt_Allosaurus_Knockout.new", true), 60);
 			return PlayState.CONTINUE;
 		}
-		if (isSleeping()) {
-			event.getController().transitionLengthTicks = 30;
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Sleep.new", true));
-			continuesAnimation = true;
+		if (isSleeping() && wakeUpCooldown <= 0) {
+			playASAPIfNotAlready(new AnimationBuilder().addAnimation("Alt_Allosaurus_Sleep.new", true), 30);
 			return PlayState.CONTINUE;
 		}
 		if (getStatus() == DinosaurStatus.SITTING) {
-			event.getController().transitionLengthTicks = 30;
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_SitIdle.new", true));
-			continuesAnimation = true;
+			playASAPIfNotAlready(new AnimationBuilder().addAnimation("Alt_Allosaurus_SitIdle.new", true), 30);
 			return PlayState.CONTINUE;
-		}
-		// walking and running
-		if (event.isMoving() && !isAttacking() && !isGrowl()) {
-			if (!Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
-					.hasModifier(SPEED_MODIFIER_ATTACKING)) {
-				event.getController()
-						.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Walk.new", true));
-			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Run.new", true));
-			}
-			continuesAnimation = true;
-			return PlayState.CONTINUE;
-		}
-		if (isAttacking()) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Attack.new", false));
-		} else if (isGrowl()) {
-			event.getController()
-					.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Threaten.new", false));
-			setGrowl(false);
 		} else if (idleCooldown >= 2400) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Idle.new", false));
+			enqueueAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Idle.new", false));
+			refreshAnimation();
 			idleCooldown = 0;
-		} else if (event.getController().getAnimationState() == AnimationState.Stopped || continuesAnimation) {
-			event.getController().transitionLengthTicks = 0;
-			// System.out.println(event.getController().transitionLengthTicks);
-			continuesAnimation = false;
-			event.getController()
-					.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
 		}
+		if(event.getController().getAnimationState() == AnimationState.Stopped)
+			refreshAnimation();
 		return PlayState.CONTINUE;
 	}
 
@@ -366,23 +392,43 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		setAttacking(true);
 		attackCounter = 18;
 		attackedId = entityIn.getEntityId();
+		this.world.setEntityState(this, (byte) 11);
 		return true;
 	}
 
 	@Override
 	public void handleStatusUpdate(byte id) {
 		if (id == 10) {
-			setGrowl(true);
+			playGrowlAnimation();
 		} else if (id == 11) {
-			setGrowl(false);
+			playAttackAnimation();
+		}else if(id == 12) {
+			playWakeUpAnimation();
 		} else
 			super.handleStatusUpdate(id);
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	protected void playAttackAnimation() {
+		playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Attack.new", false));
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	protected void playGrowlAnimation() {
+		playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Threaten.new", false));
+	}
+
+	/**
+	 * executed when grwol cooldown is 0 plays the growl animation and gives the
+	 * entity strength, and slwoness in order to not move while playing the
+	 * animation
+	 */
 	public void growl() {
 		if (growlCooldown <= 0) {
 			setGrowl(true);
 			growlCooldown = 6000;
+			addPotionEffect(new EffectInstance(Effects.STRENGTH, 2400));
+			addPotionEffect(new EffectInstance(Effects.SLOWNESS, 25, 4000));
 		}
 	}
 
@@ -403,8 +449,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		}
 		if (target instanceof PlayerEntity && growlCooldown <= 0) {
 			growl();
-			addPotionEffect(new EffectInstance(Effects.STRENGTH, 2400));
-			addPotionEffect(new EffectInstance(Effects.SLOWNESS, 25, 4000));
+
 		}
 
 		super.setAttackTarget(target);

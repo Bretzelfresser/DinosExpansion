@@ -107,7 +107,7 @@ public abstract class Dinosaur extends MonsterEntity
 
 	private boolean dead, day;
 	private List<ItemStack> stacksToDrop;
-	private DinosaurStatus prevStatus;
+	protected DinosaurStatus prevStatus;
 
 	/**
 	 * 
@@ -149,6 +149,11 @@ public abstract class Dinosaur extends MonsterEntity
 
 	protected abstract AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox);
 
+	@Override
+	public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+		 return this.getEntityInteractionResult(player, hand);
+	}
+	
 	@Override
 	public final ActionResultType getEntityInteractionResult(PlayerEntity player, Hand hand) {
 		if (!world.isRemote) {
@@ -304,7 +309,7 @@ public abstract class Dinosaur extends MonsterEntity
 	protected boolean shouldSleep() {
 		if (sleepCooldown > 0 || world.isDaytime() || this.getAttackTarget() != null || this.isBeingRidden())
 			return false;
-		if(randomChanceSleep() && day) {
+		if(randomChanceSleep()) {
 			day = world.isDaytime();
 			return true;
 		}
