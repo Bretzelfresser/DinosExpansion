@@ -311,6 +311,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		if (value) {
 			prevStatus = getStatus();
 			setStatus(DinosaurStatus.SLEEPING);
+			playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Sleep.new", true), 30);
 		} else if(wakeUpCooldown <= 0){
 			wakeUpCooldown = 25;
 			//plays the wakeUp-Animation

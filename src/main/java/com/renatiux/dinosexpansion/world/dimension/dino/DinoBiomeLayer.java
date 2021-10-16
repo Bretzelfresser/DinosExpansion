@@ -1,8 +1,8 @@
 package com.renatiux.dinosexpansion.world.dimension.dino;
 
 import com.renatiux.dinosexpansion.common.biomes.BiomeKeys;
+
 import net.minecraft.world.gen.INoiseRandom;
-import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
 import net.minecraft.world.gen.layer.traits.IC0Transformer;
 
 public class DinoBiomeLayer implements IC0Transformer {
