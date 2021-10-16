@@ -4,6 +4,7 @@ import com.renatiux.dinosexpansion.common.world.DEConfiguredFeatures;
 import com.renatiux.dinosexpansion.core.init.CarverInit;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Features;
 
 public class DEBiomeFeatures {
 
@@ -34,5 +35,15 @@ public class DEBiomeFeatures {
     public static void addEmerald(BiomeGenerationSettings.Builder gen)
     {
         gen.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, DEConfiguredFeatures.DINO_EMERALD_ORE);
+    }
+
+    public static void addSwampVegetation(BiomeGenerationSettings.Builder gen)
+    {
+        gen.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_SWAMP);
+        gen.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
+        gen.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_DEAD_BUSH);
+        gen.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_WATERLILLY);
+        gen.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.BROWN_MUSHROOM_SWAMP);
+        gen.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.RED_MUSHROOM_SWAMP);
     }
 }
