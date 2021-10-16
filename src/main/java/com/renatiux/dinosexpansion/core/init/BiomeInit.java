@@ -3,6 +3,11 @@ package com.renatiux.dinosexpansion.core.init;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.biomes.DEBiomeMaker;
 
+import com.renatiux.dinosexpansion.common.biomes.dino.beach.Beach;
+import com.renatiux.dinosexpansion.common.biomes.dino.beach.StoneBeach;
+import com.renatiux.dinosexpansion.common.biomes.dino.swamp.Marshlands;
+import com.renatiux.dinosexpansion.common.biomes.dino.swamp.Swamp;
+import com.renatiux.dinosexpansion.common.biomes.dino.warm.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -41,4 +46,18 @@ public class BiomeInit {
 
     public static final RegistryObject<Biome> DINO_CONIFER_FOREST = BIOMES.register("dino_conifer_forest", DEBiomeMaker::dinoConiferForest);
     public static final RegistryObject<Biome> DINO_CONIFER_FOREST_HILLS = BIOMES.register("dino_conifer_forest_hills", DEBiomeMaker::dinoConiferForestHills);
+
+    /*-------------------------------------*/
+
+    public static final RegistryObject<Biome> BEACH = BIOMES.register("beach", Beach::create);
+    public static final RegistryObject<Biome> STONE_BEACH = BIOMES.register("stone_beach", StoneBeach::create);
+
+    public static final RegistryObject<Biome> SWAMP = BIOMES.register("swamp", Swamp::create);
+    public static final RegistryObject<Biome> MARSHLANDS = BIOMES.register("marshlands", Marshlands::create);
+
+    public static final RegistryObject<Biome> DESERT = BIOMES.register("desert", Desert::create);
+    public static final RegistryObject<Biome> BADLANDS = BIOMES.register("badlands", Badlands::create);
+    public static final RegistryObject<Biome> DESERT_SHRUBLANDS = BIOMES.register("desert_shrublands", DesertShrubland::create);
+    public static final RegistryObject<Biome> ERODED_BADLANDS = BIOMES.register("eroded_badlands", ErodedBadlands::create);
+    public static final RegistryObject<Biome> SHRUBLANDS = BIOMES.register("shrublands", Shrubland::create);
 }

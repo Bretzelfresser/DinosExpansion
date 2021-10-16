@@ -1,4 +1,6 @@
 package com.renatiux.dinosexpansion.common.biomes.dino.snow;
 
-public class SnowyPlains {
+import com.renatiux.dinosexpansion.common.biomes.dino.BiomeBase;
+
+public class SnowyPlains extends BiomeBase {
 }

@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.biomes.surfacebuilders.DinoOceanSurfaceBuilder;
+import com.renatiux.dinosexpansion.common.biomes.surfacebuilders.DinoSwampSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.fml.RegistryObject;
@@ -14,9 +15,11 @@ public class SurfaceBuilderInit {
 
 
     public static final SurfaceBuilder<SurfaceBuilderConfig> NAKED_DINO_OCEAN = new DinoOceanSurfaceBuilder(SurfaceBuilderConfig.CODEC);
+    public static final SurfaceBuilder<SurfaceBuilderConfig> NAKED_DINO_SWAMP = new DinoSwampSurfaceBuilder(SurfaceBuilderConfig.CODEC);
 
 
     public static final RegistryObject<SurfaceBuilder<SurfaceBuilderConfig>> DINO_OCEAN = SURFACE_BUILDER.register("dino_ocean", () -> NAKED_DINO_OCEAN);
+    public static final RegistryObject<SurfaceBuilder<SurfaceBuilderConfig>> DINO_SWAMP = SURFACE_BUILDER.register("dino_swamo", () -> NAKED_DINO_SWAMP);
 
 
 }
