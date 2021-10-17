@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.container.OrderContainer;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.animation.AnimationQueue;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.items.NarcoticItem;
@@ -104,6 +105,7 @@ public abstract class Dinosaur extends MonsterEntity
 	protected int sleepCooldown, hungerCounter, growingAge, poopCooldown, breedCooldown;
 	protected AnimationFactory factory = new AnimationFactory(this);
 	protected Inventory dinosaurInventory, tamingInventory;
+	protected final AnimationQueue<Dinosaur> animationQueue;
 
 	private boolean dead, day;
 	private List<ItemStack> stacksToDrop;
@@ -124,6 +126,7 @@ public abstract class Dinosaur extends MonsterEntity
 		this.breedCooldown = 0;
 		dead = false;
 		day = world.isDaytime();
+		animationQueue = createAnimationQueue(factory);
 		if (child) {
 			growingAge = -getGrowingTime();
 		} else {
@@ -144,6 +147,8 @@ public abstract class Dinosaur extends MonsterEntity
 		setCustomNameVisible(true);
 		super.setCustomName(name);
 	}
+	
+	protected abstract AnimationQueue<Dinosaur> createAnimationQueue(AnimationFactory factory);
 
 	protected abstract AxisAlignedBB getChildBoundingBox(AxisAlignedBB superBox);
 
@@ -946,7 +951,7 @@ public abstract class Dinosaur extends MonsterEntity
 	 */
 	private void makeDead() {
 		this.dead = true;
-		world.setEntityState(this, (byte) 14);
+		world.setEntityState(this, (byte) 9);
 	}
 
 	protected boolean shouldplayDeadAnimation() {
@@ -965,7 +970,7 @@ public abstract class Dinosaur extends MonsterEntity
 		case 8:
 			spawnGrowthParticles();
 			break;
-		case 14:
+		case 9:
 			this.dead = true;
 			break;
 		default:

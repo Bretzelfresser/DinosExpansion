@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.common.entities.dinosaurs;
 
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.animation.AnimationQueue;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.NoTaming;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
 import com.renatiux.dinosexpansion.common.goals.DinosaurLookRandomlyGoal;
@@ -26,6 +27,7 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class Chimerarachne extends Dinosaur{
 	
@@ -197,6 +199,11 @@ public class Chimerarachne extends Dinosaur{
 	@Override
 	protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
 		return superBox;
+	}
+
+	@Override
+	protected AnimationQueue<Dinosaur> createAnimationQueue(AnimationFactory factory) {
+		return new AnimationQueue<Dinosaur>(this, new AnimationBuilder(), "chimerarachne_controller", factory);
 	}
 
 }

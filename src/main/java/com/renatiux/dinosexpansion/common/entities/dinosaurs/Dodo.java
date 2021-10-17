@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.common.entities.dinosaurs;
 
 import com.renatiux.dinosexpansion.common.container.DodoContainer;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.animation.AnimationQueue;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.DododTamingBehaviour;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
 import com.renatiux.dinosexpansion.common.entities.util.IFleeingDinosaur;
@@ -38,6 +39,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.controller.AnimationController.IAnimationPredicate;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleeingDinosaur {
 
@@ -238,6 +240,14 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 	@Override
 	protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
 		return superBox;
+	}
+
+
+
+
+	@Override
+	protected AnimationQueue<Dinosaur> createAnimationQueue(AnimationFactory factory) {
+		return new AnimationQueue<Dinosaur>(this, new AnimationBuilder(), "dodo_controller", factory);
 	}
 
 }

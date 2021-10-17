@@ -1,11 +1,10 @@
 package com.renatiux.dinosexpansion.common.entities.dinosaurs;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Objects;
 import java.util.UUID;
 
 import com.renatiux.dinosexpansion.common.container.AllosaurusContainer;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.animation.AnimationQueue;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.AllosaurusTamingBahviour;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
 import com.renatiux.dinosexpansion.common.goals.DinosaurBreedGoal;
@@ -54,14 +53,13 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
-import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.controller.AnimationController.IAnimationPredicate;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaurus> {
 
@@ -79,7 +77,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
 	private int attackCounter, attackedId, growlCooldown, idleCooldown, wakeUpCooldown;
 	private boolean growl;
-	private Deque<AnimationBuilder> animationQueue = new ArrayDeque<>();
+	
 
 	public Allosaurus(EntityType<? extends Dinosaur> type, World worldIn) {
 		this(type, worldIn, false);
@@ -97,7 +95,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		wakeUpCooldown = 0;
 		growl = false;
 		this.stepHeight = 1.0f;
-		animationQueue.add(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
 	}
 
 	@Override
@@ -266,43 +263,15 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		}
 		return PlayState.STOP;
 	}
-
-	@OnlyIn(Dist.CLIENT)
-	@SuppressWarnings("unchecked")
-	protected void refreshAnimation() {
-		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
-				CONTROLLER_NAME);
-		controller.transitionLengthTicks = 0;
-		if (!animationQueue.isEmpty()) {
-			controller.setAnimation(animationQueue.poll());
-		} else {
-			controller.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
+	
+	@Override
+	public void setKnockedOut(boolean value) {
+		super.setKnockedOut(value);
+		if(value) {
+			world.setEntityState(this, (byte) 14);
 		}
 	}
-
-	@OnlyIn(Dist.CLIENT)
-	@SuppressWarnings("unchecked")
-	protected void refreshAnimation(int transition) {
-		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
-				CONTROLLER_NAME);
-		controller.transitionLengthTicks = transition;
-		if (!animationQueue.isEmpty()) {
-			controller.setAnimation(animationQueue.poll());
-		} else {
-			controller.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
-		}
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@SuppressWarnings("unchecked")
-	protected void playQueue() {
-		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
-				CONTROLLER_NAME);
-		if (isPlayingIdleAnimation(controller) || controller.getAnimationState() == AnimationState.Stopped) {
-			refreshAnimation();
-		}
-
-	}
+	
 
 	@Override
 	public void setSleep(boolean value) {
@@ -311,7 +280,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		if (value) {
 			prevStatus = getStatus();
 			setStatus(DinosaurStatus.SLEEPING);
-			playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Sleep.new", true), 30);
+			world.setEntityState(this, (byte) 13);
 		} else if(wakeUpCooldown <= 0){
 			wakeUpCooldown = 25;
 			//plays the wakeUp-Animation
@@ -320,41 +289,35 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		}
 	}
 	@OnlyIn(Dist.CLIENT)
-	protected void enqueueAnimation(AnimationBuilder animation) {
-		animationQueue.add(animation);
-	}
-	@OnlyIn(Dist.CLIENT)
-	protected void playASAP(AnimationBuilder animation) {
-		animationQueue.addFirst(animation);
-		refreshAnimation();
+	protected void playSleepAnimation() {
+		animationQueue.playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Sleep.new", true), 30);
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	protected void playASAPIfNotAlready(AnimationBuilder animation, int transition) {
-		@SuppressWarnings("unchecked")
-		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, getEntityId(),
-				CONTROLLER_NAME);
-		if (animation.getRawAnimationList().get(0).animationName.equals(controller.getCurrentAnimation().animationName))
-			return;
-		animationQueue.addFirst(animation);
-		refreshAnimation(transition);
-	}
-
-	protected void playASAP(AnimationBuilder animation, int transition) {
-		animationQueue.addFirst(animation);
-		refreshAnimation(transition);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	protected boolean isPlayingIdleAnimation(AnimationController<Allosaurus> controller) {
-		return controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_IdleContinue.new")
-				|| controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_Idle.new");
-	}
 	@OnlyIn(Dist.CLIENT)
 	protected void playWakeUpAnimation() {
-		playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_GetUp_Sleep.new", false), 10);
+		animationQueue.playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_GetUp_Sleep.new", false), 10);
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	protected void playAttackAnimation() {
+		animationQueue.playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Attack.new", false));
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	protected void playGrowlAnimation() {
+		animationQueue.playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Threaten.new", false));
+	}
+	@OnlyIn(Dist.CLIENT)
+	private void playKnockOutAnimation(){
+		animationQueue.playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Knockout.new", true), 30);
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	private void playWakeUpFromKnockoutAnimation() {
+		animationQueue.playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_GetUp_Knockout.new", false));
+	}
+
+	
 	@Override
 	public PlayState test(AnimationEvent<Allosaurus> event) {
 		if (event.getController().getCurrentAnimation() != null
@@ -364,15 +327,12 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		}
 		if (shouldplayDeadAnimation()
 				&& !event.getController().getCurrentAnimation().animationName.equals("Alt_Allosaurus_Dead.new")) {
-			playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Dead.new", true), 60);
+			animationQueue.playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Dead.new", true), 60);
 			return PlayState.CONTINUE;
 		}
+		/*
 		if (isKnockout()) {
 			playASAPIfNotAlready(new AnimationBuilder().addAnimation("Alt_Allosaurus_Knockout.new", true), 60);
-			return PlayState.CONTINUE;
-		}
-		if (isSleeping() && wakeUpCooldown <= 0) {
-			playASAPIfNotAlready(new AnimationBuilder().addAnimation("Alt_Allosaurus_Sleep.new", true), 30);
 			return PlayState.CONTINUE;
 		}
 		if (getStatus() == DinosaurStatus.SITTING) {
@@ -384,7 +344,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			idleCooldown = 0;
 		}
 		if(event.getController().getAnimationState() == AnimationState.Stopped)
-			refreshAnimation();
+			refreshAnimation();*/
 		return PlayState.CONTINUE;
 	}
 
@@ -405,18 +365,14 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			playAttackAnimation();
 		}else if(id == 12) {
 			playWakeUpAnimation();
+		}else if(id == 13) {
+			playSleepAnimation();
+		}else if(id == 14) {
+			playKnockOutAnimation();
+		}else if(id == 15) {
+			playWakeUpFromKnockoutAnimation();
 		} else
 			super.handleStatusUpdate(id);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	protected void playAttackAnimation() {
-		playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Attack.new", false));
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	protected void playGrowlAnimation() {
-		playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Threaten.new", false));
 	}
 
 	/**
@@ -541,6 +497,12 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	@Override
 	protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
 		return superBox.contract(0, 0.5, 0);
+	}
+
+	@Override
+	protected AnimationQueue<Dinosaur> createAnimationQueue(AnimationFactory factory) {
+		AnimationBuilder idle = new AnimationBuilder().addRepeatingAnimation("Alt_Allosaurus_IdleContinue.new", 10).addAnimation("Alt_Allosaurus_Idle.new");
+		return new AnimationQueue<Dinosaur>(this, idle, CONTROLLER_NAME, factory);
 	}
 
 }

@@ -39,6 +39,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.util.ForgeSoundType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -167,7 +168,7 @@ public class BlockInit {
 			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
 
 	public static final RegistryObject<Block> MUD_BLOCK = BASIC_BLOCKS.register("mud_block",
-			()-> new MudBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN_TERRACOTTA).hardnessAndResistance(0.6F).harvestLevel(0).harvestTool(ToolType.SHOVEL).sound(new SoundType(1.0F, 0.5F, SoundEvents.BLOCK_SLIME_BLOCK_BREAK, SoundEvents.BLOCK_SLIME_BLOCK_STEP, SoundEvents.BLOCK_SLIME_BLOCK_PLACE, SoundEvents.BLOCK_SLIME_BLOCK_HIT, SoundEvents.BLOCK_SLIME_BLOCK_FALL))));
+			()-> new MudBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN_TERRACOTTA).hardnessAndResistance(0.6F).harvestLevel(0).harvestTool(ToolType.SHOVEL).sound(new ForgeSoundType(1.0F, 0.5F,() -> SoundEvents.BLOCK_SLIME_BLOCK_BREAK, () ->SoundEvents.BLOCK_SLIME_BLOCK_STEP, () ->SoundEvents.BLOCK_SLIME_BLOCK_PLACE,() -> SoundEvents.BLOCK_SLIME_BLOCK_HIT, () ->SoundEvents.BLOCK_SLIME_BLOCK_FALL))));
 	public static final RegistryObject<Block> DRY_MUD = BASIC_BLOCKS.register("dry_mud",
 			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
 
