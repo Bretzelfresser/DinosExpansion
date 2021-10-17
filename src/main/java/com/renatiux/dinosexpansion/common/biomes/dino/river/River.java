@@ -1,4 +1,6 @@
 package com.renatiux.dinosexpansion.common.biomes.dino.river;
 
-public class River {
+import com.renatiux.dinosexpansion.common.biomes.dino.BiomeBase;
+
+public class River extends BiomeBase {
 }
