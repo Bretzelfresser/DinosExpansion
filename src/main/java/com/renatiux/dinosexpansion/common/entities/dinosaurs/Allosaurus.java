@@ -62,6 +62,11 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaurus> {
+	
+	/** Constants for {@link World#setEntityState(Entity, byte)} for this Entity*/
+	public static final byte GROWL_ANIMATION = 10, ATTACK_ANIMATION = 11, WAKEUP_ANIMATION = 12, 
+			SLEEP_ANIMATION = 13, KNOCKOUT_ANIMATION = 14, NOT_KNOCKOUT_ANIMATION = 15, SIT = 16, STAND_UP = 17;
+	
 
 	private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0FFB-87AE-4653-9556-501010E221A0");
 	private static final String CONTROLLER_NAME = "controller";
@@ -230,7 +235,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	protected void setGrowl(boolean growl) {
 		this.growl = growl;
 		if (growl)
-			this.world.setEntityState(this, (byte) 10);
+			this.world.setEntityState(this, GROWL_ANIMATION);
 	}
 
 	protected boolean isGrowl() {
@@ -268,7 +273,9 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	public void setKnockedOut(boolean value) {
 		super.setKnockedOut(value);
 		if(value) {
-			world.setEntityState(this, (byte) 14);
+			world.setEntityState(this, KNOCKOUT_ANIMATION);
+		}else {
+			world.setEntityState(this, NOT_KNOCKOUT_ANIMATION);
 		}
 	}
 	
@@ -280,11 +287,10 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		if (value) {
 			prevStatus = getStatus();
 			setStatus(DinosaurStatus.SLEEPING);
-			world.setEntityState(this, (byte) 13);
+			world.setEntityState(this, SLEEP_ANIMATION);
 		} else if(wakeUpCooldown <= 0){
 			wakeUpCooldown = 25;
-			//plays the wakeUp-Animation
-			world.setEntityState(this, (byte) 12);
+			world.setEntityState(this, WAKEUP_ANIMATION);
 			sleepCooldown = 350;
 		}
 	}
@@ -330,21 +336,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			animationQueue.playASAP(new AnimationBuilder().addAnimation("Alt_Allosaurus_Dead.new", true), 60);
 			return PlayState.CONTINUE;
 		}
-		/*
-		if (isKnockout()) {
-			playASAPIfNotAlready(new AnimationBuilder().addAnimation("Alt_Allosaurus_Knockout.new", true), 60);
-			return PlayState.CONTINUE;
-		}
-		if (getStatus() == DinosaurStatus.SITTING) {
-			playASAPIfNotAlready(new AnimationBuilder().addAnimation("Alt_Allosaurus_SitIdle.new", true), 30);
-			return PlayState.CONTINUE;
-		} else if (idleCooldown >= 2400) {
-			enqueueAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Idle.new", false));
-			refreshAnimation();
-			idleCooldown = 0;
-		}
-		if(event.getController().getAnimationState() == AnimationState.Stopped)
-			refreshAnimation();*/
 		return PlayState.CONTINUE;
 	}
 
@@ -353,7 +344,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		setAttacking(true);
 		attackCounter = 18;
 		attackedId = entityIn.getEntityId();
-		this.world.setEntityState(this, (byte) 11);
+		this.world.setEntityState(this, ATTACK_ANIMATION);
 		return true;
 	}
 
@@ -371,6 +362,10 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 			playKnockOutAnimation();
 		}else if(id == 15) {
 			playWakeUpFromKnockoutAnimation();
+		}else if(id == 16) {
+			//TODO sit
+		}else if(id == 17) {
+			//TODO stand up
 		} else
 			super.handleStatusUpdate(id);
 	}

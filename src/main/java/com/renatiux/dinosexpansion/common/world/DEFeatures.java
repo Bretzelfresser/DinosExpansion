@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DEFeatures {
 
-    public static List<Feature<?>> features = new ArrayList<>();
+    public final static List<Feature<?>> features = new ArrayList<>();
 
     //RedWood
     public static final DEAbstractTreeFeature<DETreeConfig> REDWOOD_TREE1 = createFeature("redwood_tree1", new RedwoodTree1(DETreeConfig.CODEC.stable()));

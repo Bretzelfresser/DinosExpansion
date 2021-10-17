@@ -38,17 +38,31 @@ public class AnimationQueue<T extends Dinosaur> {
 		Objects.requireNonNull(factory);
 		this.factory = factory;
 		this.dino = dino;
-		this.idleAnimation = idleAnimation;
+		if(idleAnimation != null)
+			this.idleAnimation = new AnimationBuilder();
+		else
+			this.idleAnimation = idleAnimation;
 		this.controllerName = controllerName;
 	}
-	
+	/**
+	 * enqueues the animation, when all animations before it were played this animation will be played too
+	 */
 	public void enqueueAnimation(AnimationBuilder animation) {
 		animationQueue.add(animation);
 	}
+	/**
+	 * plays the give animation as soon as possible
+	 */
 	public void playASAP(AnimationBuilder animation) {
 		animationQueue.addFirst(animation);
 		refreshAnimation();
 	}
+	
+	/**
+	 * plays this animation when it is not already playing
+	 * @param animation
+	 * @param transition
+	 */
 	public void playASAPIfNotAlready(AnimationBuilder animation, int transition) {
 		@SuppressWarnings("unchecked")
 		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, dino.getEntityId(),
@@ -59,6 +73,10 @@ public class AnimationQueue<T extends Dinosaur> {
 		refreshAnimation(transition);
 	}
 	
+	/**
+	 *  plays the next animation on the queue, when nothing is on the queue it is playing the idle animation
+	 * instantly stops the current animation
+	 */
 	@SuppressWarnings("unchecked")
 	public void refreshAnimation() {
 		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, dino.getEntityId(),
@@ -70,7 +88,11 @@ public class AnimationQueue<T extends Dinosaur> {
 			controller.setAnimation(idleAnimation);
 		}
 	}
-	
+	/**
+	 * plays the next animation on the queue, when nothing is on the queue it is playing the idle animation
+	 * instantly stops the current animation
+	 * @param transition - the time it takes to switch from the old animation to the new animation
+	 */
 	@SuppressWarnings("unchecked")
 	public void refreshAnimation(int transition) {
 		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, dino.getEntityId(),
@@ -79,10 +101,12 @@ public class AnimationQueue<T extends Dinosaur> {
 		if (!animationQueue.isEmpty()) {
 			controller.setAnimation(animationQueue.poll());
 		} else {
-			controller.setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new", true));
+			controller.setAnimation(idleAnimation);
 		}
 	}
-	
+	/**
+	 * plays the queue when no other animation is played or the idle animation is played
+	 */
 	public void playQueue() {
 		@SuppressWarnings("unchecked")
 		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, dino.getEntityId(),
@@ -93,14 +117,29 @@ public class AnimationQueue<T extends Dinosaur> {
 
 	}
 	
+	/**
+	 * plays the given animation as soon as possible with a transition
+	 * @param animation
+	 * @param transition
+	 */
 	public void playASAP(AnimationBuilder animation, int transition) {
 		animationQueue.addFirst(animation);
 		refreshAnimation(transition);
 	}
 	
-	
+	/**
+	 * checks whetehr the idle Animation is played currently
+	 * uses {@link AnimationQueue#isPlayingAnimation(AnimationController, AnimationBuilder)}
+	 */
 	public boolean isPlayingIdleAnimation(AnimationController<Allosaurus> controller) {
-		return controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_IdleContinue.new")
-				|| controller.getCurrentAnimation().animationName.equals("Alt_Allosaurus_Idle.new");
+		return isPlayingAnimation(controller, idleAnimation);
+	}
+	
+	/**
+	 * checks if this animation is currently playing
+	 * this only checks if the current played animation is present in the animation builder
+	 */
+	public boolean isPlayingAnimation(AnimationController<Allosaurus> controller, AnimationBuilder animation) {
+		return animation.getRawAnimationList().stream().map(anim -> anim.animationName).anyMatch((name) -> name.equals(controller.getCurrentAnimation().animationName));
 	}
 }

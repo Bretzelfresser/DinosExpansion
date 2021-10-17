@@ -617,7 +617,13 @@ public abstract class Dinosaur extends MonsterEntity
 	}
 
 	public void setStatus(DinosaurStatus status) {
-		this.dataManager.set(STATUS, status.getID());
+		switch(status) {
+		case SITTING:
+			setSitting();
+			default:
+				this.dataManager.set(STATUS, status.getID());
+		}
+		
 	}
 	
 	
