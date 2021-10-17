@@ -230,7 +230,7 @@ public class BlockInit {
 	public static final RegistryObject<Block> CUCUMBER_CROP_BLOCK = BUSH.register("cucumber_crop_block",
 			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.CUCUMBER_SEED));
 	public static final RegistryObject<Block> EGGPLANT_CROP_BLOCK = BUSH.register("eggplant_crop_block",
-			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.EGGPLANT_SEED));
+			()-> new DEDoubleCropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.EGGPLANT_SEED));
 	public static final RegistryObject<Block> LETTUCE_CROP_BLOCK = BUSH.register("lettuce_crop_block",
 			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.LETTUCE_SEED));
 
