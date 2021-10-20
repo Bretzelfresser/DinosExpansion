@@ -1,4 +1,6 @@
 package com.renatiux.dinosexpansion.common.biomes.dino.forest;
 
-public class Taiga {
+import com.renatiux.dinosexpansion.common.biomes.dino.BiomeBase;
+
+public class Taiga extends BiomeBase {
 }

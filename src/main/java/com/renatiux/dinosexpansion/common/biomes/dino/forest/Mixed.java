@@ -1,4 +1,6 @@
 package com.renatiux.dinosexpansion.common.biomes.dino.forest;
 
-public class Mixed {
+import com.renatiux.dinosexpansion.common.biomes.dino.BiomeBase;
+
+public class Mixed extends BiomeBase {
 }
