@@ -81,7 +81,7 @@ public class AnimationQueue<T extends Dinosaur> {
 	public void refreshAnimation() {
 		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, dino.getEntityId(),
 				controllerName);
-		controller.transitionLengthTicks = 0;
+		//controller.transitionLengthTicks = 0;
 		if (!animationQueue.isEmpty()) {
 			controller.setAnimation(animationQueue.poll());
 		} else {
@@ -97,7 +97,7 @@ public class AnimationQueue<T extends Dinosaur> {
 	public void refreshAnimation(int transition) {
 		AnimationController<Allosaurus> controller = GeckoLibUtil.getControllerForID(factory, dino.getEntityId(),
 				controllerName);
-		controller.transitionLengthTicks = transition;
+		//controller.transitionLengthTicks = transition;
 		if (!animationQueue.isEmpty()) {
 			controller.setAnimation(animationQueue.poll());
 		} else {

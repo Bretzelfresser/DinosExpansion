@@ -57,6 +57,8 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 		if (world.isRemote || !isMaster) {
 			return;
 		}
+		if (isMaster)
+			sendOutPower();
 		BlockState state = world.getBlockState(getPos());
 		if (state.get(BlockStateProperties.POWERED) != progress > 0) {
 			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, progress > 0),
@@ -79,8 +81,6 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 		}
 
 		progress = 0;
-		if (isMaster)
-			sendOutPower();
 	}
 
 	private void sendOutPower() {
@@ -89,6 +89,7 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 			return;
 		}
 		Direction facing = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
+		//dirs this will send out power from
 		Direction[] dirs = new Direction[] { facing.rotateYCCW(), facing.getOpposite() };
 		for (Direction dir : dirs) {
 			TileEntity te = this.world.getTileEntity(getPos().offset(dir));

@@ -1,38 +1,60 @@
 package com.renatiux.dinosexpansion.common.blocks.cables;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import com.renatiux.dinosexpansion.common.tileEntities.cable.AbstractCableTileEntity;
-import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
+import com.google.common.collect.Maps;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.DirectionProperty;
+import net.minecraft.block.IWaterLoggable;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 
-public class AbstractCableBlock extends Block {
+public abstract class AbstractCableBlock extends Block implements IWaterLoggable{
 
-	public static final EnumProperty<ConnectionState> CONNECTION_STATE = EnumProperty.create("connection_state",
-			ConnectionState.class);
-	public static final DirectionProperty FACING = BlockStateProperties.FACING;
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
+	public static final EnumProperty<ConnectionType> NORTH = EnumProperty.create("north", ConnectionType.class);
+	public static final EnumProperty<ConnectionType> SOUTH = EnumProperty.create("south", ConnectionType.class);
+	public static final EnumProperty<ConnectionType> EAST = EnumProperty.create("east", ConnectionType.class);
+	public static final EnumProperty<ConnectionType> WEST = EnumProperty.create("west", ConnectionType.class);
+	public static final EnumProperty<ConnectionType> UP = EnumProperty.create("up", ConnectionType.class);
+	public static final EnumProperty<ConnectionType> DOWN = EnumProperty.create("down", ConnectionType.class);
+
+	public static final Map<Direction, EnumProperty<ConnectionType>> FACING_TO_PROPERTY_MAP = Util
+			.make(Maps.newEnumMap(Direction.class), (p) -> {
+				p.put(Direction.NORTH, NORTH);
+				p.put(Direction.EAST, EAST);
+				p.put(Direction.SOUTH, SOUTH);
+				p.put(Direction.WEST, WEST);
+				p.put(Direction.UP, UP);
+				p.put(Direction.DOWN, DOWN);
+			});
+
+	static boolean shapeConnects(BlockState state, EnumProperty<ConnectionType> dirctionProperty) {
+		return state.get(dirctionProperty).isConnected();
+	}
 
 	public AbstractCableBlock(Properties properties) {
 		super(properties);
-		setDefaultState(stateContainer.getBaseState().with(CONNECTION_STATE, ConnectionState.DEFAULT).with(FACING,
-				Direction.NORTH));
+		setDefaultState(stateContainer.getBaseState().with(WATERLOGGED, false));
 	}
 
 	@Override
@@ -42,125 +64,86 @@ public class AbstractCableBlock extends Block {
 
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return TileEntityTypesInit.BASIC_ENERGY_CABLE.get().create();
+		return getTileEntity(state, world);
 	}
+	
+	public abstract TileEntity getTileEntity(BlockState state, IBlockReader world);
 
 	@Override
 	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
 			BlockPos currentPos, BlockPos facingPos) {
-		stateIn = updateConnection(worldIn, stateIn, currentPos);
+		if (stateIn.get(WATERLOGGED)) {
+			worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+		}
 		return stateIn;
-	}
-
-	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		state = updateConnection(worldIn, state, pos);
-		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-	}
-
-	protected BlockState updateConnection(IWorld world, BlockState state, BlockPos pos) {
-		List<Direction> directions = new ArrayList<>(6);
-		for (Direction dir : Direction.values()) {
-			TileEntity te = world.getTileEntity(pos.offset(dir));
-			if (te != null && te.getCapability(CapabilityEnergy.ENERGY, dir.getOpposite()).isPresent()) {
-				directions.add(dir);
-			}
-		}
-		state = state.with(CONNECTION_STATE, getWithAmountOfConnections(directions));
-		state = state.with(FACING, getDirectionsOfConnections(directions, state));
-		return state;
-	}
-
-	private ConnectionState getWithAmountOfConnections(List<Direction> directions) {
-		if (directions.size() > 6) {
-			throw new IllegalArgumentException(
-					"cant be connected to more then 6 sides, check what u put in as a parameter : "
-							+ directions.size());
-		}
-		if (!directions.contains(Direction.UP) && !directions.contains(Direction.DOWN))
-			switch (directions.size()) {
-			case 0:
-				return ConnectionState.DEFAULT;
-			case 1:
-				return ConnectionState.ONE_SIDED;
-			case 2:
-				if (checkForStraight(directions))
-					return ConnectionState.STRAIGHT;
-				return ConnectionState.CORNER;
-			case 3:
-				return ConnectionState.T_CROSS;
-			case 4:
-				return ConnectionState.CROSS;
-			default:
-				return ConnectionState.CROSS;
-			}
-		return ConnectionState.CROSS;
-	}
-
-	private boolean checkForStraight(List<Direction> directions) {
-		if (directions.contains(Direction.NORTH) && directions.contains(Direction.SOUTH))
-			return true;
-		if (directions.contains(Direction.EAST) && directions.contains(Direction.WEST))
-			return true;
-		return false;
-	}
-
-	private Direction getDirectionsOfConnections(List<Direction> directions, BlockState currentState) {
-		switch (directions.size()) {
-		case 1:
-			return directions.get(0);
-		case 2:
-			if (currentState.get(CONNECTION_STATE) == ConnectionState.STRAIGHT) {
-				if (directions.contains(Direction.EAST))
-					return Direction.EAST;
-			} else {
-				return findCornerDirection(directions);
-			}
-			break;
-		case 3:
-			if (!directions.contains(Direction.WEST))
-				return Direction.EAST;
-			if (!directions.contains(Direction.NORTH))
-				return Direction.SOUTH;
-			if (!directions.contains(Direction.EAST))
-				return Direction.WEST;
-			break;
-		}
-
-		return Direction.NORTH;
-	}
-
-	private Direction findCornerDirection(List<Direction> directions) {
-		if (directions.contains(Direction.NORTH) && directions.contains(Direction.WEST))
-			return Direction.NORTH;
-		if (directions.contains(Direction.NORTH) && directions.contains(Direction.EAST))
-			return Direction.EAST;
-		if (directions.contains(Direction.SOUTH) && directions.contains(Direction.EAST))
-			return Direction.SOUTH;
-		if (directions.contains(Direction.SOUTH) && directions.contains(Direction.WEST))
-			return Direction.WEST;
-		return Direction.NORTH;
 	}
 
 	@Override
 	protected void fillStateContainer(Builder<Block, BlockState> builder) {
 		super.fillStateContainer(builder);
-		builder.add(CONNECTION_STATE, FACING);
+		builder.add(WATERLOGGED);
+		builder.add(SOUTH, EAST, WEST, NORTH, UP, DOWN);
 	}
 
-	public static enum ConnectionState implements IStringSerializable {
-		DEFAULT("default"), STRAIGHT("straight"), CORNER("corner"), ONE_SIDED("one_sided"), T_CROSS("t_cross"),
-		CROSS("cross");
+	@Override
+	@SuppressWarnings("deprecation")
+	public FluidState getFluidState(BlockState state) {
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+	}
 
-		private final String name;
+	@Override
+	public BlockState getStateForPlacement(BlockItemUseContext context) {
+		return super.getStateForPlacement(context).with(WATERLOGGED,
+				context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER);
+	}
+	
+	 public static boolean isItem(BlockState stateIn, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
+		    return hasCapabilityDir(facing, world, facingPos, CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+		  }
 
-		private ConnectionState(String name) {
-			this.name = name;
+		  public static boolean isFluid(BlockState stateIn, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
+		    return hasCapabilityDir(facing, world, facingPos, CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+		  }
+
+		  public static boolean isEnergy(BlockState stateIn, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
+		    return hasCapabilityDir(facing, world, facingPos, CapabilityEnergy.ENERGY);
+		  }
+
+		  private static boolean hasCapabilityDir(Direction facing, IWorld world, BlockPos facingPos, Capability<?> cap) {
+		    if (facing == null) {
+		      return false;
+		    }
+		    TileEntity neighbor = world.getTileEntity(facingPos);
+		    if (neighbor != null
+		        && neighbor.getCapability(cap, facing.getOpposite()).orElse(null) != null) {
+		      return true;
+		    }
+		    return false;
+		  }
+
+	public static enum ConnectionType implements IStringSerializable {
+
+		NONE, CABLE, INVENTORY, BLOCKED;
+
+		public boolean isHollow() {
+			return this == NONE || this == BLOCKED;
+		}
+
+		public boolean isConnected() {
+			return this == CABLE || this == INVENTORY;
+		}
+
+		public boolean isBlocked() {
+			return this == BLOCKED;
+		}
+		
+		public boolean isExtraction() {
+			return this == CABLE;
 		}
 
 		@Override
 		public String getString() {
-			return name;
+			return this.name().toLowerCase(Locale.ENGLISH);
 		}
 	}
 

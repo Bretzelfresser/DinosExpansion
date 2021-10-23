@@ -1,0 +1,33 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "t_cable",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "dinosexpansion:block/cable/cable_texture",
+		"particle": "dinosexpansion:block/cable/cable_texture"
+	},
+	"elements": [
+		{
+			"from": [7, 7.2, -0.05],
+			"to": [9, 9.2, 6.95],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 1.75]},
+			"faces": {
+				"north": {"uv": [1.75, 3.25, 2.25, 3.75], "texture": "#0"},
+				"east": {"uv": [0, 3.25, 1.75, 3.75], "texture": "#0"},
+				"south": {"uv": [4, 3.25, 4.5, 3.75], "texture": "#0"},
+				"west": {"uv": [2.25, 3.25, 4, 3.75], "texture": "#0"},
+				"up": {"uv": [2.25, 3.25, 1.75, 1.5], "texture": "#0"},
+				"down": {"uv": [2.75, 1.5, 2.25, 3.25], "texture": "#0"}
+			}
+		}
+		
+	],
+	"groups": [
+		{
+			"name": "base",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6]
+		}
+	]
+}

@@ -326,6 +326,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 	
 	@Override
 	public PlayState test(AnimationEvent<Allosaurus> event) {
+		animationQueue.playQueue();
 		if (event.getController().getCurrentAnimation() != null
 				&& event.getController().getCurrentAnimation().animationName
 						.equals("Alt_Allosaurus_IdleContinue.new")) {

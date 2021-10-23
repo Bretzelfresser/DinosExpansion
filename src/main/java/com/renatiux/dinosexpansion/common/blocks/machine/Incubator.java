@@ -53,6 +53,9 @@ public class Incubator extends ShapedBlock{
 			}
 			ItemStack heldItems = player.getHeldItem(handIn);
 			ItemStack incubatorItem = incubatorTe.getStackInSlot(0);
+			if(incubatorTe != null && heldItems.isEmpty()) {
+				System.out.println(incubatorTe.getEnergyStorage().getEnergyStored());
+			}
 			if(incubatorTe != null && !heldItems.isEmpty() && heldItems.getItem() instanceof BlockItem && ((BlockItem)heldItems.getItem()).getBlock() instanceof IIncubatorEgg) {
 				int toShrink = 0;
 				if(incubatorItem.isEmpty()) {

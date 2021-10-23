@@ -1,7 +1,56 @@
 {
-	"variants": {
-		"": { 
-			"model": "dinosexpansion:block/basic_energy_cable"
-		}
-	}
+	 "multipart": [
+		 {
+		 	"apply": { "model": "dinosexpansion:block/cable/energy_cable_base_part"}
+		 },
+        {
+            "when": { "down": "inventory" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "x": 90}
+        },
+        {
+            "when": { "down": "cable" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "x": 90}
+        },
+        {
+            "when": { "up": "inventory" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "x": 270}
+        },
+        {
+            "when": { "up": "cable" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "x": 270}
+        },
+        {
+            "when":  { "north": "inventory" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection" }
+        },
+         {
+            "when": { "north": "cable" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection" }
+        },
+        {
+            "when": { "south": "inventory" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "y": 180}
+        },
+         {
+            "when": { "south": "cable" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "y": 180}
+        },
+        {
+            "when": { "west": "inventory" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "y": 270}
+        },
+        {
+            "when": { "west": "cable" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "y": 270}
+        },
+        {
+            "when": { "east": "inventory" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "y": 90}
+        },
+        {
+            "when": { "east": "cable" },
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "y": 90}
+        }
+      
+    ]
 }

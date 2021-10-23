@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.renatiux.dinosexpansion.common.blocks.eggs.IIncubatorEgg;
+import com.renatiux.dinosexpansion.common.blocks.machine.Incubator;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 
@@ -21,13 +22,18 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.EnergyStorage;
 
 public class IncubatorTileEntity extends ContainerTileEntity implements ITickableTileEntity {
 
 	protected BlockState eggs;
 	private Optional<UUID> owner = Optional.empty();
+	private EnergyStorage storage = new EnergyStorage(10000, 1000, 1000);
 
 	public IncubatorTileEntity() {
 		super(TileEntityTypesInit.INCUBATOR.get(), 1);
@@ -196,6 +202,19 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 		}else {
 			eggs = null;
 		}
+	}
+	
+	@Override
+	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction direction) {
+		Direction dir = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
+		if(dir == direction || direction == null) {
+			return LazyOptional.of(this::getEnergyStorage).cast();
+		}
+		return super.getCapability(cap);
+	}
+	
+	public EnergyStorage getEnergyStorage() {
+		return storage;
 	}
 
 	@Nullable
