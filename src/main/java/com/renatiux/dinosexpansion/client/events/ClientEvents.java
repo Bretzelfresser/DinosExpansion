@@ -2,18 +2,7 @@ package com.renatiux.dinosexpansion.client.events;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.model.backedModels.CableModel;
-import com.renatiux.dinosexpansion.client.renderer.AllosaurusRenderer;
-import com.renatiux.dinosexpansion.client.renderer.BoomerangRenderer;
-import com.renatiux.dinosexpansion.client.renderer.ChimerarachneRenderer;
-import com.renatiux.dinosexpansion.client.renderer.DodoRenderer;
-import com.renatiux.dinosexpansion.client.renderer.GeneratorRenderer;
-import com.renatiux.dinosexpansion.client.renderer.IncubatorRenderer;
-import com.renatiux.dinosexpansion.client.renderer.MegalodonToothArrowRender;
-import com.renatiux.dinosexpansion.client.renderer.MortarRenderer;
-import com.renatiux.dinosexpansion.client.renderer.PoopRenderer;
-import com.renatiux.dinosexpansion.client.renderer.RaftRenderer;
-import com.renatiux.dinosexpansion.client.renderer.ThaumaptlionRenderer;
-import com.renatiux.dinosexpansion.client.renderer.TranquilizerArrowRender;
+import com.renatiux.dinosexpansion.client.renderer.*;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
@@ -87,6 +76,7 @@ public class ClientEvents {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.DIAMOND_BOOMERANG.get(), new BoomerangRenderer.Factory());
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.THAUMAPTILON.get(), ThaumaptlionRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.CHARNIA.get(), CharniaRenderer::new);
 	}
 
 	private static void tileEntityRenderer() {

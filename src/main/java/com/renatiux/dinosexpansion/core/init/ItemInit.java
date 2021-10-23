@@ -60,6 +60,8 @@ public class ItemInit {
 	public static final RegistryObject<Item> ALLOSAURUS_SPAWN_EGG = ITEMS.register("allosaurus_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.ALLOSAURUS, 0xac7339, 0x800000, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> DODO_SPAWN_EGG = ITEMS.register("dodo_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.DODO, 0x6666ff, 0xcccccc, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHIMERARACHNE_SPAWN_EGG = ITEMS.register("chimerarachne_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.CHIMERARACHNE, 0xfc5203, 0xfce703, new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> THAUMAPTILON_SPAWN_EGG = ITEMS.register("thaumaptilon_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.THAUMAPTILON, 1134692, 8495560, new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> CHARNIA_SPAWN_EGG = ITEMS.register("charnia_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.CHARNIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 
 
 	//Misc
