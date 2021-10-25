@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.container;
+package com.renatiux.dinosexpansion.common.container.util;
 
 import java.util.Objects;
 
@@ -31,7 +31,7 @@ public abstract class BaseTileEntityContainer<T extends TileEntity & IInventory>
 		this(type, id, inv, getClientTileEntity(inv, buffer));
 	}
 	
-	abstract void init();
+	public abstract void init();
 	
 	@OnlyIn(Dist.CLIENT)
 	@SuppressWarnings("unchecked")

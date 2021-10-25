@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.common.container;
 
+import com.renatiux.dinosexpansion.common.container.util.BaseTileEntityContainer;
 import com.renatiux.dinosexpansion.common.tileEntities.GeneratorTileEntity;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
 
@@ -23,7 +24,7 @@ public class GeneratorContainer extends BaseTileEntityContainer<GeneratorTileEnt
 	}
 
 	@Override
-	void init() {
+	public void init() {
 		addPlayerInventory(8, 84);
 
 		addSlot(new GeneratorSlot(tileEntity, 0, 48, 39));

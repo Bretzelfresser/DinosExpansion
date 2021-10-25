@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.common.container;
 
+import com.renatiux.dinosexpansion.common.container.util.UtilContainer;
 import com.renatiux.dinosexpansion.common.entities.RaftEntity;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
 

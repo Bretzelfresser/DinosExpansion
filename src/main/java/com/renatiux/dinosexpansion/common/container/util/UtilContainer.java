@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.container;
+package com.renatiux.dinosexpansion.common.container.util;
 
 import java.util.Objects;
 

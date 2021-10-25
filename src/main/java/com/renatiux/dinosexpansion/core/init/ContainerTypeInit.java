@@ -6,6 +6,7 @@ import com.renatiux.dinosexpansion.common.container.AllosaurusContainer;
 import com.renatiux.dinosexpansion.common.container.DinosaurTamingInventory;
 import com.renatiux.dinosexpansion.common.container.DodoContainer;
 import com.renatiux.dinosexpansion.common.container.GeneratorContainer;
+import com.renatiux.dinosexpansion.common.container.IncubatorContainer;
 import com.renatiux.dinosexpansion.common.container.IndustrialGrillContainer;
 import com.renatiux.dinosexpansion.common.container.MortarContainer;
 import com.renatiux.dinosexpansion.common.container.OrderContainer;
@@ -46,4 +47,7 @@ public class ContainerTypeInit {
 	
 	public static final RegistryObject<ContainerType<GeneratorContainer>> GENERATOR_CONTAINER_TYPE = CONTAINER_TYPES.register("generator", 
 			() -> IForgeContainerType.create(GeneratorContainer::new));
+	
+	public static final RegistryObject<ContainerType<IncubatorContainer>> INCUBATOR_CONTAINER_TYPE = CONTAINER_TYPES.register("incubator", () -> 
+	IForgeContainerType.create(IncubatorContainer::new));
 }

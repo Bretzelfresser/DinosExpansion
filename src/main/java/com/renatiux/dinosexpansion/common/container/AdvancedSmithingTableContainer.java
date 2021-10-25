@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.common.container;
 
+import com.renatiux.dinosexpansion.common.container.util.BaseTileEntityContainer;
 import com.renatiux.dinosexpansion.common.tileEntities.AdvancedSmithingTableTileEntity;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
 
@@ -21,7 +22,7 @@ public class AdvancedSmithingTableContainer extends BaseTileEntityContainer<Adva
 	}
 
 	@Override
-	void init() {
+	public void init() {
 		addPlayerInventory(8, 116);
 
 		addSlotField(tileEntity, 0, 14, 26, 4, 18, 4, 18);

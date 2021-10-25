@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.common.container;
 
+import com.renatiux.dinosexpansion.common.container.util.DinosaurContainer;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;

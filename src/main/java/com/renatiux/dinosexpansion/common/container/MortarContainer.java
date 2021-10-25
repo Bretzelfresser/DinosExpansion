@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.common.container;
 
+import com.renatiux.dinosexpansion.common.container.util.BaseTileEntityContainer;
 import com.renatiux.dinosexpansion.common.tileEntities.MortarTileEntity;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
 
@@ -20,7 +21,7 @@ public class MortarContainer extends BaseTileEntityContainer<MortarTileEntity> {
 	}
 
 	@Override
-	void init() {
+	public void init() {
 		// top
 		addSlot(new Slot(tileEntity, 0, 56, 17));
 		// bot

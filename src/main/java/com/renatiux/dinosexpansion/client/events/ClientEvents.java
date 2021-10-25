@@ -1,8 +1,19 @@
 package com.renatiux.dinosexpansion.client.events;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.client.model.backedModels.CableModel;
-import com.renatiux.dinosexpansion.client.renderer.*;
+import com.renatiux.dinosexpansion.client.renderer.AllosaurusRenderer;
+import com.renatiux.dinosexpansion.client.renderer.BoomerangRenderer;
+import com.renatiux.dinosexpansion.client.renderer.CharniaRenderer;
+import com.renatiux.dinosexpansion.client.renderer.ChimerarachneRenderer;
+import com.renatiux.dinosexpansion.client.renderer.DodoRenderer;
+import com.renatiux.dinosexpansion.client.renderer.GeneratorRenderer;
+import com.renatiux.dinosexpansion.client.renderer.IncubatorRenderer;
+import com.renatiux.dinosexpansion.client.renderer.MegalodonToothArrowRender;
+import com.renatiux.dinosexpansion.client.renderer.MortarRenderer;
+import com.renatiux.dinosexpansion.client.renderer.PoopRenderer;
+import com.renatiux.dinosexpansion.client.renderer.RaftRenderer;
+import com.renatiux.dinosexpansion.client.renderer.ThaumaptlionRenderer;
+import com.renatiux.dinosexpansion.client.renderer.TranquilizerArrowRender;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
@@ -11,6 +22,7 @@ import com.renatiux.dinosexpansion.common.screens.AllosaurusScreen;
 import com.renatiux.dinosexpansion.common.screens.DinosaurTamingScreen;
 import com.renatiux.dinosexpansion.common.screens.DodoScreen;
 import com.renatiux.dinosexpansion.common.screens.GeneratorScreen;
+import com.renatiux.dinosexpansion.common.screens.IncubatorScreen;
 import com.renatiux.dinosexpansion.common.screens.IndustrialGrillScreen;
 import com.renatiux.dinosexpansion.common.screens.MortarScreen;
 import com.renatiux.dinosexpansion.common.screens.OrderScreen;
@@ -23,12 +35,7 @@ import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -46,18 +53,6 @@ public class ClientEvents {
 		screenBinding();
 		armorModel();
 		registerBlockRenders();
-	}
-	@SubscribeEvent
-	public static void onBake(ModelBakeEvent event) {
-		event.getModelRegistry().put(new ModelResourceLocation(BlockInit.BASIC_ENERGY_CABLE.getPrimary().getRegistryName(), ""),
-				new CableModel(DefaultVertexFormats.BLOCK));
-		System.out.println("model found");
-	}
-	@SubscribeEvent
-	public static void onTextureBake(TextureStitchEvent.Pre event) {
-		if(event.getMap().getTextureLocation().equals(PlayerContainer.LOCATION_BLOCKS_TEXTURE)) {
-			event.addSprite(CableModel.TEXTURE);
-		}
 	}
 
 	private static void entityRenderer() {
@@ -94,6 +89,7 @@ public class ClientEvents {
 		ScreenManager.registerFactory(ContainerTypeInit.ADVANCED_SMITHING_TABLE_CONTAINER_TYPE.get(), AdvancedSmithingTableScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.INDUSTRIAL_GRILL_CONTAINER_TYPE.get(), IndustrialGrillScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.GENERATOR_CONTAINER_TYPE.get(), GeneratorScreen::new);
+		ScreenManager.registerFactory(ContainerTypeInit.INCUBATOR_CONTAINER_TYPE.get(), IncubatorScreen::new);
 	}
 
 	private static void armorModel(){

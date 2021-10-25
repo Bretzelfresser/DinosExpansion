@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.common.container;
 
+import com.renatiux.dinosexpansion.common.container.util.BaseTileEntityContainer;
 import com.renatiux.dinosexpansion.common.tileEntities.IndustrialGrillTileEntity;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
 
@@ -19,7 +20,7 @@ public class IndustrialGrillContainer extends BaseTileEntityContainer<Industrial
 	}
 	
 	@Override
-	void init() {
+	public void init() {
 		addPlayerInventory(8, 113);
 
 		addSlotField(tileEntity, 0, 18, 17, 3, 18, 3, 18);

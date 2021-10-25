@@ -11,6 +11,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -24,6 +25,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class Incubator extends ShapedBlock{
 
@@ -55,6 +57,7 @@ public class Incubator extends ShapedBlock{
 			ItemStack incubatorItem = incubatorTe.getStackInSlot(0);
 			if(incubatorTe != null && heldItems.isEmpty()) {
 				System.out.println(incubatorTe.getEnergyStorage().getEnergyStored());
+				NetworkHooks.openGui((ServerPlayerEntity) player, incubatorTe, pos);
 			}
 			if(incubatorTe != null && !heldItems.isEmpty() && heldItems.getItem() instanceof BlockItem && ((BlockItem)heldItems.getItem()).getBlock() instanceof IIncubatorEgg) {
 				int toShrink = 0;
