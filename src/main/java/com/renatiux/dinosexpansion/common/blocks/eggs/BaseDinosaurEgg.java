@@ -118,15 +118,6 @@ public abstract class BaseDinosaurEgg extends Block implements IIncubatorEgg{
 
 	}
 
-	private boolean canGrow(World worldIn) {
-		float f = worldIn.func_242415_f(1.0F);
-		if ((double) f < 0.69D && (double) f > 0.65D) {
-			return true;
-		} else {
-			return true;
-		}
-	}
-
 	/**
 	 * Spawns the block's drops in the world. By the time this is called the Block
 	 * has possibly been set to air via Block.removedByPlayer

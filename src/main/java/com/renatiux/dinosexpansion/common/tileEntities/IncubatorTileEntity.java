@@ -56,7 +56,7 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 	public boolean hasOwner() {
 		return owner.isPresent();
 	}
-
+	
 	public Optional<UUID> getOwner() {
 		if (hasOwner()) {
 			return owner;
