@@ -62,6 +62,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> CHIMERARACHNE_SPAWN_EGG = ITEMS.register("chimerarachne_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.CHIMERARACHNE, 0xfc5203, 0xfce703, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> THAUMAPTILON_SPAWN_EGG = ITEMS.register("thaumaptilon_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.THAUMAPTILON, 1134692, 8495560, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHARNIA_SPAWN_EGG = ITEMS.register("charnia_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.CHARNIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> PYCNOPHLEBIA_SPAWN_EGG = ITEMS.register("pycnophlebia_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.PYCNOPHLEBIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 
 
 	//Misc
@@ -84,7 +85,9 @@ public class ItemInit {
 	public static final RegistryObject<Item> MUD_BALL = ITEMS.register("mud_ball",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
-	//Chimerarachne
+
+
+	//Entities
 	public static final RegistryObject<Item> CHIMERARACHNE_CHITIN = ITEMS.register("chimerarachne_chitin",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHIMERARACHNE_FANGS = ITEMS.register("chimerarachne_fangs",
@@ -99,6 +102,9 @@ public class ItemInit {
 	public static final RegistryObject<Item> ALLOSAURUS_EYE_SPIKES = ITEMS.register("allosaurus_eye_spikes",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> ALLOSAURUS_SCALES = ITEMS.register("allosaurus_scales",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+	public static final RegistryObject<Item> PYCNOPHLEBIA_WINGS = ITEMS.register("pycnophlebia_wing",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	//Food

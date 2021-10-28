@@ -1,13 +1,14 @@
-package com.renatiux.dinosexpansion.client.renderer;
+package com.renatiux.dinosexpansion.client.renderer.entities;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.renatiux.dinosexpansion.client.model.entities.DodoModel;
+import com.renatiux.dinosexpansion.client.model.entities.creatures.DodoModel;
+import com.renatiux.dinosexpansion.client.renderer.DinosuarRenderer;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 
-public class DodoRenderer extends DinosuarRenderer<Dodo>{
+public class DodoRenderer extends DinosuarRenderer<Dodo> {
 
 	public DodoRenderer(EntityRendererManager renderManager) {
 		super(renderManager, new DodoModel());

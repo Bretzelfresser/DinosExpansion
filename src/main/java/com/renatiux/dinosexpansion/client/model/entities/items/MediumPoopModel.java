@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.client.model.entities;
+package com.renatiux.dinosexpansion.client.model.entities.items;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;

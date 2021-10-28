@@ -1,6 +1,6 @@
-package com.renatiux.dinosexpansion.client.renderer;
+package com.renatiux.dinosexpansion.client.renderer.entities;
 
-import com.renatiux.dinosexpansion.client.model.entities.ThaumaptilonModel;
+import com.renatiux.dinosexpansion.client.model.entities.creatures.ThaumaptilonModel;
 import com.renatiux.dinosexpansion.common.entities.enviroment.Thaumaptilon;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;

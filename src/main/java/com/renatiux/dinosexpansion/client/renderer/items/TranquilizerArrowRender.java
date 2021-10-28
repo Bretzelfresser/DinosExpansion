@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.client.renderer;
+package com.renatiux.dinosexpansion.client.renderer.items;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.projectiles.TranquilizerArrowEntity;

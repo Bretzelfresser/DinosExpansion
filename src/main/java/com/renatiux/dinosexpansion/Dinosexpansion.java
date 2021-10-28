@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion;
 import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 
 import com.renatiux.dinosexpansion.common.entities.enviroment.Charnia;
+import com.renatiux.dinosexpansion.common.entities.enviroment.Pycnophlebia;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -148,6 +149,8 @@ public class Dinosexpansion {
 		event.put(EntityTypeInit.CHIMERARACHNE.get(), Chimerarachne.registerAttributes().create());
 		event.put(EntityTypeInit.THAUMAPTILON.get(), Thaumaptilon.registerAttributes().create());
 		event.put(EntityTypeInit.CHARNIA.get(), Charnia.registerAttributes().create());
+		event.put(EntityTypeInit.PYCNOPHLEBIA.get(), Pycnophlebia.registerAttributes().create());
+
 	}
 
 	@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

@@ -33,6 +33,8 @@ public class FoodInit {
 	public static final Food EGGPLANT = new Food.Builder().hunger(3).saturation(0.6F).build();
 	public static final Food LETTUCE = new Food.Builder().hunger(3).saturation(0.6F).build();
 
+	public static final Food MYSTICAL_FRUIT = new Food.Builder().hunger(4).saturation(1.2F).effect(() -> new EffectInstance(Effects.REGENERATION, 20, 6), 1.0F).build();
+
 	private static Food.Builder addNegativeEffects(Food.Builder builder){
 		builder.effect(() -> new EffectInstance(Effects.NAUSEA, 1200, 2), 1);
 		builder.effect(() -> new EffectInstance(Effects.HUNGER, 1200, 2), 1);

@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.client.renderer;
+package com.renatiux.dinosexpansion.client.renderer.blocks;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.renatiux.dinosexpansion.common.tileEntities.IndustrialGrillTileEntity;

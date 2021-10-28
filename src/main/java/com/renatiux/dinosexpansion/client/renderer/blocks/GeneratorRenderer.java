@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.client.renderer;
+package com.renatiux.dinosexpansion.client.renderer.blocks;
 
 import com.renatiux.dinosexpansion.client.model.blocks.GeneratorModel;
 import com.renatiux.dinosexpansion.common.tileEntities.GeneratorTileEntity;
