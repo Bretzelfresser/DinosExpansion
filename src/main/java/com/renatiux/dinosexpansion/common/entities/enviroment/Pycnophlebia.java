@@ -39,7 +39,7 @@ public class Pycnophlebia extends CreatureEntity implements IAnimatable {
 			};
 
 	protected AnimationFactory factory = new AnimationFactory(this);
-	protected ResourceLocation texture;
+	protected final ResourceLocation texture;
 
 	public Pycnophlebia(EntityType<? extends CreatureEntity> type, World worldIn) {
 		super(type, worldIn);
