@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.client.model.entities;
+package com.renatiux.dinosexpansion.client.model.entities.creatures;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.enviroment.Thaumaptilon;

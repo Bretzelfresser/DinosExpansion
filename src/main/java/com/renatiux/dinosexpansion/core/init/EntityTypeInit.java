@@ -6,6 +6,7 @@ import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
 import com.renatiux.dinosexpansion.common.entities.enviroment.Charnia;
+import com.renatiux.dinosexpansion.common.entities.enviroment.Pycnophlebia;
 import com.renatiux.dinosexpansion.common.entities.enviroment.Thaumaptilon;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.entities.projectiles.*;
@@ -47,7 +48,10 @@ public class EntityTypeInit {
 	public static final RegistryObject<EntityType<Thaumaptilon>> THAUMAPTILON = register("thaumaptilon", EntityType.Builder.create(Thaumaptilon::new, EntityClassification.AMBIENT));
 
 	public static final RegistryObject<EntityType<Charnia>> CHARNIA = register("charnia", EntityType.Builder.create(Charnia::new, EntityClassification.AMBIENT));
-	
+
+	public static final RegistryObject<EntityType<Pycnophlebia>> PYCNOPHLEBIA = register("pycnophlebia", EntityType.Builder.create(Pycnophlebia::new, EntityClassification.AMBIENT));
+
+
 	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builer){
 		return ENTITY_TYPES.register(name, () -> builer.build(Dinosexpansion.modLoc(name).toString()));
 	}

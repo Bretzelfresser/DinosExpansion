@@ -53,11 +53,11 @@ public class Thaumaptilon extends LivingEntity implements IAnimatable {
 	
 	@Override
 	public void applyKnockback(float strength, double ratioX, double ratioZ) {
-		//do nothing, this entity cant move
+		//do nothing, this entity can't move
 	}
 	@Override
 	public void setMotion(Vector3d motionIn) {
-		//do nothing because this entitx cant move
+		//do nothing because this entity can't move
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class Thaumaptilon extends LivingEntity implements IAnimatable {
 
 	@Override
 	public void registerControllers(AnimationData data) {
-		data.addAnimationController(new AnimationController<Thaumaptilon>(this, CONTROLLER_NAME, 10, this::predicate));
+		data.addAnimationController(new AnimationController<>(this, CONTROLLER_NAME, 10, this::predicate));
 	}
 
 	@Override
