@@ -13,8 +13,9 @@ public class PycnophlebiaModel extends AnimatedGeoModel<Pycnophlebia> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Pycnophlebia object) {
-        return Dinosexpansion.modLoc("textures/entity/enviroment/pycnophlebia.png");
+    public ResourceLocation getTextureLocation(Pycnophlebia creature) {
+    	//we just call the texture from the ENtity, keep in minde, this is just CLient Side
+        return creature.getTexture();
     }
 
     @Override
