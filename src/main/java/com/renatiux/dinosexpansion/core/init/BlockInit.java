@@ -1,10 +1,8 @@
 package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.common.blocks.BaseMultiBlock;
-import com.renatiux.dinosexpansion.common.blocks.DEOreBlock;
-import com.renatiux.dinosexpansion.common.blocks.DESapling;
-import com.renatiux.dinosexpansion.common.blocks.MachineBarrierBlock;
+import com.renatiux.dinosexpansion.client.renderer.items.GeneratorItemRenderer;
+import com.renatiux.dinosexpansion.common.blocks.*;
 import com.renatiux.dinosexpansion.common.blocks.bush.DEBerryBush;
 import com.renatiux.dinosexpansion.common.blocks.cables.BasicEnergyCable;
 import com.renatiux.dinosexpansion.common.blocks.crops.DECropsBlock;
@@ -69,7 +67,7 @@ public class BlockInit {
 	public static final RegistryObject<Incubator> INCUBATOR = MACHINES.register("incubator", Incubator::new);
 	public static final DoubleRegistryObject<BaseMultiBlock, BlockItem> ADVANCED_SMITHING_TABLE = CUSTOM.register("advanced_smithing_table", AdvancedSmithingTable::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
 	public static final DoubleRegistryObject<BaseMultiBlock, BlockItem> INDUSTRIAL_GRILL = CUSTOM.register("industrial_grill", IndustrialGrill::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
-	public static final DoubleRegistryObject<Generator, BlockItem> GENERATOR = CUSTOM.register("generator", Generator::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
+	public static final DoubleRegistryObject<Generator, DEBlockItem> GENERATOR = CUSTOM.register("generator", Generator::new, block -> new DEBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES).setISTER(()-> GeneratorItemRenderer::new)));
 	
 	//cables
 	public static final DoubleRegistryObject<BasicEnergyCable, BlockItem> BASIC_ENERGY_CABLE = CUSTOM.register("basic_energy_cable", BasicEnergyCable::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
