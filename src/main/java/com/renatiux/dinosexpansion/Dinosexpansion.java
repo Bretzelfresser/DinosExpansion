@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion;
 
 import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 
+import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
 import com.renatiux.dinosexpansion.common.entities.enviroment.Charnia;
 import com.renatiux.dinosexpansion.common.entities.enviroment.Pycnophlebia;
 import org.apache.logging.log4j.LogManager;
@@ -150,6 +151,8 @@ public class Dinosexpansion {
 		event.put(EntityTypeInit.THAUMAPTILON.get(), Thaumaptilon.registerAttributes().create());
 		event.put(EntityTypeInit.CHARNIA.get(), Charnia.registerAttributes().create());
 		event.put(EntityTypeInit.PYCNOPHLEBIA.get(), Pycnophlebia.registerAttributes().create());
+		event.put(EntityTypeInit.AEGIROCASSIS.get(), Aegirocassis.registerAttributes().create());
+
 
 	}
 

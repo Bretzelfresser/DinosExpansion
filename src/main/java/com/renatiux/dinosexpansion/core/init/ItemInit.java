@@ -63,6 +63,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> THAUMAPTILON_SPAWN_EGG = ITEMS.register("thaumaptilon_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.THAUMAPTILON, 1134692, 8495560, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> CHARNIA_SPAWN_EGG = ITEMS.register("charnia_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.CHARNIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> PYCNOPHLEBIA_SPAWN_EGG = ITEMS.register("pycnophlebia_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.PYCNOPHLEBIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = ITEMS.register("aegirocassis_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.AEGIROCASSIS, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 
 
 	//Misc

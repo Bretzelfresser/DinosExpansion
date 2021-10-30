@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.RaftEntity;
+import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
@@ -50,6 +51,8 @@ public class EntityTypeInit {
 	public static final RegistryObject<EntityType<Charnia>> CHARNIA = register("charnia", EntityType.Builder.create(Charnia::new, EntityClassification.AMBIENT));
 
 	public static final RegistryObject<EntityType<Pycnophlebia>> PYCNOPHLEBIA = register("pycnophlebia", EntityType.Builder.create(Pycnophlebia::new, EntityClassification.AMBIENT));
+
+	public static final RegistryObject<EntityType<Aegirocassis>> AEGIROCASSIS = register("aegirocassis", EntityType.Builder.create(Aegirocassis::new, EntityClassification.WATER_CREATURE));
 
 
 	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builer){
