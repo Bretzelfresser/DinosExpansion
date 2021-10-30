@@ -131,6 +131,9 @@ public class ItemInit {
 	public static final RegistryObject<Item> LETTUCE = ITEMS.register("lettuce",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.LETTUCE)));
 
+	public static final RegistryObject<Item> MYSTICAL_FRUIT = ITEMS.register("mystical_fruit",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.MYSTICAL_FRUIT)));
+
 	//Seed
 	public static final RegistryObject<Item> ONION_SEED = ITEMS.register("onion_seed",
 			()-> new BlockNamedItem(BlockInit.ONION_CROP_BLOCK.get(), new Item.Properties().group(ItemGroupInit.FOOD)));

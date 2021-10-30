@@ -1,7 +1,6 @@
 package com.renatiux.dinosexpansion.common.entities.aquatic;
 
 import com.renatiux.dinosexpansion.common.entities.controller.AquaticMoveController;
-import com.renatiux.dinosexpansion.common.entities.controller.SemiAquaticPathNavigator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.MoverType;
@@ -11,6 +10,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.WaterMobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.PathNavigator;
+import net.minecraft.pathfinding.SwimmerPathNavigator;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -33,7 +33,7 @@ public class Aegirocassis extends WaterMobEntity implements IAnimatable {
     }
 
     protected PathNavigator createNavigator(World worldIn) {
-        return new SemiAquaticPathNavigator(this, worldIn);
+        return new SwimmerPathNavigator(this, worldIn);
     }
 
     @Override
