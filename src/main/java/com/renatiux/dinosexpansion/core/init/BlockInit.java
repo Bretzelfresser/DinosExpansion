@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.items.GeneratorItemRenderer;
+import com.renatiux.dinosexpansion.client.renderer.items.MortarItemRenderer;
 import com.renatiux.dinosexpansion.common.blocks.*;
 import com.renatiux.dinosexpansion.common.blocks.bush.DEBerryBush;
 import com.renatiux.dinosexpansion.common.blocks.cables.BasicEnergyCable;
@@ -245,8 +246,8 @@ public class BlockInit {
 	public static void registerOreItems(RegistryEvent.Register<Item> event) {
 		final IForgeRegistry<Item> registry = event.getRegistry();
 		BlockInit.MACHINES.getEntries().stream().map(RegistryObject::get).forEach(block -> {
-			final Item.Properties properties = new Item.Properties().group(ItemGroupInit.MACHINES);
-			final BlockItem blockItem = new BlockItem(block, properties);
+			final Item.Properties properties = new Item.Properties().group(ItemGroupInit.MACHINES).setISTER(()-> MortarItemRenderer::new);
+			final DEBlockItem blockItem = new DEBlockItem(block, properties);
 			blockItem.setRegistryName(block.getRegistryName());
 			registry.register(blockItem);
 		});

@@ -147,7 +147,7 @@ public class MortarTileEntity extends ContainerTileEntity implements IAnimatable
 
 	private <E extends TileEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 		if(world.getBlockState(getPos()).get(BlockStateProperties.POWERED)) {
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Mortar.new", true));
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("morteroaction", true));
 			return PlayState.CONTINUE;
 		}
 		return PlayState.STOP;
