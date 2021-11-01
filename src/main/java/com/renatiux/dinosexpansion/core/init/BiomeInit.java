@@ -55,7 +55,7 @@ public class BiomeInit {
     public static final RegistryObject<Biome> SWAMP = BIOMES.register("swamp", Swamp::create);
     public static final RegistryObject<Biome> MARSHLANDS = BIOMES.register("marshlands", Marshlands::create);
 
-    public static final RegistryObject<Biome> DESERT = BIOMES.register("desert", Desert.create());
+    public static final RegistryObject<Biome> DESERT = BIOMES.register("desert", Desert::create);
 
     public static final RegistryObject<Biome> BADLANDS = BIOMES.register("badlands", Badlands::create);
     public static final RegistryObject<Biome> DESERT_SHRUBLANDS = BIOMES.register("desert_shrublands", DesertShrubland::create);
