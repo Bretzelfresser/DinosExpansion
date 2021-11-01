@@ -5,6 +5,7 @@ import com.renatiux.dinosexpansion.world.dimension.carvers.DECanyonCarver;
 import com.renatiux.dinosexpansion.world.dimension.carvers.DECaveCarver;
 import com.renatiux.dinosexpansion.world.dimension.carvers.DEUnderwaterCanyonCarver;
 import com.renatiux.dinosexpansion.world.dimension.carvers.DEUnderwaterCaveCarver;
+
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
@@ -16,16 +17,21 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class CarverInit {
+	
+	
 
     public static final WorldCarver<ProbabilityConfig> MOD_CAVES = new DECaveCarver(ProbabilityConfig.CODEC);
     public static final ConfiguredCarver<ProbabilityConfig> CONFIGURED_MOD_CAVES = MOD_CAVES.func_242761_a(new ProbabilityConfig(0.25F));
+	
 
     public static final WorldCarver<ProbabilityConfig> MOD_CANYONS = new DECanyonCarver(ProbabilityConfig.CODEC);
     public static final ConfiguredCarver<ProbabilityConfig> CONFIGURED_MOD_CANYONS = MOD_CANYONS.func_242761_a(new ProbabilityConfig(0.02F));
+	
 
     public static final WorldCarver<ProbabilityConfig> MOD_UNDERWATER_CANYONS = new DEUnderwaterCanyonCarver(ProbabilityConfig.CODEC);
     public static final ConfiguredCarver<ProbabilityConfig> CONFIGURED_MOD_UNDERWATER_CANYONS = MOD_UNDERWATER_CANYONS.func_242761_a(new ProbabilityConfig(0.02F));
 
+	
     public static final WorldCarver<ProbabilityConfig> MOD_UNDERWATER_CAVES = new DEUnderwaterCaveCarver(ProbabilityConfig.CODEC);
     public static final ConfiguredCarver<ProbabilityConfig> CONFIGURED_MOD_UNDERWATER_CAVES = MOD_UNDERWATER_CAVES.func_242761_a(new ProbabilityConfig(0.15F));
 
@@ -40,13 +46,13 @@ public class CarverInit {
         return Registry.register(WorldGenRegistries.CONFIGURED_CARVER, nameIn, featureIn);
     }
 
-    public static void init(RegistryEvent.Register<WorldCarver<?>> event)
+    public static void init(final RegistryEvent.Register<WorldCarver<?>> event)
     {
         register(event.getRegistry(), "caves_carver", MOD_CAVES);
         register(event.getRegistry(), "canyons_carver", MOD_CANYONS);
         register(event.getRegistry(), "underwater_canyons_carver", MOD_UNDERWATER_CANYONS);
         register(event.getRegistry(), "underwater_caves", MOD_UNDERWATER_CAVES);
-
+       
         initCarvers();
     }
 

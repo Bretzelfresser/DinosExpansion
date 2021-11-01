@@ -2,16 +2,16 @@ package com.renatiux.dinosexpansion;
 
 import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 
-import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
-import com.renatiux.dinosexpansion.common.entities.environment.Charnia;
-import com.renatiux.dinosexpansion.common.entities.environment.Pycnophlebia;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.renatiux.dinosexpansion.client.dimension.DinoDimensionRenderInfo;
+import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
+import com.renatiux.dinosexpansion.common.entities.environment.Charnia;
+import com.renatiux.dinosexpansion.common.entities.environment.Pycnophlebia;
 import com.renatiux.dinosexpansion.common.entities.environment.Thaumaptilon;
 import com.renatiux.dinosexpansion.common.items.CustomSpawnEgg;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
@@ -116,10 +116,14 @@ public class Dinosexpansion {
 		EntityTypeInit.ARROW_ENTITY_TYPES.register(bus);
 		
 		SoundInit.SOUNDS.register(bus);
+		
+		bus.addGenericListener(WorldCarver.class ,CarverInit::init);
 
 		BiomeInit.BIOMES.register(bus);
 
 		SurfaceBuilderInit.SURFACE_BUILDER.register(bus);
+		
+		
 
 		WorldTypeInit.setup();
 	}
@@ -163,12 +167,6 @@ public class Dinosexpansion {
 		public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
 			DEFeatures.init();
 			features.forEach(feature -> event.getRegistry().register(feature));
-		}
-
-		@SubscribeEvent
-		public static void onRegisterWorldCarvers(RegistryEvent.Register<WorldCarver<?>> event)
-		{
-			CarverInit.init(event);
 		}
 		
 		@SubscribeEvent

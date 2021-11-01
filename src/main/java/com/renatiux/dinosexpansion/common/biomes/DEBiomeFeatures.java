@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.common.biomes;
 
 import com.renatiux.dinosexpansion.common.world.DEConfiguredFeatures;
 import com.renatiux.dinosexpansion.core.init.CarverInit;
+
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Features;
@@ -18,7 +19,7 @@ public class DEBiomeFeatures {
     }
 
     public static void addUnderwater(BiomeGenerationSettings.Builder generation) {
-        generation.withCarver(GenerationStage.Carving.LIQUID, CarverInit.CONFIGURED_MOD_UNDERWATER_CAVES);
+        generation.withCarver(GenerationStage.Carving.LIQUID,  CarverInit.CONFIGURED_MOD_UNDERWATER_CAVES);
         generation.withCarver(GenerationStage.Carving.LIQUID, CarverInit.CONFIGURED_MOD_UNDERWATER_CANYONS);
     }
 
