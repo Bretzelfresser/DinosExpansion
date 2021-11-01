@@ -38,13 +38,13 @@ public class IncubatorScreen extends ContainerScreen<IncubatorContainer> {
 		this.blit(matrixStack, offsetX, offsetY, 0, 0, 176, 167);
 		int height = (int) (40d * getEnergyPercentage());
 		this.blit(matrixStack, offsetX + 32, offsetY + 23 + 40 - height, 177, 11, 12, height);
-		addButton(new IncubatorSlider(offsetX + 85, offsetY + 38, 0, 100, 0, (b) -> {} , this::onChange));
+		//addButton(new IncubatorSlider(offsetX + 85, offsetY + 38, 0, 100, 0, (b) -> {} , this::onChange));
 		
 		
 	}
 	
 	private void onChange(Slider slider) {
-		
+		System.out.println(slider.getValue());
 	}
 
 	@Override

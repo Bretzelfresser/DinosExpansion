@@ -14,7 +14,7 @@ public class PycnophlebiaModel extends AnimatedGeoModel<Pycnophlebia> {
 
     @Override
     public ResourceLocation getTextureLocation(Pycnophlebia creature) {
-    	//we just call the texture from the ENtity, keep in minde, this is just CLient Side
+    	//we just call the texture from the ENtity, keep in mind, this is just CLient Side
         return creature.getTexture();
     }
 
