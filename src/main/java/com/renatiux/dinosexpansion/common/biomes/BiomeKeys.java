@@ -35,6 +35,11 @@ public class BiomeKeys {
     public static final RegistryKey<Biome> DINO_CONIFER_FOREST = register("dino_conifer_forest");
     public static final RegistryKey<Biome> DINO_CONIFER_FOREST_HILLS = register("dino_conifer_forest_hills");
 
+
+
+    public static final RegistryKey<Biome> DESERT = register("desert");
+    public static final RegistryKey<Biome> DESERT_HILLS = register("desert_hills");
+
     private static RegistryKey<Biome> register(String id)
     {
         return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(Dinosexpansion.MODID, id));
