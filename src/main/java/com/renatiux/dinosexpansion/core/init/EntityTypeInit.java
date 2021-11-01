@@ -6,9 +6,9 @@ import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
-import com.renatiux.dinosexpansion.common.entities.enviroment.Charnia;
-import com.renatiux.dinosexpansion.common.entities.enviroment.Pycnophlebia;
-import com.renatiux.dinosexpansion.common.entities.enviroment.Thaumaptilon;
+import com.renatiux.dinosexpansion.common.entities.environment.Charnia;
+import com.renatiux.dinosexpansion.common.entities.environment.Pycnophlebia;
+import com.renatiux.dinosexpansion.common.entities.environment.Thaumaptilon;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.entities.projectiles.*;
 

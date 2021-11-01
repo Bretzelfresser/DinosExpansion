@@ -51,7 +51,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(modid = Dinosexpansion.MODID, bus = Bus.MOD)
 public class BlockInit {
-	
+
 	public static final DeferredRegister<Block> MACHINES = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 	public static final DeferredRegister<Block> BASIC_BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 	public static final DeferredRegister<Block> PLANTS = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
@@ -60,19 +60,19 @@ public class BlockInit {
 	public static final DeferredRegister<Block> BUSH = DeferredRegister.create(ForgeRegistries.BLOCKS, Dinosexpansion.MODID);
 	public static final BlockDeferredRegister CUSTOM = new BlockDeferredRegister(Dinosexpansion.MODID);
 
-	
-	
-	
+
+
+
 	//Machine
 	public static final RegistryObject<Block> MORTAR = MACHINES.register("mortar", Mortar::new);
 	public static final RegistryObject<Incubator> INCUBATOR = MACHINES.register("incubator", Incubator::new);
 	public static final DoubleRegistryObject<BaseMultiBlock, BlockItem> ADVANCED_SMITHING_TABLE = CUSTOM.register("advanced_smithing_table", AdvancedSmithingTable::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
 	public static final DoubleRegistryObject<BaseMultiBlock, BlockItem> INDUSTRIAL_GRILL = CUSTOM.register("industrial_grill", IndustrialGrill::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
 	public static final DoubleRegistryObject<Generator, DEBlockItem> GENERATOR = CUSTOM.register("generator", Generator::new, block -> new DEBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES).setISTER(()-> GeneratorItemRenderer::new)));
-	
+
 	//cables
 	public static final DoubleRegistryObject<BasicEnergyCable, BlockItem> BASIC_ENERGY_CABLE = CUSTOM.register("basic_energy_cable", BasicEnergyCable::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
-	
+
 	//Structure block
 	public static final RegistryObject<Block> STRUCTURE_SMITHING_TABLE = BLOCK.register("structure_machine_smithing_table", () -> new MachineBarrierBlock(ADVANCED_SMITHING_TABLE.getPrimary(), () -> new AdvancedSmithingTableTileEntity(false)));
 	public static final RegistryObject<Block> STRUCTURE_INDUSTRIAL_GRILL = BLOCK.register("structure_machine_industrial_grill", () -> new MachineBarrierBlock(INDUSTRIAL_GRILL.getPrimary(), () -> new IndustrialGrillTileEntity(false)));
@@ -145,7 +145,7 @@ public class BlockInit {
 	public static final RegistryObject<Block> ALLOSAURUS_EGG = EGGS.register("allosaurus_egg", AllosaurusEggBlock::new);
 
 
-	//Soils
+	//environment
 	public static final RegistryObject<Block> DINO_SAND = BASIC_BLOCKS.register("dino_sand",
 			()-> new SandBlock(14406560, AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
 	public static final RegistryObject<Block> DINO_QUICKSAND = BASIC_BLOCKS.register("dino_quicksand",
@@ -234,6 +234,28 @@ public class BlockInit {
 	public static final RegistryObject<Block> LETTUCE_CROP_BLOCK = BUSH.register("lettuce_crop_block",
 			()-> new DECropsBlock(AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP), ItemInit.LETTUCE_SEED));
 
+
+	//Decoration
+	public static final RegistryObject<Block> VOLCANIC_STONE_STAIRS = BASIC_BLOCKS.register("volcanic_stone_stairs",
+			()-> new StairsBlock(VOLCANIC_STONE.get().getDefaultState(), AbstractBlock.Properties.from(VOLCANIC_STONE.get())));
+	public static final RegistryObject<Block> VOLCANIC_STONE_SLAB = BASIC_BLOCKS.register("volcanic_stone_slab",
+			()-> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F)));
+	public static final RegistryObject<Block> VOLCANIC_STONE_WALL = BASIC_BLOCKS.register("volcanic_stone_wall",
+			()-> new WallBlock(AbstractBlock.Properties.from(VOLCANIC_STONE.get())));
+
+	public static final RegistryObject<Block> VOLCANIC_BRICKS_STAIRS = BASIC_BLOCKS.register("volcanic_bricks_stairs",
+			()-> new StairsBlock(VOLCANIC_BRICKS.get().getDefaultState(), AbstractBlock.Properties.from(VOLCANIC_BRICKS.get())));
+	public static final RegistryObject<Block> VOLCANIC_BRICKS_SLAB = BASIC_BLOCKS.register("volcanic_bricks_slab",
+			()-> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F)));
+	public static final RegistryObject<Block> VOLCANIC_BRICKS_WALL = BASIC_BLOCKS.register("volcanic_bricks_wall",
+			()-> new WallBlock(AbstractBlock.Properties.from(VOLCANIC_BRICKS.get())));
+
+	public static final RegistryObject<Block> ADOBE_BRICKS_STAIRS = BASIC_BLOCKS.register("adobe_bricks_stairs",
+			()-> new StairsBlock(ADOBE_BRICKS.get().getDefaultState(), AbstractBlock.Properties.from(ADOBE_BRICKS.get())));
+	public static final RegistryObject<Block> ADOBE_BRICKS_SLAB = BASIC_BLOCKS.register("adobe_bricks_slab",
+			()-> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F)));
+	public static final RegistryObject<Block> ADOBE_BRICKS_WALL = BASIC_BLOCKS.register("adobe_bricks_wall",
+			()-> new WallBlock(AbstractBlock.Properties.from(ADOBE_BRICKS.get())));
 
 	private static boolean needsPostProcessing(BlockState state, IBlockReader reader, BlockPos pos) {
 		return true;

@@ -1,7 +1,7 @@
 package com.renatiux.dinosexpansion.client.model.entities.creatures;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.common.entities.enviroment.Pycnophlebia;
+import com.renatiux.dinosexpansion.common.entities.environment.Pycnophlebia;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

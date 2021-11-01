@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "dinosexpansion:block/adobe_bricks",
+    "top": "dinosexpansion:block/adobe_bricks",
+    "side": "dinosexpansion:block/adobe_bricks"
+  }
+}
