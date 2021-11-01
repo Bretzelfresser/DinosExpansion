@@ -45,7 +45,12 @@ public class DinoBiomeProvider extends BiomeProvider {
             BiomeKeys.REDWOOD_FOREST,
             BiomeKeys.REDWOOD_FOREST_HILLS,
             BiomeKeys.WARM_DEEP_DINO_OCEAN,
-            BiomeKeys.WARM_DINO_OCEAN
+            BiomeKeys.WARM_DINO_OCEAN,
+
+            /*-------------------------------------*/
+
+            BiomeKeys.DESERT,
+            BiomeKeys.DESERT_HILLS
 
     );
 

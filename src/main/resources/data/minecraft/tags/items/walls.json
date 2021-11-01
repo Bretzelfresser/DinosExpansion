@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "dinosexpansion:volcanic_stone_wall",
+    "dinosexpansion:volcanic_bricks_wall",
+    "dinosexpansion:adobe_bricks_wall"
+  ]
+}
