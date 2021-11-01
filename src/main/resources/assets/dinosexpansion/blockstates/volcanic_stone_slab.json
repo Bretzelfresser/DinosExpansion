@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "dinosexpansion:block/volcanic_stone_slab"
+    },
+    "type=double": {
+      "model": "dinosexpansion:block/volcanic_stone"
+    },
+    "type=top": {
+      "model": "dinosexpansion:block/volcanic_stone_slab_top"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.entities.enviroment;
+package com.renatiux.dinosexpansion.common.entities.environment;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 
@@ -60,9 +60,9 @@ public class Pycnophlebia extends CreatureEntity implements IAnimatable {
 	public static AttributeModifierMap.MutableAttribute registerAttributes() {
 		// always use the MUtableAttribute from the lowest super class
 		// so CreatureEntity -> has no Attribute method --> MobEntity has one, use it then
-		//ur problem was that the Attributes#FOLLOW_RANGE attribute wasn´t set
+		//ur problem was that the Attributes#FOLLOW_RANGE attribute wasnï¿½t set
 		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 10)
-				.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5d);
+				.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3D);
 	}
 
 	private PlayState predicate(AnimationEvent<Pycnophlebia> event) {

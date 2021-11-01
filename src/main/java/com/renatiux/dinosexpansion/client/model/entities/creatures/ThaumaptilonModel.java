@@ -1,7 +1,7 @@
 package com.renatiux.dinosexpansion.client.model.entities.creatures;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.common.entities.enviroment.Thaumaptilon;
+import com.renatiux.dinosexpansion.common.entities.environment.Thaumaptilon;
 
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

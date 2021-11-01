@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.entities.enviroment;
+package com.renatiux.dinosexpansion.common.entities.environment;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

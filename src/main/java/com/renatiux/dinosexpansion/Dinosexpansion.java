@@ -2,8 +2,9 @@ package com.renatiux.dinosexpansion;
 
 import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 
-import com.renatiux.dinosexpansion.common.entities.enviroment.Charnia;
-import com.renatiux.dinosexpansion.common.entities.enviroment.Pycnophlebia;
+import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
+import com.renatiux.dinosexpansion.common.entities.environment.Charnia;
+import com.renatiux.dinosexpansion.common.entities.environment.Pycnophlebia;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,7 +12,7 @@ import com.renatiux.dinosexpansion.client.dimension.DinoDimensionRenderInfo;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
-import com.renatiux.dinosexpansion.common.entities.enviroment.Thaumaptilon;
+import com.renatiux.dinosexpansion.common.entities.environment.Thaumaptilon;
 import com.renatiux.dinosexpansion.common.items.CustomSpawnEgg;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
@@ -150,6 +151,8 @@ public class Dinosexpansion {
 		event.put(EntityTypeInit.THAUMAPTILON.get(), Thaumaptilon.registerAttributes().create());
 		event.put(EntityTypeInit.CHARNIA.get(), Charnia.registerAttributes().create());
 		event.put(EntityTypeInit.PYCNOPHLEBIA.get(), Pycnophlebia.registerAttributes().create());
+		event.put(EntityTypeInit.AEGIROCASSIS.get(), Aegirocassis.registerAttributes().create());
+
 
 	}
 

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "dinosexpansion:block/adobe_bricks_slab"
+    },
+    "type=double": {
+      "model": "dinosexpansion:block/adobe_bricks"
+    },
+    "type=top": {
+      "model": "dinosexpansion:block/adobe_bricks_slab_top"
+    }
+  }
+}
