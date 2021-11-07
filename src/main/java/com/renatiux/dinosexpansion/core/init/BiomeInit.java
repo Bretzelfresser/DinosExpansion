@@ -5,6 +5,18 @@ import com.renatiux.dinosexpansion.common.biomes.DEBiomeMaker;
 
 import com.renatiux.dinosexpansion.common.biomes.dino.beach.Beach;
 import com.renatiux.dinosexpansion.common.biomes.dino.beach.StoneBeach;
+import com.renatiux.dinosexpansion.common.biomes.dino.forest.Mixed;
+import com.renatiux.dinosexpansion.common.biomes.dino.forest.Redwood;
+import com.renatiux.dinosexpansion.common.biomes.dino.forest.Snowy;
+import com.renatiux.dinosexpansion.common.biomes.dino.forest.Taiga;
+import com.renatiux.dinosexpansion.common.biomes.dino.jungle.Jungle;
+import com.renatiux.dinosexpansion.common.biomes.dino.mountains.Mountains;
+import com.renatiux.dinosexpansion.common.biomes.dino.ocean.*;
+import com.renatiux.dinosexpansion.common.biomes.dino.plains.Plains;
+import com.renatiux.dinosexpansion.common.biomes.dino.river.River;
+import com.renatiux.dinosexpansion.common.biomes.dino.savanna.Savanna;
+import com.renatiux.dinosexpansion.common.biomes.dino.snow.SnowyPlains;
+import com.renatiux.dinosexpansion.common.biomes.dino.snow.Tundra;
 import com.renatiux.dinosexpansion.common.biomes.dino.swamp.Marshlands;
 import com.renatiux.dinosexpansion.common.biomes.dino.swamp.Swamp;
 import com.renatiux.dinosexpansion.common.biomes.dino.warm.*;
@@ -52,13 +64,43 @@ public class BiomeInit {
     public static final RegistryObject<Biome> BEACH = BIOMES.register("beach", Beach::create);
     public static final RegistryObject<Biome> STONE_BEACH = BIOMES.register("stone_beach", StoneBeach::create);
 
+    public static final RegistryObject<Biome> MIXED = BIOMES.register("mixed", Mixed::create);
+    public static final RegistryObject<Biome> REDWOOD = BIOMES.register("redwood", Redwood::create);
+    public static final RegistryObject<Biome> SNOWY = BIOMES.register("snowy", Snowy::create);
+    public static final RegistryObject<Biome> TAIGA = BIOMES.register("taiga", Taiga::create);
+
+    public static final RegistryObject<Biome> JUNGLE = BIOMES.register("jungle", Jungle::create);
+
+    public static final RegistryObject<Biome> MOUNTAINS = BIOMES.register("mountains", Mountains::create);
+
+    public static final RegistryObject<Biome> OCEAN = BIOMES.register("ocean", Ocean::create);
+    public static final RegistryObject<Biome> DEEP_OCEAN = BIOMES.register("deep_ocean", DeepOcean::create);
+    public static final RegistryObject<Biome> COLD_OCEAN = BIOMES.register("cold_ocean", ColdOcean::create);
+    public static final RegistryObject<Biome> DEEP_COLD_OCEAN = BIOMES.register("deep_cold_ocean", DeepColdOcean::create);
+    public static final RegistryObject<Biome> FROZEN_OCEAN = BIOMES.register("frozen_ocean", FrozenOcean::create);
+    public static final RegistryObject<Biome> DEEP_FROZEN_OCEAN = BIOMES.register("deep_frozen_ocean", DeepFrozenOcean::create);
+    public static final RegistryObject<Biome> LUKE_WARM_OCEAN = BIOMES.register("luke_warm_ocean", LukewarmOcean::create);
+    public static final RegistryObject<Biome> DEEP_LUKE_WARM_OCEAN = BIOMES.register("deep_luke_warm_ocean", DeepLukewarmOcean::create);
+    public static final RegistryObject<Biome> WARM_OCEAN = BIOMES.register("warm_ocean", WarmOcean::create);
+    public static final RegistryObject<Biome> DEEP_WARM_OCEAN = BIOMES.register("deep_warm_ocean", DeepWarmOcean::create);
+
+    public static final RegistryObject<Biome> PLAINS = BIOMES.register("plains", Plains::create);
+
+    public static final RegistryObject<Biome> RIVER = BIOMES.register("river", River::create);
+
+    public static final RegistryObject<Biome> SAVANNA = BIOMES.register("savanna", Savanna::create);
+
+    public static final RegistryObject<Biome> SNOWY_PLAINS = BIOMES.register("snowy_plains", SnowyPlains::create);
+    public static final RegistryObject<Biome> TUNDRA = BIOMES.register("tundra", Tundra::create);
+
     public static final RegistryObject<Biome> SWAMP = BIOMES.register("swamp", Swamp::create);
     public static final RegistryObject<Biome> MARSHLANDS = BIOMES.register("marshlands", Marshlands::create);
 
-    public static final RegistryObject<Biome> DESERT = BIOMES.register("desert", Desert::create);
-
     public static final RegistryObject<Biome> BADLANDS = BIOMES.register("badlands", Badlands::create);
+    public static final RegistryObject<Biome> DESERT = BIOMES.register("desert", Desert::create);
+    public static final RegistryObject<Biome> DESERT_HILLS = BIOMES.register("desert_hills", ()-> Desert.create(0.45F, 0.3F));
     public static final RegistryObject<Biome> DESERT_SHRUBLANDS = BIOMES.register("desert_shrublands", DesertShrubland::create);
     public static final RegistryObject<Biome> ERODED_BADLANDS = BIOMES.register("eroded_badlands", ErodedBadlands::create);
     public static final RegistryObject<Biome> SHRUBLANDS = BIOMES.register("shrublands", Shrubland::create);
+
 }

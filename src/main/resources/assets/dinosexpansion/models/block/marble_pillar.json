@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "dinosexpansion:block/marble_pillar_top",
+    "side": "dinosexpansion:block/marble_pillar"
+  }
+}

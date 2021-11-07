@@ -24,7 +24,7 @@ public class StoneBeach extends BiomeBase {
 
     static void addGeneration()
     {
-        GENERATION.withSurfaceBuilder(DESurfaceBuilders.DINO_STONE_BUILDER);
+        GENERATION.withSurfaceBuilder(DESurfaceBuilders.STONE_BEACH);
 
         DEBiomeFeatures.addLand(GENERATION);
         DEBiomeFeatures.addOres(GENERATION);

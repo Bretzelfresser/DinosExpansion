@@ -23,11 +23,11 @@ public class DinoOceanSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig
 
         if(noise > 1.0D)
         {
-            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, DESurfaceBuilders.DINO_SAND_CONFIG);
+            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, DESurfaceBuilders.OCEAN);
         }
         else
         {
-            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, DESurfaceBuilders.SILT_CONFIG);
+            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, DESurfaceBuilders.SILT);
         }
 
     }
