@@ -28,14 +28,14 @@ public class Pycnophlebia extends CreatureEntity implements IAnimatable {
 	public static final String CONTROLLER_NAME = "controller";
 
 	private static final ResourceLocation[] TEXTURERS = new ResourceLocation[] {
-			Dinosexpansion.modLoc("textures/entity/enviroment/pycnophlebia/pycnophlebia1.png"),
-			Dinosexpansion.modLoc("textures/entity/enviroment/pycnophlebia/pycnophlebia2.png"),
-			Dinosexpansion.modLoc("textures/entity/enviroment/pycnophlebia/pycnophlebia3.png"),
-			Dinosexpansion.modLoc("textures/entity/enviroment/pycnophlebia/pycnophlebia4.png"),
-			Dinosexpansion.modLoc("textures/entity/enviroment/pycnophlebia/pycnophlebia5.png"),
-			Dinosexpansion.modLoc("textures/entity/enviroment/pycnophlebia/pycnophlebia6.png"),
-			Dinosexpansion.modLoc("textures/entity/enviroment/pycnophlebia/pycnophlebia7.png"),
-			Dinosexpansion.modLoc("textures/entity/enviroment/pycnophlebia/pycnophlebia8.png"),
+			Dinosexpansion.modLoc("textures/entity/environment/pycnophlebia/pycnophlebia1.png"),
+			Dinosexpansion.modLoc("textures/entity/environment/pycnophlebia/pycnophlebia2.png"),
+			Dinosexpansion.modLoc("textures/entity/environment/pycnophlebia/pycnophlebia3.png"),
+			Dinosexpansion.modLoc("textures/entity/environment/pycnophlebia/pycnophlebia4.png"),
+			Dinosexpansion.modLoc("textures/entity/environment/pycnophlebia/pycnophlebia5.png"),
+			Dinosexpansion.modLoc("textures/entity/environment/pycnophlebia/pycnophlebia6.png"),
+			Dinosexpansion.modLoc("textures/entity/environment/pycnophlebia/pycnophlebia7.png"),
+			Dinosexpansion.modLoc("textures/entity/environment/pycnophlebia/pycnophlebia8.png"),
 			};
 
 	protected AnimationFactory factory = new AnimationFactory(this);

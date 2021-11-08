@@ -179,6 +179,11 @@ public class BlockInit {
 	public static final RegistryObject<Block> DINO_GRASS = BASIC_BLOCKS.register("dino_grass",
 			()-> new GrassBlock(AbstractBlock.Properties.create(Material.ORGANIC).tickRandomly().hardnessAndResistance(0.6F).sound(SoundType.PLANT)));
 
+	public static final RegistryObject<Block> SALT_BLOCK = BASIC_BLOCKS.register("salt_block",
+			()-> new Block(AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
+	public static final RegistryObject<Block> SMOOTH_SALT_BLOCK = BASIC_BLOCKS.register("smooth_salt_block",
+			()-> new Block(AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
+
 	//Ores
 	public static final RegistryObject<Block> DINO_COAL_ORE = BASIC_BLOCKS.register("dino_coal_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE)));
@@ -268,6 +273,8 @@ public class BlockInit {
 	public static final RegistryObject<Block> CRACKED_MARBLE_BRICKS = BASIC_BLOCKS.register("cracked_marble_bricks",
 			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
 	public static final RegistryObject<Block> MOSSY_MARBLE_BRICKS = BASIC_BLOCKS.register("mossy_marble_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> CRYING_OBSIDIAN_IN_CHISELED_MARBLE = BASIC_BLOCKS.register("crying_obsidian_in_chiseled_marble",
 			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
 
 	public static final RegistryObject<Block> PINK_QUARTZ = BASIC_BLOCKS.register("pink_quartz",
