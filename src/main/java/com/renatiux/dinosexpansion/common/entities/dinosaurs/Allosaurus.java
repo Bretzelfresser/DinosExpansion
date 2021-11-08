@@ -135,7 +135,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 		//resetting the status after he woke up so he don�t move during waking up
 		if(wakeUpCooldown > 0) {
 			wakeUpCooldown--;
-			System.out.println(wakeUpCooldown);
 			if(wakeUpCooldown == 0) {
 				setStatus(prevStatus);
 			}
