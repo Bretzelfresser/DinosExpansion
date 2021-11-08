@@ -1,11 +1,13 @@
 package com.renatiux.dinosexpansion.common.energyStorage;
 
+import com.renatiux.dinosexpansion.common.tileEntities.cable.EnergyStorageListener;
+
 import net.minecraft.nbt.CompoundNBT;
 
 public class CableEnergyStorage extends BaseEnergyStorage{
 
-	public CableEnergyStorage(int maximumFlow) {
-		super(maximumFlow, maximumFlow, maximumFlow);
+	public CableEnergyStorage(EnergyStorageListener listener, int maximumFlow) {
+		super(listener, maximumFlow, maximumFlow, maximumFlow);
 	}
 	
 	@Override

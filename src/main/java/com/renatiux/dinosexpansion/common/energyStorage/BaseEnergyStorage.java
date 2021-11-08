@@ -1,10 +1,14 @@
 package com.renatiux.dinosexpansion.common.energyStorage;
 
+import com.renatiux.dinosexpansion.common.tileEntities.cable.EnergyStorageListener;
+
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class BaseEnergyStorage extends EnergyStorage{
 
+	private EnergyStorageListener listener;
+	
 	public BaseEnergyStorage(int capacity, int maxReceive, int maxExtract, int energy) {
 		super(capacity, maxReceive, maxExtract, energy);
 	}
@@ -21,7 +25,41 @@ public class BaseEnergyStorage extends EnergyStorage{
 		super(capacity);
 	}
 	
+	public BaseEnergyStorage(EnergyStorageListener listener, int capacity, int maxReceive, int maxExtract, int energy) {
+		super(capacity, maxReceive, maxExtract, energy);
+		this.listener = listener;
+	}
+
+	public BaseEnergyStorage(EnergyStorageListener listener,int capacity, int maxReceive, int maxExtract) {
+		super(capacity, maxReceive, maxExtract);
+		this.listener = listener;
+	}
+
+	public BaseEnergyStorage(EnergyStorageListener listener,int capacity, int maxTransfer) {
+		super(capacity, maxTransfer);
+		this.listener = listener;
+	}
+
+	public BaseEnergyStorage(EnergyStorageListener listener,int capacity) {
+		super(capacity);
+		this.listener = listener;
+	}
 	
+	@Override
+	public int receiveEnergy(int maxReceive, boolean simulate) {
+		int returnInt = super.receiveEnergy(maxReceive, simulate);
+		if(returnInt > 0 && listener != null)
+			listener.onEnergyChanged(this, returnInt);
+		return returnInt;
+	}
+	
+	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		int returnInt = super.extractEnergy(maxReceive, simulate);
+		if(returnInt > 0 && listener != null)
+			listener.onEnergyChanged(this, -returnInt);
+		return returnInt;
+	}
 	
 	public CompoundNBT write(CompoundNBT compound) {
 		compound.putInt("capacity", this.capacity);
