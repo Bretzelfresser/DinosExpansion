@@ -29,6 +29,7 @@ import com.renatiux.dinosexpansion.util.LightUtil;
 import com.renatiux.dinosexpansion.util.registration.BlockDeferredRegister;
 import com.renatiux.dinosexpansion.util.registration.DoubleRegistryObject;
 
+import com.sun.org.apache.bcel.internal.generic.PUSH;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -154,18 +155,6 @@ public class BlockInit {
 	public static final RegistryObject<Block> DINO_SILT = BASIC_BLOCKS.register("dino_silt",
 			()-> new Block(AbstractBlock.Properties.create(Material.CLAY, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
 
-	public static final RegistryObject<Block> VOLCANIC_STONE = BASIC_BLOCKS.register("volcanic_stone",
-			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
-	public static final RegistryObject<Block> VOLCANIC_BRICKS = BASIC_BLOCKS.register("volcanic_bricks",
-			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
-	public static final RegistryObject<Block> CHISELED_VOLCANIC_BRICKS = BASIC_BLOCKS.register("chiseled_volcanic_bricks",
-			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
-
-	public static final RegistryObject<Block> ADOBE_BRICKS = BASIC_BLOCKS.register("adobe_bricks",
-			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
-	public static final RegistryObject<Block> CHISELED_ADOBE_BRICKS = BASIC_BLOCKS.register("chiseled_adobe_bricks",
-			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
-
 	public static final RegistryObject<Block> MUD_BLOCK = BASIC_BLOCKS.register("mud_block",
 			()-> new MudBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.BROWN_TERRACOTTA).hardnessAndResistance(0.6F).harvestLevel(0).harvestTool(ToolType.SHOVEL).sound(new ForgeSoundType(1.0F, 0.5F,() -> SoundEvents.BLOCK_SLIME_BLOCK_BREAK, () ->SoundEvents.BLOCK_SLIME_BLOCK_STEP, () ->SoundEvents.BLOCK_SLIME_BLOCK_PLACE,() -> SoundEvents.BLOCK_SLIME_BLOCK_HIT, () ->SoundEvents.BLOCK_SLIME_BLOCK_FALL))));
 	public static final RegistryObject<Block> DRY_MUD = BASIC_BLOCKS.register("dry_mud",
@@ -173,6 +162,22 @@ public class BlockInit {
 
 	public static final RegistryObject<Block> DINO_MAGMA = BASIC_BLOCKS.register("dino_magma",
 			()-> new MagmaBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().setLightLevel((state) -> 3).tickRandomly().hardnessAndResistance(0.5F).setAllowsSpawn((state, reader, pos, entity) -> entity.isImmuneToFire()).setNeedsPostProcessing(BlockInit::needsPostProcessing).setEmmisiveRendering(BlockInit::needsPostProcessing)));
+
+	public static final RegistryObject<Block> WHITE_SAND = BASIC_BLOCKS.register("white_sand",
+			()-> new SandBlock(16777215, AbstractBlock.Properties.create(Material.SAND, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
+	public static final RegistryObject<Block> WHITE_SANDSTONE = BASIC_BLOCKS.register("white_sandstone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> WHITE_CHISELED_SANDSTONE = BASIC_BLOCKS.register("white_chiseled_sandstone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).setRequiresTool().hardnessAndResistance(0.8F)));
+
+	public static final RegistryObject<Block> DINO_PODZOL = BASIC_BLOCKS.register("dino_podzol",
+			()-> new SnowyDirtBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.OBSIDIAN).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
+	public static final RegistryObject<Block> DINO_DIRT = BASIC_BLOCKS.register("dino_dirt",
+			()-> new Block(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
+	public static final RegistryObject<Block> DINO_COARSE_DIRT = BASIC_BLOCKS.register("dino_coarse_dirt",
+			()-> new Block(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
+	public static final RegistryObject<Block> DINO_GRASS = BASIC_BLOCKS.register("dino_grass",
+			()-> new GrassBlock(AbstractBlock.Properties.create(Material.ORGANIC).tickRandomly().hardnessAndResistance(0.6F).sound(SoundType.PLANT)));
 
 	//Ores
 	public static final RegistryObject<Block> DINO_COAL_ORE = BASIC_BLOCKS.register("dino_coal_ore",
@@ -236,6 +241,44 @@ public class BlockInit {
 
 
 	//Decoration
+	public static final RegistryObject<Block> VOLCANIC_STONE = BASIC_BLOCKS.register("volcanic_stone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+	public static final RegistryObject<Block> VOLCANIC_BRICKS = BASIC_BLOCKS.register("volcanic_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+	public static final RegistryObject<Block> CHISELED_VOLCANIC_BRICKS = BASIC_BLOCKS.register("chiseled_volcanic_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+
+	public static final RegistryObject<Block> ADOBE_BRICKS = BASIC_BLOCKS.register("adobe_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+	public static final RegistryObject<Block> CHISELED_ADOBE_BRICKS = BASIC_BLOCKS.register("chiseled_adobe_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F)));
+
+	public static final RegistryObject<Block> MARBLE = BASIC_BLOCKS.register("marble",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> CHISELED_MARBLE = BASIC_BLOCKS.register("chiseled_marble",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> MARBLE_BRICKS = BASIC_BLOCKS.register("marble_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> MARBLE_PILLAR = BASIC_BLOCKS.register("marble_pillar",
+			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> MARBLE_TILES = BASIC_BLOCKS.register("marble_tiles",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> POLISHED_MARBLE = BASIC_BLOCKS.register("polished_marble",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> CRACKED_MARBLE_BRICKS = BASIC_BLOCKS.register("cracked_marble_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> MOSSY_MARBLE_BRICKS = BASIC_BLOCKS.register("mossy_marble_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+
+	public static final RegistryObject<Block> PINK_QUARTZ = BASIC_BLOCKS.register("pink_quartz",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> POLISHED_PINK_QUARTZ = BASIC_BLOCKS.register("polished_pink_quartz",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> PINK_QUARTZ_BRICKS = BASIC_BLOCKS.register("pink_quartz_bricks",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> PINK_QUARTZ_PILLAR = BASIC_BLOCKS.register("pink_quartz_pillar",
+			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
+
 	public static final RegistryObject<Block> VOLCANIC_STONE_STAIRS = BASIC_BLOCKS.register("volcanic_stone_stairs",
 			()-> new StairsBlock(VOLCANIC_STONE.get().getDefaultState(), AbstractBlock.Properties.from(VOLCANIC_STONE.get())));
 	public static final RegistryObject<Block> VOLCANIC_STONE_SLAB = BASIC_BLOCKS.register("volcanic_stone_slab",
@@ -256,6 +299,13 @@ public class BlockInit {
 			()-> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F)));
 	public static final RegistryObject<Block> ADOBE_BRICKS_WALL = BASIC_BLOCKS.register("adobe_bricks_wall",
 			()-> new WallBlock(AbstractBlock.Properties.from(ADOBE_BRICKS.get())));
+
+	//Food
+	public static final RegistryObject<Block> WHALE_RAW_MEAT_BLOCK = BASIC_BLOCKS.register("whale_raw_meat_block",
+			()-> new Block(AbstractBlock.Properties.create(Material.SPONGE, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(0.4F).harvestLevel(0).harvestTool(ToolType.AXE).sound(new SoundType(1.0F, 0.5F, SoundEvents.BLOCK_CORAL_BLOCK_BREAK, SoundEvents.BLOCK_CORAL_BLOCK_STEP, SoundEvents.BLOCK_CORAL_BLOCK_PLACE, SoundEvents.BLOCK_CORAL_BLOCK_HIT, SoundEvents.BLOCK_CORAL_BLOCK_FALL))));
+
+	public static final RegistryObject<Block> WHALE_COOKED_MEAT_BLOCK = BASIC_BLOCKS.register("whale_cooked_meat_block",
+			()-> new Block(AbstractBlock.Properties.create(Material.SPONGE, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(0.4F).harvestLevel(0).harvestTool(ToolType.AXE).sound(new SoundType(1.0F, 0.5F, SoundEvents.BLOCK_CORAL_BLOCK_BREAK, SoundEvents.BLOCK_CORAL_BLOCK_STEP, SoundEvents.BLOCK_CORAL_BLOCK_PLACE, SoundEvents.BLOCK_CORAL_BLOCK_HIT, SoundEvents.BLOCK_CORAL_BLOCK_FALL))));
 
 	private static boolean needsPostProcessing(BlockState state, IBlockReader reader, BlockPos pos) {
 		return true;

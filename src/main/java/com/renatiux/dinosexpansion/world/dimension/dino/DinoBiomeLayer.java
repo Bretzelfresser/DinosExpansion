@@ -21,7 +21,10 @@ public final class DinoBiomeLayer implements IC0Transformer {
                 DinoLayerUtil.getBiomeId(BiomeKeys.DINO_RIVER),
                 DinoLayerUtil.getBiomeId(BiomeKeys.DINO_MOUNTAINS),
                 DinoLayerUtil.getBiomeId(BiomeKeys.DINO_CONIFER_FOREST),
-                DinoLayerUtil.getBiomeId(BiomeKeys.DINO_CONIFER_FOREST_HILLS)};
+                DinoLayerUtil.getBiomeId(BiomeKeys.DINO_CONIFER_FOREST_HILLS),
+                DinoLayerUtil.getBiomeId(BiomeKeys.DESERT),
+                DinoLayerUtil.getBiomeId(BiomeKeys.DESERT_HILLS)
+        };
     }
 
     @Override

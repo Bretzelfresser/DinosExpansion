@@ -32,7 +32,7 @@ public class DesertShrubland extends BiomeBase {
 
     public static Biome create()
     {
-        return ModBiomeMaker.create(Biome.RainType.NONE, Biome.Category.DESERT, 0.125F, 0.05F, 3.0F, 0.0F, 0xb78f59, 0x99774a, 0xbc745e, 0xdd5f39, 0xb78f59, 0xb78f59, MOB_SPAWNS.build(), GENERATION.build());
+        return ModBiomeMaker.create(Biome.RainType.RAIN, Biome.Category.DESERT, 0.1F, 0.1F, 2.0F, 0.4F, 4159204, 329011, 12638463, BiomeBase.calcSkyColor(0.8F), 9874031, 7048739, MOB_SPAWNS.build(), GENERATION.build());
     }
 
 }

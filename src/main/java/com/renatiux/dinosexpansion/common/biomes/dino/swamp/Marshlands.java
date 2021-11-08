@@ -11,7 +11,7 @@ import net.minecraft.world.biome.MobSpawnInfo;
 public class Marshlands extends BiomeBase {
 
     public static final MobSpawnInfo.Builder MOB_SPAWNS = new MobSpawnInfo.Builder();
-    public static final BiomeGenerationSettings.Builder GENERATION = genSettings(SurfaceBuilderInit.NAKED_DINO_SWAMP, DESurfaceBuilders.MUD_CONFIG);
+    public static final BiomeGenerationSettings.Builder GENERATION = genSettings(SurfaceBuilderInit.NAKED_DINO_SWAMP, DESurfaceBuilders.MUD);
 
     static
     {

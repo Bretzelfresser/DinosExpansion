@@ -10,11 +10,11 @@ import com.renatiux.dinosexpansion.common.entities.projectiles.WoodBoomerang;
 import com.renatiux.dinosexpansion.common.items.*;
 
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
+import com.renatiux.dinosexpansion.common.tools.MultiToolItem;
 import com.renatiux.dinosexpansion.util.enums.DEArmorMaterial;
+import com.renatiux.dinosexpansion.util.enums.DEToolMaterial;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.BlockNamedItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Rarity;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -86,6 +86,11 @@ public class ItemInit {
 	public static final RegistryObject<Item> MUD_BALL = ITEMS.register("mud_ball",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
+	public static final RegistryObject<Item> WHALE_OIL = ITEMS.register("whale_oil",
+			()-> new WhaleOilItem(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> WHALE_GREASE = ITEMS.register("whale_grease",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
 
 
 	//Entities
@@ -113,6 +118,10 @@ public class ItemInit {
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ALLOSAURUS_RAW_MEAT)));
 	public static final RegistryObject<Item> ALLOSAURUS_COOKED_MEAT = ITEMS.register("allosaurus_cooked_meat",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ALLOSAURUS_COOKED_MEAT)));
+	public static final RegistryObject<Item> WHALE_RAW_MEAT = ITEMS.register("whale_raw_meat",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.WHALE_RAW_MEAT)));
+	public static final RegistryObject<Item> WHALE_COOKED_MEAT = ITEMS.register("whale_cooked_meat",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.WHALE_COOKED_MEAT)));
 
 	public static final RegistryObject<Item> ONION = ITEMS.register("onion",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ONION)));
@@ -213,4 +222,22 @@ public class ItemInit {
 	public static final RegistryObject<Item> STEEL_CHESTPLATE = ITEMS.register("steel_chestplate", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 	public static final RegistryObject<Item> STEEL_LEGGINGS = ITEMS.register("steel_leggings", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 	public static final RegistryObject<Item> STEEL_BOOTS = ITEMS.register("steel_boots", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+
+
+	//Tools
+	public static final RegistryObject<Item> EMERALD_SWORD = ITEMS.register("emerald_sword",
+			()-> new SwordItem(DEToolMaterial.EMERALD, 3, -2.4F, (new Item.Properties().group(ItemGroupInit.MISC))));
+	public static final RegistryObject<Item> EMERALD_AXE = ITEMS.register("emerald_axe",
+			()-> new AxeItem(DEToolMaterial.EMERALD, 5.0F, -3.0F, (new Item.Properties().group(ItemGroupInit.MISC))));
+	public static final RegistryObject<Item> EMERALD_PICKAXE = ITEMS.register("emerald_pickaxe",
+			()-> new PickaxeItem(DEToolMaterial.EMERALD, 1, -2.8F, (new Item.Properties().group(ItemGroupInit.MISC))));
+	public static final RegistryObject<Item> EMERALD_SHOVEL = ITEMS.register("emerald_shovel",
+			()-> new ShovelItem(DEToolMaterial.EMERALD, 1.5F, -3.0F, (new Item.Properties().group(ItemGroupInit.MISC))));
+	public static final RegistryObject<Item> EMERALD_HOE = ITEMS.register("emerald_hoe",
+			()-> new HoeItem(DEToolMaterial.EMERALD, -5, 0.0F, (new Item.Properties().group(ItemGroupInit.MISC))));
+	public static final RegistryObject<Item> EMERALD_AIOT = ITEMS.register("emerald_aiot",
+			()-> new MultiToolItem(DEToolMaterial.EMERALD, 6, -2.0F, (new Item.Properties().group(ItemGroupInit.MISC))));
+
+	public static final RegistryObject<Item> DIAMOND_AIOT = ITEMS.register("diamond_aiot",
+			()-> new MultiToolItem(ItemTier.DIAMOND, 4, -2.4F, (new Item.Properties().group(ItemGroupInit.MISC))));
 }

@@ -14,7 +14,7 @@ import net.minecraft.world.gen.feature.Features;
 public class DeepColdOcean extends BiomeBase {
 
     public static final MobSpawnInfo.Builder MOB_SPAWNS = new MobSpawnInfo.Builder();
-    public static final BiomeGenerationSettings.Builder GENERATION = genSettings(SurfaceBuilderInit.NAKED_DINO_OCEAN, DESurfaceBuilders.SILT_CONFIG);
+    public static final BiomeGenerationSettings.Builder GENERATION = genSettings(SurfaceBuilderInit.NAKED_DINO_OCEAN, DESurfaceBuilders.GRASS);
 
     static {
         addSpawns();

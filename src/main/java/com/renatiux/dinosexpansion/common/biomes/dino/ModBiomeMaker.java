@@ -32,4 +32,8 @@ public class ModBiomeMaker {
         return (new Biome.Builder()).precipitation(rainType).category(category).depth(depth).scale(scale).temperature(temperature).downfall(downfall).setEffects((new BiomeAmbience.Builder().setWaterColor(waterColour).setWaterFogColor(waterFogColour).setFogColor(fogColour).withSkyColor(skyColour).withGrassColor(grassColour).withFoliageColor(foliageColour).setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)).setParticle(new ParticleEffectAmbience(particle, particleAmount)).build()).withMobSpawnSettings(mobSpawns).withGenerationSettings(generation).build();
     }
 
+    public static Biome create(RainType rainType, Category category, float depth, float scale, float temperature, Biome.TemperatureModifier modifier, float downfall, int waterColour, int waterFogColour, int fogColour, int skyColour, MobSpawnInfo mobSpawns, BiomeGenerationSettings generation)
+    {
+        return (new Biome.Builder()).precipitation(rainType).category(category).depth(depth).scale(scale).temperature(temperature).withTemperatureModifier(modifier).downfall(downfall).setEffects((new BiomeAmbience.Builder().setWaterColor(waterColour).setWaterFogColor(waterFogColour).setFogColor(fogColour).withSkyColor(skyColour).setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)).build()).withMobSpawnSettings(mobSpawns).withGenerationSettings(generation).build();
+    }
 }

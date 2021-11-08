@@ -1,12 +1,14 @@
 package com.renatiux.dinosexpansion.util.enums;
 
 import net.minecraft.item.IItemTier;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
 public enum DEToolMaterial implements IItemTier {
-    ;
+
+    EMERALD(5, 1891, 10.0F, 5.0F, 10, ()-> Ingredient.fromItems(Items.EMERALD));
 
     private final int level;
     private final int uses;

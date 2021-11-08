@@ -34,4 +34,9 @@ public class Plains extends BiomeBase {
     {
         return ModBiomeMaker.create(Biome.RainType.RAIN, Biome.Category.PLAINS, 0.125F, 0.05F, 0.8F, 0.4F, 4159204, 329011, 12638463, BiomeBase.calcSkyColor(0.8F), MOB_SPAWNS.build(), GENERATION.build());
     }
+
+    public static Biome create(float depth, float scale)
+    {
+        return ModBiomeMaker.create(Biome.RainType.RAIN, Biome.Category.PLAINS, depth, scale, 0.8F, 0.4F, 4159204, 329011, 12638463, BiomeBase.calcSkyColor(0.8F), MOB_SPAWNS.build(), GENERATION.build());
+    }
 }

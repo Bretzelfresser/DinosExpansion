@@ -24,7 +24,7 @@ public class Beach extends BiomeBase {
 
     static void addGeneration()
     {
-        GENERATION.withSurfaceBuilder(DESurfaceBuilders.DINO_DESERT_BUILDER);
+        GENERATION.withSurfaceBuilder(DESurfaceBuilders.BEACH);
 
         DEBiomeFeatures.addLand(GENERATION);
         DEBiomeFeatures.addOres(GENERATION);

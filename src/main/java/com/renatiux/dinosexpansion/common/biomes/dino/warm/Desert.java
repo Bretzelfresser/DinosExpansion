@@ -32,12 +32,12 @@ public class Desert extends BiomeBase {
 
     public static Biome create()
     {
-        return ModBiomeMaker.create(Biome.RainType.NONE, Biome.Category.DESERT, 0.125F, 0.05F, 3.0F, 0.0F, 0xb78f59, 0x99774a, 0xbc745e, 0xdd5f39, 0xb78f59, 0xb78f59, MOB_SPAWNS.build(), GENERATION.build());
+        return ModBiomeMaker.create(Biome.RainType.NONE, Biome.Category.DESERT, 0.125F, 0.05F, 3.0F, 0.0F, 4159204, 329011, 12638463, BiomeBase.calcSkyColor(2.0F), MOB_SPAWNS.build(), GENERATION.build());
     }
 
     public static Biome create(float depth, float scale)
     {
-        return ModBiomeMaker.create(Biome.RainType.NONE, Biome.Category.DESERT, depth, scale, 3.0F, 0.0F, 0xb78f59, 0x99774a, 0xbc745e, 0xdd5f39, 0xb78f59, 0xb78f59, MOB_SPAWNS.build(), GENERATION.build());
+        return ModBiomeMaker.create(Biome.RainType.NONE, Biome.Category.DESERT, depth, scale, 3.0F, 0.0F, 4159204, 329011, 12638463, BiomeBase.calcSkyColor(2.0F), MOB_SPAWNS.build(), GENERATION.build());
     }
 
 }
