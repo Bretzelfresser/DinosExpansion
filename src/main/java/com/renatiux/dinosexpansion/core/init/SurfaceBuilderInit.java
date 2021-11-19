@@ -28,5 +28,4 @@ public class SurfaceBuilderInit {
     public static final RegistryObject<SurfaceBuilder<SurfaceBuilderConfig>> REDWOOD = SURFACE_BUILDER.register("dino_redwood", () -> NAKED_REDWOOD_FOREST);
     public static final RegistryObject<SurfaceBuilder<SurfaceBuilderConfig>> MOUNTAIN = SURFACE_BUILDER.register("dino_mountain", () -> NAKED_MOUNTAIN);
 
-
 }

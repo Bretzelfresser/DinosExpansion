@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.core.init;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.RaftEntity;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
+import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
@@ -54,6 +55,7 @@ public class EntityTypeInit {
 
 	public static final RegistryObject<EntityType<Aegirocassis>> AEGIROCASSIS = register("aegirocassis", EntityType.Builder.create(Aegirocassis::new, EntityClassification.WATER_CREATURE));
 
+	public static final RegistryObject<EntityType<Eosqualodon>> EOSQUALODON = register("eosqualodon", EntityType.Builder.create(Eosqualodon::new, EntityClassification.WATER_CREATURE));
 
 	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builer){
 		return ENTITY_TYPES.register(name, () -> builer.build(Dinosexpansion.modLoc(name).toString()));

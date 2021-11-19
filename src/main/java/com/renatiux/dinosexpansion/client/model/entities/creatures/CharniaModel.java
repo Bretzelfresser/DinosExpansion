@@ -19,6 +19,6 @@ public class CharniaModel extends AnimatedGeoModel<Charnia> {
 
     @Override
     public ResourceLocation getTextureLocation(Charnia animatable) {
-        return Dinosexpansion.modLoc("textures/entity/enviroment/charnia.png");
+        return Dinosexpansion.modLoc("textures/entity/environment/charnia.png");
     }
 }

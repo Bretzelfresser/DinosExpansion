@@ -64,6 +64,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> CHARNIA_SPAWN_EGG = ITEMS.register("charnia_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.CHARNIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> PYCNOPHLEBIA_SPAWN_EGG = ITEMS.register("pycnophlebia_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.PYCNOPHLEBIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = ITEMS.register("aegirocassis_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.AEGIROCASSIS, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> EOSQUALODON_SPAWN_EGG = ITEMS.register("eosqualodon_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.EOSQUALODON, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 
 
 	//Misc
@@ -91,6 +92,10 @@ public class ItemInit {
 	public static final RegistryObject<Item> WHALE_GREASE = ITEMS.register("whale_grease",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
+	public static final RegistryObject<Item> SALT = ITEMS.register("salt",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> SALT_DOT = ITEMS.register("salt_dot",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 
 	//Entities

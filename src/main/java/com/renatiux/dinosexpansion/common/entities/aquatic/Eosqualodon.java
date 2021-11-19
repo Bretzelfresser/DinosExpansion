@@ -1,16 +1,19 @@
 package com.renatiux.dinosexpansion.common.entities.aquatic;
 
 import com.renatiux.dinosexpansion.common.entities.controller.AquaticMoveController;
+import com.renatiux.dinosexpansion.common.entities.controller.SemiAquaticPathNavigator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.FindWaterGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.entity.passive.WaterMobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.pathfinding.SwimmerPathNavigator;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -21,20 +24,20 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class Aegirocassis extends WaterMobEntity implements IAnimatable {
+public class Eosqualodon extends WaterMobEntity implements IAnimatable {
 
     public static final String CONTROLLER_NAME = "controller";
 
     protected AnimationFactory factory = new AnimationFactory(this);
 
-    public Aegirocassis(EntityType<? extends WaterMobEntity> type, World p_i48565_2_) {
-        super(type, p_i48565_2_);
-        this.moveController = new AquaticMoveController(this, 1F);
+    public Eosqualodon(EntityType<? extends WaterMobEntity> p_i48565_1_, World p_i48565_2_) {
+        super(p_i48565_1_, p_i48565_2_);
+        this.moveController = new AquaticMoveController(this, 1.0F);
     }
 
     @Override
-    protected PathNavigator createNavigator(World worldIn) {
-        return new SwimmerPathNavigator(this, worldIn);
+    protected PathNavigator createNavigator(World p_175447_1_) {
+        return new SemiAquaticPathNavigator(this, p_175447_1_);
     }
 
     @Override
@@ -47,7 +50,7 @@ public class Aegirocassis extends WaterMobEntity implements IAnimatable {
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 10)
+        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 60)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3D);
     }
 
@@ -65,13 +68,13 @@ public class Aegirocassis extends WaterMobEntity implements IAnimatable {
         }
     }
 
-    private PlayState predicate(AnimationEvent<Aegirocassis> event) {
+    private PlayState predicate(AnimationEvent<Eosqualodon> event) {
         if (isInWater()) {
             event.getController()
-                    .setAnimation(new AnimationBuilder().addAnimation("aegirocassis_Swim.new", true));
+                    .setAnimation(new AnimationBuilder().addAnimation("animation.eosqualodon.swim", true));
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("aegirocassis_Idle.new", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.eosqualodon.idlewater", true));
         return PlayState.CONTINUE;
     }
 
@@ -84,5 +87,4 @@ public class Aegirocassis extends WaterMobEntity implements IAnimatable {
     public AnimationFactory getFactory() {
         return this.factory;
     }
-
 }

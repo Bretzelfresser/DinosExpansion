@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion;
 
 import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 
+import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -156,6 +157,7 @@ public class Dinosexpansion {
 		event.put(EntityTypeInit.CHARNIA.get(), Charnia.registerAttributes().create());
 		event.put(EntityTypeInit.PYCNOPHLEBIA.get(), Pycnophlebia.registerAttributes().create());
 		event.put(EntityTypeInit.AEGIROCASSIS.get(), Aegirocassis.registerAttributes().create());
+		event.put(EntityTypeInit.EOSQUALODON.get(), Eosqualodon.registerAttributes().create());
 
 
 	}

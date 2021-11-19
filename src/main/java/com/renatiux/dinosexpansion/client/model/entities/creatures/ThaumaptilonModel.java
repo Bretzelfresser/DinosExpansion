@@ -20,7 +20,7 @@ public class ThaumaptilonModel extends AnimatedGeoModel<Thaumaptilon>{
 
 	@Override
 	public ResourceLocation getTextureLocation(Thaumaptilon object) {
-		return Dinosexpansion.modLoc("textures/entity/enviroment/thaumaptilon.png");
+		return Dinosexpansion.modLoc("textures/entity/environment/thaumaptilon.png");
 	}
 
 }
