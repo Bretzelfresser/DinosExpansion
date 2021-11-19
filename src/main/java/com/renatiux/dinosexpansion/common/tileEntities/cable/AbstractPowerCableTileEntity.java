@@ -75,7 +75,8 @@ public abstract class AbstractPowerCableTileEntity extends TileEntity implements
 	
 	protected void updateIncomingEnergyMap() {
 		for(Direction d : Direction.values()){
-			incomingEnergy.put(d, incomingEnergy.get(d) - 1);
+			if(incomingEnergy.get(d) > 0)
+				incomingEnergy.put(d, incomingEnergy.get(d) - 1);
 		}
 	}
 	
@@ -89,9 +90,9 @@ public abstract class AbstractPowerCableTileEntity extends TileEntity implements
 				continue;
 			}
 			ConnectionType type = getBlockState().get(AbstractCableBlock.FACING_TO_PROPERTY_MAP.get(dir));
-			if(type.isBlocked() || type.isExtraction()) {
-				continue;
-			}
+			//if(type.isBlocked() || type.isExtraction()) {
+				//continue;
+			//}
 			TileEntity te = this.world.getTileEntity(getPos().offset(dir));
 			if (te != null) {
 				boolean shouldContinue = te.getCapability(CapabilityEnergy.ENERGY, dir).map(handler -> {
@@ -112,7 +113,7 @@ public abstract class AbstractPowerCableTileEntity extends TileEntity implements
 	
 	@Override
 	public void onEnergyChanged(IEnergyStorage storage, int energyChanged) {
-		if(energyChanged > 0 && tempEnergyAdd != null && incomingEnergy.get(tempEnergyAdd) != null && incomingEnergy.get(tempEnergyAdd) > 0) {
+		if(energyChanged > 0 && tempEnergyAdd != null && incomingEnergy.get(tempEnergyAdd) != null) {
 			incomingEnergy.put(tempEnergyAdd, TIME_UPDATE_CONNECTIONS);
 		}
 	}

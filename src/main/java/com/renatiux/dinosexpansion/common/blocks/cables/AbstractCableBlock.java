@@ -138,7 +138,7 @@ public abstract class AbstractCableBlock extends Block implements IWaterLoggable
 		}
 		
 		public boolean isExtraction() {
-			return this == CABLE;
+			return this == BLOCKED;
 		}
 
 		@Override

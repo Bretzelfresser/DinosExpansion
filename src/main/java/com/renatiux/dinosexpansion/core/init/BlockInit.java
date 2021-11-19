@@ -3,7 +3,11 @@ package com.renatiux.dinosexpansion.core.init;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.items.GeneratorItemRenderer;
 import com.renatiux.dinosexpansion.client.renderer.items.MortarItemRenderer;
-import com.renatiux.dinosexpansion.common.blocks.*;
+import com.renatiux.dinosexpansion.common.blocks.BaseMultiBlock;
+import com.renatiux.dinosexpansion.common.blocks.DEBlockItem;
+import com.renatiux.dinosexpansion.common.blocks.DEOreBlock;
+import com.renatiux.dinosexpansion.common.blocks.DESapling;
+import com.renatiux.dinosexpansion.common.blocks.MachineBarrierBlock;
 import com.renatiux.dinosexpansion.common.blocks.bush.DEBerryBush;
 import com.renatiux.dinosexpansion.common.blocks.cables.BasicEnergyCable;
 import com.renatiux.dinosexpansion.common.blocks.crops.DECropsBlock;
@@ -29,8 +33,20 @@ import com.renatiux.dinosexpansion.util.LightUtil;
 import com.renatiux.dinosexpansion.util.registration.BlockDeferredRegister;
 import com.renatiux.dinosexpansion.util.registration.DoubleRegistryObject;
 
-import com.sun.org.apache.bcel.internal.generic.PUSH;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.GrassBlock;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.MagmaBlock;
+import net.minecraft.block.RedstoneOreBlock;
+import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.SandBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SnowyDirtBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
@@ -280,21 +296,21 @@ public class BlockInit {
 			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(0.8F)));
 
 	public static final RegistryObject<Block> VOLCANIC_STONE_STAIRS = BASIC_BLOCKS.register("volcanic_stone_stairs",
-			()-> new StairsBlock(VOLCANIC_STONE.get().getDefaultState(), AbstractBlock.Properties.from(VOLCANIC_STONE.get())));
+			()-> new StairsBlock(() -> VOLCANIC_STONE.get().getDefaultState(), AbstractBlock.Properties.from(VOLCANIC_STONE.get())));
 	public static final RegistryObject<Block> VOLCANIC_STONE_SLAB = BASIC_BLOCKS.register("volcanic_stone_slab",
 			()-> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F)));
 	public static final RegistryObject<Block> VOLCANIC_STONE_WALL = BASIC_BLOCKS.register("volcanic_stone_wall",
 			()-> new WallBlock(AbstractBlock.Properties.from(VOLCANIC_STONE.get())));
 
 	public static final RegistryObject<Block> VOLCANIC_BRICKS_STAIRS = BASIC_BLOCKS.register("volcanic_bricks_stairs",
-			()-> new StairsBlock(VOLCANIC_BRICKS.get().getDefaultState(), AbstractBlock.Properties.from(VOLCANIC_BRICKS.get())));
+			()-> new StairsBlock(() -> VOLCANIC_BRICKS.get().getDefaultState(), AbstractBlock.Properties.from(VOLCANIC_BRICKS.get())));
 	public static final RegistryObject<Block> VOLCANIC_BRICKS_SLAB = BASIC_BLOCKS.register("volcanic_bricks_slab",
 			()-> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F)));
 	public static final RegistryObject<Block> VOLCANIC_BRICKS_WALL = BASIC_BLOCKS.register("volcanic_bricks_wall",
 			()-> new WallBlock(AbstractBlock.Properties.from(VOLCANIC_BRICKS.get())));
 
 	public static final RegistryObject<Block> ADOBE_BRICKS_STAIRS = BASIC_BLOCKS.register("adobe_bricks_stairs",
-			()-> new StairsBlock(ADOBE_BRICKS.get().getDefaultState(), AbstractBlock.Properties.from(ADOBE_BRICKS.get())));
+			()-> new StairsBlock(() -> ADOBE_BRICKS.get().getDefaultState(), AbstractBlock.Properties.from(ADOBE_BRICKS.get())));
 	public static final RegistryObject<Block> ADOBE_BRICKS_SLAB = BASIC_BLOCKS.register("adobe_bricks_slab",
 			()-> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F)));
 	public static final RegistryObject<Block> ADOBE_BRICKS_WALL = BASIC_BLOCKS.register("adobe_bricks_wall",
@@ -302,10 +318,10 @@ public class BlockInit {
 
 	//Food
 	public static final RegistryObject<Block> WHALE_RAW_MEAT_BLOCK = BASIC_BLOCKS.register("whale_raw_meat_block",
-			()-> new Block(AbstractBlock.Properties.create(Material.SPONGE, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(0.4F).harvestLevel(0).harvestTool(ToolType.AXE).sound(new SoundType(1.0F, 0.5F, SoundEvents.BLOCK_CORAL_BLOCK_BREAK, SoundEvents.BLOCK_CORAL_BLOCK_STEP, SoundEvents.BLOCK_CORAL_BLOCK_PLACE, SoundEvents.BLOCK_CORAL_BLOCK_HIT, SoundEvents.BLOCK_CORAL_BLOCK_FALL))));
+			()-> new Block(AbstractBlock.Properties.create(Material.SPONGE, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(0.4F).harvestLevel(0).harvestTool(ToolType.AXE).sound(new ForgeSoundType(1.0F, 0.5F, () ->SoundEvents.BLOCK_CORAL_BLOCK_BREAK, () ->SoundEvents.BLOCK_CORAL_BLOCK_STEP, () ->SoundEvents.BLOCK_CORAL_BLOCK_PLACE, () ->SoundEvents.BLOCK_CORAL_BLOCK_HIT, () ->SoundEvents.BLOCK_CORAL_BLOCK_FALL))));
 
 	public static final RegistryObject<Block> WHALE_COOKED_MEAT_BLOCK = BASIC_BLOCKS.register("whale_cooked_meat_block",
-			()-> new Block(AbstractBlock.Properties.create(Material.SPONGE, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(0.4F).harvestLevel(0).harvestTool(ToolType.AXE).sound(new SoundType(1.0F, 0.5F, SoundEvents.BLOCK_CORAL_BLOCK_BREAK, SoundEvents.BLOCK_CORAL_BLOCK_STEP, SoundEvents.BLOCK_CORAL_BLOCK_PLACE, SoundEvents.BLOCK_CORAL_BLOCK_HIT, SoundEvents.BLOCK_CORAL_BLOCK_FALL))));
+			()-> new Block(AbstractBlock.Properties.create(Material.SPONGE, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(0.4F).harvestLevel(0).harvestTool(ToolType.AXE).sound(new ForgeSoundType(1.0F, 0.5F, () ->SoundEvents.BLOCK_CORAL_BLOCK_BREAK, () ->SoundEvents.BLOCK_CORAL_BLOCK_STEP, () ->SoundEvents.BLOCK_CORAL_BLOCK_PLACE, () ->SoundEvents.BLOCK_CORAL_BLOCK_HIT, () ->SoundEvents.BLOCK_CORAL_BLOCK_FALL))));
 
 	private static boolean needsPostProcessing(BlockState state, IBlockReader reader, BlockPos pos) {
 		return true;
