@@ -1,26 +1,32 @@
-package com.renatiux.dinosexpansion.common.screens.util;
+package com.renatiux.dinosexpansion.client.screens.util;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import com.renatiux.dinosexpansion.client.screens.IncubatorScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
+import net.minecraftforge.fml.client.gui.widget.Slider;
 import net.minecraftforge.fml.client.gui.widget.Slider.ISlider;
+import org.lwjgl.system.CallbackI;
 
 public class IncubatorSlider extends Widget {
 
-	private double sliderValue;
-	private ISlider onPress;
+	private float sliderValue;
+	private IncubatorSliderHandler onPress;
 	private double minValue, maxValue;
+	private final int index;
 	private boolean dragging;
 
-	public IncubatorSlider(int xPos, int yPos, double minVal, double maxVal, double currentVal, ISlider handler) {
+	public IncubatorSlider(int xPos, int yPos, float currentVal, int index, IncubatorSliderHandler handler) {
 		super(xPos, yPos, 20, 5, new StringTextComponent(""));
 		this.onPress = handler;
-		this.minValue = minVal;
-		this.maxValue = maxVal;
+		this.minValue = 0;
+		this.maxValue = 100;
+		this.sliderValue = (float) (currentVal / (float)(maxValue));
 		dragging = false;
+		this.index = index;
 	}
 
 	@Override
@@ -40,17 +46,23 @@ public class IncubatorSlider extends Widget {
 	@Override
 	protected void renderBg(MatrixStack mStack, Minecraft par1Minecraft, int par2, int par3) {
 		if (this.visible) {
-			if (dragging)
-				this.sliderValue = (par2 - (this.x)) / (this.width - 2);
-			GuiUtils.drawContinuousTexturedBox(mStack, this.x + (int) (this.sliderValue * (float) (this.width - 2)),
-					this.y, 176, 0, 3, this.height, 3, 5, 0, this.getBlitOffset());
+			if (dragging) {
+				float marginedWidth = this.width - 2;
+				float marginedX = par2 - this.x;
+				this.sliderValue = ((float)(par2) - (this.x)) / (this.width - 2);
+				updateSlider();
+			}
+			//Minecraft.getInstance().textureManager.bindTexture(IncubatorScreen.GUI);
+			//this.blit(mStack, this.x + (int) ((this.sliderValue) * (float) (this.width - 2)), this.y, 176, 0, 3, 5);
+			GuiUtils.drawContinuousTexturedBox(mStack, IncubatorScreen.GUI,  this.x + (int) ((this.sliderValue) * (float) (this.width - 2)), this.y, 176, 0, 3, 5, 190, 266, 0, 0, 0, 0, 100);
 		}
+
 
 	}
 
 	@Override
 	public void onClick(double mouseX, double mouseY) {
-		this.sliderValue = (mouseX - (this.x)) / (this.width - 2);
+		this.sliderValue = (float) ((mouseX - (this.x)) / (this.width - 2));
 		updateSlider();
 		dragging = true;
 	}
@@ -68,14 +80,23 @@ public class IncubatorSlider extends Widget {
 		if (this.sliderValue > 1.0F) {
 			this.sliderValue = 1.0F;
 		}
+
+		this.onPress.onChange(this);
 	}
 
 	public int getValueInt() {
-		return (int) Math.round(sliderValue * (maxValue - minValue) + minValue);
+		return (int) Math.round(sliderValue * 100);
 	}
 
 	public double getValue() {
-		return sliderValue * (maxValue - minValue) + minValue;
+		return sliderValue * 100;
 	}
 
+	public int getIndex() {
+		return index;
+	}
+
+	public interface IncubatorSliderHandler{
+		public void onChange(IncubatorSlider slider);
+	}
 }

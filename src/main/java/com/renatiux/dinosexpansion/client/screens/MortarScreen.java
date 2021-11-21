@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.screens;
+package com.renatiux.dinosexpansion.client.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.renatiux.dinosexpansion.Dinosexpansion;

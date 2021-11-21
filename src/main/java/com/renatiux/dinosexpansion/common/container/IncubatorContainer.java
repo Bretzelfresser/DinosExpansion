@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.common.container;
 import com.renatiux.dinosexpansion.common.blocks.eggs.IIncubatorEgg;
 import com.renatiux.dinosexpansion.common.container.util.BaseTileEntityContainer;
 import com.renatiux.dinosexpansion.common.container.util.EnergyRefrenceHolder;
+import com.renatiux.dinosexpansion.common.tileEntities.EggHolder;
 import com.renatiux.dinosexpansion.common.tileEntities.IncubatorTileEntity;
 import com.renatiux.dinosexpansion.core.init.ContainerTypeInit;
 
@@ -13,6 +14,7 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.IntReferenceHolder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -29,7 +31,7 @@ public class IncubatorContainer extends BaseTileEntityContainer<IncubatorTileEnt
 	@Override
 	public void init() {
 		//obfuscated
-		addSlot(new Slot(tileEntity, 0, 59, 37));
+		addSlot(new Slot(tileEntity, 0, 57, 35));
 		//eggs
 		addSlot(new IncubatorSlot(tileEntity, 1, 87, 20));
 		addSlot(new IncubatorSlot(tileEntity, 2, 107, 7));
@@ -39,6 +41,45 @@ public class IncubatorContainer extends BaseTileEntityContainer<IncubatorTileEnt
 		
 		addPlayerInventory(8, 84);
 		trackEnergy();
+		for(EggHolder holder : tileEntity.getHolder()){
+			create(holder);
+		}
+	}
+
+	private void create(EggHolder holder){
+		trackInt(new EnergyRefrenceHolder() {
+			@Override
+			public int get() {
+				return holder.getHeat();
+			}
+
+			@Override
+			public void set(int value) {
+				holder.setHeat(value);
+			}
+		});
+		trackInt(new EnergyRefrenceHolder() {
+			@Override
+			public int get() {
+				return holder.getAge();
+			}
+
+			@Override
+			public void set(int value) {
+				holder.setAge(value);
+			}
+		});
+		trackInt(new EnergyRefrenceHolder() {
+			@Override
+			public int get() {
+				return holder.getCappedHeat();
+			}
+
+			@Override
+			public void set(int value) {
+				holder.setCappedHeat(value);
+			}
+		});
 	}
 	
 	private void trackEnergy() {

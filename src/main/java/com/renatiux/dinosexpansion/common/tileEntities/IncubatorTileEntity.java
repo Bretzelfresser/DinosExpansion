@@ -34,11 +34,16 @@ import net.minecraftforge.energy.EnergyStorage;
 
 public class IncubatorTileEntity extends ContainerTileEntity implements ITickableTileEntity {
 
-	protected BlockState eggs;
 	private Optional<UUID> owner = Optional.empty();
-	private BaseEnergyStorage storage = new BaseEnergyStorage(10000, 1000, 1000);
+	private BaseEnergyStorage storage = new BaseEnergyStorage(1000000, 1000, 1000, 1000000);
 	@OnlyIn(Dist.CLIENT)
 	private int guiEnergy = 0;
+	private EggHolder[] holders = new EggHolder[] {
+			new EggHolder(this, 1),
+			new EggHolder(this, 2),
+			new EggHolder(this, 3),
+			new EggHolder(this, 4),
+			new EggHolder(this, 5)};
 
 	public IncubatorTileEntity() {
 		super(TileEntityTypesInit.INCUBATOR.get(), 6);
@@ -64,6 +69,18 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 		return Optional.empty();
 	}
 
+	@Override
+	public boolean isItemValidForSlot(int slotIndex, ItemStack stack) {
+		if(slotIndex >= 1 && slotIndex >= holders.length){
+			if(stack.getItem() instanceof BlockItem) {
+				BlockItem item = (BlockItem) stack.getItem();
+				Block block = item.getBlock();
+				return block instanceof IIncubatorEgg && getStackInSlot(slotIndex).isEmpty();
+				}
+		}
+		return super.isItemValidForSlot(slotIndex, stack);
+	}
+
 	public boolean isOwner(PlayerEntity player) {
 		return owner.isPresent() && player.getUniqueID().equals(owner.get());
 	}
@@ -81,64 +98,34 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 	@Override
 	public void tick() {
 		if (world.isRemote) {
-			
 			return;
-		}
-		if (!getStackInSlot(0).isEmpty() && getStackInSlot(0).getItem() instanceof BlockItem) {
-			BlockItem egg = (BlockItem) getStackInSlot(0).getItem();
-			BlockState state = this.world.getBlockState(getPos());
-			if (this.eggs == null) {
-				this.eggs = egg.getBlock().getDefaultState();
-				this.world.notifyBlockUpdate(getPos(), state, state, 3);
-			} else if (this.eggs.get(BlockStateProperties.EGGS_1_4) != getStackInSlot(0).getCount()
-					&& getStackInSlot(0).getCount() <= 4) {
-				eggs = this.eggs.with(BlockStateProperties.EGGS_1_4, getStackInSlot(0).getCount());
-				this.world.notifyBlockUpdate(getPos(), state, state, 3);
-			}
 		}
 		if (shouldGrow() && canGrow()) {
 			System.out.println("grown");
-			grow();
 		}
+		/*
+		for (EggHolder holder : holders){
+			holder.tick();
+		}*/
+		holders[0].tick();
 
+	}
+
+	public boolean consumerEnergy(int energy){
+		int extracted = this.storage.extractEnergy(energy, true);
+		System.out.println(this.storage.extractEnergy(1, false));
+		if(extracted >= energy){
+			this.storage.extractEnergy(energy, false);
+			return true;
+		}
+		return false;
 	}
 
 	protected boolean canGrow() {
 		return !getStackInSlot(0).isEmpty() && hasOwner();
 	}
 
-	protected void grow() {
-		IIncubatorEgg egg;
-		if (getStackInSlot(0).getItem() instanceof BlockItem
-				&& ((BlockItem) getStackInSlot(0).getItem()).getBlock() instanceof IIncubatorEgg) {
-			egg = (IIncubatorEgg) ((BlockItem) getStackInSlot(0).getItem()).getBlock();
-		} else {
-			throw new IllegalStateException("item has to be a BlockItemb and the block has to implements IIncubatorEgg but this item: "
-					+ getStackInSlot(0).getItem().getRegistryName().toString() + " does not");
-		}
-		int i = eggs.get(BlockStateProperties.HATCH_0_2);
-		if (i < 2) {
-			world.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_TURTLE_EGG_CRACK, SoundCategory.BLOCKS, 0.7F,
-					0.9F + world.rand.nextFloat() * 0.2F);
-			eggs = eggs.with(BlockStateProperties.HATCH_0_2, Integer.valueOf(i + 1));
-		} else {
-			world.playSound((PlayerEntity) null, pos, SoundEvents.ENTITY_TURTLE_EGG_HATCH, SoundCategory.BLOCKS, 0.7F,
-					0.9F + world.rand.nextFloat() * 0.2F);
 
-			for (int j = 0; j < eggs.get(BlockStateProperties.EGGS_1_4); ++j) {
-				world.playEvent(2001, pos, Block.getStateId(eggs));
-				Dinosaur dino = egg.createChildEntity(world);
-				dino.setLocationAndAngles((double) pos.getX() + 0.3D + (double) j * 0.2D, (double) pos.getY(),
-						(double) pos.getZ() + 0.3D, 0.0F, 0.0F);
-				dino.setTamedBy(world.getPlayerByUuid(owner.get()));
-				world.addEntity(dino);
-			}
-			setInventorySlotContents(0, ItemStack.EMPTY);
-			eggs = null;
-		}
-		BlockState state = this.world.getBlockState(getPos());
-		this.world.notifyBlockUpdate(getPos(), state, state, 5);
-	}
 
 	@Override
 	public CompoundNBT getUpdateTag() {
@@ -173,17 +160,20 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		compound = super.write(compound);
-		if (eggs != null)
-			compound.putInt("age", eggs.get(BlockStateProperties.HATCH_0_2));
+		writeClientData(compound);
 		if(owner.isPresent())
 			compound.putUniqueId("owner", owner.get());
 		compound = storage.write(compound);
 		return compound;
 	}
 
+	/**
+	 * things written in here to the compound r written to the client and Server side
+	 */
 	protected CompoundNBT writeClientData(CompoundNBT compound) {
-		if (eggs != null)
-			compound.putInt("age", eggs.get(BlockStateProperties.HATCH_0_2));
+		for(EggHolder holder : holders){
+			compound = holder.write(compound);
+		}
 		return compound;
 	}
 
@@ -197,17 +187,14 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 		storage.read(nbt);
 	}
 
+	/**
+	 * this in here get read on server and Client side
+	 * @param state
+	 * @param nbt
+	 */
 	protected void readOwnData(BlockState state, CompoundNBT nbt) {
-		if (nbt.contains("age")) {
-			int age = nbt.getInt("age");
-			System.out.println(getStackInSlot(0).isEmpty());
-			if (!getStackInSlot(0).isEmpty() && getStackInSlot(0).getItem() instanceof BlockItem) {
-				BlockItem blockItem = (BlockItem) getStackInSlot(0).getItem();
-				eggs = blockItem.getBlock().getDefaultState().with(BlockStateProperties.HATCH_0_2, age)
-						.with(BlockStateProperties.EGGS_1_4, getStackInSlot(0).getCount());
-			}
-		}else {
-			eggs = null;
+		for(EggHolder holder : holders){
+			holder.read(state, nbt);
 		}
 	}
 	
@@ -222,12 +209,31 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 
 	@Nullable
 	public BlockState getEgg() {
-		return eggs;
+		return null;
 	}
 
 	protected boolean shouldGrow() {
 		return this.world.rand.nextDouble() < 0.001;
 	}
+
+	/**
+	 *keep in mind that this is not immutable, if u change anything it will be changed in here too
+	 *
+	 * @param index - the index of the egg holder slot
+	 * @return - the egg holder that is in duty for that slot
+	 */
+	public EggHolder getEggHolder(int index){
+		if(index < 0 || index >= holders.length)
+			throw new IllegalArgumentException("Egg holder index has to be in bounds of array currently going from 0 to " + (holders.length - 1));
+		return holders[index];
+	}
+
+	/**
+	 * use this with caution
+	 * @return
+	 */
+	public EggHolder[] getHolder(){ return holders;}
+
 	@OnlyIn(Dist.CLIENT)
 	public int getGuiEnergy() {
 		return guiEnergy;

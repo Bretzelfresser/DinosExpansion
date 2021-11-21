@@ -30,7 +30,6 @@ public class AttackPacket {
 		NetworkEvent.Context context = supplier.get();
 		context.enqueueWork(() -> {
 			ServerPlayerEntity player = context.getSender();
-			System.out.println("hi");
 			if(player.isPassenger()) {
 				Entity ridden = player.getRidingEntity();
 				if(ridden instanceof Dinosaur) {

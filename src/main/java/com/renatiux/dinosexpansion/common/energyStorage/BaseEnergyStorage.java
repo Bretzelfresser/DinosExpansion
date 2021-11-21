@@ -55,7 +55,7 @@ public class BaseEnergyStorage extends EnergyStorage{
 	
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		int returnInt = super.extractEnergy(maxReceive, simulate);
+		int returnInt = super.extractEnergy(maxExtract, simulate);
 		if(returnInt > 0 && listener != null)
 			listener.onEnergyChanged(this, -returnInt);
 		return returnInt;

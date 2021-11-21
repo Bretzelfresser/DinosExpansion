@@ -9,12 +9,13 @@ public class DEModConfig {
     public static final Random random = new Random();
     public static BoomerangConfig BOOMERANGCONFIG;
     public static ToolsConfig TOOLCONFIG;
+    public static IncubatorConfig INCUBATRO_CONFIG;
 
     public static ForgeConfigSpec init(ForgeConfigSpec.Builder builder) {
 
         BOOMERANGCONFIG = new BoomerangConfig(builder);
         TOOLCONFIG = new ToolsConfig(builder);
-
+        INCUBATRO_CONFIG = new IncubatorConfig(builder);
         return builder.build();
     }
 
@@ -85,6 +86,17 @@ public static class BoomerangConfig {
             excavatorDuraLossMulti = builder.defineInRange("ExcavatorDuraLossMulti", 2, 1, Integer.MAX_VALUE);
             weaponfireability = builder.comment("Fire Ability").define("Turn on the enemy",true);
             builder.pop();
+        }
+    }
+
+    public static class IncubatorConfig{
+        public final ForgeConfigSpec.IntValue maxEnergyConsumnerPerEgg;
+        public final ForgeConfigSpec.IntValue incubatorSpeedMultiplayer;
+
+        public IncubatorConfig(ForgeConfigSpec.Builder builder){
+            builder.comment("configs of the incubator").push("Incubator");
+            maxEnergyConsumnerPerEgg = builder.defineInRange("MaxEnergyPerEgg", 120, 1, Integer.MAX_VALUE);
+            incubatorSpeedMultiplayer = builder.defineInRange("SpeedMultiplayer", 1, 1, 10);
         }
     }
 }

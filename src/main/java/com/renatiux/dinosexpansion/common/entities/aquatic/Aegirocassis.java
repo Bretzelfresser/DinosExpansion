@@ -27,8 +27,8 @@ public class Aegirocassis extends WaterMobEntity implements IAnimatable {
 
     protected AnimationFactory factory = new AnimationFactory(this);
 
-    public Aegirocassis(EntityType<? extends WaterMobEntity> type, World p_i48565_2_) {
-        super(type, p_i48565_2_);
+    public Aegirocassis(EntityType<? extends WaterMobEntity> type, World world) {
+        super(type, world);
         this.moveController = new AquaticMoveController(this, 1F);
     }
 
