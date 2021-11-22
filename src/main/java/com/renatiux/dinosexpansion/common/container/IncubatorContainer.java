@@ -37,7 +37,7 @@ public class IncubatorContainer extends BaseTileEntityContainer<IncubatorTileEnt
 		addSlot(new IncubatorSlot(tileEntity, 2, 107, 7));
 		addSlot(new IncubatorSlot(tileEntity, 3, 127, 20));
 		addSlot(new IncubatorSlot(tileEntity, 4, 96, 51));
-		addSlot(new IncubatorSlot(tileEntity, 2, 117, 51));
+		addSlot(new IncubatorSlot(tileEntity, 5, 117, 51));
 		
 		addPlayerInventory(8, 84);
 		trackEnergy();
@@ -94,6 +94,17 @@ public class IncubatorContainer extends BaseTileEntityContainer<IncubatorTileEnt
 			@Override
 			public int get() {
 				return tileEntity.getEnergyStorage().getEnergyStored();
+			}
+		});
+		trackInt(new EnergyRefrenceHolder() {
+			@Override
+			public int get() {
+				return tileEntity.getEnergyNeeded();
+			}
+
+			@Override
+			public void set(int value) {
+				tileEntity.setNeededEnergyPerTick(value);
 			}
 		});
 	}

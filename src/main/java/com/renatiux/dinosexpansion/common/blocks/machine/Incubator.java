@@ -5,6 +5,7 @@ import com.renatiux.dinosexpansion.common.blocks.eggs.IIncubatorEgg;
 import com.renatiux.dinosexpansion.common.tileEntities.IncubatorTileEntity;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 
+import com.renatiux.dinosexpansion.util.WorldUtils;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -44,38 +45,15 @@ public class Incubator extends ShapedBlock{
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
 			Hand handIn, BlockRayTraceResult hit) {
 		if(!worldIn.isRemote) {
-			TileEntity te = worldIn.getTileEntity(pos);
-			IncubatorTileEntity incubatorTe = null;
-			if(te instanceof IncubatorTileEntity) {
-				incubatorTe = (IncubatorTileEntity) te;
-			}
+			IncubatorTileEntity incubatorTe = WorldUtils.getTileEntity(IncubatorTileEntity.class, worldIn, pos);
 			if(incubatorTe != null && !incubatorTe.isOwner(player)) {
 				player.sendMessage(new TranslationTextComponent("message.dinosexpansion.isnt_owner"), player.getUniqueID());
 				return ActionResultType.FAIL;
 			}
 			ItemStack heldItems = player.getHeldItem(handIn);
-			ItemStack incubatorItem = incubatorTe.getStackInSlot(0);
 			if(incubatorTe != null && heldItems.isEmpty()) {
-				System.out.println(incubatorTe.getEnergyStorage().getEnergyStored());
 				NetworkHooks.openGui((ServerPlayerEntity) player, incubatorTe, pos);
-			}
-			if(incubatorTe != null && !heldItems.isEmpty() && heldItems.getItem() instanceof BlockItem && ((BlockItem)heldItems.getItem()).getBlock() instanceof IIncubatorEgg) {
-				int toShrink = 0;
-				if(incubatorItem.isEmpty()) {
-					toShrink = Math.min(4, heldItems.getCount());
-					incubatorTe.setInventorySlotContents(0, new ItemStack(heldItems.getItem(), toShrink));
-					heldItems.shrink(toShrink);
-					worldIn.notifyBlockUpdate(pos, state, state, 5);
-					return ActionResultType.SUCCESS;
-				}else if(incubatorItem.getItem() == heldItems.getItem()) {
-					toShrink = Math.min(4 - incubatorItem.getCount(), heldItems.getCount());
-					incubatorItem.grow(toShrink);
-					heldItems.shrink(toShrink);
-					worldIn.notifyBlockUpdate(pos, state, state, 5);
-					return ActionResultType.SUCCESS;
-				}
-				
-				
+				return ActionResultType.SUCCESS;
 			}
 		}
 		return ActionResultType.FAIL;

@@ -37,7 +37,7 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 	private Optional<UUID> owner = Optional.empty();
 	private BaseEnergyStorage storage = new BaseEnergyStorage(1000000, 1000, 1000, 1000000);
 	@OnlyIn(Dist.CLIENT)
-	private int guiEnergy = 0;
+	private int guiEnergy = 0, neededEnergyPerTick;
 	private EggHolder[] holders = new EggHolder[] {
 			new EggHolder(this, 1),
 			new EggHolder(this, 2),
@@ -100,20 +100,17 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 		if (world.isRemote) {
 			return;
 		}
-		if (shouldGrow() && canGrow()) {
+		if (shouldGrow() && canGrow(0)) {
 			System.out.println("grown");
 		}
-		/*
 		for (EggHolder holder : holders){
 			holder.tick();
-		}*/
-		holders[0].tick();
+		}
 
 	}
 
 	public boolean consumerEnergy(int energy){
 		int extracted = this.storage.extractEnergy(energy, true);
-		System.out.println(this.storage.extractEnergy(1, false));
 		if(extracted >= energy){
 			this.storage.extractEnergy(energy, false);
 			return true;
@@ -121,8 +118,8 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 		return false;
 	}
 
-	protected boolean canGrow() {
-		return !getStackInSlot(0).isEmpty() && hasOwner();
+	protected boolean canGrow(int index) {
+		return !getStackInSlot(++index).isEmpty() && hasOwner();
 	}
 
 
@@ -137,13 +134,11 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 	public SUpdateTileEntityPacket getUpdatePacket() {
 		CompoundNBT nbt = writeClientData(new CompoundNBT());
 		nbt = writeItems(nbt);
-		System.out.println("packet created");
 		return new SUpdateTileEntityPacket(getPos(), 10, nbt);
 	}
 
 	@Override
 	public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-		System.out.println("when is this executed?");
 		readItems(tag);
 		readOwnData(state, tag);
 
@@ -228,6 +223,14 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 		return holders[index];
 	}
 
+	public int getEnergyNeeded(){
+		int energy = 0;
+		for (EggHolder holder : holders){
+			energy += holder.energyPerTick();
+		}
+		return energy;
+	}
+
 	/**
 	 * use this with caution
 	 * @return
@@ -242,7 +245,12 @@ public class IncubatorTileEntity extends ContainerTileEntity implements ITickabl
 	public void setGuiEnergy(int guiEnergy) {
 		this.guiEnergy = guiEnergy;
 	}
-	
-	
-
+	@OnlyIn(Dist.CLIENT)
+	public int getNeededEnergyPerTick() {
+		return neededEnergyPerTick;
+	}
+	@OnlyIn(Dist.CLIENT)
+	public void setNeededEnergyPerTick(int neededEnergyPerTick) {
+		this.neededEnergyPerTick = neededEnergyPerTick;
+	}
 }

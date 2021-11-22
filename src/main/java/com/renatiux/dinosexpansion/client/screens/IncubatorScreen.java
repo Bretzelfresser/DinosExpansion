@@ -39,6 +39,10 @@ public class IncubatorScreen extends ContainerScreen<IncubatorContainer> {
         offsetX = (this.width - this.xSize) / 2;
         offsetY = (this.height - this.ySize) / 2;
         addButton(new IncubatorSlider(offsetX + 85, offsetY + 38, container.getTileEntity().getEggHolder(0).getCappedHeat(), 0, this::onChange));
+        addButton(new IncubatorSlider(offsetX + 105, offsetY + 25, container.getTileEntity().getEggHolder(1).getCappedHeat(), 1, this::onChange));
+        addButton(new IncubatorSlider(offsetX + 125, offsetY + 38, container.getTileEntity().getEggHolder(2).getCappedHeat(), 2, this::onChange));
+        addButton(new IncubatorSlider(offsetX + 94, offsetY + 69, container.getTileEntity().getEggHolder(3).getCappedHeat(), 3, this::onChange));
+        addButton(new IncubatorSlider(offsetX + 115, offsetY + 69, container.getTileEntity().getEggHolder(4).getCappedHeat(), 4, this::onChange));
 
     }
 
@@ -53,6 +57,14 @@ public class IncubatorScreen extends ContainerScreen<IncubatorContainer> {
         this.blit(matrixStack, offsetX + 32, offsetY + 23 + 40 - height, 177, 11, 12, height);
         // index 0
         this.blit(matrixStack, offsetX + 89, offsetY + 45, 177, 6, (int) (12 * container.getTileEntity().getEggHolder(0).getHeatPercentage()), 3);
+        //index 1
+        this.blit(matrixStack, offsetX + 109, offsetY + 32, 177, 6, (int) (12 * container.getTileEntity().getEggHolder(1).getHeatPercentage()), 3);
+        //index 2
+        this.blit(matrixStack, offsetX + 129, offsetY + 45, 177, 6, (int) (12 * container.getTileEntity().getEggHolder(2).getHeatPercentage()), 3);
+        //index 3
+        this.blit(matrixStack, offsetX + 98, offsetY + 76, 177, 6, (int) (12 * container.getTileEntity().getEggHolder(3).getHeatPercentage()), 3);
+        //index 4
+        this.blit(matrixStack, offsetX + 119, offsetY + 76, 177, 6, (int) (12 * container.getTileEntity().getEggHolder(4).getHeatPercentage()), 3);
 
     }
 
@@ -74,6 +86,7 @@ public class IncubatorScreen extends ContainerScreen<IncubatorContainer> {
         if (x >= offsetX + 31 && y >= offsetY + 23 && x <= offsetX + 44 && y <= offsetY + 63) {
             this.renderTooltip(matrixStack, new StringTextComponent(container.getTileEntity().getGuiEnergy() + "/"
                     + container.getTileEntity().getEnergyStorage().getMaxEnergyStored()), x, y);
+            this.renderTooltip(matrixStack, new StringTextComponent(container.getTileEntity().getNeededEnergyPerTick() + " RF/Tick"), x, y + 13);
         }
         super.renderHoveredTooltip(matrixStack, x, y);
     }

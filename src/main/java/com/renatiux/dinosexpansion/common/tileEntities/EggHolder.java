@@ -4,14 +4,17 @@ import javax.annotation.Nullable;
 
 import com.renatiux.dinosexpansion.common.blocks.eggs.IIncubatorEgg;
 
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.model.BlockPart;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.util.math.BlockPos;
 
 public class EggHolder {
 
@@ -37,7 +40,7 @@ public class EggHolder {
         if (tileEntity.getWorld().isRemote) {
             return;
         }
-        if (!tileEntity.consumerEnergy(energyPerTick())) {
+        if (!tileEntity.consumerEnergy(energyPerTick()) || heat > cappedHeat) {
             if(heat > 0)
                 heat--;
         } else {
@@ -50,8 +53,19 @@ public class EggHolder {
         if (randomChanceWithEfficiency()) {
             BlockState state = getEgg();
             if (state != null && state.getBlock() instanceof IIncubatorEgg) {
+                if(this.age >= 2){
+                    Dinosaur dino = ((IIncubatorEgg) state.getBlock()).createChildEntity(tileEntity.getWorld());
+                    BlockPos pos = tileEntity.getPos();
+                    dino.setLocationAndAngles((double) pos.getX() + 0.3D + 0.2D,
+                            (double) pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
+                   tileEntity.getWorld().addEntity(dino);
+                    tileEntity.decrStackSize(this.slotIndex, 1);
+                    this.age = 0;
+                    return;
+                }
                 BlockState grownEgg = ((IIncubatorEgg) state.getBlock()).grow(state, tileEntity.getWorld(), 1 + getHeatPercentage());
                 this.age = grownEgg.get(BlockStateProperties.HATCH_0_2);
+                System.out.println(this.age);
             }
         }
     }
@@ -130,12 +144,13 @@ public class EggHolder {
     public void read(BlockState state, CompoundNBT nbt) {
         nbt.putInt("age", this.age);
         nbt.putInt("heat", this.heat);
+        nbt.putInt("cappedHeat", cappedHeat);
     }
 
     public CompoundNBT write(CompoundNBT compound) {
         this.age = compound.getInt("age");
         this.heat = compound.getInt("heat");
-
+        this.cappedHeat = compound.getInt("cappedHeat");
         return compound;
     }
 

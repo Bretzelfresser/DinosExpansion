@@ -121,7 +121,7 @@ public abstract class AbstractCableBlock extends Block implements IWaterLoggable
 		    return false;
 		  }
 
-	public static enum ConnectionType implements IStringSerializable {
+	public enum ConnectionType implements IStringSerializable {
 
 		NONE, CABLE, INVENTORY, BLOCKED;
 
