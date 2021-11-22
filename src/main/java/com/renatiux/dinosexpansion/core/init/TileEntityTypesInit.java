@@ -1,11 +1,8 @@
 package com.renatiux.dinosexpansion.core.init;
 
+import com.google.common.collect.Sets;
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.common.tileEntities.AdvancedSmithingTableTileEntity;
-import com.renatiux.dinosexpansion.common.tileEntities.GeneratorTileEntity;
-import com.renatiux.dinosexpansion.common.tileEntities.IncubatorTileEntity;
-import com.renatiux.dinosexpansion.common.tileEntities.IndustrialGrillTileEntity;
-import com.renatiux.dinosexpansion.common.tileEntities.MortarTileEntity;
+import com.renatiux.dinosexpansion.common.tileEntities.*;
 import com.renatiux.dinosexpansion.common.tileEntities.cable.BasicEnergyCableTileEntity;
 
 import net.minecraft.tileentity.TileEntityType;
@@ -29,4 +26,7 @@ public class TileEntityTypesInit {
 			() -> TileEntityType.Builder.create(BasicEnergyCableTileEntity::new, BlockInit.BASIC_ENERGY_CABLE.getPrimary()).build(null));
 	public static final RegistryObject<TileEntityType<GeneratorTileEntity>> GENERATOR = TILE_ENTITY_TYPES.register("generator", 
 			() -> TileEntityType.Builder.create(GeneratorTileEntity::new, BlockInit.GENERATOR.getPrimary()).build(null));
+
+	public static final RegistryObject<TileEntityType<PrehistoricBedTileEntity>> PREHISTORIC_BED = TILE_ENTITY_TYPES.register("prehistoric_bed",
+			() -> new TileEntityType<>(PrehistoricBedTileEntity::new, Sets.newHashSet(BlockInit.PREHISTORIC_BED.get()), null));
 }

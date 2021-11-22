@@ -12,6 +12,6 @@ public final class DinoRiverInitLayer implements IC0Transformer {
 
     @Override
     public int apply(INoiseRandom context, int value) {
-        return DinoLayerUtil.isOcean(value) ? value : context.random(4) + 1;
+        return DinoLayerUtil.isShallowOcean(value) ? value : context.random(4) + 1;
     }
 }

@@ -12,11 +12,11 @@ public class DinoRiverLayer implements ICastleTransformer {
     @Override
     public int apply(INoiseRandom random, int north, int east, int south, int west, int center)
     {
-        if(center != north || center != east || center != south || center != west)
-        {
-            return DinoLayerUtil.getBiomeId(BiomeKeys.DINO_RIVER);
-        }
+        int i = riverFilter(center);
+        return i == riverFilter(east) && i == riverFilter(north) && i == riverFilter(west) && i == riverFilter(south) ? -1 : DinoLayerUtil.getBiomeId(BiomeKeys.DINO_RIVER);
+    }
 
-        return -1;
+    private static int riverFilter(int val1) {
+        return val1 >= DinoLayerUtil.getBiomeId(BiomeKeys.DESERT) ? DinoLayerUtil.getBiomeId(BiomeKeys.DESERT) + (val1 & DinoLayerUtil.getBiomeId(BiomeKeys.PLAINS)) : val1;
     }
 }

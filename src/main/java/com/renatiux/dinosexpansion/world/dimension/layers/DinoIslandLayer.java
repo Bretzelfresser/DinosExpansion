@@ -12,12 +12,12 @@ public class DinoIslandLayer implements IIslandLayer {
     @Override
     public int land()
     {
-        return DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT);
+        return DinoLayerUtil.getBiomeId(BiomeKeys.PLAINS);
     }
 
     @Override
     public int ocean()
     {
-        return DinoLayerUtil.getBiomeId(BiomeKeys.DINO_OCEAN);
+        return DinoLayerUtil.getBiomeId(BiomeKeys.OCEAN);
     }
 }

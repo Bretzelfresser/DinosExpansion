@@ -19,7 +19,7 @@ public class DinoAddInlandLayer implements IBishopTransformer {
     {
         if(DinoLayerUtil.isLand(nw) && DinoLayerUtil.isLand(sw) && DinoLayerUtil.isLand(ne) && DinoLayerUtil.isLand(se) && DinoLayerUtil.isLand(center) && random.random(chance) == 0)
         {
-            return DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT);
+            return DinoLayerUtil.getBiomeId(BiomeKeys.DESERT);
         }
 
         return center;

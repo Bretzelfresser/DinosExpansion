@@ -85,6 +85,7 @@ public class BiomeInit {
     public static final RegistryObject<Biome> DEEP_WARM_OCEAN = BIOMES.register("deep_warm_ocean", DeepWarmOcean::create);
 
     public static final RegistryObject<Biome> PLAINS = BIOMES.register("plains", Plains::create);
+    public static final RegistryObject<Biome> PLAINS_HILLS = BIOMES.register("plains_hills", ()-> Plains.create(0.45F, 0.3F));
 
     public static final RegistryObject<Biome> RIVER = BIOMES.register("river", River::create);
 

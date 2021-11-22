@@ -1,0 +1,7 @@
+{
+  "parent": "dinosexpansion:block/prehistoric_bed",
+  "textures": {
+    "particle": "dinosexpansion:blocks/prehistoric_bed",
+    "prehistoric_bed": "dinosexpansion:blocks/prehistoric_bed"
+  }
+}

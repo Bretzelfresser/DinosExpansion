@@ -36,7 +36,7 @@ public class DinoAddWeightedSubBiomeLayer implements IC0Transformer {
 
     public static DinoAddWeightedSubBiomeLayer ocean()
     {
-        return new DinoAddWeightedSubBiomeLayer(DinoLayerUtil.getBiomeId(BiomeKeys.DINO_OCEAN), new int[] { DinoLayerUtil.getBiomeId(BiomeKeys.DINO_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_DINO_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DINO_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.WARM_DEEP_DINO_OCEAN) }, new WeightedRandom.Item(20), new WeightedRandom.Item(4), new WeightedRandom.Item(20), new WeightedRandom.Item(4));
+        return new DinoAddWeightedSubBiomeLayer(DinoLayerUtil.getBiomeId(BiomeKeys.OCEAN), new int[] { DinoLayerUtil.getBiomeId(BiomeKeys.OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.WARM_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_WARM_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.LUKE_WARM_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_LUKE_WARM_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.COLD_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_COLD_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.FROZEN_OCEAN), DinoLayerUtil.getBiomeId(BiomeKeys.DEEP_FROZEN_OCEAN) }, new WeightedRandom.Item(20), new WeightedRandom.Item(4), new WeightedRandom.Item(20), new WeightedRandom.Item(4), new WeightedRandom.Item(20), new WeightedRandom.Item(4), new WeightedRandom.Item(20), new WeightedRandom.Item(4), new WeightedRandom.Item(20), new WeightedRandom.Item(4));
     }
 
     @Override

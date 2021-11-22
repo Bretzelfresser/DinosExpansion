@@ -23,7 +23,7 @@ public class DinoAddSubBiomeLayer implements IC0Transformer {
 
     public static DinoAddSubBiomeLayer desert()
     {
-        return new DinoAddSubBiomeLayer(DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT), new int[] { DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT), DinoLayerUtil.getBiomeId(BiomeKeys.DINO_DESERT_HILLS) });
+        return new DinoAddSubBiomeLayer(DinoLayerUtil.getBiomeId(BiomeKeys.DESERT), new int[] { DinoLayerUtil.getBiomeId(BiomeKeys.DESERT), DinoLayerUtil.getBiomeId(BiomeKeys.DESERT_HILLS) });
     }
 
     public static DinoAddSubBiomeLayer plains()

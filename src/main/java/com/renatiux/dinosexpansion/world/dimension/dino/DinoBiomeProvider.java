@@ -29,7 +29,6 @@ public class DinoBiomeProvider extends BiomeProvider {
     private final Layer genBiomes;
     private static final List<RegistryKey<Biome>> POSSIBLE_BIOMES  = ImmutableList.of(
 
-            BiomeKeys.DEEP_DINO_OCEAN,
             BiomeKeys.DINO_DESERT,
             BiomeKeys.DINO_CONIFER_FOREST,
             BiomeKeys.DINO_BEACH,
@@ -37,20 +36,30 @@ public class DinoBiomeProvider extends BiomeProvider {
             BiomeKeys.DINO_CONIFER_FOREST_HILLS,
             BiomeKeys.DINO_DESERT_HILLS,
             BiomeKeys.DINO_MOUNTAINS,
-            BiomeKeys.DINO_OCEAN,
             BiomeKeys.DINO_PLAINS_HILLS,
             BiomeKeys.DINO_RIVER,
             BiomeKeys.DINO_STONE_BEACH,
             BiomeKeys.DINO_SWAMP,
             BiomeKeys.REDWOOD_FOREST,
             BiomeKeys.REDWOOD_FOREST_HILLS,
-            BiomeKeys.WARM_DEEP_DINO_OCEAN,
-            BiomeKeys.WARM_DINO_OCEAN,
+
 
             /*-------------------------------------*/
 
             BiomeKeys.DESERT,
-            BiomeKeys.DESERT_HILLS
+            BiomeKeys.DESERT_HILLS,
+            BiomeKeys.PLAINS,
+
+            BiomeKeys.OCEAN,
+            BiomeKeys.DEEP_OCEAN,
+            BiomeKeys.WARM_OCEAN,
+            BiomeKeys.DEEP_WARM_OCEAN,
+            BiomeKeys.LUKE_WARM_OCEAN,
+            BiomeKeys.DEEP_LUKE_WARM_OCEAN,
+            BiomeKeys.COLD_OCEAN,
+            BiomeKeys.DEEP_COLD_OCEAN,
+            BiomeKeys.FROZEN_OCEAN,
+            BiomeKeys.DEEP_FROZEN_OCEAN
 
     );
 

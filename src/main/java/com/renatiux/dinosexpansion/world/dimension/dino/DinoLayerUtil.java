@@ -87,7 +87,12 @@ public class DinoLayerUtil {
 
     public static boolean isOcean(int biomeSeed)
     {
-        return biomeSeed == getBiomeId(BiomeKeys.DINO_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.WARM_DINO_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.DEEP_DINO_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.WARM_DEEP_DINO_OCEAN);
+        return biomeSeed == getBiomeId(BiomeKeys.OCEAN) || biomeSeed == getBiomeId(BiomeKeys.DEEP_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.LUKE_WARM_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.DEEP_LUKE_WARM_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.WARM_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.DEEP_WARM_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.FROZEN_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.DEEP_FROZEN_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.COLD_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.DEEP_COLD_OCEAN);
+    }
+
+    public static boolean isShallowOcean(int biomeSeed)
+    {
+        return biomeSeed == getBiomeId(BiomeKeys.OCEAN) || biomeSeed == getBiomeId(BiomeKeys.LUKE_WARM_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.WARM_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.COLD_OCEAN) || biomeSeed == getBiomeId(BiomeKeys.FROZEN_OCEAN);
     }
 
     public static boolean isRiver(int biomeSeed)
@@ -97,7 +102,7 @@ public class DinoLayerUtil {
 
     public static boolean isLand(int biomeSeed)
     {
-        return biomeSeed == getBiomeId(BiomeKeys.REDWOOD_FOREST) || biomeSeed == getBiomeId(BiomeKeys.REDWOOD_FOREST_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_DESERT) || biomeSeed == getBiomeId(BiomeKeys.DINO_DESERT_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_PLAINS) || biomeSeed == getBiomeId(BiomeKeys.DINO_PLAINS_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_MOUNTAINS) || biomeSeed == getBiomeId(BiomeKeys.DINO_BEACH) || biomeSeed == getBiomeId(BiomeKeys.DINO_STONE_BEACH) || biomeSeed == getBiomeId(BiomeKeys.DINO_CONIFER_FOREST) || biomeSeed == getBiomeId(BiomeKeys.DINO_CONIFER_FOREST_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_SWAMP);
+        return biomeSeed == getBiomeId(BiomeKeys.REDWOOD_FOREST) || biomeSeed == getBiomeId(BiomeKeys.REDWOOD_FOREST_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DESERT) || biomeSeed == getBiomeId(BiomeKeys.DESERT_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_PLAINS) || biomeSeed == getBiomeId(BiomeKeys.DINO_PLAINS_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_MOUNTAINS) || biomeSeed == getBiomeId(BiomeKeys.DINO_BEACH) || biomeSeed == getBiomeId(BiomeKeys.DINO_STONE_BEACH) || biomeSeed == getBiomeId(BiomeKeys.DINO_CONIFER_FOREST) || biomeSeed == getBiomeId(BiomeKeys.DINO_CONIFER_FOREST_HILLS) || biomeSeed == getBiomeId(BiomeKeys.DINO_SWAMP);
     }
 
     private static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> magnify(long seed, IAreaTransformer1 zoomLayer, IAreaFactory<T> layer, int count, LongFunction<C> context)

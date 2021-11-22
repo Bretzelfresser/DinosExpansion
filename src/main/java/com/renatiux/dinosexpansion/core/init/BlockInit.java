@@ -13,11 +13,8 @@ import com.renatiux.dinosexpansion.common.blocks.cables.BasicEnergyCable;
 import com.renatiux.dinosexpansion.common.blocks.crops.DECropsBlock;
 import com.renatiux.dinosexpansion.common.blocks.crops.DEDoubleCropsBlock;
 import com.renatiux.dinosexpansion.common.blocks.eggs.AllosaurusEggBlock;
-import com.renatiux.dinosexpansion.common.blocks.machine.AdvancedSmithingTable;
-import com.renatiux.dinosexpansion.common.blocks.machine.Generator;
-import com.renatiux.dinosexpansion.common.blocks.machine.Incubator;
-import com.renatiux.dinosexpansion.common.blocks.machine.IndustrialGrill;
-import com.renatiux.dinosexpansion.common.blocks.machine.Mortar;
+import com.renatiux.dinosexpansion.common.blocks.eggs.DodoEggBlock;
+import com.renatiux.dinosexpansion.common.blocks.machine.*;
 import com.renatiux.dinosexpansion.common.blocks.plants.DEDoubleFlowerBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DEFlowerBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DETripleFlowerBlock;
@@ -33,24 +30,13 @@ import com.renatiux.dinosexpansion.util.LightUtil;
 import com.renatiux.dinosexpansion.util.registration.BlockDeferredRegister;
 import com.renatiux.dinosexpansion.util.registration.DoubleRegistryObject;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.GrassBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.MagmaBlock;
-import net.minecraft.block.RedstoneOreBlock;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SandBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SnowyDirtBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.WallBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.state.properties.BedPart;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -64,6 +50,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.function.Supplier;
 
 
 @Mod.EventBusSubscriber(modid = Dinosexpansion.MODID, bus = Bus.MOD)
@@ -160,6 +148,7 @@ public class BlockInit {
 
 	//eggs
 	public static final RegistryObject<Block> ALLOSAURUS_EGG = EGGS.register("allosaurus_egg", AllosaurusEggBlock::new);
+	public static final RegistryObject<Block> DODO_EGG = EGGS.register("dodo_egg", DodoEggBlock::new);
 
 
 	//environment
@@ -323,6 +312,10 @@ public class BlockInit {
 	public static final RegistryObject<Block> ADOBE_BRICKS_WALL = BASIC_BLOCKS.register("adobe_bricks_wall",
 			()-> new WallBlock(AbstractBlock.Properties.from(ADOBE_BRICKS.get())));
 
+	public static final RegistryObject<Block> PREHISTORIC_BED = BASIC_BLOCKS.register("prehistoric_bed", createPrehistoricBed(DyeColor.BROWN));
+
+
+
 	//Food
 	public static final RegistryObject<Block> WHALE_RAW_MEAT_BLOCK = BASIC_BLOCKS.register("whale_raw_meat_block",
 			()-> new Block(AbstractBlock.Properties.create(Material.SPONGE, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(0.4F).harvestLevel(0).harvestTool(ToolType.AXE).sound(new ForgeSoundType(1.0F, 0.5F, () ->SoundEvents.BLOCK_CORAL_BLOCK_BREAK, () ->SoundEvents.BLOCK_CORAL_BLOCK_STEP, () ->SoundEvents.BLOCK_CORAL_BLOCK_PLACE, () ->SoundEvents.BLOCK_CORAL_BLOCK_HIT, () ->SoundEvents.BLOCK_CORAL_BLOCK_FALL))));
@@ -334,6 +327,11 @@ public class BlockInit {
 		return true;
 	}
 
+	private static Supplier<Block> createPrehistoricBed(DyeColor color) {
+		return () -> new PrehistoricBed(color, AbstractBlock.Properties.create(Material.WOOL, (state) -> {
+			return state.get(BedBlock.PART) == BedPart.FOOT ? color.getMapColor() : MaterialColor.WOOL;
+		}).sound(SoundType.WOOD).hardnessAndResistance(0.2F).notSolid());
+	}
 	/*
 	 * registers to every Block registered with the MACHINES Deferred Register a BlockItem
 	 */

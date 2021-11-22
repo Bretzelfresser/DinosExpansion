@@ -3,15 +3,20 @@ package com.renatiux.dinosexpansion.core.events;
 import java.util.List;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.common.blocks.machine.PrehistoricBed;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.DinosaurStatus;
 import com.renatiux.dinosexpansion.common.entities.projectiles.NarcoticArrowEntity;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerSetSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -52,4 +57,20 @@ public class ServerEvents {
 		mobIn.setAttackTarget(targetIn);
 	}
 
+	@SubscribeEvent
+	public void onPlayerSetSpawn(PlayerSetSpawnEvent event){
+
+		final PlayerEntity player = event.getPlayer();
+		final World world = player.getEntityWorld();
+		final BlockPos pos = event.getNewSpawn();
+
+		if (pos != null && !world.isRemote) {
+			Block block = world.getBlockState(pos).getBlock();
+
+			if (block instanceof PrehistoricBed) {
+				event.setCanceled(true);
+			}
+		}
+
+	}
 }
