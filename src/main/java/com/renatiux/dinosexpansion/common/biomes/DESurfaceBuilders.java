@@ -24,8 +24,8 @@ public class DESurfaceBuilders {
     /*-------*/
 
     //Config
-    public static final SurfaceBuilderConfig WHITE_SAND = new SurfaceBuilderConfig(BlockInit.WHITE_SAND.get().getDefaultState(), BlockInit.WHITE_SAND.get().getDefaultState(), BlockInit.WHITE_SANDSTONE.get().getDefaultState());
-    public static final SurfaceBuilderConfig OCEAN = new SurfaceBuilderConfig(BlockInit.WHITE_SAND.get().getDefaultState(), BlockInit.WHITE_SAND.get().getDefaultState(), BlockInit.WHITE_SAND.get().getDefaultState());
+    public static final SurfaceBuilderConfig WHITE_SAND = new SurfaceBuilderConfig(BlockInit.DINO_WHITE_SAND.get().getDefaultState(), BlockInit.DINO_WHITE_SAND.get().getDefaultState(), BlockInit.DINO_WHITE_SANDSTONE.get().getDefaultState());
+    public static final SurfaceBuilderConfig OCEAN = new SurfaceBuilderConfig(BlockInit.DINO_WHITE_SAND.get().getDefaultState(), BlockInit.DINO_WHITE_SAND.get().getDefaultState(), BlockInit.DINO_WHITE_SAND.get().getDefaultState());
     public static final SurfaceBuilderConfig SILT = new SurfaceBuilderConfig(BlockInit.DINO_SILT.get().getDefaultState(), BlockInit.DINO_SILT.get().getDefaultState(), BlockInit.DINO_SILT.get().getDefaultState());
     public static final SurfaceBuilderConfig STONE = new SurfaceBuilderConfig(BlockInit.DINO_STONE.get().getDefaultState(), BlockInit.DINO_STONE.get().getDefaultState(), BlockInit.DINO_STONE.get().getDefaultState());
     public static final SurfaceBuilderConfig PODZOL = new SurfaceBuilderConfig(BlockInit.DINO_PODZOL.get().getDefaultState(), BlockInit.DINO_PODZOL.get().getDefaultState(), BlockInit.DINO_DIRT.get().getDefaultState());

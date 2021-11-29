@@ -154,6 +154,25 @@ public class BlockInit {
 	//environment
 	public static final RegistryObject<Block> DINO_SAND = BASIC_BLOCKS.register("dino_sand",
 			()-> new SandBlock(14406560, AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
+	public static final RegistryObject<Block> DINO_SANDSTONE = BASIC_BLOCKS.register("dino_sandstone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.SAND).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> DINO_CUT_SANDSTONE = BASIC_BLOCKS.register("dino_cut_sandstone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.SAND).setRequiresTool().hardnessAndResistance(0.8F)));
+
+	public static final RegistryObject<Block> DINO_RED_SAND = BASIC_BLOCKS.register("dino_red_sand",
+			()-> new SandBlock(11098145, AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
+	public static final RegistryObject<Block> DINO_RED_SANDSTONE = BASIC_BLOCKS.register("dino_red_sandstone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.ADOBE).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> DINO_CUT_RED_SANDSTONE = BASIC_BLOCKS.register("dino_cut_red_sandstone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.ADOBE).setRequiresTool().hardnessAndResistance(0.8F)));
+
+	public static final RegistryObject<Block> DINO_WHITE_SAND = BASIC_BLOCKS.register("dino_white_sand",
+			()-> new SandBlock(14406560, AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
+	public static final RegistryObject<Block> DINO_WHITE_SANDSTONE = BASIC_BLOCKS.register("dino_white_sandstone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).setRequiresTool().hardnessAndResistance(0.8F)));
+	public static final RegistryObject<Block> DINO_CUT_WHITE_SANDSTONE = BASIC_BLOCKS.register("dino_cut_white_sandstone",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).setRequiresTool().hardnessAndResistance(0.8F)));
+
 	public static final RegistryObject<Block> DINO_QUICKSAND = BASIC_BLOCKS.register("dino_quicksand",
 			()-> new QuicksandBlock(AbstractBlock.Properties.create(Material.SAND, MaterialColor.SAND).hardnessAndResistance(1.0F, 0.5F).sound(SoundType.SAND).doesNotBlockMovement().harvestTool(ToolType.SHOVEL)));
 
@@ -167,13 +186,6 @@ public class BlockInit {
 
 	public static final RegistryObject<Block> DINO_MAGMA = BASIC_BLOCKS.register("dino_magma",
 			()-> new MagmaBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.NETHERRACK).setRequiresTool().setLightLevel((state) -> 3).tickRandomly().hardnessAndResistance(0.5F).setAllowsSpawn((state, reader, pos, entity) -> entity.isImmuneToFire()).setNeedsPostProcessing(BlockInit::needsPostProcessing).setEmmisiveRendering(BlockInit::needsPostProcessing)));
-
-	public static final RegistryObject<Block> WHITE_SAND = BASIC_BLOCKS.register("white_sand",
-			()-> new SandBlock(16777215, AbstractBlock.Properties.create(Material.SAND, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.SAND)));
-	public static final RegistryObject<Block> WHITE_SANDSTONE = BASIC_BLOCKS.register("white_sandstone",
-			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).setRequiresTool().hardnessAndResistance(0.8F)));
-	public static final RegistryObject<Block> WHITE_CHISELED_SANDSTONE = BASIC_BLOCKS.register("white_chiseled_sandstone",
-			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).setRequiresTool().hardnessAndResistance(0.8F)));
 
 	public static final RegistryObject<Block> DINO_PODZOL = BASIC_BLOCKS.register("dino_podzol",
 			()-> new SnowyDirtBlock(AbstractBlock.Properties.create(Material.EARTH, MaterialColor.OBSIDIAN).hardnessAndResistance(0.5F).sound(SoundType.GROUND)));
