@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion;
 
 import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
+import static net.minecraft.item.ItemModelsProperties.registerProperty;
 
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
 import org.apache.logging.log4j.LogManager;
@@ -176,5 +177,20 @@ public class Dinosexpansion {
 			CustomSpawnEgg.initSpawnEggs();
 		}
 
+	}
+
+	@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+	public static class RegistryEvents {
+		@SubscribeEvent
+		public static void setModelProperties(FMLClientSetupEvent event) {
+			registerProperty(ItemInit.COMPOUND_BOW.get(), new ResourceLocation("pull"), (p_239429_0_, p_239429_1_, p_239429_2_) -> {
+				if (p_239429_2_ == null) {
+					return 0.0F;
+				} else {
+					return p_239429_2_.getActiveItemStack() != p_239429_0_ ? 0.0F : (float) (p_239429_0_.getUseDuration() - p_239429_2_.getItemInUseCount()) / 20.0F;
+				}
+			});
+			registerProperty(ItemInit.COMPOUND_BOW.get(), new ResourceLocation("pulling"), (p_239428_0_, p_239428_1_, p_239428_2_) -> p_239428_2_ != null && p_239428_2_.isHandActive() && p_239428_2_.getActiveItemStack() == p_239428_0_ ? 1.0F : 0.0F);
+		}
 	}
 }

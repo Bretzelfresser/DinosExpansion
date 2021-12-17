@@ -33,6 +33,8 @@ public class EntityTypeInit {
 			() -> EntityType.Builder.<TranquilizerArrowEntity>create(TranquilizerArrowEntity::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("tranquillizer_arrow").toString()));
 	public static final RegistryObject<EntityType<MegalodonToothArrowEntity>> MEGALODON_ARROW = ARROW_ENTITY_TYPES.register("megalodon_arrow",
 			() -> EntityType.Builder.<MegalodonToothArrowEntity>create(MegalodonToothArrowEntity::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("megalodon_arrow").toString()));
+	public static final RegistryObject<EntityType<CompoundArrowEntity>> COMPOUND_ARROW_ENTITY = ARROW_ENTITY_TYPES.register("compound_arrow",
+			()-> EntityType.Builder.<CompoundArrowEntity>create(CompoundArrowEntity::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("compound_arrow").toString()));
 
 	public static final RegistryObject<EntityType<RaftEntity>> RAFT = ENTITY_TYPES.register("raft", 
 			() -> EntityType.Builder.<RaftEntity>create(RaftEntity::new, EntityClassification.MISC).size(1.0F, 0.5f).trackingRange(10).setCustomClientFactory(RaftEntity::new).build(Dinosexpansion.modLoc("raft").toString()));

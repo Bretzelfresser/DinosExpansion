@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "dinosexpansion:item/pohlsepia_raw_tentacle"
+  }
+}

@@ -2,14 +2,10 @@ package com.renatiux.dinosexpansion.client.events;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.entities.*;
-import com.renatiux.dinosexpansion.client.renderer.items.BoomerangRenderer;
+import com.renatiux.dinosexpansion.client.renderer.items.*;
 import com.renatiux.dinosexpansion.client.renderer.blocks.GeneratorRenderer;
 import com.renatiux.dinosexpansion.client.renderer.blocks.IncubatorRenderer;
-import com.renatiux.dinosexpansion.client.renderer.items.MegalodonToothArrowRender;
 import com.renatiux.dinosexpansion.client.renderer.blocks.MortarRenderer;
-import com.renatiux.dinosexpansion.client.renderer.items.PoopRenderer;
-import com.renatiux.dinosexpansion.client.renderer.items.RaftRenderer;
-import com.renatiux.dinosexpansion.client.renderer.items.TranquilizerArrowRender;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
@@ -58,6 +54,7 @@ public class ClientEvents {
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.TRANQUILIZER_ARROW.get(), TranquilizerArrowRender::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.MEGALODON_ARROW.get(), MegalodonToothArrowRender::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.COMPOUND_ARROW_ENTITY.get(), CompoundArrowRender::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.RAFT.get(), RaftRenderer::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.POOP.get(), PoopRenderer::new);
