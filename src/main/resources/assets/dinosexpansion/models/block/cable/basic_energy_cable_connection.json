@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "t_cable",
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "dinosexpansion:block/cable/cable_texture",

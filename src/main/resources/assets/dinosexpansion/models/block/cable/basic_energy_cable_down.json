@@ -1,0 +1,25 @@
+{
+  "texture_size": [
+    64,
+    64
+  ],
+  "textures": {
+    "0": "dinosexpansion:block/cable/cable_texture",
+    "particle": "dinosexpansion:block/cable/cable_texture"
+  },
+  "elements": [
+    {
+      "from": [7, 0, 6.95],
+      "to": [9, 7, 8.95],
+      "rotation": {"angle": 0, "axis": "y", "origin": [3.5, 11, 8.25]},
+      "faces": {
+        "north": {"uv": [3.25, 9, 3.75, 10.75], "texture": "#0"},
+        "east": {"uv": [2.75, 9, 3.25, 10.75], "texture": "#0"},
+        "south": {"uv": [4.25, 9, 4.75, 10.75], "texture": "#0"},
+        "west": {"uv": [3.75, 9, 4.25, 10.75], "texture": "#0"},
+        "up": {"uv": [3.75, 9, 3.25, 8.5], "texture": "#0"},
+        "down": {"uv": [4.25, 8.5, 3.75, 9], "texture": "#0"}
+      }
+    }
+  ]
+}

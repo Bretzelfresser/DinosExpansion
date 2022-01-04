@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class EnergyNetwork {
-    public static int idCounter = 0;
     public static final EnergyNetwork NONE = new EnergyNetwork(null, null);
 
     /**
@@ -62,7 +61,6 @@ public class EnergyNetwork {
     private boolean needRebuild = true;
     private BlockPos startPos;
     private World world;
-    private int id;
 
     public EnergyNetwork(AbstractPowerCableTileEntity cable) {
         this(cable.getPos(), cable.getWorld());
@@ -77,8 +75,6 @@ public class EnergyNetwork {
                 throw new IllegalArgumentException("Start Position of the Network has to be on a cable position" + startPos.getX() + "," + startPos.getY() + "," + startPos.getZ());
             }
             add(cable);
-            this.id = idCounter;
-            idCounter++;
         } else {
             this.id = -1;
         }
@@ -126,10 +122,6 @@ public class EnergyNetwork {
         return storage;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public static class NetworkEnergyStorage implements IEnergyStorage {
         private int currentEnergy = 0, maxEnergy = 0, maxTransfer = 0;
 
@@ -142,7 +134,7 @@ public class EnergyNetwork {
             this.currentEnergy = currentEnergy;
         }
 
-        public NetworkEnergyStorage with(int maxTransfer){
+        public NetworkEnergyStorage with(int maxTransfer) {
             setMaxTransfer(maxTransfer);
             return this;
         }
