@@ -46,7 +46,7 @@ public abstract class AbstractPowerCableTileEntity extends TileEntity implements
 	public void read(BlockState state, CompoundNBT nbt) {
 		super.read(state, nbt);
 		if (network == null){
-			network = new EnergyNetwork(this);
+			network = EnergyNetwork.buildNewNetwork(getPos(), world);
 		}
 		network.read(nbt);
 		maxTransfer = nbt.getInt("maxTransfer");

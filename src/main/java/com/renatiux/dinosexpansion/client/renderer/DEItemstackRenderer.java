@@ -3,12 +3,15 @@ package com.renatiux.dinosexpansion.client.renderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.renatiux.dinosexpansion.client.model.items.SpikesShieldModel;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -23,8 +26,10 @@ public class DEItemstackRenderer extends ItemStackTileEntityRenderer {
         if(p_239207_1_.getItem() == ItemInit.SPIKES_SHIELD.get())
         {
             p_239207_3_.push();
-            p_239207_3_.scale(1.0F, -1.0F, -1.0F);
-            p_239207_3_.translate(0.4F, -0.75F, 0.5F);
+            //p_239207_3_.scale(1.0F, -1.0F, -1.0F);
+            ClientPlayerEntity player =  Minecraft.getInstance().player;
+            Vector3d look = player.getLookVec().rotateYaw(90);
+            p_239207_3_.translate(0.5F, -0.9F, 0.4F);
             SPIKES_SHIELD.render(p_239207_3_, p_239207_4_.getBuffer(RenderType.getEntityCutoutNoCull(SPIKES_SHIELD_TEXTURE)), p_239207_5_, p_239207_6_, 1.0F, 1.0F, 1.0F, 1.0F);
             p_239207_3_.pop();
         }

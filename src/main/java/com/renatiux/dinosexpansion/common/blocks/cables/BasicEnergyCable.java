@@ -143,7 +143,7 @@ public class BasicEnergyCable extends AbstractCableBlock {
                                              Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote) {
             BasicEnergyCableTileEntity te = WorldUtils.getTileEntity(BasicEnergyCableTileEntity.class, worldIn, pos);
-            if (te != null)
+            if (te != null && te.getNetwork() != null)
                 System.out.println("id: " + te.getNetwork().hashCode());
             IEnergyStorage energy = te == null ? null : te.getCapability(CapabilityEnergy.ENERGY, null).orElse(null);
             if (energy != null) {
