@@ -48,8 +48,12 @@ public abstract class AbstractCableBlock extends Block implements IWaterLoggable
 				p.put(Direction.DOWN, DOWN);
 			});
 
-	static boolean shapeConnects(BlockState state, EnumProperty<ConnectionType> dirctionProperty) {
+	public static boolean shapeConnects(BlockState state, EnumProperty<ConnectionType> dirctionProperty) {
 		return state.get(dirctionProperty).isConnected();
+	}
+
+	public static boolean shapeConnects(BlockState state, Direction dir){
+		return shapeConnects(state, FACING_TO_PROPERTY_MAP.get(dir));
 	}
 
 	public AbstractCableBlock(Properties properties) {

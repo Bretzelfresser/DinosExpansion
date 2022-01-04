@@ -5,7 +5,7 @@
 		 },
         {
             "when": { "down": "inventory" },
-            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "x": 90}
+            "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection"}
         },
         {
             "when": { "down": "cable" },
@@ -51,6 +51,6 @@
             "when": { "east": "cable" },
             "apply": { "model": "dinosexpansion:block/cable/basic_energy_cable_connection", "y": 90}
         }
-      
+
     ]
 }

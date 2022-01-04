@@ -14,13 +14,10 @@ public class BlockDeferredRegister extends DoubleDeferredRegister<Block, Item>{
 	public BlockDeferredRegister(String modid) {
 		super(modid, ForgeRegistries.BLOCKS, ForgeRegistries.ITEMS);
 	}
+
 	
-	public <BLOCK extends Block> DoubleRegistryObject<BLOCK, BlockItem> register(String name, Supplier<BLOCK> blockSupplier, ItemGroup group){
-		return register(name, blockSupplier, new Item.Properties().group(group));
-	}
-	
-	public <BLOCK extends Block> DoubleRegistryObject<BLOCK, BlockItem> register(String name, Supplier<BLOCK> blockSupplier, Item.Properties properties){
-		return register(name, blockSupplier, block -> new BlockItem(block, properties));
+	public <BLOCK extends Block> DoubleRegistryObject<BLOCK, BlockItem> register(String name, Supplier<BLOCK> blockSupplier, Supplier<Item.Properties> properties){
+		return register(name, blockSupplier, block -> new BlockItem(block, properties.get()));
 	}
 	
 	 public <BLOCK extends Block, ITEM extends BlockItem> DoubleRegistryObject<BLOCK, ITEM> register(String name, Supplier<? extends BLOCK> blockSupplier,

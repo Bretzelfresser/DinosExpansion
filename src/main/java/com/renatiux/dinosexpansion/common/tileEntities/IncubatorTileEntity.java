@@ -35,7 +35,7 @@ import net.minecraftforge.energy.EnergyStorage;
 public class IncubatorTileEntity extends ContainerTileEntity implements ITickableTileEntity {
 
 	private Optional<UUID> owner = Optional.empty();
-	private BaseEnergyStorage storage = new BaseEnergyStorage(1000000, 1000, 1000, 1000000);
+	private BaseEnergyStorage storage = new BaseEnergyStorage(1000000, 1000, 1000);
 	@OnlyIn(Dist.CLIENT)
 	private int guiEnergy = 0, neededEnergyPerTick;
 	private EggHolder[] holders = new EggHolder[] {

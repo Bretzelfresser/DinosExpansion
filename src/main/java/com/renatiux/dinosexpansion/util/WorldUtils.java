@@ -3,13 +3,14 @@ package com.renatiux.dinosexpansion.util;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.renatiux.dinosexpansion.Dinosexpansion;
-
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+
+import java.util.*;
 
 public class WorldUtils {
 	
@@ -59,4 +60,28 @@ public class WorldUtils {
 		 return null;
 	 }
 
+	/**
+	 *
+	 * @param toSearch - the TileEntity to start searching from
+	 * @param world - the world
+	 * @param <T> - the Specific TileEntity
+	 * @return a list of TileEntities of the same type which r neighborsof each other
+	 */
+	 public static <T extends TileEntity> List<T> depthSearch(T toSearch, IBlockReader world){
+		ArrayList<T> finished = new ArrayList<>();
+		 Stack<T> stack = new Stack<>();
+		 stack.add(toSearch);
+		 while (!stack.isEmpty()){
+			 T te = stack.pop();
+			 for(Direction d : Direction.values()){
+				 T found = (T) getTileEntity(toSearch.getClass(),world, toSearch.getPos().offset(d));
+				 if(found != null){
+					 stack.add(found);
+				 }
+			 }
+			 finished.add(te);
+		 }
+
+		 return finished;
+	 }
 }

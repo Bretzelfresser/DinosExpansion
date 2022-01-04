@@ -49,7 +49,6 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 		storage = new GeneratorEnergyStorage(10000, 0, 10000);
 		progress = 0;
 		maxProgress = 1;
-		guiEnergy = storage.getEnergyStored();
 	}
 
 	@Override
@@ -122,7 +121,6 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 	private void finishWorking(GeneratorRecipe recipe, ItemStack fuel) {
 		this.storage.addEnergy(recipe.getEnergy(), false);
 		fuel.shrink(recipe.getCount());
-		guiEnergy = storage.getEnergyStored();
 	}
 
 	private void startWorking(GeneratorRecipe recipe) {
