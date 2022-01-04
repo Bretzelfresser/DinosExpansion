@@ -1,0 +1,53 @@
+{
+  "parent": "builtin/entity",
+  "gui_light": "front",
+  "textures": {
+    "particle": "dinosexpansion:textures/item/spikes_shield"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [-2, 90, 0],
+      "translation": [2, 1.5, 4],
+      "scale": [1.2, 1.2, 1.2]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [0, 90, 0],
+      "translation": [2, 1.5, 4],
+      "scale": [1.2, 1.2, 1.2]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, -180, 0],
+      "translation": [0, 3.5, 2]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, -180, 0],
+      "translation": [0, 3.5, 2]
+    },
+    "ground": {
+      "translation": [0, 3.5, 0],
+      "scale": [0.6, 0.6, 0.6]
+    },
+    "gui": {
+      "rotation": [25, -39, 0],
+      "translation": [0.5, 3.25, 0],
+      "scale": [1.1, 1.1, 1.1]
+    },
+    "head": {
+      "rotation": [0, -180, 0],
+      "translation": [0, 6.5, -0.5],
+      "scale": [1.7, 1.7, 1.7]
+    },
+    "fixed": {
+      "rotation": [0, -180, 0],
+      "translation": [0, 3.25, 0]
+    }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "dinosexpansion:item/spikes_shield_blocking"
+    }
+  ]
+}

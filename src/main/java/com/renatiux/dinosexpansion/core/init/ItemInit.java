@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.client.renderer.DEItemstackRenderer;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
 import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
 import com.renatiux.dinosexpansion.common.blocks.bush.DENarcoticBlock;
@@ -251,6 +252,9 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> DIAMOND_AIOT = ITEMS.register("diamond_aiot",
 			()-> new MultiToolItem(ItemTier.DIAMOND, 4, -2.4F, (new Item.Properties().group(ItemGroupInit.MISC))));
+
+	public static final RegistryObject<Item> SPIKES_SHIELD = ITEMS.register("spikes_shield",
+			()-> new SpikesShieldItem((new Item.Properties()).setISTER(()-> DEItemstackRenderer::new).maxDamage(336).group(ItemGroupInit.ARMOR)));
 
 	//Bows
 	public static final RegistryObject<Item> COMPOUND_BOW = ITEMS.register("compound_bow",
