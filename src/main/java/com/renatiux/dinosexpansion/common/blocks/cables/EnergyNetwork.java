@@ -75,8 +75,6 @@ public class EnergyNetwork {
                 throw new IllegalArgumentException("Start Position of the Network has to be on a cable position" + startPos.getX() + "," + startPos.getY() + "," + startPos.getZ());
             }
             add(cable);
-        } else {
-            this.id = -1;
         }
 
     }
