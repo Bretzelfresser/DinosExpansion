@@ -25,7 +25,7 @@ public class EnergyNetwork {
         return depthSearch(startPos, world);
     }
 
-    private static EnergyNetwork depthSearch(EnergyNetwork network) {
+    public static EnergyNetwork depthSearch(EnergyNetwork network) {
         return depthSearch(network.startPos, network.world, network);
     }
 
@@ -108,7 +108,6 @@ public class EnergyNetwork {
             int posY = nbt.getInt("posY");
             int posZ = nbt.getInt("posZ");
             startPos = new BlockPos(posX, posY, posZ);
-            depthSearch(this);
         }
     }
 

@@ -18,6 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -45,11 +46,11 @@ public abstract class AbstractPowerCableTileEntity extends TileEntity implements
 	@Override
 	public void read(BlockState state, CompoundNBT nbt) {
 		super.read(state, nbt);
+		maxTransfer = nbt.getInt("maxTransfer");
 		if (network == null){
-			network = EnergyNetwork.buildNewNetwork(getPos(), world);
+			network = new EnergyNetwork(this);
 		}
 		network.read(nbt);
-		maxTransfer = nbt.getInt("maxTransfer");
 	}
 
 	@Override
@@ -86,8 +87,8 @@ public abstract class AbstractPowerCableTileEntity extends TileEntity implements
 				if (te != null && !(te instanceof AbstractPowerCableTileEntity)) {
 					boolean shouldContinue = te.getCapability(CapabilityEnergy.ENERGY, d.getOpposite()).map(handler -> {
 						if (handler.canReceive()) {
-							int recieved = handler.receiveEnergy(energy.get(), true);
-							int energyTransfer = Math.min(recieved, this.getMaxTransfer());
+							int received = handler.receiveEnergy(energy.get(), true);
+							int energyTransfer = Math.min(received, this.getMaxTransfer());
 							handler.receiveEnergy(energyTransfer, false);
 							energy.addAndGet(-energyTransfer);
 							network.getStorage().extractEnergy(energyTransfer, false);
