@@ -61,38 +61,8 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
 
     @Override
     public void tick() {
-        if (this.timeInGround > 4) {
-            this.dealtDamage = true;
-        }
-        Entity entity = this.getShooter();
-        if ((this.dealtDamage || this.getNoClip()) && entity != null) {
-            boolean shouldReturn = shouldReturnToThrower();
-            if (shouldReturn && !canReturnToThrower()) {
-                if (!this.world.isRemote && this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED) {
-                    this.entityDropItem(this.getArrowStack(), 0.1F);
-                }
 
-                this.remove();
-            } else if ((shouldReturn && canReturnToThrower()) || returningTicks > 0) {
-                this.setNoClip(true);
-                Vector3d toShooter = new Vector3d(entity.getPosX() - this.getPosX(), entity.getPosYEye() - this.getPosY(), entity.getPosZ() - this.getPosZ());
-                this.setRawPosition(this.getPosX(), this.getPosY() + toShooter.y * 0.015D * 2d, this.getPosZ());
-                if (this.world.isRemote) {
-                    this.lastTickPosY = this.getPosY();
-                }
-
-                this.setMotion(this.getMotion().scale(0.95D).add(toShooter.normalize().scale(0.1d)));
-                if (this.returningTicks == 0) {
-                    this.playSound(SoundInit.BOOMERANG_THROW.get(), 10.0F, 1.0F);
-                }
-                ++this.returningTicks;
-            }
-            setRotation(getRotation() + 36f);
-            while (getRotation() > 360){
-                setRotation(getRotation() - 360);
-            }
-            super.tick();
-        }
+        super.tick();
     }
 
     @Override
@@ -105,9 +75,8 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         }
 
         Entity entity1 = this.getShooter();
-        DamageSource damagesource = getDamageSource(this, (Entity)(entity1 == null ? this : entity1));
+        DamageSource damagesource = getDamageSource(this, entity1 == null ? this : entity1);
         this.dealtDamage = true;
-        SoundEvent soundevent = SoundEvents.ITEM_TRIDENT_HIT;
         if (entity.attackEntityFrom(damagesource, damage)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
@@ -123,22 +92,6 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
                 this.arrowHit(livingentity1);
             }
         }
-
-        this.setMotion(this.getMotion().mul(-0.01D, -0.1D, -0.01D));
-        float f1 = 1.0F;
-        if (this.world instanceof ServerWorld && EnchantmentHelper.hasChanneling(this.thrownShield)) {
-            BlockPos blockpos = entity.getPosition();
-            if (this.world.canSeeSky(blockpos)) {
-                LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.world);
-                lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(blockpos));
-                lightningboltentity.setCaster(entity1 instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity1 : null);
-                this.world.addEntity(lightningboltentity);
-                soundevent = SoundEvents.ITEM_TRIDENT_THUNDER;
-                f1 = 5.0F;
-            }
-        }
-
-        this.playSound(soundevent, f1, 1.0F);
     }
 
     private boolean canReturnToThrower() {

@@ -38,6 +38,7 @@ public class SpikesShieldItem extends Item {
         if (playerIn.isSneaking()) {
             ItemStack itemstack = playerIn.getHeldItem(handIn);
             SpikesShieldEntity shieldEntity = new SpikesShieldEntity(world, playerIn, itemstack);
+            shieldEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 3F + (float) 3 * 0.5F, 1.0F);
             world.addEntity(shieldEntity);
             playerIn.setHeldItem(handIn, ItemStack.EMPTY);
             itemstack.damageItem(3, playerIn, p -> p.sendBreakAnimation(handIn));
