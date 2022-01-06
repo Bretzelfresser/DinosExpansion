@@ -37,13 +37,15 @@ public class SpikesShieldItem extends Item {
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity playerIn, Hand handIn) {
         if (playerIn.isSneaking()) {
             ItemStack itemstack = playerIn.getHeldItem(handIn);
-            playerIn.setActiveHand(handIn);
             SpikesShieldEntity shieldEntity = new SpikesShieldEntity(world, playerIn, itemstack);
             world.addEntity(shieldEntity);
             playerIn.setHeldItem(handIn, ItemStack.EMPTY);
             itemstack.damageItem(3, playerIn, p -> p.sendBreakAnimation(handIn));
             return ActionResult.resultConsume(itemstack);
         }
-        return super.onItemRightClick(world, playerIn, handIn);
+
+        ItemStack itemStack = playerIn.getHeldItem(handIn);
+        playerIn.setActiveHand(handIn);
+        return ActionResult.resultConsume(itemStack);
     }
 }

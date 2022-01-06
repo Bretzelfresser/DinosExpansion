@@ -15,19 +15,17 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 
 public class SpikesShieldRenderer extends EntityRenderer<SpikesShieldEntity> {
 
-    public static final ResourceLocation SPIKE_SHIELD = Dinosexpansion.modLoc("textures/entity/shield/spike_shield.png");
     private static final ResourceLocation TEXTURE = Dinosexpansion.modLoc("textures/item/spike_shield.png");
     private final SpikesShieldModel spikesShield = new SpikesShieldModel();
-    private final ItemRenderer itemRenderer;
+    //private final ItemRenderer itemRenderer;
 
     public SpikesShieldRenderer(EntityRendererManager p_i46179_1_) {
         super(p_i46179_1_);
-        this.itemRenderer = Minecraft.getInstance().getItemRenderer();
+        //this.itemRenderer = Minecraft.getInstance().getItemRenderer();
     }
 
     @Override
@@ -35,8 +33,9 @@ public class SpikesShieldRenderer extends EntityRenderer<SpikesShieldEntity> {
         stack.push();
         stack.rotate(Vector3f.YN.rotationDegrees(90));
         stack.rotate(Vector3f.ZN.rotationDegrees(entity.getRotation()));
-        //IVertexBuilder ivertexbuilder = buffer.getBuffer(this.spikesShield.getRenderType(this.getEntityTexture(entity)));
-        itemRenderer.renderItem(new ItemStack(ItemInit.SPIKES_SHIELD.get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, stack, buffer);
+        IVertexBuilder ivertexbuilder = buffer.getBuffer(this.spikesShield.getRenderType(this.getEntityTexture(entity)));
+        this.spikesShield.render(stack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        //itemRenderer.renderItem(new ItemStack(ItemInit.SPIKES_SHIELD.get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, stack, buffer);
         stack.pop();
         System.out.println("rendered");
         super.render(entity, entityYaw, partialTicks, stack, buffer, packedLightIn);

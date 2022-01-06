@@ -13,6 +13,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -25,6 +26,9 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -48,6 +52,11 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         this.thrownShield = thrownStackIn.copy();
         this.dataManager.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyaltyModifier(thrownStackIn));
         this.dataManager.set(RETURN_UNIQUE_ID, Optional.of(thrower.getUniqueID()));
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public SpikesShieldEntity(World worldIn, double x, double y, double z) {
+        super(EntityTypeInit.SPIKE_SHIELD_ENTITY_TYPE.get(), x, y, z, worldIn);
     }
 
     @Override
@@ -218,6 +227,11 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
 
     public boolean isReturnTo(LivingEntity entityIn) {
         return entityIn == this.getReturnTo();
+    }
+
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     protected DamageSource getDamageSource(Entity source, @Nullable Entity indirectEntityIn) {
