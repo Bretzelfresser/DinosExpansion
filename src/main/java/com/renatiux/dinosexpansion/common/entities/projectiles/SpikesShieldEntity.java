@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -46,6 +47,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         super(EntityTypeInit.SPIKE_SHIELD_ENTITY_TYPE.get(), thrower, worldIn);
         this.thrownShield = thrownStackIn.copy();
         this.dataManager.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyaltyModifier(thrownStackIn));
+        this.dataManager.set(RETURN_UNIQUE_ID, Optional.of(thrower.getUniqueID()));
     }
 
     @Override
@@ -75,6 +77,10 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
                     this.playSound(SoundInit.BOOMERANG_THROW.get(), 10.0F, 1.0F);
                 }
                 ++this.returningTicks;
+            }
+            setRotation(getRotation() + 36f);
+            while (getRotation() > 360){
+                setRotation(getRotation() - 360);
             }
             super.tick();
         }
@@ -150,6 +156,31 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
     @Override
     protected ItemStack getArrowStack() {
         return thrownShield.copy();
+    }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.put("Trident", this.thrownShield.write(new CompoundNBT()));
+        compound.putBoolean("DealtDamage", this.dealtDamage);
+        compound.putFloat("rotation", this.dataManager.get(ROTATION));
+        if (this.dataManager.get(RETURN_UNIQUE_ID).isPresent()){
+            compound.putUniqueId("return", this.dataManager.get(RETURN_UNIQUE_ID).orElse(null));
+        }
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT nbt) {
+        super.readAdditional(nbt);
+        if (nbt.contains("spikes_shield", 10)){
+            this.thrownShield = ItemStack.read(nbt);
+        }
+        this.dealtDamage = nbt.getBoolean("DealtDamage");
+        this.dataManager.set(LOYALTY_LEVEL, (byte)EnchantmentHelper.getLoyaltyModifier(this.thrownShield));
+        this.dataManager.set(ROTATION, nbt.getFloat("rotation"));
+        if (nbt.contains("return")){
+            this.dataManager.set(RETURN_UNIQUE_ID, Optional.of(nbt.getUniqueId("return")));
+        }
     }
 
     @Nullable

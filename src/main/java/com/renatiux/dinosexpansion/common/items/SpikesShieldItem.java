@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.common.items;
 
+import com.renatiux.dinosexpansion.common.entities.projectiles.SpikesShieldEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -23,19 +24,26 @@ public class SpikesShieldItem extends Item {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack p_77661_1_) {
+    public UseAction getUseAction(ItemStack stack) {
         return UseAction.BLOCK;
     }
 
     @Override
-    public int getUseDuration(ItemStack p_77626_1_) {
+    public int getUseDuration(ItemStack stack) {
         return 72000;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World p_77659_1_, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        playerIn.setActiveHand(handIn);
-        return ActionResult.resultConsume(itemstack);
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity playerIn, Hand handIn) {
+        if (playerIn.isSneaking()) {
+            ItemStack itemstack = playerIn.getHeldItem(handIn);
+            playerIn.setActiveHand(handIn);
+            SpikesShieldEntity shieldEntity = new SpikesShieldEntity(world, playerIn, itemstack);
+            world.addEntity(shieldEntity);
+            playerIn.setHeldItem(handIn, ItemStack.EMPTY);
+            itemstack.damageItem(3, playerIn, p -> p.sendBreakAnimation(handIn));
+            return ActionResult.resultConsume(itemstack);
+        }
+        return super.onItemRightClick(world, playerIn, handIn);
     }
 }
