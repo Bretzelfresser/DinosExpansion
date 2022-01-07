@@ -52,6 +52,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
 
     @Override
     public void tick() {
+        /*
         if (this.timeInGround > 4) {
             this.dealtDamage = true;
         }
@@ -83,7 +84,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
                 setRotation(getRotation() - 360);
             }
 
-        }
+        }*/
         super.tick();
     }
 
