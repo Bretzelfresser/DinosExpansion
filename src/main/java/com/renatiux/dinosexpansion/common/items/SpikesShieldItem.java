@@ -30,7 +30,6 @@ public class SpikesShieldItem extends Item {
         //if (player.isCrouching()){
         //  return UseAction.SPEAR;
         //}
-
         return UseAction.BLOCK;
 
     }
