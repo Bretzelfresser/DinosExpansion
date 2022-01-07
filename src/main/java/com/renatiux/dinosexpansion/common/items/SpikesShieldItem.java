@@ -25,7 +25,14 @@ public class SpikesShieldItem extends Item {
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
+        // PlayerEntity player = (PlayerEntity) stack.getAttachedEntity();
+        //assert player != null;
+        //if (player.isCrouching()){
+        //  return UseAction.SPEAR;
+        //}
+
         return UseAction.BLOCK;
+
     }
 
     @Override
