@@ -25,6 +25,9 @@ public class SpikesShieldRenderer extends EntityRenderer<SpikesShieldEntity> {
 
     public SpikesShieldRenderer(EntityRendererManager manager) {
         super(manager);
+        System.out.println("render initiated");
+        this.shadowSize = 0.15F;
+        this.shadowOpaque = 0.8F;
         this.itemRenderer = Minecraft.getInstance().getItemRenderer();
     }
 
@@ -32,7 +35,7 @@ public class SpikesShieldRenderer extends EntityRenderer<SpikesShieldEntity> {
     public void render(SpikesShieldEntity entity, float entityYaw, float partialTicks, MatrixStack stack, IRenderTypeBuffer buffer, int packedLightIn) {
         System.out.println("rendered");
         stack.push();
-        //stack.rotate(Vector3f.YN.rotationDegrees(90));
+        //stack.rotate(Vector3f.YP.rotationDegrees(90));
         stack.rotate(Vector3f.ZN.rotationDegrees(entity.getRotation()));
         //IVertexBuilder ivertexbuilder = buffer.getBuffer(this.spikesShield.getRenderType(this.getEntityTexture(entity)));
         itemRenderer.renderItem(new ItemStack(ItemInit.SPIKES_SHIELD.get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, stack, buffer);

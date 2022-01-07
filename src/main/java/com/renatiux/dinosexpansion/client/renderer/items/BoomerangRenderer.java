@@ -47,13 +47,6 @@ public class BoomerangRenderer extends EntityRenderer<EntityBoomerang>{
     }
 
     private ItemStack getItemStackForRender(EntityBoomerang entityIn) {
-    	if(entityIn instanceof IronBoomerang)
-    		System.out.println("iron");
-    	if(entityIn instanceof WoodBoomerang)
-    		System.out.println("wood");
-    	if(entityIn instanceof  DiamondBoomerang)
-    		System.out.println("diamond");
-    	//System.out.println(entityIn.getRenderedItemStack().getItem().getRegistryName().toString());
         return entityIn.getRenderedItemStack();
     }
 
