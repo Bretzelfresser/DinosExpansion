@@ -82,8 +82,9 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
             while (getRotation() > 360){
                 setRotation(getRotation() - 360);
             }
-            super.tick();
+
         }
+        super.tick();
     }
 
     @Override
