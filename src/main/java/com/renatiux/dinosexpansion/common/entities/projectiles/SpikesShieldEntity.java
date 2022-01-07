@@ -61,7 +61,6 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
 
     @Override
     public void tick() {
-
         super.tick();
     }
 
