@@ -52,39 +52,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
 
     @Override
     public void tick() {
-        /*
-        if (this.timeInGround > 4) {
-            this.dealtDamage = true;
-        }
-        Entity entity = this.getShooter();
-        if ((this.dealtDamage || this.getNoClip()) && entity != null) {
-            boolean shouldReturn = shouldReturnToThrower();
-            if (shouldReturn && !canReturnToThrower()) {
-                if (!this.world.isRemote && this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED) {
-                    this.entityDropItem(this.getArrowStack(), 0.1F);
-                }
 
-                this.remove();
-            } else if ((shouldReturn && canReturnToThrower()) || returningTicks > 0) {
-                this.setNoClip(true);
-                Vector3d toShooter = new Vector3d(entity.getPosX() - this.getPosX(), entity.getPosYEye() - this.getPosY(), entity.getPosZ() - this.getPosZ());
-                this.setRawPosition(this.getPosX(), this.getPosY() + toShooter.y * 0.015D * 2d, this.getPosZ());
-                if (this.world.isRemote) {
-                    this.lastTickPosY = this.getPosY();
-                }
-
-                this.setMotion(this.getMotion().scale(0.95D).add(toShooter.normalize().scale(0.1d)));
-                if (this.returningTicks == 0) {
-                    this.playSound(SoundInit.BOOMERANG_THROW.get(), 10.0F, 1.0F);
-                }
-                ++this.returningTicks;
-            }
-            setRotation(getRotation() + 36f);
-            while (getRotation() > 360){
-                setRotation(getRotation() - 360);
-            }
-
-        }*/
         super.tick();
     }
 

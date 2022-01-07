@@ -39,6 +39,7 @@ public class SpikesShieldRenderer extends EntityRenderer<SpikesShieldEntity> {
         stack.pop();
 
         super.render(entity, entityYaw, partialTicks, stack, buffer, packedLightIn);
+        
     }
 
     @Override
