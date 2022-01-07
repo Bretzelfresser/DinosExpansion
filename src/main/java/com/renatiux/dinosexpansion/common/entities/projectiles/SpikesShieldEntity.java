@@ -13,7 +13,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -26,9 +25,6 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -54,13 +50,9 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         this.dataManager.set(RETURN_UNIQUE_ID, Optional.of(thrower.getUniqueID()));
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public SpikesShieldEntity(World worldIn, double x, double y, double z) {
-        super(EntityTypeInit.SPIKE_SHIELD_ENTITY_TYPE.get(), x, y, z, worldIn);
-    }
-
     @Override
     public void tick() {
+
         super.tick();
     }
 
@@ -74,8 +66,9 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         }
 
         Entity entity1 = this.getShooter();
-        DamageSource damagesource = getDamageSource(this, entity1 == null ? this : entity1);
+        DamageSource damagesource = getDamageSource(this, (Entity)(entity1 == null ? this : entity1));
         this.dealtDamage = true;
+        SoundEvent soundevent = SoundEvents.ITEM_TRIDENT_HIT;
         if (entity.attackEntityFrom(damagesource, damage)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
@@ -91,6 +84,22 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
                 this.arrowHit(livingentity1);
             }
         }
+
+        this.setMotion(this.getMotion().mul(-0.01D, -0.1D, -0.01D));
+        float f1 = 1.0F;
+        if (this.world instanceof ServerWorld && EnchantmentHelper.hasChanneling(this.thrownShield)) {
+            BlockPos blockpos = entity.getPosition();
+            if (this.world.canSeeSky(blockpos)) {
+                LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.world);
+                lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(blockpos));
+                lightningboltentity.setCaster(entity1 instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity1 : null);
+                this.world.addEntity(lightningboltentity);
+                soundevent = SoundEvents.ITEM_TRIDENT_THUNDER;
+                f1 = 5.0F;
+            }
+        }
+
+        this.playSound(soundevent, f1, 1.0F);
     }
 
     private boolean canReturnToThrower() {
@@ -179,11 +188,6 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
 
     public boolean isReturnTo(LivingEntity entityIn) {
         return entityIn == this.getReturnTo();
-    }
-
-    @Override
-    public IPacket<?> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     protected DamageSource getDamageSource(Entity source, @Nullable Entity indirectEntityIn) {
