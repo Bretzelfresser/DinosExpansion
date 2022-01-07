@@ -23,24 +23,21 @@ public class SpikesShieldRenderer extends EntityRenderer<SpikesShieldEntity> {
     private final SpikesShieldModel spikesShield = new SpikesShieldModel();
     private final ItemRenderer itemRenderer;
 
-    public SpikesShieldRenderer(EntityRendererManager manager) {
-        super(manager);
-        System.out.println("render initiated");
-        this.shadowSize = 0.15F;
-        this.shadowOpaque = 0.8F;
+    public SpikesShieldRenderer(EntityRendererManager p_i46179_1_) {
+        super(p_i46179_1_);
         this.itemRenderer = Minecraft.getInstance().getItemRenderer();
     }
 
     @Override
     public void render(SpikesShieldEntity entity, float entityYaw, float partialTicks, MatrixStack stack, IRenderTypeBuffer buffer, int packedLightIn) {
-        System.out.println("rendered");
         stack.push();
-        //stack.rotate(Vector3f.YP.rotationDegrees(90));
+        //stack.rotate(Vector3f.YN.rotationDegrees(90));
         stack.rotate(Vector3f.ZN.rotationDegrees(entity.getRotation()));
-        //IVertexBuilder ivertexbuilder = buffer.getBuffer(this.spikesShield.getRenderType(this.getEntityTexture(entity)));
+        IVertexBuilder ivertexbuilder = buffer.getBuffer(this.spikesShield.getRenderType(this.getEntityTexture(entity)));
+        this.spikesShield.render(stack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         itemRenderer.renderItem(new ItemStack(ItemInit.SPIKES_SHIELD.get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, stack, buffer);
         stack.pop();
-
+        System.out.println("rendered");
         super.render(entity, entityYaw, partialTicks, stack, buffer, packedLightIn);
         
     }
