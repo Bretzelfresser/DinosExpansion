@@ -31,13 +31,13 @@ public class SpikesShieldRenderer extends EntityRenderer<SpikesShieldEntity> {
     @Override
     public void render(SpikesShieldEntity entity, float entityYaw, float partialTicks, MatrixStack stack, IRenderTypeBuffer buffer, int packedLightIn) {
         stack.push();
-        //stack.rotate(Vector3f.YN.rotationDegrees(90));
+        stack.scale(2.5f, 2.5f, 2.5f);
+        stack.rotate(Vector3f.XN.rotationDegrees(90));
         stack.rotate(Vector3f.ZN.rotationDegrees(entity.getRotation()));
         IVertexBuilder ivertexbuilder = buffer.getBuffer(this.spikesShield.getRenderType(this.getEntityTexture(entity)));
-        this.spikesShield.render(stack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        //this.spikesShield.render(stack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         itemRenderer.renderItem(new ItemStack(ItemInit.SPIKES_SHIELD.get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, stack, buffer);
         stack.pop();
-        System.out.println("rendered");
         super.render(entity, entityYaw, partialTicks, stack, buffer, packedLightIn);
         
     }

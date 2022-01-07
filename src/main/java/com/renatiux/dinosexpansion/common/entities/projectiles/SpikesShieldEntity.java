@@ -40,18 +40,20 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
     protected static final DataParameter<Float> ROTATION = EntityDataManager.createKey(SpikesShieldEntity.class, DataSerializers.FLOAT);
     protected static final DataParameter<Optional<UUID>> RETURN_UNIQUE_ID = EntityDataManager.createKey(SpikesShieldEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private ItemStack thrownShield = new ItemStack(ItemInit.SPIKES_SHIELD.get());
-    private boolean dealtDamage = false;
-    protected int returningTicks = 0;
+    private boolean dealtDamage = false, shouldReturn = false;
+    protected int returningTicks = 0, slot;
 
     public SpikesShieldEntity(EntityType<? extends SpikesShieldEntity> type, World world) {
         super(type, world);
     }
 
-    public SpikesShieldEntity(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
+    public SpikesShieldEntity(World worldIn, LivingEntity thrower, ItemStack thrownStackIn, int slot) {
         super(EntityTypeInit.SPIKE_SHIELD_ENTITY_TYPE.get(), thrower, worldIn);
         this.thrownShield = thrownStackIn.copy();
         this.dataManager.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyaltyModifier(thrownStackIn));
         this.dataManager.set(RETURN_UNIQUE_ID, Optional.of(thrower.getUniqueID()));
+        this.shouldReturn = shouldReturnToThrower();
+        this.slot = slot;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -61,7 +63,45 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
 
     @Override
     public void tick() {
+        if (this.timeInGround > 4) {
+            this.dealtDamage = true;
+        }
+        Entity entity = this.getShooter();
+        if ((this.dealtDamage || this.getNoClip()) && entity != null) {
+            boolean shouldReturn = shouldReturnToThrower();
+            if (shouldReturn && !this.canReturnToThrower()) {
+                if (!this.world.isRemote && this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED) {
+                    this.entityDropItem(this.getArrowStack(), 0.1F);
+                }
 
+                this.remove();
+            } else if (shouldReturn) {
+                this.setNoClip(true);
+                Vector3d toOwner = new Vector3d(entity.getPosX() - this.getPosX(), entity.getPosYEye() - this.getPosY(), entity.getPosZ() - this.getPosZ());
+                this.setRawPosition(this.getPosX(), this.getPosY() + toOwner.y * 0.03, this.getPosZ());
+                if (this.world.isRemote) {
+                    this.lastTickPosY = this.getPosY();
+                }
+
+                double d0 = 0.2D;
+                this.setMotion(this.getMotion().scale(0.95D).add(toOwner.normalize().scale(d0)));
+                if (this.returningTicks == 0) {
+                    this.playSound(SoundEvents.ITEM_TRIDENT_RETURN, 10.0F, 1.0F);
+                }
+
+                ++this.returningTicks;
+            }
+        }
+
+        if (!world.isRemote) {
+            if (this.timeInGround <= 0 && !this.getNoClip()) {
+                this.setRotation(this.getRotation() + 36.0F);
+
+                while (this.getRotation() > 360.0F) {
+                    this.setRotation(this.getRotation() - 360.0F);
+                }
+            }
+        }
         super.tick();
     }
 
@@ -70,28 +110,69 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         Entity entity = result.getEntity();
         float damage = 8.0F;
         if (entity instanceof LivingEntity) {
-            LivingEntity livingentity = (LivingEntity)entity;
+            LivingEntity livingentity = (LivingEntity) entity;
             damage += EnchantmentHelper.getModifierForCreature(this.thrownShield, livingentity.getCreatureAttribute());
         }
 
         Entity entity1 = this.getShooter();
-        DamageSource damagesource = getDamageSource(this, (Entity)(entity1 == null ? this : entity1));
+        DamageSource damagesource = getDamageSource(this, (Entity) (entity1 == null ? this : entity1));
         this.dealtDamage = true;
+        SoundEvent soundevent = SoundEvents.ITEM_TRIDENT_HIT;
         if (entity.attackEntityFrom(damagesource, damage)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
             }
 
             if (entity instanceof LivingEntity) {
-                LivingEntity livingentity1 = (LivingEntity)entity;
+                LivingEntity livingentity1 = (LivingEntity) entity;
                 if (entity1 instanceof LivingEntity) {
                     EnchantmentHelper.applyThornEnchantments(livingentity1, entity1);
-                    EnchantmentHelper.applyArthropodEnchantments((LivingEntity)entity1, livingentity1);
+                    EnchantmentHelper.applyArthropodEnchantments((LivingEntity) entity1, livingentity1);
                 }
 
                 this.arrowHit(livingentity1);
             }
         }
+        this.setMotion(this.getMotion().mul(-0.01D, -0.1D, -0.01D));
+        float f1 = 1.0F;
+        if (this.world instanceof ServerWorld && EnchantmentHelper.hasChanneling(this.thrownShield)) {
+            BlockPos blockpos = entity.getPosition();
+            if (this.world.canSeeSky(blockpos)) {
+                LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.world);
+                lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(blockpos));
+                lightningboltentity.setCaster(entity1 instanceof ServerPlayerEntity ? (ServerPlayerEntity) entity1 : null);
+                this.world.addEntity(lightningboltentity);
+                soundevent = SoundEvents.ITEM_TRIDENT_THUNDER;
+                f1 = 5.0F;
+            }
+        }
+        this.playSound(soundevent, f1, 1.0F);
+    }
+
+    @Override
+    public void onCollideWithPlayer(PlayerEntity entityIn) {
+        if (!this.world.isRemote && (this.inGround || this.getNoClip()) && this.arrowShake <= 0) {
+            boolean flag = this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED || this.pickupStatus == AbstractArrowEntity.PickupStatus.CREATIVE_ONLY && entityIn.abilities.isCreativeMode || this.getNoClip() && this.getShooter().getUniqueID() == entityIn.getUniqueID();
+            if (this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED && !entityIn.inventory.addItemStackToInventory(this.getArrowStack())) {
+                flag = false;
+            }
+
+            if (flag) {
+                entityIn.onItemPickup(this, 1);
+                this.remove();
+            }
+
+        }
+    }
+
+    private boolean addItemToInventory(PlayerEntity player){
+        if (player.inventory.getSizeInventory() > this.slot){
+            if (player.inventory.getStackInSlot(this.slot).isEmpty()){
+                player.inventory.setInventorySlotContents(this.slot, getArrowStack());
+                return true;
+            }
+        }
+            return !player.inventory.addItemStackToInventory(this.getArrowStack());
     }
 
     private boolean canReturnToThrower() {
@@ -126,7 +207,9 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         compound.put("Trident", this.thrownShield.write(new CompoundNBT()));
         compound.putBoolean("DealtDamage", this.dealtDamage);
         compound.putFloat("rotation", this.dataManager.get(ROTATION));
-        if (this.dataManager.get(RETURN_UNIQUE_ID).isPresent()){
+        compound.putBoolean("shouldReturn", this.shouldReturn);
+        compound.putInt("slot", this.slot);
+        if (this.dataManager.get(RETURN_UNIQUE_ID).isPresent()) {
             compound.putUniqueId("return", this.dataManager.get(RETURN_UNIQUE_ID).orElse(null));
         }
     }
@@ -134,13 +217,15 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
     @Override
     public void readAdditional(CompoundNBT nbt) {
         super.readAdditional(nbt);
-        if (nbt.contains("spikes_shield", 10)){
+        if (nbt.contains("spikes_shield", 10)) {
             this.thrownShield = ItemStack.read(nbt);
         }
+        this.shouldReturn = nbt.getBoolean("shouldReturn");
         this.dealtDamage = nbt.getBoolean("DealtDamage");
-        this.dataManager.set(LOYALTY_LEVEL, (byte)EnchantmentHelper.getLoyaltyModifier(this.thrownShield));
+        this.slot = nbt.getInt("slot");
+        this.dataManager.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyaltyModifier(this.thrownShield));
         this.dataManager.set(ROTATION, nbt.getFloat("rotation"));
-        if (nbt.contains("return")){
+        if (nbt.contains("return")) {
             this.dataManager.set(RETURN_UNIQUE_ID, Optional.of(nbt.getUniqueId("return")));
         }
     }
