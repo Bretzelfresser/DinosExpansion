@@ -25,14 +25,7 @@ public class SpikesShieldItem extends Item {
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        // PlayerEntity player = (PlayerEntity) stack.getAttachedEntity();
-        //assert player != null;
-        //if (player.isCrouching()){
-        //  return UseAction.SPEAR;
-        //}
-
         return UseAction.BLOCK;
-
     }
 
     @Override
@@ -44,16 +37,13 @@ public class SpikesShieldItem extends Item {
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity playerIn, Hand handIn) {
         if (playerIn.isSneaking()) {
             ItemStack itemstack = playerIn.getHeldItem(handIn);
+            playerIn.setActiveHand(handIn);
             SpikesShieldEntity shieldEntity = new SpikesShieldEntity(world, playerIn, itemstack);
-            shieldEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 3F + (float) 3 * 0.5F, 1.0F);
             world.addEntity(shieldEntity);
             playerIn.setHeldItem(handIn, ItemStack.EMPTY);
             itemstack.damageItem(3, playerIn, p -> p.sendBreakAnimation(handIn));
             return ActionResult.resultConsume(itemstack);
         }
-
-        ItemStack itemStack = playerIn.getHeldItem(handIn);
-        playerIn.setActiveHand(handIn);
-        return ActionResult.resultConsume(itemStack);
+        return super.onItemRightClick(world, playerIn, handIn);
     }
 }
