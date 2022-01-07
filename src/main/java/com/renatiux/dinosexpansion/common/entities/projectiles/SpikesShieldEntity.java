@@ -17,10 +17,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.IndirectEntityDamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
@@ -68,7 +65,6 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         }
         Entity entity = this.getShooter();
         if ((this.dealtDamage || this.getNoClip()) && entity != null) {
-            boolean shouldReturn = shouldReturnToThrower();
             if (shouldReturn && !this.canReturnToThrower()) {
                 if (!this.world.isRemote && this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED) {
                     this.entityDropItem(this.getArrowStack(), 0.1F);
@@ -153,7 +149,8 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
     public void onCollideWithPlayer(PlayerEntity entityIn) {
         if (!this.world.isRemote && (this.inGround || this.getNoClip()) && this.arrowShake <= 0) {
             boolean flag = this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED || this.pickupStatus == AbstractArrowEntity.PickupStatus.CREATIVE_ONLY && entityIn.abilities.isCreativeMode || this.getNoClip() && this.getShooter().getUniqueID() == entityIn.getUniqueID();
-            if (this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED && !entityIn.inventory.addItemStackToInventory(this.getArrowStack())) {
+            System.out.println(this.slot);
+            if (this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED && !this.addItemToInventory(entityIn)) {
                 flag = false;
             }
 
@@ -165,14 +162,22 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         }
     }
 
-    private boolean addItemToInventory(PlayerEntity player){
-        if (player.inventory.getSizeInventory() > this.slot){
-            if (player.inventory.getStackInSlot(this.slot).isEmpty()){
+    private boolean addItemToInventory(PlayerEntity player) {
+        if (player.inventory.getSizeInventory() > this.slot) {
+            if (this.slot < 0) {
+                if (player.getHeldItem(Hand.OFF_HAND).isEmpty()) {
+                    player.inventory.offHandInventory.set(0,this.getArrowStack());
+                    return true;
+                } else {
+                    return player.inventory.addItemStackToInventory(this.getArrowStack());
+                }
+            }
+            if (player.inventory.getStackInSlot(this.slot).isEmpty()) {
                 player.inventory.setInventorySlotContents(this.slot, getArrowStack());
                 return true;
             }
         }
-            return !player.inventory.addItemStackToInventory(this.getArrowStack());
+        return player.inventory.addItemStackToInventory(this.getArrowStack());
     }
 
     private boolean canReturnToThrower() {
@@ -208,7 +213,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         compound.putBoolean("DealtDamage", this.dealtDamage);
         compound.putFloat("rotation", this.dataManager.get(ROTATION));
         compound.putBoolean("shouldReturn", this.shouldReturn);
-        compound.putInt("slot", this.slot);
+        compound.putInt("returnSlot", this.slot);
         if (this.dataManager.get(RETURN_UNIQUE_ID).isPresent()) {
             compound.putUniqueId("return", this.dataManager.get(RETURN_UNIQUE_ID).orElse(null));
         }
@@ -222,7 +227,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         }
         this.shouldReturn = nbt.getBoolean("shouldReturn");
         this.dealtDamage = nbt.getBoolean("DealtDamage");
-        this.slot = nbt.getInt("slot");
+        this.slot = nbt.getInt("returnSlot");
         this.dataManager.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyaltyModifier(this.thrownShield));
         this.dataManager.set(ROTATION, nbt.getFloat("rotation"));
         if (nbt.contains("return")) {

@@ -45,6 +45,7 @@ public class SpikesShieldItem extends Item {
             if (playerIn.isSneaking()) {
 
                 ItemStack itemstack = playerIn.getHeldItem(livingEntity.getActiveHand());
+                System.out.println(playerIn.inventory.getSlotFor(itemstack));
                 SpikesShieldEntity shieldEntity = new SpikesShieldEntity(world, playerIn, itemstack, playerIn.inventory.getSlotFor(itemstack));
                 shieldEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2f, 1.0F);
                 world.addEntity(shieldEntity);
