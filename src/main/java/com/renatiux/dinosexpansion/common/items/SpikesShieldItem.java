@@ -39,13 +39,17 @@ public class SpikesShieldItem extends Item {
     }
 
     @Override
+    public boolean hasEffect(ItemStack p_77636_1_) {
+        return super.hasEffect(p_77636_1_);
+    }
+
+    @Override
     public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity livingEntity, int timeLeft) {
         if (livingEntity instanceof PlayerEntity && this.getUseDuration(stack) - timeLeft >= 10) {
             PlayerEntity playerIn = (PlayerEntity) livingEntity;
             if (playerIn.isSneaking()) {
 
                 ItemStack itemstack = playerIn.getHeldItem(livingEntity.getActiveHand());
-                System.out.println(playerIn.inventory.getSlotFor(itemstack));
                 SpikesShieldEntity shieldEntity = new SpikesShieldEntity(world, playerIn, itemstack, playerIn.inventory.getSlotFor(itemstack));
                 shieldEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2f, 1.0F);
                 world.addEntity(shieldEntity);

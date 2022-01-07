@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.common.entities.projectiles;
 import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 import com.renatiux.dinosexpansion.core.init.SoundInit;
+import com.renatiux.dinosexpansion.util.EnchantmentUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -11,6 +12,7 @@ import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -28,13 +30,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
 public class SpikesShieldEntity extends AbstractArrowEntity {
 
+    private static final float DAMAGE = 8.0f;
+    private static final int TICKS_BURN = 80;
+
+
     private static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.createKey(SpikesShieldEntity.class, DataSerializers.BYTE);
     protected static final DataParameter<Float> ROTATION = EntityDataManager.createKey(SpikesShieldEntity.class, DataSerializers.FLOAT);
+    protected static final DataParameter<ItemStack> ARROW = EntityDataManager.createKey(SpikesShieldEntity.class, DataSerializers.ITEMSTACK);
     protected static final DataParameter<Optional<UUID>> RETURN_UNIQUE_ID = EntityDataManager.createKey(SpikesShieldEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private ItemStack thrownShield = new ItemStack(ItemInit.SPIKES_SHIELD.get());
     private boolean dealtDamage = false, shouldReturn = false;
@@ -49,6 +57,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         this.thrownShield = thrownStackIn.copy();
         this.dataManager.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyaltyModifier(thrownStackIn));
         this.dataManager.set(RETURN_UNIQUE_ID, Optional.of(thrower.getUniqueID()));
+        this.dataManager.set(ARROW, thrownStackIn);
         this.shouldReturn = shouldReturnToThrower();
         this.slot = slot;
     }
@@ -60,6 +69,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
 
     @Override
     public void tick() {
+        System.out.println(this.getArrowStack().isEnchanted());
         if (this.timeInGround > 4) {
             this.dealtDamage = true;
         }
@@ -104,7 +114,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
     @Override
     protected void onEntityHit(EntityRayTraceResult result) {
         Entity entity = result.getEntity();
-        float damage = 8.0F;
+        float damage = DAMAGE;
         if (entity instanceof LivingEntity) {
             LivingEntity livingentity = (LivingEntity) entity;
             damage += EnchantmentHelper.getModifierForCreature(this.thrownShield, livingentity.getCreatureAttribute());
@@ -141,6 +151,8 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
                 soundevent = SoundEvents.ITEM_TRIDENT_THUNDER;
                 f1 = 5.0F;
             }
+        }else if(this.world instanceof ServerWorld && EnchantmentUtils.hasFlame(this.thrownShield)){
+            entity.setFire(TICKS_BURN);
         }
         this.playSound(soundevent, f1, 1.0F);
     }
@@ -149,7 +161,6 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
     public void onCollideWithPlayer(PlayerEntity entityIn) {
         if (!this.world.isRemote && (this.inGround || this.getNoClip()) && this.arrowShake <= 0) {
             boolean flag = this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED || this.pickupStatus == AbstractArrowEntity.PickupStatus.CREATIVE_ONLY && entityIn.abilities.isCreativeMode || this.getNoClip() && this.getShooter().getUniqueID() == entityIn.getUniqueID();
-            System.out.println(this.slot);
             if (this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED && !this.addItemToInventory(entityIn)) {
                 flag = false;
             }
@@ -199,11 +210,12 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         this.dataManager.register(LOYALTY_LEVEL, (byte) 0);
         this.dataManager.register(ROTATION, 0f);
         this.dataManager.register(RETURN_UNIQUE_ID, Optional.empty());
+        this.dataManager.register(ARROW, ItemStack.EMPTY);
     }
 
     @Override
-    protected ItemStack getArrowStack() {
-        return thrownShield.copy();
+    public ItemStack getArrowStack() {
+        return this.dataManager.get(ARROW).copy();
     }
 
     @Override

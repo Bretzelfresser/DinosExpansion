@@ -49,7 +49,7 @@ public class EntityTypeInit {
 	public static final RegistryObject<EntityType<DiamondBoomerang>> DIAMOND_BOOMERANG = ENTITY_TYPES.register("diamond_boomerang", 
 			() -> EntityType.Builder.<DiamondBoomerang>create(DiamondBoomerang::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("diamond_boomerang").toString()));
 
-	public static final RegistryObject<EntityType<SpikesShieldEntity>> SPIKE_SHIELD_ENTITY_TYPE = register("spike_shield", EntityType.Builder.<SpikesShieldEntity>create(SpikesShieldEntity::new, EntityClassification.MISC).size(0.5F, 0.5F));
+	public static final RegistryObject<EntityType<SpikesShieldEntity>> SPIKE_SHIELD_ENTITY_TYPE = register("spike_shield", EntityType.Builder.<SpikesShieldEntity>create(SpikesShieldEntity::new, EntityClassification.MISC).size(0.75F, 0.3F));
 	
 	public static final RegistryObject<EntityType<Thaumaptilon>> THAUMAPTILON = register("thaumaptilon", EntityType.Builder.create(Thaumaptilon::new, EntityClassification.AMBIENT));
 

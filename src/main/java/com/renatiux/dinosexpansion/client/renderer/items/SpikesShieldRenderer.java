@@ -20,7 +20,6 @@ import net.minecraft.util.math.vector.Vector3f;
 public class SpikesShieldRenderer extends EntityRenderer<SpikesShieldEntity> {
 
     private static final ResourceLocation TEXTURE = Dinosexpansion.modLoc("textures/item/spike_shield.png");
-    private final SpikesShieldModel spikesShield = new SpikesShieldModel();
     private final ItemRenderer itemRenderer;
 
     public SpikesShieldRenderer(EntityRendererManager p_i46179_1_) {
@@ -34,9 +33,7 @@ public class SpikesShieldRenderer extends EntityRenderer<SpikesShieldEntity> {
         stack.scale(2.5f, 2.5f, 2.5f);
         stack.rotate(Vector3f.XN.rotationDegrees(90));
         stack.rotate(Vector3f.ZN.rotationDegrees(entity.getRotation()));
-        IVertexBuilder ivertexbuilder = buffer.getBuffer(this.spikesShield.getRenderType(this.getEntityTexture(entity)));
-        //this.spikesShield.render(stack, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        itemRenderer.renderItem(new ItemStack(ItemInit.SPIKES_SHIELD.get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, stack, buffer);
+        itemRenderer.renderItem(entity.getArrowStack(), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, stack, buffer);
         stack.pop();
         super.render(entity, entityYaw, partialTicks, stack, buffer, packedLightIn);
         

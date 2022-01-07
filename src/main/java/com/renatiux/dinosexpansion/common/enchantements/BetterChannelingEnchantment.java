@@ -6,9 +6,9 @@ import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Items;
 
-public class BetterChannelingEnchantement extends Enchantment {
+public class BetterChannelingEnchantment extends Enchantment {
 
-    public BetterChannelingEnchantement(Enchantment.Rarity rarityIn, EquipmentSlotType... slots) {
+    public BetterChannelingEnchantment(Enchantment.Rarity rarityIn, EquipmentSlotType... slots) {
         super(rarityIn, EnchantmentType.create("shield_trident", item -> item == Items.TRIDENT || item == ItemInit.SPIKES_SHIELD.get()), slots);
     }
 
