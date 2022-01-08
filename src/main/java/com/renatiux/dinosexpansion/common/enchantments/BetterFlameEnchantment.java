@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.enchantements;
+package com.renatiux.dinosexpansion.common.enchantments;
 
 import com.renatiux.dinosexpansion.core.init.EnchantmentInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;

@@ -1,6 +1,7 @@
-package com.renatiux.dinosexpansion.common.items;
+package com.renatiux.dinosexpansion.common.items.shields;
 
 import com.renatiux.dinosexpansion.common.entities.projectiles.SpikesShieldEntity;
+import com.renatiux.dinosexpansion.util.EnchantmentUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
@@ -54,7 +55,7 @@ public class SpikesShieldItem extends Item {
                 shieldEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2f, 1.0F);
                 world.addEntity(shieldEntity);
                 int damage = 3;
-                if (EnchantmentHelper.hasChanneling(itemstack))
+                if (EnchantmentHelper.hasChanneling(itemstack) || EnchantmentUtils.hasFlame(itemstack))
                     damage += 2;
                 itemstack.damageItem(damage, playerIn, p -> p.sendBreakAnimation(livingEntity.getActiveHand()));
                 playerIn.inventory.deleteStack(itemstack);

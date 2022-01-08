@@ -1,9 +1,8 @@
-package com.renatiux.dinosexpansion.common.enchantements;
+package com.renatiux.dinosexpansion.common.enchantments;
 
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
-import net.minecraft.enchantment.LoyaltyEnchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Items;
 

@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.client.renderer.items;
+package com.renatiux.dinosexpansion.client.renderer.items.shields;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 public class SpikeShieldModelRenderer implements DEItemstackRenderer.ShieldModelProvider {
 
     private static final SpikesShieldModel SPIKES_SHIELD = new SpikesShieldModel();
-    private static final ResourceLocation SPIKES_SHIELD_TEXTURE = new ResourceLocation("dinosexpansion:item/spike_shield");
+    private static final ResourceLocation SPIKES_SHIELD_TEXTURE = new ResourceLocation("dinosexpansion:item/shields/spike_shield");
     private static final RenderMaterial SPIKES_SHIELD_RENDER = new RenderMaterial(PlayerContainer.LOCATION_BLOCKS_TEXTURE, SPIKES_SHIELD_TEXTURE);
     @Override
     public void render(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {

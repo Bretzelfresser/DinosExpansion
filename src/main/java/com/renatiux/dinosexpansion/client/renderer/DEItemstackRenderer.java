@@ -2,13 +2,13 @@ package com.renatiux.dinosexpansion.client.renderer;
 
 import com.google.common.collect.Sets;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.renatiux.dinosexpansion.client.renderer.items.SpikeShieldModelRenderer;
-import com.renatiux.dinosexpansion.core.init.ItemInit;
+import com.renatiux.dinosexpansion.client.renderer.items.shields.SpikeShieldModelRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -38,5 +38,9 @@ public class DEItemstackRenderer extends ItemStackTileEntityRenderer {
         public RenderMaterial getRenderMaterial();
         public Item getRepresentiveItem();
         public EntityModel<?> getModel();
+    }
+
+    public static RenderMaterial create(ResourceLocation texture){
+        return new RenderMaterial(PlayerContainer.LOCATION_BLOCKS_TEXTURE, texture);
     }
 }

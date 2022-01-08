@@ -4,23 +4,21 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.item.ArrowItem;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.event.world.NoteBlockEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 import static com.renatiux.dinosexpansion.common.items.TimeMachineItem.getPowerForTime;
 
@@ -37,11 +35,34 @@ public class MultiBow5 extends BowItem {
         this.shotType = shotType;
     }
 
+    private ItemStack findAmmo(PlayerEntity player, ItemStack shootable){
+        if (!(shootable.getItem() instanceof ShootableItem)) {
+            return ItemStack.EMPTY;
+        } else {
+            Predicate<ItemStack> predicate = ((ShootableItem)shootable.getItem()).getAmmoPredicate();
+            ItemStack itemstack = ShootableItem.getHeldAmmo(player, predicate);
+            if (!itemstack.isEmpty()) {
+                return itemstack;
+            } else {
+                predicate = ((ShootableItem)shootable.getItem()).getInventoryAmmoPredicate();
+
+                for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+                    ItemStack itemstack1 = player.inventory.getStackInSlot(i);
+                    if (predicate.test(itemstack1) && itemstack1.getCount() >= 5) {
+                        return itemstack1;
+                    }
+                }
+
+                return player.abilities.isCreativeMode ? new ItemStack(Items.ARROW) : ItemStack.EMPTY;
+            }
+        }
+    }
+
     @ParametersAreNonnullByDefault
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn , LivingEntity entityLiving , int timeLeft) {
         if (entityLiving instanceof PlayerEntity) {
             PlayerEntity playerentity = (PlayerEntity)entityLiving;
-            ItemStack itemstack = playerentity.findAmmo(stack);
+            ItemStack itemstack = findAmmo(playerentity, stack);
 
             int i = this.getUseDuration(stack) - timeLeft;
             i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, worldIn, playerentity, i, !itemstack.isEmpty());
@@ -118,13 +139,23 @@ public class MultiBow5 extends BowItem {
                         playerentity.getPosX(), playerentity.getPosY(), playerentity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS,
                         1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-                if (!flag1 && !playerentity.abilities.isCreativeMode) {itemstack.shrink(1);
+                if (!flag1 && !playerentity.abilities.isCreativeMode) {itemstack.shrink(5);
                     if (itemstack.isEmpty()) { playerentity.inventory.deleteStack(itemstack); }
                 }
 
                 playerentity.addStat(Stats.ITEM_USED.get(this));
             }
         }
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+        if (!player.abilities.isCreativeMode && findAmmo(player, itemstack).isEmpty()){
+            return ActionResult.resultFail(itemstack);
+        }
+        player.setActiveHand(hand);
+        return ActionResult.resultConsume(itemstack);
     }
 
     @Override

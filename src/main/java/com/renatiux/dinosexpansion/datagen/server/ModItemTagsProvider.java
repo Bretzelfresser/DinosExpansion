@@ -25,8 +25,12 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 		makeKibble();
 		makeTimeMachineConsumable();
 		makePlantFood();
-		
+		makeShields();
 		getOrCreateBuilder(Tags.Items.DODO_COLLECTABLES).add(Items.MELON_SEEDS, Items.WHEAT_SEEDS, ItemInit.NARCOTIC_BERRY.get(), Items.BEETROOT_SEEDS, Items.PUMPKIN_SEEDS);
+	}
+
+	private void makeShields(){
+		getOrCreateBuilder(Tags.Items.SHIELDS).add(ItemInit.SPIKES_SHIELD.get(), ItemInit.HULLBREAKER.get());
 	}
 	
 	private void makeArrows() {

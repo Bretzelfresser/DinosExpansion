@@ -100,6 +100,7 @@ public class Dinosexpansion {
 
 		PotionInit.EFFECTS.register(bus);
 		EnchantmentInit.VANILLA.register(bus);
+		EnchantmentInit.ENCHANTMENTS.register(bus);
 
 		TileEntityTypesInit.TILE_ENTITY_TYPES.register(bus);
 		ContainerTypeInit.CONTAINER_TYPES.register(bus);
