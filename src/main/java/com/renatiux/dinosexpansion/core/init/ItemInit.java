@@ -14,11 +14,14 @@ import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.common.tools.MultiToolItem;
 import com.renatiux.dinosexpansion.util.enums.DEArmorMaterial;
 import com.renatiux.dinosexpansion.util.enums.DEToolMaterial;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.concurrent.Callable;
 
 public class ItemInit {
 	
@@ -254,7 +257,7 @@ public class ItemInit {
 			()-> new MultiToolItem(ItemTier.DIAMOND, 4, -2.4F, (new Item.Properties().group(ItemGroupInit.MISC))));
 
 	public static final RegistryObject<Item> SPIKES_SHIELD = ITEMS.register("spikes_shield",
-			()-> new SpikesShieldItem((new Item.Properties()).setISTER(()-> DEItemstackRenderer::new).maxDamage(336).group(ItemGroupInit.ARMOR)));
+			()-> new SpikesShieldItem((new Item.Properties().setISTER(() -> DEItemstackRenderer::new).maxDamage(336).group(ItemGroupInit.ARMOR))));
 
 	//Bows
 	public static final RegistryObject<Item> COMPOUND_BOW = ITEMS.register("compound_bow",

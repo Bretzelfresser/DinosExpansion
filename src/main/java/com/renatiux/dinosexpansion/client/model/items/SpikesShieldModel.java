@@ -115,18 +115,18 @@ public class SpikesShieldModel extends EntityModel<Entity> {
         handle.setTextureOffset(8, 18).addBox(1.0F, -7.5F, -1.0F, 1.0F, 1.0F, 3.0F, 0.0F, false);
         handle.setTextureOffset(16, 19).addBox(1.0F, -7.5F, -2.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
         handle.setTextureOffset(15, 11).addBox(1.0F, -3.5F, -1.0F, 1.0F, 1.0F, 3.0F, 0.0F, false);
-        }
+    }
 
     @Override
-    public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+    public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         //previously the render function, render code was moved to a method below
-        }
+    }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
-        }
+    }
 
     @Override
     public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {

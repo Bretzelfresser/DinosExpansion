@@ -69,7 +69,6 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
 
     @Override
     public void tick() {
-        System.out.println(this.getArrowStack().isEnchanted());
         if (this.timeInGround > 4) {
             this.dealtDamage = true;
         }
