@@ -1,0 +1,43 @@
+{
+  "parent": "builtin/entity",
+  "gui_light": "front",
+  "textures": {
+    "particle": "dinosexpansion:textures/item/shields/hullbreaker"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [0, -90, 0],
+      "translation": [-4, -5.5, 4.75],
+      "scale": [0.9, 0.9, 0.9]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [0, -90, 0],
+      "translation": [-4, -5.5, 4.75],
+      "scale": [0.9, 0.9, 0.9]
+    },
+    "firstperson_righthand": {
+      "translation": [2, -4, 7],
+      "scale": [0.8, 0.8, 0.8]
+    },
+    "firstperson_lefthand": {
+      "translation": [2, -4, 7],
+      "scale": [0.8, 0.8, 0.8]
+    },
+    "ground": {
+      "translation": [0, 0.75, 0],
+      "scale": [0.3, 0.3, 0.3]
+    },
+    "gui": {
+      "rotation": [19, 140, 0],
+      "translation": [1.75, 0.5, 2.75],
+      "scale": [0.4, 0.4, 0.4]
+    },
+    "head": {
+      "translation": [1, -5.75, 7.25]
+    },
+    "fixed": {
+      "translation": [0.5, 0, 2.75],
+      "scale": [0.5, 0.5, 0.5]
+    }
+  }
+}
