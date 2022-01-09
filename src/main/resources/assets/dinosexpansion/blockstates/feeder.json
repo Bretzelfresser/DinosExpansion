@@ -1,0 +1,79 @@
+{
+  "variants": {
+    "facing=north,food=0": {
+      "model": "dinosexpansion:block/feeder/empty_feeder"
+    },
+    "facing=east,food=0": {
+      "model": "dinosexpansion:block/feeder/empty_feeder",
+      "y": 90
+    },
+    "facing=south,food=0": {
+      "model": "dinosexpansion:block/feeder/empty_feeder",
+      "y": 180
+    },
+    "facing=west,food=0": {
+      "model": "dinosexpansion:block/feeder/empty_feeder",
+      "y": 270
+    },
+    "facing=north,food=1": {
+      "model": "dinosexpansion:block/feeder/feeder_almost_empty"
+    },
+    "facing=east,food=1": {
+      "model": "dinosexpansion:block/feeder/feeder_almost_empty",
+      "y": 90
+    },
+    "facing=south,food=1": {
+      "model": "dinosexpansion:block/feeder/feeder_almost_empty",
+      "y": 180
+    },
+    "facing=west,food=1": {
+      "model": "dinosexpansion:block/feeder/feeder_almost_empty",
+      "y": 270
+    },
+    "facing=north,food=2": {
+      "model": "dinosexpansion:block/feeder/half_feeder"
+    },
+    "facing=east,food=2": {
+      "model": "dinosexpansion:block/feeder/half_feeder",
+      "y": 90
+    },
+    "facing=south,food=2": {
+      "model": "dinosexpansion:block/feeder/half_feeder",
+      "y": 180
+    },
+    "facing=west,food=2": {
+      "model": "dinosexpansion:block/feeder/half_feeder",
+      "y": 270
+    },
+    "facing=north,food=3": {
+      "model": "dinosexpansion:block/feeder/feeder_almost_full"
+    },
+    "facing=east,food=3": {
+      "model": "dinosexpansion:block/feeder/feeder_almost_full",
+      "y": 90
+    },
+    "facing=south,food=3": {
+      "model": "dinosexpansion:block/feeder/feeder_almost_full",
+      "y": 180
+    },
+    "facing=west,food=3": {
+      "model": "dinosexpansion:block/feeder/feeder_almost_full",
+      "y": 270
+    },
+    "facing=north,food=4": {
+      "model": "dinosexpansion:block/feeder/full_feeder"
+    },
+    "facing=east,food=4": {
+      "model": "dinosexpansion:block/feeder/full_feeder",
+      "y": 90
+    },
+    "facing=south,food=4": {
+      "model": "dinosexpansion:block/feeder/full_feeder",
+      "y": 180
+    },
+    "facing=west,food=4": {
+      "model": "dinosexpansion:block/feeder/full_feeder",
+      "y": 270
+    }
+  }
+}

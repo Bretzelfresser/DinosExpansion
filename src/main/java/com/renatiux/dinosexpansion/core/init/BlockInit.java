@@ -22,6 +22,7 @@ import com.renatiux.dinosexpansion.common.blocks.world.MudBlock;
 import com.renatiux.dinosexpansion.common.blocks.world.QuicksandBlock;
 import com.renatiux.dinosexpansion.common.items.blockItems.BaseMultiblockBlockItem;
 import com.renatiux.dinosexpansion.common.tileEntities.AdvancedSmithingTableTileEntity;
+import com.renatiux.dinosexpansion.common.tileEntities.FeederTileEntity;
 import com.renatiux.dinosexpansion.common.tileEntities.GeneratorTileEntity;
 import com.renatiux.dinosexpansion.common.tileEntities.IndustrialGrillTileEntity;
 import com.renatiux.dinosexpansion.common.trees.DETreeSpawners;
@@ -74,6 +75,7 @@ public class BlockInit {
 	public static final DoubleRegistryObject<BaseMultiBlock, BlockItem> ADVANCED_SMITHING_TABLE = CUSTOM.register("advanced_smithing_table", AdvancedSmithingTable::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
 	public static final DoubleRegistryObject<BaseMultiBlock, BlockItem> INDUSTRIAL_GRILL = CUSTOM.register("industrial_grill", IndustrialGrill::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
 	public static final DoubleRegistryObject<Generator, DEBlockItem> GENERATOR = CUSTOM.register("generator", Generator::new, block -> new DEBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES).setISTER(()-> GeneratorItemRenderer::new)));
+	public static final DoubleRegistryObject<Feeder, BlockItem> FEEDER = CUSTOM.register("feeder", Feeder::new, block -> new BlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
 
 	//cables
 	public static final DoubleRegistryObject<BasicEnergyCable, BlockItem> BASIC_ENERGY_CABLE = CUSTOM.register("basic_energy_cable", BasicEnergyCable::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
@@ -82,6 +84,7 @@ public class BlockInit {
 	public static final RegistryObject<Block> STRUCTURE_SMITHING_TABLE = BLOCK.register("structure_machine_smithing_table", () -> new MachineBarrierBlock(ADVANCED_SMITHING_TABLE.getPrimary(), () -> new AdvancedSmithingTableTileEntity(false)));
 	public static final RegistryObject<Block> STRUCTURE_INDUSTRIAL_GRILL = BLOCK.register("structure_machine_industrial_grill", () -> new MachineBarrierBlock(INDUSTRIAL_GRILL.getPrimary(), () -> new IndustrialGrillTileEntity(false)));
 	public static final RegistryObject<Block> STRUCTURE_GENERATOR = BLOCK.register("structure_generator", () -> new MachineBarrierBlock(GENERATOR.getPrimary(), () -> new GeneratorTileEntity(false)));
+	public static final RegistryObject<Block> STRUCTURE_FEEDER = BLOCK.register("structure_feeder", () -> new MachineBarrierBlock(FEEDER.getPrimary(), () -> new FeederTileEntity(false)).noGui().onRightClick(Feeder.OnSlaveRightClicked));
 
 	//Flower
 	public static final RegistryObject<Block> LAVENDER = PLANTS.register("lavender",

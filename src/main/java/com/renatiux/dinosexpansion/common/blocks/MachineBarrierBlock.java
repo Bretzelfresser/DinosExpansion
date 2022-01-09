@@ -22,11 +22,23 @@ public class MachineBarrierBlock extends Block {
 
 	protected final BaseMultiBlock machine;
 	protected final ITileEntityProvider provider;
+	protected OnBlockRightCLicked clickedProvider = null;
+	protected boolean hasGui = true;
 
 	public MachineBarrierBlock(final BaseMultiBlock machine, final ITileEntityProvider provider) {
 		super(AbstractBlock.Properties.from(machine));
 		this.machine = machine;
 		this.provider = provider;
+	}
+
+	public MachineBarrierBlock noGui(){
+		this.hasGui = false;
+		return this;
+	}
+
+	public MachineBarrierBlock onRightClick(OnBlockRightCLicked provider){
+		this.clickedProvider = provider;
+		return this;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -60,7 +72,7 @@ public class MachineBarrierBlock extends Block {
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
 			Hand handIn, BlockRayTraceResult hit) {
-		if (!world.isRemote) {
+		if (!world.isRemote && hasGui) {
 			TileEntity te = world.getTileEntity(pos);
 			if (te instanceof MasterSlaveTileEntity) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, ((MasterSlaveTileEntity) te).getMaster(),
@@ -68,6 +80,8 @@ public class MachineBarrierBlock extends Block {
 				return ActionResultType.SUCCESS;
 			}
 		}
+		if (clickedProvider != null)
+			return clickedProvider.onBlockActivated(state, world, pos, player, handIn, hit);
 		return ActionResultType.PASS;
 	}
 
@@ -79,6 +93,11 @@ public class MachineBarrierBlock extends Block {
 	public static interface ITileEntityProvider {
 		public TileEntity getTileEntity();
 
+	}
+
+	public static interface OnBlockRightCLicked{
+		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
+												 Hand handIn, BlockRayTraceResult hit);
 	}
 
 }

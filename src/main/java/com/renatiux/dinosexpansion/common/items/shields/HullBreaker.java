@@ -27,7 +27,6 @@ public class HullBreaker extends Item {
                 ItemStack itemstack = playerIn.getHeldItem(livingEntity.getActiveHand());
                 int damage = 3;
                 itemstack.damageItem(damage, playerIn, p -> p.sendBreakAnimation(livingEntity.getActiveHand()));
-                playerIn.inventory.deleteStack(itemstack);
             }
         }
 
