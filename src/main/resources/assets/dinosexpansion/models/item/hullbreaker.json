@@ -39,5 +39,13 @@
       "translation": [0.5, 0, 2.75],
       "scale": [0.5, 0.5, 0.5]
     }
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "dinosexpansion:item/hullbreaker_blocking"
+    }
+  ]
 }
