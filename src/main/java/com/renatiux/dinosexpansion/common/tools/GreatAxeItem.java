@@ -43,7 +43,7 @@ public class GreatAxeItem extends AxeItem {
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        stack.attemptDamageItem(DEModConfig.TOOLCONFIG.greataxeDuraLossMulti.get()-1, DEModConfig.random, null);
+        stack.attemptDamageItem(DEModConfig.TOOL_CONFIG.greataxeDuraLossMulti.get()-1, DEModConfig.random, null);
 
         if (entityLiving instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entityLiving;

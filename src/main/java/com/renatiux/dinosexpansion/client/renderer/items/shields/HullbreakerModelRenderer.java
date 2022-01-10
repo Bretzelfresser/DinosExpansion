@@ -14,6 +14,8 @@ import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 
 public class HullbreakerModelRenderer implements DEItemstackRenderer.ShieldModelProvider {
     private static final ResourceLocation HULLBREAKER_TEXTURE = Dinosexpansion.modLoc("item/shields/hullbreaker");
@@ -24,7 +26,8 @@ public class HullbreakerModelRenderer implements DEItemstackRenderer.ShieldModel
     @Override
     public void render(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
         matrixStack.push();
-        matrixStack.translate(0.5f,-0.9f,0.4f);
+        matrixStack.translate(0.5f,0.8f,0f);
+        matrixStack.rotate(Vector3f.ZN.rotationDegrees(180));
         IVertexBuilder ivertexbuilder = HULLBREAKER_RENDER.getSprite().wrapBuffer(ItemRenderer.getEntityGlintVertexBuilder(buffer, HULLBREAKER_MODEL.getRenderType(HULLBREAKER_RENDER.getAtlasLocation()), true, stack.hasEffect()));
         HULLBREAKER_MODEL.render(matrixStack, ivertexbuilder, combinedLight, combinedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
         matrixStack.pop();

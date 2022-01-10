@@ -10,7 +10,7 @@ public class EnchantmentUtils {
         return EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.FLAME.get(), stack) > 0;
     }
 
-    public static int getShieldStrenghtLevel(ItemStack stack){
+    public static int getShieldStrenghLevel(ItemStack stack){
         return EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SHIELD_STRENGH.get(), stack);
     }
 }

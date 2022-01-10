@@ -8,12 +8,10 @@ import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.model.BlockPart;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.util.math.BlockPos;
 
 public class EggHolder {
@@ -45,7 +43,7 @@ public class EggHolder {
                 heat--;
         } else {
             heatCounter++;
-            if (heat < cappedHeat && heatCounter >= 20f / (float) DEModConfig.INCUBATRO_CONFIG.incubatorSpeedMultiplayer.get()) {
+            if (heat < cappedHeat && heatCounter >= 20f / (float) DEModConfig.INCUBATOR_CONFIG.incubatorSpeedMultiplier.get()) {
                 heat++;
                 heatCounter = 0;
             }
@@ -71,7 +69,7 @@ public class EggHolder {
     }
 
     public int energyPerTick(){
-        return (int) (DEModConfig.INCUBATRO_CONFIG.maxEnergyConsumnerPerEgg.get() * cappedHeatPercentage());
+        return (int) (DEModConfig.INCUBATOR_CONFIG.maxEnergyConsumnerPerEgg.get() * cappedHeatPercentage());
     }
 
     public float cappedHeatPercentage(){
@@ -79,7 +77,7 @@ public class EggHolder {
     }
 
     private boolean randomChanceWithEfficiency() {
-        return tileEntity.getWorld().rand.nextDouble() < 0.5 * getHeatPercentage() * DEModConfig.INCUBATRO_CONFIG.incubatorSpeedMultiplayer.get();
+        return tileEntity.getWorld().rand.nextDouble() < 0.5 * getHeatPercentage() * DEModConfig.INCUBATOR_CONFIG.incubatorSpeedMultiplier.get();
     }
 
     /**

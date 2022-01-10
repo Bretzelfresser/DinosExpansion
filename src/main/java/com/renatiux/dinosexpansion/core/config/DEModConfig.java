@@ -8,14 +8,16 @@ public class DEModConfig {
 
     public static final Random random = new Random();
     public static BoomerangConfig BOOMERANGCONFIG;
-    public static ToolsConfig TOOLCONFIG;
-    public static IncubatorConfig INCUBATRO_CONFIG;
+    public static ToolsConfig TOOL_CONFIG;
+    public static IncubatorConfig INCUBATOR_CONFIG;
+    public static ShieldsConfig SHIELD_CONFIG;
 
     public static ForgeConfigSpec init(ForgeConfigSpec.Builder builder) {
 
         BOOMERANGCONFIG = new BoomerangConfig(builder);
-        TOOLCONFIG = new ToolsConfig(builder);
-        INCUBATRO_CONFIG = new IncubatorConfig(builder);
+        TOOL_CONFIG = new ToolsConfig(builder);
+        INCUBATOR_CONFIG = new IncubatorConfig(builder);
+        SHIELD_CONFIG = new ShieldsConfig(builder);
         return builder.build();
     }
 
@@ -91,12 +93,23 @@ public static class BoomerangConfig {
 
     public static class IncubatorConfig{
         public final ForgeConfigSpec.IntValue maxEnergyConsumnerPerEgg;
-        public final ForgeConfigSpec.IntValue incubatorSpeedMultiplayer;
+        public final ForgeConfigSpec.IntValue incubatorSpeedMultiplier;
 
         public IncubatorConfig(ForgeConfigSpec.Builder builder){
             builder.comment("configs of the incubator").push("Incubator");
             maxEnergyConsumnerPerEgg = builder.defineInRange("MaxEnergyPerEgg", 120, 1, Integer.MAX_VALUE);
-            incubatorSpeedMultiplayer = builder.defineInRange("SpeedMultiplayer", 1, 1, 10);
+            incubatorSpeedMultiplier = builder.defineInRange("SpeedMultiplayer", 1, 1, 10);
+        }
+    }
+
+    public static class ShieldsConfig{
+        public final ForgeConfigSpec.IntValue hullBreakerCooldown;
+        public final ForgeConfigSpec.DoubleValue hullbreakerKnockbackMultiplier;
+
+        public ShieldsConfig(ForgeConfigSpec.Builder builder){
+            builder.comment("configs of the Shields").push("Hullbreaker");
+            hullBreakerCooldown = builder.defineInRange("Hullbreaker knockback Cooldown", 200, 20, Integer.MAX_VALUE);
+            hullbreakerKnockbackMultiplier = builder.defineInRange("Hullbreaker Knockback multiplier", 1d, 0d, 10d);
         }
     }
 }

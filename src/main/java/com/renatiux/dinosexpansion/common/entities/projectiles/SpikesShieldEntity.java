@@ -56,7 +56,7 @@ public class SpikesShieldEntity extends AbstractArrowEntity {
         this.dataManager.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyaltyModifier(thrownStackIn));
         this.dataManager.set(RETURN_UNIQUE_ID, Optional.of(thrower.getUniqueID()));
         this.dataManager.set(ARROW, thrownStackIn);
-        dataManager.set(SHIELD_STRENGH_LEVEL, (byte)EnchantmentUtils.getShieldStrenghtLevel(thrownStackIn));
+        dataManager.set(SHIELD_STRENGH_LEVEL, (byte)EnchantmentUtils.getShieldStrenghLevel(thrownStackIn));
         this.shouldReturn = shouldReturnToThrower();
         this.slot = slot;
     }

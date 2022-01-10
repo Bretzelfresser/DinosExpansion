@@ -2,7 +2,6 @@ package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.DEItemstackRenderer;
-import com.renatiux.dinosexpansion.client.renderer.items.HullBreakerItemRenderer;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
 import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
 import com.renatiux.dinosexpansion.common.blocks.bush.DENarcoticBlock;

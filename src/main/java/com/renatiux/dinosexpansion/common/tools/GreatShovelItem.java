@@ -35,7 +35,7 @@ public class GreatShovelItem extends ShovelItem {
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        stack.attemptDamageItem(DEModConfig.TOOLCONFIG.excavatorDuraLossMulti.get()-1, DEModConfig.random, null);
+        stack.attemptDamageItem(DEModConfig.TOOL_CONFIG.excavatorDuraLossMulti.get()-1, DEModConfig.random, null);
 
         if (entityLiving instanceof PlayerEntity)
             AreaBreak.areaAttempt(world, pos, (PlayerEntity) entityLiving, EFFECTIVE_ON, EFFECTIVE_MATERIALS, false);

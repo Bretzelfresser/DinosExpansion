@@ -27,7 +27,6 @@ public class DEItemstackRenderer extends ItemStackTileEntityRenderer {
 
     @Override
     public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
-        System.out.println(stack.getItem().getRegistryName().getPath());
        MODELS.stream().filter(provider -> provider.getRepresentiveItem() == stack.getItem()).forEach(p -> p.render(stack, transformType, matrixStack, buffer, combinedLight, combinedOverlay));
     }
 
