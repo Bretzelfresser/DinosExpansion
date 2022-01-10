@@ -11,6 +11,7 @@ import com.renatiux.dinosexpansion.common.entities.projectiles.WoodBoomerang;
 import com.renatiux.dinosexpansion.common.items.*;
 
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
+import com.renatiux.dinosexpansion.common.items.shields.HeavyShieldItem;
 import com.renatiux.dinosexpansion.common.items.shields.HullBreaker;
 import com.renatiux.dinosexpansion.common.items.shields.SpikesShieldItem;
 import com.renatiux.dinosexpansion.common.tools.MultiToolItem;
@@ -260,6 +261,9 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> SPIKES_SHIELD = ITEMS.register("spikes_shield",
 			()-> new SpikesShieldItem((new Item.Properties().setISTER(() -> () ->DEItemstackRenderer.INTANCE).maxDamage(336).group(ItemGroupInit.ARMOR))));
+
+	public static final RegistryObject<Item> HEAVY_SHIELD = ITEMS.register("heavy_shield",
+			()-> new HeavyShieldItem((new Item.Properties().setISTER(() -> () -> DEItemstackRenderer.INTANCE).maxDamage(1000).group(ItemGroupInit.ARMOR))));
 
 
 	//Bows

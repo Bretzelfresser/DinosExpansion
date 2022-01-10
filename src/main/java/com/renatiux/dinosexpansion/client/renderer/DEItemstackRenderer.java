@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.client.renderer;
 
 import com.google.common.collect.Sets;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.renatiux.dinosexpansion.client.renderer.items.shields.HeavyShieldModelRenderer;
 import com.renatiux.dinosexpansion.client.renderer.items.shields.HullbreakerModelRenderer;
 import com.renatiux.dinosexpansion.client.renderer.items.shields.SpikeShieldModelRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -23,7 +24,7 @@ public class DEItemstackRenderer extends ItemStackTileEntityRenderer {
 
     public static final DEItemstackRenderer INTANCE = new DEItemstackRenderer();
 
-    public static final Set<ShieldModelProvider> MODELS = Sets.newHashSet(new SpikeShieldModelRenderer(), new HullbreakerModelRenderer());
+    public static final Set<ShieldModelProvider> MODELS = Sets.newHashSet(new SpikeShieldModelRenderer(), new HullbreakerModelRenderer(), new HeavyShieldModelRenderer());
 
     @Override
     public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
