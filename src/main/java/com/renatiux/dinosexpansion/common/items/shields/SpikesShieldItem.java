@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.common.items.shields;
 
 import com.renatiux.dinosexpansion.common.entities.projectiles.SpikesShieldEntity;
+import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import com.renatiux.dinosexpansion.util.EnchantmentUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -52,9 +53,9 @@ public class SpikesShieldItem extends Item {
 
                 ItemStack itemstack = playerIn.getHeldItem(livingEntity.getActiveHand());
                 SpikesShieldEntity shieldEntity = new SpikesShieldEntity(world, playerIn, itemstack, playerIn.inventory.getSlotFor(itemstack));
-                shieldEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2f, 1.0F);
+                shieldEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, (float)(DEModConfig.SHIELD_CONFIG.spikesShieldVelocity.get().doubleValue()), 1.0F);
                 world.addEntity(shieldEntity);
-                int damage = 3;
+                int damage = DEModConfig.SHIELD_CONFIG.spikesShieldDurabilityLoss.get().intValue();
                 if (EnchantmentHelper.hasChanneling(itemstack) || EnchantmentUtils.hasFlame(itemstack))
                     damage += 2;
                 itemstack.damageItem(damage, playerIn, p -> p.sendBreakAnimation(livingEntity.getActiveHand()));

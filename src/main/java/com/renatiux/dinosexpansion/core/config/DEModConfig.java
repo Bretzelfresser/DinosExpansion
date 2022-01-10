@@ -105,11 +105,22 @@ public static class BoomerangConfig {
     public static class ShieldsConfig{
         public final ForgeConfigSpec.IntValue hullBreakerCooldown;
         public final ForgeConfigSpec.DoubleValue hullbreakerKnockbackMultiplier;
+        public final ForgeConfigSpec.IntValue spikesShieldDurabilityLoss;
+
+        public final ForgeConfigSpec.DoubleValue spikesShieldVelocity;
+        public final ForgeConfigSpec.IntValue hullbreakerDurabilityLoss;
 
         public ShieldsConfig(ForgeConfigSpec.Builder builder){
             builder.comment("configs of the Shields").push("Hullbreaker");
+            builder.comment("defines how much durability one throw of the shield costs");
+            spikesShieldDurabilityLoss = builder.defineInRange("Durability Loss", 3, 1, 100);
             hullBreakerCooldown = builder.defineInRange("Hullbreaker knockback Cooldown", 200, 20, Integer.MAX_VALUE);
             hullbreakerKnockbackMultiplier = builder.defineInRange("Hullbreaker Knockback multiplier", 1d, 0d, 10d);
+            builder.pop();
+            builder.push("Spikes Shield");
+            builder.comment("this determines how fast teh spikes Shield fly when thrown \n the default value is the same as the trident, when set to zero u actually cant throw it");
+            spikesShieldVelocity = builder.defineInRange("spikes shield velocity", 2d, 0d, 10d);
+            hullbreakerDurabilityLoss = builder.defineInRange("Durability Loss", 3, 1, 100);
         }
     }
 }
