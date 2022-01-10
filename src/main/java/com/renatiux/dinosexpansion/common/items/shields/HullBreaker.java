@@ -34,7 +34,7 @@ public class HullBreaker extends Item {
                 int damage = DEModConfig.SHIELD_CONFIG.spikesShieldDurabilityLoss.get().intValue();
                 damage += EnchantmentUtils.getShieldStrenghLevel(stack);
                 itemstack.damageItem(damage, playerIn, p -> p.sendBreakAnimation(livingEntity.getActiveHand()));
-                //playerIn.getCooldownTracker().setCooldown(itemstack.getItem(), DEModConfig.SHIELD_CONFIG.hullBreakerCooldown.get());
+                playerIn.getCooldownTracker().setCooldown(itemstack.getItem(), DEModConfig.SHIELD_CONFIG.hullBreakerCooldown.get());
                 setCooldown(itemstack, DEModConfig.SHIELD_CONFIG.hullBreakerCooldown.get());
                 List<Entity> list =  world.getEntitiesInAABBexcluding(livingEntity, playerIn.getBoundingBox().expand(playerIn.getLookVec().scale(4)), e -> e instanceof LivingEntity);
                 for (Entity e : list){
