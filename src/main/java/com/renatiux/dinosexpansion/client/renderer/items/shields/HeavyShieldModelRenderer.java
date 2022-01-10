@@ -25,7 +25,7 @@ public class HeavyShieldModelRenderer implements DEItemstackRenderer.ShieldModel
     @Override
     public void render(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
         matrixStack.push();
-        matrixStack.translate(0.5f,0.8f,0f);
+        matrixStack.translate(0f,1.5f,0f);
         matrixStack.rotate(Vector3f.ZN.rotationDegrees(180));
         IVertexBuilder ivertexbuilder = HEAVY_SHIELD_RENDER.getSprite().wrapBuffer(ItemRenderer.getEntityGlintVertexBuilder(buffer, HEAVY_SHIELD_MODEL.getRenderType(HEAVY_SHIELD_RENDER.getAtlasLocation()), true, stack.hasEffect()));
         HEAVY_SHIELD_MODEL.render(matrixStack, ivertexbuilder, combinedLight, combinedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);

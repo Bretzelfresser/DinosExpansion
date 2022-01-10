@@ -110,7 +110,11 @@ public static class BoomerangConfig {
         public final ForgeConfigSpec.DoubleValue spikesShieldVelocity;
         public final ForgeConfigSpec.IntValue hullbreakerDurabilityLoss;
 
+        public final ForgeConfigSpec.IntValue heavyShieldBaseCoodlwonOnGround;
+        public final ForgeConfigSpec.BooleanValue canBeInfinte;
+
         public ShieldsConfig(ForgeConfigSpec.Builder builder){
+            builder.pop();
             builder.comment("configs of the Shields").push("Hullbreaker");
             builder.comment("defines how much durability one knockback of the shield costs");
             hullbreakerDurabilityLoss = builder.defineInRange("Durability Loss", 3, 1, 100);
@@ -122,6 +126,12 @@ public static class BoomerangConfig {
             spikesShieldVelocity = builder.defineInRange("spikes shield velocity", 2d, 0d, 10d);
             builder.comment("defines how much durability one throw of the shield costs");
             spikesShieldDurabilityLoss = builder.defineInRange("Durability Loss", 3, 1, 100);
+            builder.pop();
+            builder.comment("Configs of the Heavy Shield").push("HeavyShield");
+            builder.comment("defines how long u can put ur heavy shield in the ground \n may be higher with enchantments");
+            heavyShieldBaseCoodlwonOnGround = builder.defineInRange("base time", 200, 20, Integer.MAX_VALUE);
+            builder.comment("defines whether when u have ShieldStrength 5 on this shied u can put ur heavyShield for ever in ground or not");
+            canBeInfinte = builder.define("infinite", true);
         }
     }
 }

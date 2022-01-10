@@ -68,19 +68,6 @@ public class SpikesShieldItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity playerIn, Hand handIn) {
-        /*if (playerIn.isSneaking()) {
-            ItemStack itemstack = playerIn.getHeldItem(handIn);
-            SpikesShieldEntity shieldEntity = new SpikesShieldEntity(world, playerIn, itemstack);
-            shieldEntity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2f, 1.0F);
-            world.addEntity(shieldEntity);
-            int damage = 3;
-            if (EnchantmentHelper.hasChanneling(itemstack))
-                damage += 2;
-            itemstack.damageItem(damage, playerIn, p -> p.sendBreakAnimation(handIn));
-            playerIn.setHeldItem(handIn, ItemStack.EMPTY);
-            return ActionResult.resultConsume(itemstack);
-        }*/
-
         ItemStack itemStack = playerIn.getHeldItem(handIn);
         playerIn.setActiveHand(handIn);
         return ActionResult.resultConsume(itemStack);

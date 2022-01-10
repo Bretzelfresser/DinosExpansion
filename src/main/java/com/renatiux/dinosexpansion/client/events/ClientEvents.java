@@ -64,6 +64,7 @@ public class ClientEvents {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.DIAMOND_BOOMERANG.get(), new BoomerangRenderer.Factory());
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.SPIKE_SHIELD_ENTITY_TYPE.get(), SpikesShieldRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.HEAVY_SHIELD_ENTITY_TYPE.get(), HeavyShieldEntityRenderer::new);
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.THAUMAPTILON.get(), ThaumaptlionRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.CHARNIA.get(), CharniaRenderer::new);
