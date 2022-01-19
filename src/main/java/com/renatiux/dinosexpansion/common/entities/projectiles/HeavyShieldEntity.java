@@ -7,25 +7,33 @@ import com.renatiux.dinosexpansion.core.init.ItemInit;
 import com.renatiux.dinosexpansion.util.EnchantmentUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MoverType;
+import net.minecraft.entity.passive.WaterMobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 public class HeavyShieldEntity extends Entity {
 
     private static final DataParameter<ItemStack> SHIELD = EntityDataManager.createKey(HeavyShieldEntity.class, DataSerializers.ITEMSTACK);
+    private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.createKey(HeavyShieldEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
     private static final ItemStackCompare HEAVY_SHIELD = (first, second) -> {
         if (first.isEmpty() || second.isEmpty()) {
@@ -38,7 +46,6 @@ public class HeavyShieldEntity extends Entity {
 
     private int cooldown, returningTicks = 0;
     private boolean infinite, callback = false;
-    private PlayerEntity owner;
 
     public HeavyShieldEntity(EntityType<?> type, World world) {
         super(type, world);
@@ -54,22 +61,22 @@ public class HeavyShieldEntity extends Entity {
         setPosition(x, y, z);
         setMotion(Vector3d.ZERO);
         this.dataManager.set(SHIELD, shield);
-        this.owner = owner;
+        this.dataManager.set(OWNER, Optional.of(owner.getUniqueID()));
         if (DEModConfig.SHIELD_CONFIG.canBeInfinte.get().booleanValue() && EnchantmentUtils.getShieldStrenghLevel(shield) >= 5) {
             this.infinite = true;
         }
-        cooldown = DEModConfig.SHIELD_CONFIG.heavyShieldBaseCoodlwonOnGround.get().intValue() + 60 * EnchantmentUtils.getShieldStrenghLevel(shield) + 60;
+        cooldown = DEModConfig.SHIELD_CONFIG.heavyShieldBaseCoodlwonOnGround.get().intValue() + 100 * EnchantmentUtils.getShieldStrenghLevel(shield) + 100;
     }
 
     @Override
     public void tick() {
+        super.tick();
         if (!infinite && !callback) {
             if (cooldown > 0) {
                 cooldown--;
                 if (cooldown <= 0) {
                     cooldown = 0;
-                    this.entityDropItem(getShield());
-                    this.remove();
+                   this.removeWithDrop();
                 }
             }
         }
@@ -78,27 +85,47 @@ public class HeavyShieldEntity extends Entity {
         }
         if (callback) {
             this.noClip = true;
-            Vector3d toOwner = new Vector3d(owner.getPosX() - this.getPosX(), owner.getPosYEye() - this.getPosY(), owner.getPosZ() - this.getPosZ());
+            Vector3d toOwner = new Vector3d(getOwner().getPosX() - this.getPosX(), getOwner().getPosYEye() - this.getPosY(), getOwner().getPosZ() - this.getPosZ());
             this.setRawPosition(this.getPosX(), this.getPosY() + toOwner.y * 0.03, this.getPosZ());
-            double d0 = 0.2D;
-            this.setMotion(this.getMotion().scale(0.95D).add(toOwner.normalize().scale(d0)));
+            this.setMotion(this.getMotion().scale(0.95D).add(toOwner.normalize().scale(0.2d)));
             if (this.returningTicks == 0) {
                 this.playSound(SoundEvents.ITEM_TRIDENT_RETURN, 10.0F, 1.0F);
             }
             ++this.returningTicks;
 
         }
-        super.tick();
+
+        if (!this.noClip) {
+            this.doBlockCollisions();
+            List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getBoundingBox().grow((double) 0.2F, (double) -0.01F, (double) 0.2F), EntityPredicates.pushableBy(this));
+            if (!list.isEmpty()) {
+
+                for (int j = 0; j < list.size(); ++j) {
+                    Entity entity = list.get(j);
+                    if (!entity.isPassenger(this)) {
+                        this.applyEntityCollision(entity);
+                    }
+                }
+            }
+        }
+        this.move(MoverType.SELF, getMotion());
+    }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float damage) {
+        if (!this.getShield().isEmpty() && getOwner() != null) {
+            this.getShield().damageItem((int) damage, getOwner(), p -> this.playSound(SoundEvents.BLOCK_ANVIL_BREAK, 10f, 1f));
+            System.out.println(getShield().getDamage());
+            return true;
+        }
+        return false;
     }
 
     @Override
     public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
-        System.out.println("hi");
-        if (!player.world.isRemote)
-            System.out.println(isOwner(player));
-        if (!world.isRemote && isOwner(player)){
-            if(!addItemToInventory(player)){
-                this.entityDropItem(getShield());
+        if (!world.isRemote && isOwner(player)) {
+            if (!addItemToInventoryWithReturn(player)) {
+               this.removeWithDrop();
             }
             this.remove();
         }
@@ -107,6 +134,23 @@ public class HeavyShieldEntity extends Entity {
 
     public void callBack() {
         this.callback = true;
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return true;
+    }
+
+    public void removeWithDrop() {
+        for (int i = 0; i < getOwner().inventory.getSizeInventory(); i++) {
+            ItemStack stack = getOwner().inventory.getStackInSlot(i);
+            if (stack.getItem() == ItemInit.HEAVY_SHIELD_DUMMY.get()){
+                getOwner().inventory.setInventorySlotContents(i, ItemStack.EMPTY);
+            }
+
+        }
+        this.entityDropItem(getShield());
+        this.remove();
     }
 
     @Override
@@ -164,6 +208,7 @@ public class HeavyShieldEntity extends Entity {
                     d1 = d1 * (double) (1.0F - this.entityCollisionReduction);
 
                     if (!entityIn.isBeingRidden()) {
+                        entityIn.setMotion(0d, entityIn.getMotion().y, 0d);
                         entityIn.addVelocity(d0, 0.0D, d1);
                     }
                 }
@@ -173,8 +218,14 @@ public class HeavyShieldEntity extends Entity {
     }
 
     @Override
+    protected Vector3d func_241839_a(Direction.Axis axis, TeleportationRepositioner.Result result) {
+        return LivingEntity.func_242288_h(super.func_241839_a(axis, result));
+    }
+
+    @Override
     protected void registerData() {
         this.dataManager.register(SHIELD, ItemStack.EMPTY);
+        this.dataManager.register(OWNER, Optional.empty());
     }
 
     @Override
@@ -183,16 +234,18 @@ public class HeavyShieldEntity extends Entity {
         this.infinite = compound.getBoolean("infinite");
         this.callback = compound.getBoolean("callback");
         this.cooldown = compound.getInt("cooldown");
-        this.owner = world.getPlayerByUuid(compound.getUniqueId("owner"));
+        if (compound.contains("owner"))
+            this.dataManager.set(OWNER, Optional.of(compound.getUniqueId("owner")));
     }
 
     @Override
     protected void writeAdditional(CompoundNBT compound) {
-        getShield().write(compound);
+        compound = getShield().write(compound);
         compound.putBoolean("infinite", this.infinite);
         compound.putBoolean("callback", this.callback);
         compound.putInt("cooldown", this.cooldown);
-        compound.putUniqueId("owner", this.owner.getUniqueID());
+        if (getOwnerUUID() != null)
+            compound.putUniqueId("owner", getOwnerUUID());
     }
 
     @Override
@@ -202,11 +255,34 @@ public class HeavyShieldEntity extends Entity {
 
 
     public boolean isOwner(PlayerEntity player) {
-        return this.owner == player;
+        return this.getOwnerUUID().equals(player.getUniqueID());
     }
 
     public ItemStack getShield() {
         return this.dataManager.get(SHIELD);
+    }
+
+    @Nullable
+    public UUID getOwnerUUID() {
+        return this.dataManager.get(OWNER).orElse(null);
+    }
+
+    @Nullable
+    public PlayerEntity getOwner() {
+        if (getOwnerUUID() != null) {
+            return this.world.getPlayerByUuid(getOwnerUUID());
+        }
+        return null;
+    }
+
+    @Override
+    public boolean canCollide(Entity entity) {
+        return true;
+    }
+
+    @Override
+    public boolean canBePushed() {
+        return false;
     }
 
     public static int getSlotForStack(PlayerInventory inventory, ItemStack stack) {
@@ -224,7 +300,7 @@ public class HeavyShieldEntity extends Entity {
         return -1;
     }
 
-    public static interface ItemStackCompare {
-        public boolean areEqual(ItemStack first, ItemStack second);
+    public interface ItemStackCompare {
+        boolean areEqual(ItemStack first, ItemStack second);
     }
 }

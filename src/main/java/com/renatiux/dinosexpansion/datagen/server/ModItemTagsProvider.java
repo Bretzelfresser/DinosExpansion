@@ -30,7 +30,7 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 	}
 
 	private void makeShields(){
-		getOrCreateBuilder(Tags.Items.SHIELDS).add(ItemInit.SPIKES_SHIELD.get(), ItemInit.HULLBREAKER.get());
+		getOrCreateBuilder(Tags.Items.SHIELDS).add(ItemInit.SPIKES_SHIELD.get(), ItemInit.HULLBREAKER.get(), ItemInit.HEAVY_SHIELD.get());
 	}
 	
 	private void makeArrows() {

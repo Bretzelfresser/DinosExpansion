@@ -33,6 +33,11 @@ public class HeavyShieldDummy extends Item {
         return super.onItemRightClick(world, player, hand);
     }
 
+    @Override
+    public boolean hasEffect(ItemStack p_77636_1_) {
+        return false;
+    }
+
     public static void setShieldEntity(ItemStack stack, HeavyShieldEntity entity){
         stack.getOrCreateTag().putInt("shield_entity", entity.getEntityId());
     }

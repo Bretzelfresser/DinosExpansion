@@ -11,6 +11,10 @@ public class EnchantmentUtils {
     }
 
     public static int getShieldStrenghLevel(ItemStack stack){
-        return EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SHIELD_STRENGH.get(), stack);
+        return EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.SHIELD_STRENGTH.get(), stack);
+    }
+
+    public static boolean hasBoundEnchantment(ItemStack stack){
+        return EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.BOUND_ENCHANTMENT.get(), stack) > 0;
     }
 }
