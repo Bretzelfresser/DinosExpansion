@@ -12,6 +12,7 @@ public class DEModConfig {
     public static IncubatorConfig INCUBATOR_CONFIG;
     public static ShieldsConfig SHIELD_CONFIG;
     public static ItemsConfig ITEMS_CONFIG;
+    public static EffectConfig EFFECT_CONFIG;
 
     public static ForgeConfigSpec init(ForgeConfigSpec.Builder builder) {
 
@@ -20,6 +21,7 @@ public class DEModConfig {
         INCUBATOR_CONFIG = new IncubatorConfig(builder);
         SHIELD_CONFIG = new ShieldsConfig(builder);
         ITEMS_CONFIG = new ItemsConfig(builder);
+        EFFECT_CONFIG = new EffectConfig(builder);
         return builder.build();
     }
 
@@ -105,6 +107,28 @@ public static class BoomerangConfig {
         }
     }
 
+    public static final class EffectConfig{
+        //deathblow
+        public final ForgeConfigSpec.DoubleValue attackDamageLoss;
+        public final ForgeConfigSpec.DoubleValue slownessLoss;
+        //bleeding
+        public final ForgeConfigSpec.IntValue ticksBeforeDamage;
+
+
+        public EffectConfig(ForgeConfigSpec.Builder builder){
+            builder.push("Death Blow");
+            builder.comment("how much attack damage u loose per level of effect");
+            attackDamageLoss = builder.defineInRange("attack damage Loss", 2d, 0d, 10d);
+            builder.comment("slowness loss per level of effect");
+            slownessLoss = builder.defineInRange("slowness", -0.2, -1, 1);
+            builder.pop().push("Bleeding");
+            builder.comment("how mch ticks there r between the damage of the bleeding");
+            ticksBeforeDamage = builder.defineInRange("ticksBetweenBleeding", 20, 1, Integer.MAX_VALUE);
+
+
+        }
+    }
+
     public static class ShieldsConfig{
         public final ForgeConfigSpec.IntValue hullBreakerCooldown;
         public final ForgeConfigSpec.DoubleValue hullbreakerKnockbackMultiplier;
@@ -113,7 +137,8 @@ public static class BoomerangConfig {
         public final ForgeConfigSpec.DoubleValue spikesShieldVelocity;
         public final ForgeConfigSpec.IntValue hullbreakerDurabilityLoss;
 
-        public final ForgeConfigSpec.IntValue heavyShieldBaseCoodlwonOnGround;
+        public final ForgeConfigSpec.IntValue heavyShieldBaseCooldownOnGround;
+        public final ForgeConfigSpec.IntValue heavyShieldCooldownPushAway;
         public final ForgeConfigSpec.BooleanValue canBeInfinte;
 
         public ShieldsConfig(ForgeConfigSpec.Builder builder){
@@ -131,9 +156,12 @@ public static class BoomerangConfig {
             builder.pop();
             builder.comment("Configs of the Heavy Shield").push("HeavyShield");
             builder.comment("defines how long u can put ur heavy shield in the ground \n may be higher with enchantments \n in ticks");
-            heavyShieldBaseCoodlwonOnGround = builder.defineInRange("base time", 200, 20, Integer.MAX_VALUE);
+            heavyShieldBaseCooldownOnGround = builder.defineInRange("base time", 200, 20, Integer.MAX_VALUE);
+            builder.comment("this values defines how long it takes until u can place the shield again and entities get pushed away");
+            heavyShieldCooldownPushAway =  builder.defineInRange("pushAwayCooldown", 600, 20, Integer.MAX_VALUE);
             builder.comment("defines whether when u have ShieldStrength 5 on this shied u can put ur heavyShield for ever in ground or not");
             canBeInfinte = builder.define("infinite", true);
+            builder.pop();
         }
     }
 

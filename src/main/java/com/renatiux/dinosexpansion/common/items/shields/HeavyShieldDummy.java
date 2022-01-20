@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.common.items.shields;
 
 import com.renatiux.dinosexpansion.common.entities.projectiles.HeavyShieldEntity;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,10 +9,13 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class HeavyShieldDummy extends Item {
     public HeavyShieldDummy(Properties properties) {
@@ -31,6 +35,11 @@ public class HeavyShieldDummy extends Item {
 
 
         return super.onItemRightClick(world, player, hand);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> builder, ITooltipFlag flag) {
+        builder.add(new TranslationTextComponent("tooltip.dinosexpansion.heavy_shield_cooldown", getHeavyShieldEntity(stack, world).getCooldown()));
     }
 
     @Override

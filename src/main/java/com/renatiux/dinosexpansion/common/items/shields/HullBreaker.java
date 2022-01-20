@@ -79,8 +79,8 @@ public class HullBreaker extends Item {
     public void applyKnockback(PlayerEntity source, LivingEntity livingEntity, ItemStack shield){
         double x = source.getPosX() - livingEntity.getPosX();
         double z = source.getPosZ() - livingEntity.getPosZ();
-        float strengh = (float) (DEModConfig.SHIELD_CONFIG.hullbreakerKnockbackMultiplier.get() * 0.4d * (double)(EnchantmentUtils.getShieldStrenghLevel(shield) + 1));
-        livingEntity.applyKnockback(strengh, x, z);
+        float strength = (float) (DEModConfig.SHIELD_CONFIG.hullbreakerKnockbackMultiplier.get() * 0.4d * (double)(EnchantmentUtils.getShieldStrenghLevel(shield) + 1));
+        livingEntity.applyKnockback(strength, x, z);
     }
 
     @Override

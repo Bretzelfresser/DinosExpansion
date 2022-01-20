@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.common.entities.projectiles;
 
 import com.renatiux.dinosexpansion.common.items.shields.HeavyShieldDummy;
+import com.renatiux.dinosexpansion.common.items.shields.HeavyShieldItem;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
@@ -9,10 +10,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.passive.WaterMobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -65,18 +64,47 @@ public class HeavyShieldEntity extends Entity {
         if (DEModConfig.SHIELD_CONFIG.canBeInfinte.get().booleanValue() && EnchantmentUtils.getShieldStrenghLevel(shield) >= 5) {
             this.infinite = true;
         }
-        cooldown = DEModConfig.SHIELD_CONFIG.heavyShieldBaseCoodlwonOnGround.get().intValue() + 100 * EnchantmentUtils.getShieldStrenghLevel(shield) + 100;
+        cooldown = DEModConfig.SHIELD_CONFIG.heavyShieldBaseCooldownOnGround.get().intValue() + 100 * EnchantmentUtils.getShieldStrenghLevel(shield) + 100;
+    }
+
+    public void pushAway() {
+        if (HeavyShieldItem.getCooldown(getShield()) <= 0) {
+            List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getBoundingBox().grow(6, 1, 6), EntityPredicates.pushableBy(this));
+            for (Entity e : list) {
+                if (e instanceof PlayerEntity && isOwner((PlayerEntity) e)) {
+                    continue;
+                }
+                if (e instanceof LivingEntity) {
+                    LivingEntity living = (LivingEntity) e;
+                    double x = this.getPosX() - e.getPosX();
+                    double z = this.getPosZ() - e.getPosZ();
+                    float strength = 3f * (EnchantmentUtils.getShieldStrenghLevel(getShield()) + 1f);
+                    living.applyKnockback(strength, x, z);
+                }
+            }
+            HeavyShieldItem.setPushAwayCooldown(getShield(), DEModConfig.SHIELD_CONFIG.heavyShieldCooldownPushAway.get().intValue());
+        }
+    }
+
+    public int getCooldown(){
+        return HeavyShieldItem.getCooldown(getShield());
     }
 
     @Override
     public void tick() {
         super.tick();
+        if (!this.world.isRemote && HeavyShieldItem.getCooldown(getShield()) > 0){
+            HeavyShieldItem.addCooldown(getShield(), -1);
+        }
         if (!infinite && !callback) {
             if (cooldown > 0) {
                 cooldown--;
                 if (cooldown <= 0) {
                     cooldown = 0;
-                   this.removeWithDrop();
+                    if (EnchantmentUtils.hasBoundEnchantment(getShield())) {
+                        callBack();
+                    } else
+                        this.removeWithDrop();
                 }
             }
         }
@@ -125,7 +153,7 @@ public class HeavyShieldEntity extends Entity {
     public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
         if (!world.isRemote && isOwner(player)) {
             if (!addItemToInventoryWithReturn(player)) {
-               this.removeWithDrop();
+                this.removeWithDrop();
             }
             this.remove();
         }
@@ -144,7 +172,7 @@ public class HeavyShieldEntity extends Entity {
     public void removeWithDrop() {
         for (int i = 0; i < getOwner().inventory.getSizeInventory(); i++) {
             ItemStack stack = getOwner().inventory.getStackInSlot(i);
-            if (stack.getItem() == ItemInit.HEAVY_SHIELD_DUMMY.get()){
+            if (stack.getItem() == ItemInit.HEAVY_SHIELD_DUMMY.get()) {
                 getOwner().inventory.setInventorySlotContents(i, ItemStack.EMPTY);
             }
 

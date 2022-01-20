@@ -229,5 +229,7 @@
 	"enchantment.dinosexpansion.shield_strength": "Shield Strength",
 	"enchantment.dinosexpansion.bound_enchantment": "Bound",
 	
-	"message.dinosexpansion.isnt_owner":"You don't own this incubator, destroy and place it again or ask the owner"
+	"message.dinosexpansion.isnt_owner":"You don't own this incubator, destroy and place it again or ask the owner",
+
+	"tooltip.dinosexpansion.heavy_shield_cooldown": "Cooldown: %s"
 }

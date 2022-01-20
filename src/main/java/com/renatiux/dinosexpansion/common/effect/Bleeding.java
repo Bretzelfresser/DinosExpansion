@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.common.effect;
 
 import com.google.common.collect.ImmutableList;
+import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import com.renatiux.dinosexpansion.core.init.DamageSourcesInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 import net.minecraft.entity.LivingEntity;
@@ -17,7 +18,7 @@ public class Bleeding extends Effect {
 
     @Override
     public void performEffect(LivingEntity entity, int amplifier) {
-        if (entity.ticksExisted % 20 == 0) {
+        if (entity.ticksExisted % DEModConfig.EFFECT_CONFIG.ticksBeforeDamage.get().intValue() == 0) {
             entity.attackEntityFrom(DamageSourcesInit.BLEEDING, amplifier);
         }
     }
