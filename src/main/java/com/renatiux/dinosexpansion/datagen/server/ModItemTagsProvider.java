@@ -7,6 +7,7 @@ import com.renatiux.dinosexpansion.core.tags.Tags;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -27,6 +28,7 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 		makePlantFood();
 		makeShields();
 		getOrCreateBuilder(Tags.Items.DODO_COLLECTABLES).add(Items.MELON_SEEDS, Items.WHEAT_SEEDS, ItemInit.NARCOTIC_BERRY.get(), Items.BEETROOT_SEEDS, Items.PUMPKIN_SEEDS);
+		getOrCreateBuilder(Tags.Items.MEDIKITS).add(ItemInit.NORMAL_MEDIKIT.get(), ItemInit.BETTER_MEDIKIT.get());
 	}
 
 	private void makeShields(){

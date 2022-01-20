@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion;
 import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 import static net.minecraft.item.ItemModelsProperties.registerProperty;
 
+import com.renatiux.dinosexpansion.client.events.ClientEvents;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
 import com.renatiux.dinosexpansion.core.init.*;
 import net.minecraft.entity.player.PlayerInventory;

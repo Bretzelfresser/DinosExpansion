@@ -77,6 +77,9 @@ public class ItemInit {
 	//Misc
 	public static final RegistryObject<Item> TIME_MACHINE = ITEMS.register("time_machine", TimeMachineItem::new);
 
+	public static final RegistryObject<Item> NORMAL_MEDIKIT = ITEMS.register("normal_medikit", () -> new Medikit(Medikit.Type.NORMAL));
+	public static final RegistryObject<Item> BETTER_MEDIKIT = ITEMS.register("better_medikit", () -> new Medikit(Medikit.Type.BETTER));
+
 	public static final RegistryObject<Item> RAW_BROWNSTONE = ITEMS.register("raw_brownstone",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> POLISHED_BROWNSTONE = ITEMS.register("polished_brownstone",

@@ -11,6 +11,7 @@ public class DEModConfig {
     public static ToolsConfig TOOL_CONFIG;
     public static IncubatorConfig INCUBATOR_CONFIG;
     public static ShieldsConfig SHIELD_CONFIG;
+    public static ItemsConfig ITEMS_CONFIG;
 
     public static ForgeConfigSpec init(ForgeConfigSpec.Builder builder) {
 
@@ -18,6 +19,7 @@ public class DEModConfig {
         TOOL_CONFIG = new ToolsConfig(builder);
         INCUBATOR_CONFIG = new IncubatorConfig(builder);
         SHIELD_CONFIG = new ShieldsConfig(builder);
+        ITEMS_CONFIG = new ItemsConfig(builder);
         return builder.build();
     }
 
@@ -99,6 +101,7 @@ public static class BoomerangConfig {
             builder.comment("configs of the incubator").push("Incubator");
             maxEnergyConsumnerPerEgg = builder.defineInRange("MaxEnergyPerEgg", 120, 1, Integer.MAX_VALUE);
             incubatorSpeedMultiplier = builder.defineInRange("SpeedMultiplayer", 1, 1, 10);
+            builder.pop();
         }
     }
 
@@ -114,11 +117,10 @@ public static class BoomerangConfig {
         public final ForgeConfigSpec.BooleanValue canBeInfinte;
 
         public ShieldsConfig(ForgeConfigSpec.Builder builder){
-            builder.pop();
             builder.comment("configs of the Shields").push("Hullbreaker");
             builder.comment("defines how much durability one knockback of the shield costs");
             hullbreakerDurabilityLoss = builder.defineInRange("Durability Loss", 3, 1, 100);
-            hullBreakerCooldown = builder.defineInRange("Hullbreaker knockback Cooldown", 200, 20, Integer.MAX_VALUE);
+            hullBreakerCooldown = builder.defineInRange("Hullbreaker knockback Cooldown in ticks", 200, 20, Integer.MAX_VALUE);
             hullbreakerKnockbackMultiplier = builder.defineInRange("Hullbreaker Knockback multiplier", 1d, 0d, 10d);
             builder.pop();
             builder.push("Spikes Shield");
@@ -128,10 +130,19 @@ public static class BoomerangConfig {
             spikesShieldDurabilityLoss = builder.defineInRange("Durability Loss", 3, 1, 100);
             builder.pop();
             builder.comment("Configs of the Heavy Shield").push("HeavyShield");
-            builder.comment("defines how long u can put ur heavy shield in the ground \n may be higher with enchantments");
+            builder.comment("defines how long u can put ur heavy shield in the ground \n may be higher with enchantments \n in ticks");
             heavyShieldBaseCoodlwonOnGround = builder.defineInRange("base time", 200, 20, Integer.MAX_VALUE);
             builder.comment("defines whether when u have ShieldStrength 5 on this shied u can put ur heavyShield for ever in ground or not");
             canBeInfinte = builder.define("infinite", true);
+        }
+    }
+
+    public static final class ItemsConfig{
+        public final ForgeConfigSpec.IntValue medikitCooldown;
+
+        public ItemsConfig(ForgeConfigSpec.Builder builder){
+            builder.comment("all configuration for Items").push("Items");
+            this.medikitCooldown = builder.defineInRange("the cooldown of the medikits after they got used in seconds", 20, 1, Integer.MAX_VALUE);
         }
     }
 }
