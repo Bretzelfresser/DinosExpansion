@@ -48,5 +48,35 @@
 				"stream":true
 			}
 		]
+	},
+	"entity.normal_heartbeat":{
+		"category":"item",
+		"subtitle":"entity.normal_heartbeat",
+		"sounds":[
+			{
+				"name": "dinosexpansion:effects/normal_heartbeat",
+				"stream": true
+			}
+		]
+	},
+	"entity.faster_heartbeat":{
+		"category":"item",
+		"subtitle":"entity.faster_heartbeat",
+		"sounds":[
+			{
+				"name": "dinosexpansion:effects/faster_heartbeat",
+				"stream": true
+			}
+		]
+	},
+	"entity.fastest_heartbeat":{
+		"category":"item",
+		"subtitle":"entity.fastest_heartbeat",
+		"sounds":[
+			{
+				"name": "dinosexpansion:effects/fastest_heartbeat",
+				"stream": true
+			}
+		]
 	}
 }

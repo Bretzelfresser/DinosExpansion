@@ -23,4 +23,12 @@ public class SoundInit {
 	public static final RegistryObject<SoundEvent> DODO_DIE = SOUNDS.register("entity.dodo_die", 
 			() -> new SoundEvent(Dinosexpansion.modLoc("entity.dodo_die")));
 
+	public static final RegistryObject<SoundEvent> NORMAL_HEARTBEAT = register("entity.normal_heartbeat");
+	public static final RegistryObject<SoundEvent> FASTER_HEARTBEAT = register("entity.faster_heartbeat");
+	public static final RegistryObject<SoundEvent> FASTEST_HEARTBEAT = register("entity.fastest_heartbeat");
+
+	public static final RegistryObject<SoundEvent> register(String name){
+		return SOUNDS.register(name, () -> new SoundEvent(Dinosexpansion.modLoc(name)));
+	}
+
 }

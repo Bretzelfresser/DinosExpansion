@@ -231,5 +231,7 @@
 	
 	"message.dinosexpansion.isnt_owner":"You don't own this incubator, destroy and place it again or ask the owner",
 
-	"tooltip.dinosexpansion.heavy_shield_cooldown": "Cooldown: %s"
+	"tooltip.dinosexpansion.heavy_shield_cooldown": "Cooldown: %s",
+
+	"death.attack.dinosexpansion.bleeding": "%s bleed to death"
 }
