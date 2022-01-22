@@ -48,7 +48,7 @@ public class HeavyShieldItem extends Item {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack p_77661_1_) {
+    public UseAction getUseAction(ItemStack stack) {
         if (Minecraft.getInstance().player.isSneaking())
             return UseAction.SPEAR;
         return UseAction.BLOCK;

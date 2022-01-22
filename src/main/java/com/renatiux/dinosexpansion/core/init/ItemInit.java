@@ -11,13 +11,11 @@ import com.renatiux.dinosexpansion.common.entities.projectiles.WoodBoomerang;
 import com.renatiux.dinosexpansion.common.items.*;
 
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
-import com.renatiux.dinosexpansion.common.items.shields.HeavyShieldDummy;
-import com.renatiux.dinosexpansion.common.items.shields.HeavyShieldItem;
-import com.renatiux.dinosexpansion.common.items.shields.HullBreaker;
-import com.renatiux.dinosexpansion.common.items.shields.SpikesShieldItem;
+import com.renatiux.dinosexpansion.common.items.shields.*;
 import com.renatiux.dinosexpansion.common.tools.MultiToolItem;
 import com.renatiux.dinosexpansion.util.enums.DEArmorMaterial;
 import com.renatiux.dinosexpansion.util.enums.DEToolMaterial;
+import com.renatiux.dinosexpansion.util.enums.Rarities;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -260,15 +258,12 @@ public class ItemInit {
 	public static final RegistryObject<Item> DIAMOND_AIOT = ITEMS.register("diamond_aiot",
 			()-> new MultiToolItem(ItemTier.DIAMOND, 4, -2.4F, (new Item.Properties().group(ItemGroupInit.MISC))));
 
-	public static final RegistryObject<Item> HULLBREAKER = ITEMS.register("hullbreaker",
-			() -> new HullBreaker(new Item.Properties().setISTER(() -> () -> DEItemstackRenderer.INTANCE).maxDamage(800).group(ItemGroupInit.ARMOR)));
-
-	public static final RegistryObject<Item> SPIKES_SHIELD = ITEMS.register("spikes_shield",
-			()-> new SpikesShieldItem((new Item.Properties().setISTER(() -> () ->DEItemstackRenderer.INTANCE).maxDamage(336).group(ItemGroupInit.ARMOR))));
-
-	public static final RegistryObject<Item> HEAVY_SHIELD = ITEMS.register("heavy_shield",
-			()-> new HeavyShieldItem((new Item.Properties().setISTER(() -> () -> DEItemstackRenderer.INTANCE).maxDamage(1000).group(ItemGroupInit.ARMOR))));
+	//shields
+	public static final RegistryObject<Item> HULLBREAKER = ITEMS.register("hullbreaker", () -> new HullBreaker(new Item.Properties().setISTER(() -> () -> DEItemstackRenderer.INTANCE).maxDamage(800).group(ItemGroupInit.ARMOR)));
+	public static final RegistryObject<Item> SPIKES_SHIELD = ITEMS.register("spikes_shield", ()-> new SpikesShieldItem((new Item.Properties().setISTER(() -> () ->DEItemstackRenderer.INTANCE).maxDamage(336).group(ItemGroupInit.ARMOR))));
+	public static final RegistryObject<Item> HEAVY_SHIELD = ITEMS.register("heavy_shield", ()-> new HeavyShieldItem((new Item.Properties().setISTER(() -> () -> DEItemstackRenderer.INTANCE).maxDamage(1000).group(ItemGroupInit.ARMOR))));
 	public static final RegistryObject<Item> HEAVY_SHIELD_DUMMY = ITEMS.register("heavy_shield_dummy", () -> new HeavyShieldDummy(new Item.Properties()));
+	public static final RegistryObject<Shieldbow> SHIELDBOW = ITEMS.register("shieldbow", () -> new Shieldbow((new Item.Properties().group(ItemGroupInit.MISC).maxDamage(1200).rarity(Rarities.MYTHIC))));
 
 
 	//Bows

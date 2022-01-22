@@ -5,9 +5,13 @@ import static net.minecraft.item.ItemModelsProperties.registerProperty;
 
 import com.renatiux.dinosexpansion.client.events.ClientEvents;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
+import com.renatiux.dinosexpansion.common.loot.ChestLootModifier;
 import com.renatiux.dinosexpansion.core.init.*;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -161,6 +165,13 @@ public class Dinosexpansion {
     public static class RegistriesDE {
 
         @SubscribeEvent
+        public static void registerLootTabeModifiers(final RegistryEvent.Register<GlobalLootModifierSerializer<?>> registry){
+            registry.getRegistry().register(new ChestLootModifier.Serializer("mansion_shieldbow"));
+            registry.getRegistry().register(new ChestLootModifier.Serializer("village_loot"));
+            registry.getRegistry().register(new ChestLootModifier.Serializer("stronghold_shieldbow"));
+        }
+
+        @SubscribeEvent
         public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
             DEFeatures.init();
             features.forEach(feature -> event.getRegistry().register(feature));
@@ -177,20 +188,39 @@ public class Dinosexpansion {
     public static class RegistryEvents {
         @SubscribeEvent
         public static void setModelProperties(FMLClientSetupEvent event) {
-            registerProperty(ItemInit.COMPOUND_BOW.get(), new ResourceLocation("pull"), (p_239429_0_, p_239429_1_, p_239429_2_) -> {
-                if (p_239429_2_ == null) {
+            registerProperty(ItemInit.COMPOUND_BOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, living) -> {
+                if (living == null) {
                     return 0.0F;
                 } else {
-                    return p_239429_2_.getActiveItemStack() != p_239429_0_ ? 0.0F : (float) (p_239429_0_.getUseDuration() - p_239429_2_.getItemInUseCount()) / 20.0F;
+                    return living.getActiveItemStack() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - living.getItemInUseCount()) / 20.0F;
                 }
             });
-            registerProperty(ItemInit.COMPOUND_BOW.get(), new ResourceLocation("pulling"), (p_239428_0_, p_239428_1_, p_239428_2_) -> p_239428_2_ != null && p_239428_2_.isHandActive() && p_239428_2_.getActiveItemStack() == p_239428_0_ ? 1.0F : 0.0F);
+            registerProperty(ItemInit.COMPOUND_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
 
-            registerProperty(ItemInit.SPIKES_SHIELD.get(), new ResourceLocation("blocking"), (p_239428_0_, p_239428_1_, p_239428_2_) -> p_239428_2_ != null && p_239428_2_.isHandActive() && p_239428_2_.getActiveItemStack() == p_239428_0_ ? 1.0F : 0.0F);
+            registerProperty(ItemInit.SPIKES_SHIELD.get(), new ResourceLocation("blocking"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
 
-            registerProperty(ItemInit.HULLBREAKER.get(), new ResourceLocation("blocking"), (p_239428_0_, p_239428_1_, p_239428_2_) -> p_239428_2_ != null && p_239428_2_.isHandActive() && p_239428_2_.getActiveItemStack() == p_239428_0_ ? 1.0F : 0.0F);
+            registerProperty(ItemInit.HULLBREAKER.get(), new ResourceLocation("blocking"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
 
-            registerProperty(ItemInit.HEAVY_SHIELD.get(), new ResourceLocation("blocking"), (p_239428_0_, p_239428_1_, p_239428_2_) -> p_239428_2_ != null && p_239428_2_.isHandActive() && p_239428_2_.getActiveItemStack() == p_239428_0_ ? 1.0F : 0.0F);
+            registerProperty(ItemInit.HEAVY_SHIELD.get(), new ResourceLocation("blocking"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
+
+            registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("blocking"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
+
+            registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, living) -> {
+                if (living == null) {
+                    return 0.0F;
+                } else {
+                    return CrossbowItem.isCharged(itemStack) ? 0.0F : (float)(itemStack.getUseDuration() - living.getItemInUseCount()) / (float)CrossbowItem.getChargeTime(itemStack);
+                }
+            });
+            registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, living) -> {
+                return living != null && living.isHandActive() && living.getActiveItemStack() == itemStack && !CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F;
+            });
+            registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("charged"), (itemStack, clientWorld, living) -> {
+                return living != null && CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F;
+            });
+            registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("firework"), (itemStack, clientWorld, living) -> {
+                return living != null && CrossbowItem.isCharged(itemStack) && CrossbowItem.hasChargedProjectile(itemStack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F;
+            });
 
 
         }

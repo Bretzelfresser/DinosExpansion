@@ -95,9 +95,9 @@ public class GeneratorTileEntity extends MasterSlaveTileEntity implements ITicka
 			if (te != null) {
 				boolean shouldContinue = te.getCapability(CapabilityEnergy.ENERGY, dir).map(handler -> {
 					if (handler.canReceive()) {
-						int recieved = handler.receiveEnergy(capacity.get(), false);
-						capacity.addAndGet(-recieved);
-						storage.extractEnergy(recieved, false);
+						int received = handler.receiveEnergy(capacity.get(), false);
+						capacity.addAndGet(-received);
+						storage.extractEnergy(received, false);
 						markDirty();
 						return capacity.get() > 0;
 					}
