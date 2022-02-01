@@ -3,17 +3,24 @@ package com.renatiux.dinosexpansion.common.items.shields;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.ICrossbowUser;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.FireworkRocketEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class Shieldbow extends CrossbowItem {
     public Shieldbow(Properties properties) {
@@ -30,7 +37,9 @@ public class Shieldbow extends CrossbowItem {
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity livingEntity, int timeLeft) {
-        super.onPlayerStoppedUsing(stack, world, livingEntity, timeLeft);
+        if (livingEntity instanceof PlayerEntity && livingEntity.isSneaking()){
+            super.onPlayerStoppedUsing(stack, world, livingEntity, timeLeft);
+        }
     }
 
     @Override

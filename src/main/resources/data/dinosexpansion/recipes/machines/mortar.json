@@ -1,0 +1,19 @@
+{
+  "type": "dinosexpansion:advanced_smithing_recipe",
+  "pattern": [
+    "  l",
+    "sls",
+    "sss"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:stone"
+    },
+    "l": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "dinosexpansion:mortar"
+  }
+}

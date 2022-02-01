@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "dinosexpansion:purple_gem_from_smelting"
+      "dinosexpansion:heavy_shield"
     ]
   },
   "criteria": {
-    "has_purple_gem_ore": {
+    "hasItem": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "dinosexpansion:dino_purple_gem_ore"
+            "item": "dinosexpansion:hullbreaker"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "dinosexpansion:purple_gem_from_smelting"
+        "recipe": "dinosexpansion:heavy_shield"
       }
     }
   },
   "requirements": [
     [
-      "has_purple_gem_ore",
+      "hasItem",
       "has_the_recipe"
     ]
   ]

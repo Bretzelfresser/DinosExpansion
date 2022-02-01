@@ -1,0 +1,26 @@
+{
+  "type": "dinosexpansion:advanced_smithing_recipe",
+  "pattern": [
+    "tttt",
+    "thht",
+    "grrg",
+    "gggg"
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:gold_block"
+    },
+    "h": {
+      "item": "minecraft:hay_block"
+    },
+    "t": {
+      "item": "minecraft:glass"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "dinosexpansion:incubator"
+  }
+}

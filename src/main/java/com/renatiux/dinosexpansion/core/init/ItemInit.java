@@ -264,6 +264,8 @@ public class ItemInit {
 	public static final RegistryObject<Item> HEAVY_SHIELD = ITEMS.register("heavy_shield", ()-> new HeavyShieldItem((new Item.Properties().setISTER(() -> () -> DEItemstackRenderer.INTANCE).maxDamage(1000).group(ItemGroupInit.ARMOR))));
 	public static final RegistryObject<Item> HEAVY_SHIELD_DUMMY = ITEMS.register("heavy_shield_dummy", () -> new HeavyShieldDummy(new Item.Properties()));
 	public static final RegistryObject<Shieldbow> SHIELDBOW = ITEMS.register("shieldbow", () -> new Shieldbow((new Item.Properties().group(ItemGroupInit.MISC).maxDamage(1200).rarity(Rarities.MYTHIC))));
+	public static final RegistryObject<ShieldAxeShield> SHIELDAXE_SHIELD = ITEMS.register("axeshield_shield", ShieldAxeShield::new);
+	public static final RegistryObject<ShieldAxeAxeItem> SHIELDAXE_AXE = ITEMS.register("axeshield_axe", ShieldAxeAxeItem::new);
 
 
 	//Bows

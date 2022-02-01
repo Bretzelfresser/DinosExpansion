@@ -8,7 +8,9 @@ import java.util.function.Supplier;
 
 public enum DEToolMaterial implements IItemTier {
 
+    SHIELD_AXE(5, 1200, 5f, 4f, 15, () -> Ingredient.EMPTY),
     EMERALD(5, 1891, 10.0F, 5.0F, 10, ()-> Ingredient.fromItems(Items.EMERALD));
+
 
     private final int level;
     private final int uses;

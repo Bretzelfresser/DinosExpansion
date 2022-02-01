@@ -1,0 +1,19 @@
+{
+  "type": "dinosexpansion:advanced_smithing_recipe",
+  "pattern": [
+    "iii",
+    "ibi",
+    "iii"
+  ],
+  "key": {
+    "b": {
+      "item": "dinosexpansion:wood_boomerang"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "dinosexpansion:iron_boomerang"
+  }
+}

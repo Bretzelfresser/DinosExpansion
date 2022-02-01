@@ -1,0 +1,25 @@
+{
+  "type": "dinosexpansion:advanced_smithing_recipe",
+  "pattern": [
+    "ippi",
+    "issi",
+    "wwww"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:shield"
+    },
+    "p": {
+      "item": "minecraft:piston"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "w": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "dinosexpansion:hullbreaker"
+  }
+}

@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_purple_gen_ore": {
+    "has_purple_gem_ore": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [

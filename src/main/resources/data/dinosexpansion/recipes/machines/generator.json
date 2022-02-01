@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "rfr",
+    "iii"
+  ],
+  "key": {
+    "f": {
+      "item": "minecraft:furnace"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "dinosexpansion:generator"
+  }
+}

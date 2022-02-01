@@ -1,0 +1,19 @@
+{
+  "type": "dinosexpansion:advanced_smithing_recipe",
+  "pattern": [
+    "ddd",
+    "dbd",
+    "ddd"
+  ],
+  "key": {
+    "d": {
+      "item": "minecraft:diamond"
+    },
+    "b": {
+      "item": "dinosexpansion:iron_boomerang"
+    }
+  },
+  "result": {
+    "item": "dinosexpansion:diamond_boomerang"
+  }
+}
