@@ -7,6 +7,7 @@ import com.renatiux.dinosexpansion.client.renderer.blocks.GeneratorRenderer;
 import com.renatiux.dinosexpansion.client.renderer.blocks.IncubatorRenderer;
 import com.renatiux.dinosexpansion.client.renderer.blocks.MortarRenderer;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
+import com.renatiux.dinosexpansion.common.armor.AstorgosuchusChestplateItem;
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
 import com.renatiux.dinosexpansion.client.screens.AdvancedSmithingTableScreen;
@@ -99,6 +100,7 @@ public class ClientEvents {
 		ChimerarachneArmorItem.initArmorModel();
 		AllosaurusArmorItem.initArmorModel();
 		SteelArmorItem.initArmorModel();
+		AstorgosuchusChestplateItem.initArmorModel();
 	}
 	
 	private static void registerBlockRenders() {
