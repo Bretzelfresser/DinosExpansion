@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.core.init;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.DEItemstackRenderer;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
+import com.renatiux.dinosexpansion.common.armor.AstorgosuchusChestplateItem;
 import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
 import com.renatiux.dinosexpansion.common.blocks.bush.DENarcoticBlock;
 import com.renatiux.dinosexpansion.common.entities.projectiles.DiamondBoomerang;
@@ -127,6 +128,11 @@ public class ItemInit {
 	public static final RegistryObject<Item> PYCNOPHLEBIA_WINGS = ITEMS.register("pycnophlebia_wing",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
+	public static final RegistryObject<Item> ASTORGOSUCHUS_OSTEODERM = ITEMS.register("astorgosuchus_osteoderm",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> CROCODILE_FOSSIL = ITEMS.register("crocodile_fossil",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
 	//Food
 	public static final RegistryObject<Item> ALLOSAURUS_RAW_MEAT = ITEMS.register("allosaurus_raw_meat",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ALLOSAURUS_RAW_MEAT)));
@@ -140,6 +146,10 @@ public class ItemInit {
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.POHLSEPIA_RAW_TENTACLE)));
 	public static final RegistryObject<Item> POHLSEPIA_COOKED_TENTACLE = ITEMS.register("pohlsepia_cooked_tentacle",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.POHLSEPIA_COOKED_TENTACLE)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_RAW_MEAT = ITEMS.register("astorgosuchus_raw_meat",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ASTORGOSUCHUS_RAW_MEAT)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_COOKED_MEAT = ITEMS.register("astorgosuchus_cooked_meat",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ASTORGOSUCHUS_COOKED_MEAT)));
 
 	public static final RegistryObject<Item> ONION = ITEMS.register("onion",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ONION)));
@@ -225,6 +235,36 @@ public class ItemInit {
 	public static final RegistryObject<Item> ALLOSAURUS_FRESH_TOOTH = ITEMS.register("allosaurus_fresh_tooth",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
+	public static final RegistryObject<Item> ASTORGOSUCHUS_ARM = ITEMS.register("astorgosuchus_arm",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_HIPS = ITEMS.register("astorgosuchus_hips",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_TOOTH = ITEMS.register("astorgosuchus_tooth",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_LEG = ITEMS.register("astorgosuchus_leg",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_RIBCAGE = ITEMS.register("astorgosuchus_ribcage",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_SKULL = ITEMS.register("astorgosuchus_skull",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_TAIL = ITEMS.register("astorgosuchus_tail",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_FRESH_ARM = ITEMS.register("astorgosuchus_fresh_arm",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_FRESH_HIPS = ITEMS.register("astorgosuchus_fresh_hips",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_FRESH_TOOTH = ITEMS.register("astorgosuchus_fresh_tooth",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_FRESH_LEG = ITEMS.register("astorgosuchus_fresh_leg",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_FRESH_RIBCAGE = ITEMS.register("astorgosuchus_fresh_ribcage",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_FRESH_SKULL = ITEMS.register("astorgosuchus_fresh_skull",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ASTORGOSUCHUS_FRESH_TAIL = ITEMS.register("astorgosuchus_fresh_tail",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+
 	//Armor
 	public static final RegistryObject<Item> CHIMERARACHNE_HELMET = ITEMS.register("chimerarachne_helmet", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 	public static final RegistryObject<Item> CHIMERARACHNE_CHESTPLATE = ITEMS.register("chimerarachne_chestplate", () -> new ChimerarachneArmorItem(DEArmorMaterial.CHIMERARACHNE_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
@@ -240,6 +280,8 @@ public class ItemInit {
 	public static final RegistryObject<Item> STEEL_CHESTPLATE = ITEMS.register("steel_chestplate", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 	public static final RegistryObject<Item> STEEL_LEGGINGS = ITEMS.register("steel_leggings", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 	public static final RegistryObject<Item> STEEL_BOOTS = ITEMS.register("steel_boots", () -> new SteelArmorItem(DEArmorMaterial.STEEL_ARMOR, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+
+	public static final RegistryObject<Item> ASTORGOSUCHUS_CHESTPLATE = ITEMS.register("astorgosuchus_chestplate", () -> new AstorgosuchusChestplateItem(DEArmorMaterial.ASTORGOSUCHUS_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 
 
 	//Tools
