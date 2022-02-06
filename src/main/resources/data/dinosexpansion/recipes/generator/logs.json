@@ -1,0 +1,8 @@
+{
+  "type": "dinosexpansion:generator",
+  "ingredient": {
+    "tag": "minecraft:logs"
+  },
+  "energy": 200,
+  "processTime": 50
+}

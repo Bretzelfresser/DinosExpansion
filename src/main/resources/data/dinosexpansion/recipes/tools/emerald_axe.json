@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "tt ",
+    "ts ",
+    " s "
+  ],
+  "key": {
+    "t": {
+      "item": "minecraft:emerald"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "dinosexpansion:emerald_axe"
+  }
+}

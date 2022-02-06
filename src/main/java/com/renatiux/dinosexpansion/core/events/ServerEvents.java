@@ -8,13 +8,17 @@ import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.DinosaurStatus;
 import com.renatiux.dinosexpansion.common.entities.projectiles.NarcoticArrowEntity;
 
+import com.renatiux.dinosexpansion.core.init.PotionInit;
+import com.renatiux.dinosexpansion.core.init.SoundInit;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerSetSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,6 +27,27 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @Mod.EventBusSubscriber(modid = Dinosexpansion.MODID, bus = Bus.FORGE)
 public class ServerEvents {
+
+	@SubscribeEvent
+	public static void onSoundPlayed(PlaySoundEvent event){
+		if (Minecraft.getInstance().player != null && !Minecraft.getInstance().player.isPotionActive(PotionInit.BLEEDING.get())){
+			System.out.println(event.getSound().getSoundLocation());
+			if (event.getSound().getSoundLocation().equals(SoundInit.FASTER_HEARTBEAT.get().getName())){
+				stop(event);
+			}
+			if (event.getSound().getSoundLocation().equals(SoundInit.NORMAL_HEARTBEAT.get().getName())){
+				stop(event);
+			}
+			if (event.getSound().getSoundLocation().equals(SoundInit.FASTEST_HEARTBEAT.get().getName())){
+				stop(event);
+			}
+		}
+	}
+
+	private static void stop(PlaySoundEvent event){
+		System.out.println("ich hab den sound doch gestoppt");
+		event.getManager().stop(event.getSound());
+	}
 	
 	@SubscribeEvent
 	public static void onPlayerHurt(LivingHurtEvent event) {

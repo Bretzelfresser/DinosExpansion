@@ -5,7 +5,11 @@
       "loot_table_id": "minecraft:chests/stronghold_corridor"
     }
   ],
-  "item": "dinosexpansion:shieldbow",
-  "probability": 0.33
+  "entries": [
+    {
+      "item": "dinosexpansion:shieldbow",
+      "probability": 0.33
+    }
+    ]
 
 }

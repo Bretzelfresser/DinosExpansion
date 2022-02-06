@@ -1,0 +1,8 @@
+{
+  "type": "dinosexpansion:generator",
+  "ingredient": {
+    "tag": "forge:rods/wooden"
+  },
+  "energy": 25,
+  "processTime": 7
+}

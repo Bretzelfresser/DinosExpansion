@@ -5,7 +5,15 @@
       "loot_table_id": "minecraft:chests/woodland_mansion"
     }
   ],
-  "item": "dinosexpansion:shieldbow",
-  "probability": 0.5
+  "entries": [
+      {
+        "item": "dinosexpansion:shieldbow",
+        "probability": 0.5
+      },
+      {
+        "item": "dinosexpansion:time_machine",
+        "probability": 0.5
+      }
+    ]
 
 }

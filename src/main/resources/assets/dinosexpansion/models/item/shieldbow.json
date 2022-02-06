@@ -1,0 +1,76 @@
+{
+	"credit": "By Captain Atlas, made with Blockbench",
+	"parent": "builtin/entity",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "dinosexpansion:item/shields/shieldbow",
+		"particle": "dinosexpansion:item/shields/shieldbow"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0.5, 3.75, 1.5],
+			"scale": [0.8, 0.8, 0.8]
+		},
+		"thirdperson_lefthand": {
+			"translation": [-0.25, 3.75, 1.5],
+			"scale": [0.8, 0.8, 0.8]
+		},
+		"firstperson_righthand": {
+			"translation": [0, 2.75, 6.5]
+		},
+		"firstperson_lefthand": {
+			"translation": [0, 2.75, 6.5]
+		},
+		"ground": {
+			"translation": [0, 0.5, 0],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"gui": {
+			"rotation": [23, -140, 0],
+			"translation": [-2.5, 2.5, 0],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"head": {
+			"translation": [0.5, 0, 4.5]
+		},
+		"fixed": {
+			"translation": [0, 1, 4.5],
+			"scale": [0.6, 0.6, 0.6]
+		}
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"pulling": 1
+			},
+			"model": "item/shieldbow_pulling_0"
+		},
+		{
+			"predicate": {
+				"pulling": 1,
+				"pull": 0.58
+			},
+			"model": "item/shieldbow_pulling_1"
+		},
+		{
+			"predicate": {
+				"pulling": 1,
+				"pull": 1.0
+			},
+			"model": "item/shieldbow_pulling_2"
+		},
+		{
+			"predicate": {
+				"charged": 1
+			},
+			"model": "item/shieldbow_arrow"
+		},
+		{
+			"predicate": {
+				"charged": 1,
+				"firework": 1
+			},
+			"model": "item/crossbow_firework"
+		}
+	]
+}

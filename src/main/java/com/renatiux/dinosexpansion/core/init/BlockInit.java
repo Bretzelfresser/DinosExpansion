@@ -3,11 +3,7 @@ package com.renatiux.dinosexpansion.core.init;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.items.GeneratorItemRenderer;
 import com.renatiux.dinosexpansion.client.renderer.items.MortarItemRenderer;
-import com.renatiux.dinosexpansion.common.blocks.BaseMultiBlock;
-import com.renatiux.dinosexpansion.common.blocks.DEBlockItem;
-import com.renatiux.dinosexpansion.common.blocks.DEOreBlock;
-import com.renatiux.dinosexpansion.common.blocks.DESapling;
-import com.renatiux.dinosexpansion.common.blocks.MachineBarrierBlock;
+import com.renatiux.dinosexpansion.common.blocks.*;
 import com.renatiux.dinosexpansion.common.blocks.bush.DEBerryBush;
 import com.renatiux.dinosexpansion.common.blocks.cables.BasicEnergyCable;
 import com.renatiux.dinosexpansion.common.blocks.crops.DECropsBlock;
@@ -76,6 +72,10 @@ public class BlockInit {
 	public static final DoubleRegistryObject<BaseMultiBlock, BlockItem> INDUSTRIAL_GRILL = CUSTOM.register("industrial_grill", IndustrialGrill::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
 	public static final DoubleRegistryObject<Generator, DEBlockItem> GENERATOR = CUSTOM.register("generator", Generator::new, block -> new DEBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES).setISTER(()-> GeneratorItemRenderer::new)));
 	public static final DoubleRegistryObject<Feeder, BlockItem> FEEDER = CUSTOM.register("feeder", Feeder::new, block -> new BlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
+
+	//creates
+	public static final DoubleRegistryObject<CreateBlock, BlockItem> WHITE_ASTORGOSUCHUS_CREATE = CUSTOM.register("white_astorgosuchus_create", () -> new CreateBlock(AbstractBlock.Properties.create(Material.WOOD).setRequiresTool().harvestTool(ToolType.AXE)), () -> new Item.Properties().group(ItemGroupInit.BLOCK));
+	public static final DoubleRegistryObject<CreateBlock, BlockItem> DARK_ASTORGOSUCHUS_CREATE = CUSTOM.register("dark_astorgosuchus_create", () -> new CreateBlock(AbstractBlock.Properties.create(Material.WOOD).setRequiresTool().harvestTool(ToolType.AXE)), () -> new Item.Properties().group(ItemGroupInit.BLOCK));
 
 	//cables
 	public static final DoubleRegistryObject<BasicEnergyCable, BlockItem> BASIC_ENERGY_CABLE = CUSTOM.register("basic_energy_cable", BasicEnergyCable::new, block -> new BaseMultiblockBlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));

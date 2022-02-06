@@ -1,0 +1,8 @@
+{
+  "type": "dinosexpansion:generator",
+  "ingredient": {
+    "item": "minecraft:magma_block"
+  },
+  "energy": 4000,
+  "processTime": 700
+}

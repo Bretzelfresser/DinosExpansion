@@ -1,0 +1,8 @@
+{
+  "type": "dinosexpansion:generator",
+  "ingredient": {
+    "tag": "dinosexpansion:wood_tools"
+  },
+  "energy": 200,
+  "processTime": 50
+}

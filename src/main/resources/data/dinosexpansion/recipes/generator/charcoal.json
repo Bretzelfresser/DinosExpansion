@@ -1,7 +1,7 @@
 {
   "type": "dinosexpansion:generator",
   "ingredient": {
-    "item": "minecraft:coal"
+    "item": "minecraft:charcoal"
   },
   "energy": 500,
   "processTime": 100

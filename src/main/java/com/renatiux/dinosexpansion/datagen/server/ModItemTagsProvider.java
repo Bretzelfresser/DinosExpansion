@@ -29,6 +29,8 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 		makeShields();
 		getOrCreateBuilder(Tags.Items.DODO_COLLECTABLES).add(Items.MELON_SEEDS, Items.WHEAT_SEEDS, ItemInit.NARCOTIC_BERRY.get(), Items.BEETROOT_SEEDS, Items.PUMPKIN_SEEDS);
 		getOrCreateBuilder(Tags.Items.MEDIKITS).add(ItemInit.NORMAL_MEDIKIT.get(), ItemInit.BETTER_MEDIKIT.get());
+		getOrCreateBuilder(Tags.Items.WOOD_TOOLS).add(Items.WOODEN_AXE, Items.WOODEN_HOE, Items.WOODEN_PICKAXE, Items.WOODEN_SHOVEL, Items.WOODEN_SWORD);
+		getOrCreateBuilder(Tags.Items.PALEONTOLOGIC_TOOLS).add(ItemInit.PALEONTOLOGICAL_HAMMER.get());
 	}
 
 	private void makeShields(){

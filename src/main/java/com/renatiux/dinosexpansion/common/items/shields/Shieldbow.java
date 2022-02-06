@@ -29,17 +29,29 @@ public class Shieldbow extends CrossbowItem {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        if (player.isSneaking())
+        if (player.isSneaking()) {
+            System.out.println("sneaked");
             return super.onItemRightClick(world, player, hand);
+        }
+        ItemStack stack = player.getHeldItem(hand);
         player.setActiveHand(hand);
-        return ActionResult.resultConsume(player.getHeldItem(hand));
+        return ActionResult.resultConsume(stack);
     }
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity livingEntity, int timeLeft) {
         if (livingEntity instanceof PlayerEntity && livingEntity.isSneaking()){
+            System.out.println("stopped");
             super.onPlayerStoppedUsing(stack, world, livingEntity, timeLeft);
         }
+    }
+
+    @Override
+    public void onUse(World world, LivingEntity user, ItemStack usedStack, int count) {
+        if (user instanceof PlayerEntity && user.isSneaking())
+            super.onUse(world, user, usedStack, count);
+        else if(!(user instanceof PlayerEntity))
+            super.onUse(world, user, usedStack, count);
     }
 
     @Override

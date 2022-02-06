@@ -1,6 +1,8 @@
 package com.renatiux.dinosexpansion.common.effect;
 
 import com.google.common.collect.ImmutableList;
+import com.renatiux.dinosexpansion.client.events.ClientEvents;
+import com.renatiux.dinosexpansion.client.events.ClientForgeEvents;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import com.renatiux.dinosexpansion.core.init.DamageSourcesInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
@@ -10,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.extensions.IForgeEffect;
 
 import java.util.List;
@@ -24,16 +28,10 @@ public class Bleeding extends Effect {
         if (entity.ticksExisted % DEModConfig.EFFECT_CONFIG.ticksBeforeDamage.get().intValue() - amplifier * 2 == 0) {
             entity.attackEntityFrom(DamageSourcesInit.BLEEDING, 1);
         }
-        if (entity.ticksExisted % 40 == 0) {
-            double healthPercent = entity.getHealth() / entity.getMaxHealth();
-            if (healthPercent <= 0.5) {
-                if (healthPercent <= 0.3)
-                    entity.playSound(SoundInit.FASTEST_HEARTBEAT.get(), 1, 1);
-                else
-                    entity.playSound(SoundInit.FASTER_HEARTBEAT.get(), 1, 1);
-            } else
-                entity.playSound(SoundInit.NORMAL_HEARTBEAT.get(), 1, 1);
+        if (entity.ticksExisted % 100 == 0) {
+            ClientForgeEvents.addBleeding(entity);
         }
+
     }
 
     @Override

@@ -1,0 +1,8 @@
+{
+  "type": "dinosexpansion:generator",
+  "ingredient": {
+    "item": "minecraft:lava_bucket"
+  },
+  "energy": 7000,
+  "processTime": 1000
+}

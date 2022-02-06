@@ -4,8 +4,10 @@ import com.google.common.collect.Sets;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.renatiux.dinosexpansion.client.renderer.items.shields.HeavyShieldModelRenderer;
 import com.renatiux.dinosexpansion.client.renderer.items.shields.HullbreakerModelRenderer;
+import com.renatiux.dinosexpansion.client.renderer.items.shields.ShieldbowRenderer;
 import com.renatiux.dinosexpansion.client.renderer.items.shields.SpikeShieldModelRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.SpriteAwareVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.RenderMaterial;
@@ -24,7 +26,11 @@ public class DEItemstackRenderer extends ItemStackTileEntityRenderer {
 
     public static final DEItemstackRenderer INTANCE = new DEItemstackRenderer();
 
-    public static final Set<ShieldModelProvider> MODELS = Sets.newHashSet(new SpikeShieldModelRenderer(), new HullbreakerModelRenderer(), new HeavyShieldModelRenderer());
+    public static DEItemstackRenderer getInstance(){
+        return INTANCE;
+    }
+
+    public static final Set<ShieldModelProvider> MODELS = Sets.newHashSet(new SpikeShieldModelRenderer(), new HullbreakerModelRenderer(), new HeavyShieldModelRenderer(), new ShieldbowRenderer());
 
     @Override
     public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
@@ -32,6 +38,7 @@ public class DEItemstackRenderer extends ItemStackTileEntityRenderer {
     }
 
     public static interface ShieldModelProvider{
+
         public void render(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay);
 
         /**
@@ -39,8 +46,18 @@ public class DEItemstackRenderer extends ItemStackTileEntityRenderer {
          * @return a resourceLocation to a texture without textures/
          */
         public ResourceLocation getTextureLocation();
-        public RenderMaterial getRenderMaterial();
+        /**
+         *
+         * @return the item which should be rendered with this renderer
+         */
         public Item getRepresentiveItem();
+
+        public RenderMaterial getRenderMaterial();
+
+        /**
+         *
+         * @return the model which should be rendered
+         */
         public EntityModel<?> getModel();
     }
 

@@ -5,7 +5,11 @@
       "loot_table_id": "minecraft:chests/village/village_weaponsmith"
     }
   ],
-  "item": "dinosexpansion:shieldbow",
-  "probability": 0.01
+  "entries": [
+    {
+      "item": "dinosexpansion:shieldbow",
+      "probability": 0.01
+    }
+    ]
 
 }

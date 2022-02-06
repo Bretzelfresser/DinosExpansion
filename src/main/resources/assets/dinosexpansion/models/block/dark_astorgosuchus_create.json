@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "dinosexpansion:block/creates/astorgosuchus_fossil_create_side",
+    "bottom": "dinosexpansion:block/creates/astorgosuchus_fossil_create_bottom",
+    "top": "dinosexpansion:block/creates/dark_create_top"
+  }
+}

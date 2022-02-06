@@ -41,6 +41,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 @EventBusSubscriber(modid = Dinosexpansion.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
 
+
+
 	@SubscribeEvent
 	public static void clientSetup(FMLClientSetupEvent event) {
 		entityRenderer();

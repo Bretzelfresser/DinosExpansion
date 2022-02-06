@@ -1,0 +1,14 @@
+{
+  "type": "dinosexpansion:mortar_recipe",
+  "input1": {
+    "item": "minecraft:rotten_flesh"
+  },
+  "input2": {
+    "item": "dinosexpansion:narcotic_berry",
+    "count": 3
+  },
+  "output": {
+    "item": "dinosexpansion:narcotics"
+  },
+  "workTime": 300
+}

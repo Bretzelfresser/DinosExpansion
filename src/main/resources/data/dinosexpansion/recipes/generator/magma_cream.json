@@ -1,0 +1,8 @@
+{
+  "type": "dinosexpansion:generator",
+  "ingredient": {
+    "item": "minecraft:magma_cream"
+  },
+  "energy": 400,
+  "processTime": 70
+}

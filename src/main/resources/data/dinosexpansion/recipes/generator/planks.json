@@ -1,0 +1,8 @@
+{
+  "type": "dinosexpansion:generator",
+  "ingredient": {
+    "tag": "minecraft:planks"
+  },
+  "energy": 50,
+  "processTime": 13
+}

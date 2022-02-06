@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "dinosexpansion:emerald_pickaxe"
+    ]
+  },
+  "criteria": {
+    "hasItem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:emerald"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "dinosexpansion:emerald_pickaxe"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "hasItem",
+      "has_the_recipe"
+    ]
+  ]
+}
