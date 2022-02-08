@@ -28,10 +28,6 @@ public class Bleeding extends Effect {
         if (entity.ticksExisted % DEModConfig.EFFECT_CONFIG.ticksBeforeDamage.get().intValue() - amplifier * 2 == 0) {
             entity.attackEntityFrom(DamageSourcesInit.BLEEDING, 1);
         }
-        if (entity.ticksExisted % 100 == 0) {
-            ClientForgeEvents.addBleeding(entity);
-        }
-
     }
 
     @Override

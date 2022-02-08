@@ -9,13 +9,10 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class ModBlockStatesProvider extends BlockStateProvider{
-
-    private final ModelFile generated;
+public class ModBlockStatesProvider extends BlockStateProvider {
 
     public ModBlockStatesProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
         super(gen, Dinosexpansion.MODID, exFileHelper);
-        generated = itemModels().getExistingFile(mcLoc("item/generated"));
     }
 
 
@@ -25,12 +22,17 @@ public class ModBlockStatesProvider extends BlockStateProvider{
         topBottomBlock(BlockInit.DARK_ASTORGOSUCHUS_CREATE.getPrimary(), modLoc("block/creates/astorgosuchus_fossil_create_side"), modLoc("block/creates/dark_create_top"), modLoc("block/creates/astorgosuchus_fossil_create_bottom"));
     }
 
-    private void topBottomBlock(Block block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom){
+    private void topBottomBlock(Block block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom) {
         simpleBlock(block, models().cubeBottomTop(name(block), side, bottom, top));
-        simpleBlockItem(block, generated);
     }
 
-    private String name(Block block){
+    @Override
+    public void simpleBlock(Block block, ModelFile model) {
+        super.simpleBlock(block, model);
+        super.simpleBlockItem(block,model);
+    }
+
+    private String name(Block block) {
         return block.getRegistryName().getPath();
     }
 }

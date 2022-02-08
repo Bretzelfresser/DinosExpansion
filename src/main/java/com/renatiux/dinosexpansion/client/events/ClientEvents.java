@@ -6,20 +6,11 @@ import com.renatiux.dinosexpansion.client.renderer.items.*;
 import com.renatiux.dinosexpansion.client.renderer.blocks.GeneratorRenderer;
 import com.renatiux.dinosexpansion.client.renderer.blocks.IncubatorRenderer;
 import com.renatiux.dinosexpansion.client.renderer.blocks.MortarRenderer;
+import com.renatiux.dinosexpansion.client.screens.*;
 import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
 import com.renatiux.dinosexpansion.common.armor.AstorgosuchusChestplateItem;
 import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
-import com.renatiux.dinosexpansion.client.screens.AdvancedSmithingTableScreen;
-import com.renatiux.dinosexpansion.client.screens.AllosaurusScreen;
-import com.renatiux.dinosexpansion.client.screens.DinosaurTamingScreen;
-import com.renatiux.dinosexpansion.client.screens.DodoScreen;
-import com.renatiux.dinosexpansion.client.screens.GeneratorScreen;
-import com.renatiux.dinosexpansion.client.screens.IncubatorScreen;
-import com.renatiux.dinosexpansion.client.screens.IndustrialGrillScreen;
-import com.renatiux.dinosexpansion.client.screens.MortarScreen;
-import com.renatiux.dinosexpansion.client.screens.OrderScreen;
-import com.renatiux.dinosexpansion.client.screens.RaftScreen;
 import com.renatiux.dinosexpansion.core.init.*;
 
 import net.minecraft.client.MainWindow;
@@ -57,6 +48,8 @@ public class ClientEvents {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.ALLOSAURUS.get(), AllosaurusRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.DODO.get(), DodoRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.CHIMERARACHNE.get(), ChimerarachneRenderer::new);
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.ASTORGOSUCHUS_SKELETON.get(), AstorgosuchusRenderer::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.TRANQUILIZER_ARROW.get(), TranquilizerArrowRender::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.MEGALODON_ARROW.get(), MegalodonToothArrowRender::new);
@@ -96,6 +89,7 @@ public class ClientEvents {
 		ScreenManager.registerFactory(ContainerTypeInit.INDUSTRIAL_GRILL_CONTAINER_TYPE.get(), IndustrialGrillScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.GENERATOR_CONTAINER_TYPE.get(), GeneratorScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.INCUBATOR_CONTAINER_TYPE.get(), IncubatorScreen::new);
+		ScreenManager.registerFactory(ContainerTypeInit.ASTORGOSUCHUS_CONTAINER.get(), AstorgosuchusPoseScreen::new);
 	}
 
 	private static void armorModel(){

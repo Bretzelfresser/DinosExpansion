@@ -21,7 +21,7 @@ public class AdvancedSmithingTableScreen extends ContainerScreen<AdvancedSmithin
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
 		 this.font.drawText(matrixStack, this.title, (float)this.titleX, (float)this.titleY, 4210752);
-	      this.font.drawText(matrixStack, this.playerInventory.getDisplayName(), (float)this.playerInventoryTitleX, (float)this.playerInventoryTitleY + 30, 4210752);
+		 this.font.drawText(matrixStack, this.playerInventory.getDisplayName(), (float)this.playerInventoryTitleX, (float)this.playerInventoryTitleY + 30, 4210752);
 	}
 
 	@Override

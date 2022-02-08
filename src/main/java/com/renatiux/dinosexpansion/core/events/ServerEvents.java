@@ -1,8 +1,11 @@
 package com.renatiux.dinosexpansion.core.events;
 
 import java.util.List;
+import java.util.Map;
 
+import com.google.common.collect.Maps;
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.client.events.ClientForgeEvents;
 import com.renatiux.dinosexpansion.common.blocks.machine.PrehistoricBed;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.DinosaurStatus;
@@ -15,10 +18,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerSetSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,10 +33,24 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @Mod.EventBusSubscriber(modid = Dinosexpansion.MODID, bus = Bus.FORGE)
 public class ServerEvents {
 
+	public static final Map<PlayerEntity, Integer> playerToStartHearBeat = Maps.newHashMap();
+
+	@SubscribeEvent
+	public static void playerTick(TickEvent.PlayerTickEvent event){
+		if (event.player.isPotionActive(PotionInit.BLEEDING.get())) {
+			if (playerToStartHearBeat.getOrDefault(event.player, -1) < 0)
+				playerToStartHearBeat.put(event.player, event.player.ticksExisted % 100);
+			if (event.player.ticksExisted % 100 == playerToStartHearBeat.get(event.player))
+				ClientForgeEvents.addBleeding(event.player);
+		} else if (!event.player.isPotionActive(PotionInit.BLEEDING.get())) {
+			playerToStartHearBeat.replace(event.player, -1);
+		}
+	}
+
 	@SubscribeEvent
 	public static void onSoundPlayed(PlaySoundEvent event){
 		if (Minecraft.getInstance().player != null && !Minecraft.getInstance().player.isPotionActive(PotionInit.BLEEDING.get())){
-			System.out.println(event.getSound().getSoundLocation());
+			//System.out.println(event.getSound().getSoundLocation());
 			if (event.getSound().getSoundLocation().equals(SoundInit.FASTER_HEARTBEAT.get().getName())){
 				stop(event);
 			}

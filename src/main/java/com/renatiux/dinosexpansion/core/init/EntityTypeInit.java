@@ -13,6 +13,7 @@ import com.renatiux.dinosexpansion.common.entities.environment.Thaumaptilon;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.entities.projectiles.*;
 
+import com.renatiux.dinosexpansion.common.entities.skeletons.AstorgosuchusSkeleton;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -51,6 +52,7 @@ public class EntityTypeInit {
 
 	public static final RegistryObject<EntityType<SpikesShieldEntity>> SPIKE_SHIELD_ENTITY_TYPE = register("spike_shield", EntityType.Builder.<SpikesShieldEntity>create(SpikesShieldEntity::new, EntityClassification.MISC).size(0.75F, 0.3F));
 	public static final RegistryObject<EntityType<HeavyShieldEntity>> HEAVY_SHIELD_ENTITY_TYPE = register("heavy_shield", EntityType.Builder.<HeavyShieldEntity>create(HeavyShieldEntity::new, EntityClassification.MISC).size(1.5f, 3f).immuneToFire().trackingRange(10));
+	public static final RegistryObject<EntityType<AstorgosuchusSkeleton>> ASTORGOSUCHUS_SKELETON = register("astorgosuchus_skeleton", EntityType.Builder.<AstorgosuchusSkeleton>create(AstorgosuchusSkeleton::new ,EntityClassification.MISC).size(2f, 1f).immuneToFire());
 	
 	public static final RegistryObject<EntityType<Thaumaptilon>> THAUMAPTILON = register("thaumaptilon", EntityType.Builder.create(Thaumaptilon::new, EntityClassification.AMBIENT));
 
@@ -62,7 +64,7 @@ public class EntityTypeInit {
 
 	public static final RegistryObject<EntityType<Eosqualodon>> EOSQUALODON = register("eosqualodon", EntityType.Builder.create(Eosqualodon::new, EntityClassification.WATER_CREATURE));
 
-	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builer){
-		return ENTITY_TYPES.register(name, () -> builer.build(Dinosexpansion.modLoc(name).toString()));
+	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder){
+		return ENTITY_TYPES.register(name, () -> builder.build(Dinosexpansion.modLoc(name).toString()));
 	}
 }

@@ -3,7 +3,10 @@ package com.renatiux.dinosexpansion.datagen.client;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 
+import com.renatiux.dinosexpansion.util.registration.DoubleRegistryObject;
+import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -53,6 +56,5 @@ public class ModItemModelsProvider extends ItemModelProvider{
 		String name = item.getRegistryName().getPath();
 		getBuilder(name).parent(generated).texture("layer0", "item/" + name);
 	}
-
 
 }

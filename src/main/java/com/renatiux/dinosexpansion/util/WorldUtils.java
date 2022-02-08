@@ -3,10 +3,12 @@ package com.renatiux.dinosexpansion.util;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
@@ -58,6 +60,24 @@ public class WorldUtils {
 			 return clazz.cast(te);
 		 }
 		 return null;
+	 }
+
+	/**
+	 *
+	 * @param clazz - the class u wanna cast the entity to
+	 * @param world - the world we are curently at
+	 * @param entityId - the id of the entity
+	 * @param <T> - the Entity class
+	 * @return the Entity from the world with the specific id and the specific class, can be null when it cant find entity or cant cast it
+	 */
+	@Nullable
+	 public static <T extends Entity> T getEntity(@Nonnull Class<T> clazz, @Nullable World world, int entityId){
+		Entity e = world.getEntityByID(entityId);
+		if (e == null)
+			return null;
+		else if(clazz.isInstance(e))
+			return clazz.cast(e);
+		return null;
 	 }
 
 	/**

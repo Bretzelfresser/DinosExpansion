@@ -30,7 +30,7 @@ public abstract class DinosaurContainer<T extends Dinosaur> extends UtilContaine
 	
 	/**
 	 * 
-	 * @param buffer - don´t forget to write the EntityId on the buffer before using this constructor
+	 * @param buffer - don't forget to write the EntityId on the buffer before using this constructor
 	 */
 	public DinosaurContainer(ContainerType<?> type, int id,PlayerInventory inv, PacketBuffer buffer) {
 		this(type, id ,inv, getClientDinosaur(inv, buffer));

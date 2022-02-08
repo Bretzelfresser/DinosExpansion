@@ -54,12 +54,27 @@ public class ModLootTableProvider extends LootTableProvider{
 			registerSelfDrop(BlockInit.REDWOOD_SAPLING.get());
 			registerSelfDrop(BlockInit.DINO_SAND.get());
 			registerSelfDrop(BlockInit.DINO_SILT.get());
+			registerSelfDrop(BlockInit.WHITE_ASTORGOSUCHUS_CREATE.getPrimary());
+			registerSelfDrop(BlockInit.DARK_ASTORGOSUCHUS_CREATE.getPrimary());
+			registerSelfDrop(BlockInit.VOLCANIC_BRICKS_SLAB.get());
+			registerSelfDrop(BlockInit.VOLCANIC_BRICKS_STAIRS.get());
+			registerSelfDrop(BlockInit.VOLCANIC_BRICKS.get());
+			registerSelfDrop(BlockInit.VOLCANIC_BRICKS_WALL.get());
+			registerSelfDrop(BlockInit.VOLCANIC_STONE_SLAB.get());
+			registerSelfDrop(BlockInit.VOLCANIC_STONE_STAIRS.get());
+			registerSelfDrop(BlockInit.VOLCANIC_STONE_WALL.get());
+
+
 		}
 		
 		private void registerMachines(){
 			BlockInit.MACHINES.getEntries().stream().map(RegistryObject::get).forEach(block ->{
 				registerSelfDrop(block);
 			});
+			registerSelfDrop(BlockInit.ADVANCED_SMITHING_TABLE.getPrimary());
+			registerSelfDrop(BlockInit.BASIC_ENERGY_CABLE.getPrimary());
+			registerSelfDrop(BlockInit.INDUSTRIAL_GRILL.getPrimary());
+			registerSelfDrop(BlockInit.GENERATOR.getPrimary());
 		}
 		
 		private void registerSelfDrop(Block b) {

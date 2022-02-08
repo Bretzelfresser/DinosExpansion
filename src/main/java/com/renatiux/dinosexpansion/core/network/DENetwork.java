@@ -12,7 +12,7 @@ public class DENetwork {
 			
 			
 	protected static SimpleChannel registerSimpleChannel(String id, String networkVersion) {
-		return NetworkRegistry.newSimpleChannel(Dinosexpansion.modLoc(id), () -> networkVersion, version -> version.equals(networkVersion), version -> version.equals(networkVersion));
+		return NetworkRegistry.newSimpleChannel(Dinosexpansion.modLoc(id), () -> networkVersion, networkVersion::equals, networkVersion::equals);
 	}
 	
 	
@@ -20,5 +20,6 @@ public class DENetwork {
 		CHANNEL1.registerMessage(0, DinoaurStatusPacket.class, DinoaurStatusPacket::encode,DinoaurStatusPacket::decode, DinoaurStatusPacket::handle);
 		CHANNEL1.registerMessage(1, AttackPacket.class, AttackPacket::write, AttackPacket::read, AttackPacket::handle);
 		CHANNEL1.registerMessage(2,IncubatorSliderPacket.class, IncubatorSliderPacket::write, IncubatorSliderPacket::read, IncubatorSliderPacket::handle);
+		CHANNEL1.registerMessage(3, PosePacket.class, PosePacket::write, PosePacket::read, PosePacket::handle);
 	}
 }

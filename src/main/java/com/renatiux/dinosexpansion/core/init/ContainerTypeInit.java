@@ -1,16 +1,7 @@
 package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.common.container.AdvancedSmithingTableContainer;
-import com.renatiux.dinosexpansion.common.container.AllosaurusContainer;
-import com.renatiux.dinosexpansion.common.container.DinosaurTamingInventory;
-import com.renatiux.dinosexpansion.common.container.DodoContainer;
-import com.renatiux.dinosexpansion.common.container.GeneratorContainer;
-import com.renatiux.dinosexpansion.common.container.IncubatorContainer;
-import com.renatiux.dinosexpansion.common.container.IndustrialGrillContainer;
-import com.renatiux.dinosexpansion.common.container.MortarContainer;
-import com.renatiux.dinosexpansion.common.container.OrderContainer;
-import com.renatiux.dinosexpansion.common.container.RaftContainer;
+import com.renatiux.dinosexpansion.common.container.*;
 
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -25,6 +16,17 @@ public class ContainerTypeInit {
 
 	public static final RegistryObject<ContainerType<AllosaurusContainer>> ALLOSAURUS_CONTAINER_TYPE = CONTAINER_TYPES
 			.register("allosaurus_container", () -> IForgeContainerType.create(AllosaurusContainer::new));
+	public static final RegistryObject<ContainerType<DinosaurTamingInventory>> DINOSAUR_TAMING_INVENTORY = CONTAINER_TYPES.register("taming",
+			() -> IForgeContainerType.create(DinosaurTamingInventory::new));
+
+	public static final RegistryObject<ContainerType<OrderContainer>> DINOSAUR_ORDER_CONTAINER = CONTAINER_TYPES.register("order",
+			() -> IForgeContainerType.create(OrderContainer::new));
+
+	public static final RegistryObject<ContainerType<DodoContainer>> DODO_CONTAINER = CONTAINER_TYPES.register("dodo_container", () ->
+			IForgeContainerType.create(DodoContainer::new));
+
+	public static final RegistryObject<ContainerType<AstorgosuchusPoseContainer>> ASTORGOSUCHUS_CONTAINER = CONTAINER_TYPES.register("astorgosuchus_container", () -> IForgeContainerType.create(AstorgosuchusPoseContainer::new));
+
 	//machines
 	public static final RegistryObject<ContainerType<MortarContainer>> MORTAR_CONTAINER_TYPE = CONTAINER_TYPES
 			.register("mortar_container", () -> IForgeContainerType.create(MortarContainer::new));
@@ -35,15 +37,6 @@ public class ContainerTypeInit {
 
 	public static final RegistryObject<ContainerType<RaftContainer>> RAFT = CONTAINER_TYPES.register("raft_container",
 			() -> IForgeContainerType.create(RaftContainer::new));
-	
-	public static final RegistryObject<ContainerType<DinosaurTamingInventory>> DINOSAUR_TAMING_INVENTORY = CONTAINER_TYPES.register("taming", 
-			() -> IForgeContainerType.create(DinosaurTamingInventory::new));
-	
-	public static final RegistryObject<ContainerType<OrderContainer>> DINOSAUR_ORDER_CONTAINER = CONTAINER_TYPES.register("order", 
-			() -> IForgeContainerType.create(OrderContainer::new));
-	
-	public static final RegistryObject<ContainerType<DodoContainer>> DODO_CONTAINER = CONTAINER_TYPES.register("dodo_container", () ->
-	IForgeContainerType.create(DodoContainer::new));
 	
 	public static final RegistryObject<ContainerType<GeneratorContainer>> GENERATOR_CONTAINER_TYPE = CONTAINER_TYPES.register("generator", 
 			() -> IForgeContainerType.create(GeneratorContainer::new));
