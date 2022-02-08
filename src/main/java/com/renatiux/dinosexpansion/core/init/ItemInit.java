@@ -133,6 +133,9 @@ public class ItemInit {
 	public static final RegistryObject<Item> CROCODILE_FOSSIL = ITEMS.register("crocodile_fossil",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
+	public static final RegistryObject<Item> AMMONOID_FOSSIL = ITEMS.register("ammonoid_fossil",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
 	//Food
 	public static final RegistryObject<Item> ALLOSAURUS_RAW_MEAT = ITEMS.register("allosaurus_raw_meat",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ALLOSAURUS_RAW_MEAT)));
@@ -150,6 +153,10 @@ public class ItemInit {
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ASTORGOSUCHUS_RAW_MEAT)));
 	public static final RegistryObject<Item> ASTORGOSUCHUS_COOKED_MEAT = ITEMS.register("astorgosuchus_cooked_meat",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ASTORGOSUCHUS_COOKED_MEAT)));
+	public static final RegistryObject<Item> PARAPUZOSIA_RAW_TENTACLE = ITEMS.register("parapuzosia_raw_tentacle",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.PARAPUZOSIA_RAW_TENTACLE)));
+	public static final RegistryObject<Item> PARAPUZOSIA_COOKED_TENTACLE = ITEMS.register("parapuzosia_cooked_tentacle",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.PARAPUZOSIA_COOKED_TENTACLE)));
 
 	public static final RegistryObject<Item> ONION = ITEMS.register("onion",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.FOOD).food(FoodInit.ONION)));
@@ -262,6 +269,11 @@ public class ItemInit {
 	public static final RegistryObject<Item> ASTORGOSUCHUS_FRESH_SKULL = ITEMS.register("astorgosuchus_fresh_skull",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> ASTORGOSUCHUS_FRESH_TAIL = ITEMS.register("astorgosuchus_fresh_tail",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+	public static final RegistryObject<Item> PARAPUZOSIA_FOSSIL_SHELL_FRAGMENT = ITEMS.register("parapuzosia_fossil_shell_fragment",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> PARAPUZOSIA_SHELL_FRAGMENT = ITEMS.register("parapuzosia_shell_fragment",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 
