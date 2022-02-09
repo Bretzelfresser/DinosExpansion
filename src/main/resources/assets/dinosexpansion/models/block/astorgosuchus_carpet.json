@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "dinosexpansion:block/crocodile_scale_carpet"
+  }
+}

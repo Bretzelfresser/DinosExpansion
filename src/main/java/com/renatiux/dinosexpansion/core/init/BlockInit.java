@@ -329,7 +329,8 @@ public class BlockInit {
 
 	public static final RegistryObject<Block> PREHISTORIC_BED = BASIC_BLOCKS.register("prehistoric_bed", createPrehistoricBed(DyeColor.BROWN));
 
-
+	public static final RegistryObject<Block> ASTORGOSUCHUS_CARPET = BASIC_BLOCKS.register("astorgosuchus_carpet",
+			()-> new CarpetBlock(DyeColor.GREEN, AbstractBlock.Properties.create(Material.CARPET, MaterialColor.GREEN).hardnessAndResistance(0.1F).sound(SoundType.CLOTH)));
 
 	//Food
 	public static final RegistryObject<Block> WHALE_RAW_MEAT_BLOCK = BASIC_BLOCKS.register("whale_raw_meat_block",

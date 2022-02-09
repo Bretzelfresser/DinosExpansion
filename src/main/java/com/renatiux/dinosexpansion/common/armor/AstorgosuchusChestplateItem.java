@@ -6,10 +6,14 @@ import com.renatiux.dinosexpansion.client.model.armor.AstorgosuchusArmorModel;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -41,5 +45,12 @@ public class AstorgosuchusChestplateItem extends ArmorItem {
     @OnlyIn(Dist.CLIENT)
     public static void initArmorModel() {
         astorgosuchusArmorModel.put(EquipmentSlotType.CHEST, new AstorgosuchusArmorModel(EquipmentSlotType.CHEST,0.5F));
+    }
+
+    @Override
+    public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+        if(this.slot == EquipmentSlotType.CHEST){
+            player.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 300, 1));
+        }
     }
 }
