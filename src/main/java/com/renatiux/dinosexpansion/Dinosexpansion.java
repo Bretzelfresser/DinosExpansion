@@ -205,23 +205,6 @@ public class Dinosexpansion {
 
             registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("blocking"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
 
-            registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("pull"), (itemStack, clientWorld, living) -> {
-                if (living == null) {
-                    return 0.0F;
-                } else {
-                    return CrossbowItem.isCharged(itemStack) ? 0.0F : (float)(itemStack.getUseDuration() - living.getItemInUseCount()) / (float)CrossbowItem.getChargeTime(itemStack);
-                }
-            });
-            registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, living) -> {
-                return living != null && living.isHandActive() && living.getActiveItemStack() == itemStack && !CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F;
-            });
-            registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("charged"), (itemStack, clientWorld, living) -> {
-                return living != null && CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F;
-            });
-            registerProperty(ItemInit.SHIELDBOW.get(), new ResourceLocation("firework"), (itemStack, clientWorld, living) -> {
-                return living != null && CrossbowItem.isCharged(itemStack) && CrossbowItem.hasChargedProjectile(itemStack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F;
-            });
-
 
         }
     }

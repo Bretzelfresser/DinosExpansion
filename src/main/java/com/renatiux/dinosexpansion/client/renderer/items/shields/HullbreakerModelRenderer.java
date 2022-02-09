@@ -39,7 +39,7 @@ public class HullbreakerModelRenderer implements DEItemstackRenderer.ShieldModel
     }
 
     @Override
-    public RenderMaterial getRenderMaterial() {
+    public RenderMaterial getRenderMaterial(ItemStack stack) {
         return HULLBREAKER_RENDER;
     }
 
@@ -49,7 +49,7 @@ public class HullbreakerModelRenderer implements DEItemstackRenderer.ShieldModel
     }
 
     @Override
-    public EntityModel<?> getModel() {
+    public EntityModel<?> getModel(ItemStack stack) {
         return HULLBREAKER_MODEL;
     }
 }

@@ -41,36 +41,9 @@
 	"overrides": [
 		{
 			"predicate": {
-				"pulling": 1
+				"blocking": 1
 			},
-			"model": "item/shieldbow_pulling_0"
-		},
-		{
-			"predicate": {
-				"pulling": 1,
-				"pull": 0.58
-			},
-			"model": "item/shieldbow_pulling_1"
-		},
-		{
-			"predicate": {
-				"pulling": 1,
-				"pull": 1.0
-			},
-			"model": "item/shieldbow_pulling_2"
-		},
-		{
-			"predicate": {
-				"charged": 1
-			},
-			"model": "item/shieldbow_arrow"
-		},
-		{
-			"predicate": {
-				"charged": 1,
-				"firework": 1
-			},
-			"model": "item/crossbow_firework"
+			"model": "dinosexpansion:item/shieldbow_blocking"
 		}
 	]
 }

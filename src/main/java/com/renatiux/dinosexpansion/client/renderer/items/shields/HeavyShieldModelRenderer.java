@@ -43,12 +43,12 @@ public class HeavyShieldModelRenderer implements DEItemstackRenderer.ShieldModel
     }
 
     @Override
-    public RenderMaterial getRenderMaterial() {
+    public RenderMaterial getRenderMaterial(ItemStack stack) {
         return HEAVY_SHIELD_RENDER;
     }
 
     @Override
-    public EntityModel<?> getModel() {
+    public EntityModel<?> getModel(ItemStack stack) {
         return HEAVY_SHIELD_MODEL;
     }
 }

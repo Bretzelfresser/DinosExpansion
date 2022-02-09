@@ -35,7 +35,7 @@ public class SpikeShieldModelRenderer implements DEItemstackRenderer.ShieldModel
     }
 
     @Override
-    public RenderMaterial getRenderMaterial() {
+    public RenderMaterial getRenderMaterial(ItemStack stack) {
         return SPIKES_SHIELD_RENDER;
     }
 
@@ -45,7 +45,7 @@ public class SpikeShieldModelRenderer implements DEItemstackRenderer.ShieldModel
     }
 
     @Override
-    public EntityModel<?> getModel() {
+    public EntityModel<?> getModel(ItemStack stack) {
         return SPIKES_SHIELD;
     }
 }

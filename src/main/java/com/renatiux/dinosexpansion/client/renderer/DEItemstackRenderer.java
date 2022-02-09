@@ -52,13 +52,13 @@ public class DEItemstackRenderer extends ItemStackTileEntityRenderer {
          */
         public Item getRepresentiveItem();
 
-        public RenderMaterial getRenderMaterial();
+        public RenderMaterial getRenderMaterial(ItemStack stack);
 
         /**
          *
          * @return the model which should be rendered
          */
-        public EntityModel<?> getModel();
+        public EntityModel<?> getModel(ItemStack stack);
     }
 
     public static RenderMaterial create(ResourceLocation texture){
