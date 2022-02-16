@@ -7,6 +7,9 @@ import com.renatiux.dinosexpansion.client.events.ClientEvents;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
 import com.renatiux.dinosexpansion.common.loot.ChestLootModifier;
 import com.renatiux.dinosexpansion.core.init.*;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.ICriterionTrigger;
+import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
@@ -62,6 +65,8 @@ public class Dinosexpansion {
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "dinosexpansion";
+    public static boolean ENABLE_OVERWORLD_TREES = true;
+    public static final String ARMOR_DIR = MODID + ":textures/armor/";
 
     public static final ResourceLocation modLoc(String name) {
         return new ResourceLocation(MODID, name);
@@ -77,9 +82,6 @@ public class Dinosexpansion {
     public static TranslationTextComponent test(String type, String key) {
         return new TranslationTextComponent(type + "." + MODID + "." + key);
     }
-
-    public static boolean ENABLE_OVERWORLD_TREES = true;
-    public static final String ARMOR_DIR = MODID + ":textures/armor/";
 
     public Dinosexpansion() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -129,6 +131,11 @@ public class Dinosexpansion {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() ->{
+            for (ICriterionTrigger<?> trigger : AdvancementTriggerInit.TRIGGERS){
+                CriteriaTriggers.register(trigger);
+            }
+        });
 
         event.enqueueWork(DimensionInit::initBiomeSourcesAndChunkGenerator);
         DENetwork.init();

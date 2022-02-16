@@ -41,7 +41,6 @@ public class Shieldbow extends CrossbowItem {
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity livingEntity, int timeLeft) {
         if (livingEntity instanceof PlayerEntity && livingEntity.isSneaking()){
-            System.out.println("stopped");
             super.onPlayerStoppedUsing(stack, world, livingEntity, timeLeft);
         }
     }

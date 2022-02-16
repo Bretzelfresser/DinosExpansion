@@ -7,6 +7,7 @@
 	"container.dinosexpansion.advanced_smithing_table": "Advanced Smithing Table",
 	"container.dinosexpansion.industrial_grill": "Industrial Grill",
 	"container.dinosexpansion.incubator" : "Incubator",
+	"container.dinosexpansion.skeletal_assembly_table": "Skeletal Assembly Table",
 	
 	"block.dinosexpansion.mortar": "Mortar",
 	"block.dinosexpansion.lavender": "Lavender",
@@ -72,6 +73,7 @@
 	"block.dinosexpansion.adobe_bricks_stairs": "Adobe Bricks Stairs",
 	"block.dinosexpansion.adobe_bricks_slab": "Adobe Bricks Slab",
 	"block.dinosexpansion.adobe_bricks_wall": "Adobe Bricks Wall",
+	"block.dinosexpansion.skeletal_assembly_table": "Skeletal Assembly Table",
 
 
 	"item.dinosexpansion.tranquillizer_arrow": "Tranquillizer Arrow",

@@ -20,6 +20,7 @@ public class ModBlockStatesProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         topBottomBlock(BlockInit.WHITE_ASTORGOSUCHUS_CREATE.getPrimary(), modLoc("block/creates/astorgosuchus_fossil_create_side"), modLoc("block/creates/white_create_top"), modLoc("block/creates/astorgosuchus_fossil_create_bottom"));
         topBottomBlock(BlockInit.DARK_ASTORGOSUCHUS_CREATE.getPrimary(), modLoc("block/creates/astorgosuchus_fossil_create_side"), modLoc("block/creates/dark_create_top"), modLoc("block/creates/astorgosuchus_fossil_create_bottom"));
+        simpleBlockItem(BlockInit.SKELETAL_ASSEMBLY_TABLE.getPrimary(), cubeAll(BlockInit.SKELETAL_ASSEMBLY_TABLE.getPrimary()));
     }
 
     private void topBottomBlock(Block block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom) {

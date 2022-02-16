@@ -21,6 +21,7 @@ public class TileEntityTypesInit {
 	public static final RegistryObject<TileEntityType<BasicEnergyCableTileEntity>> BASIC_ENERGY_CABLE = TILE_ENTITY_TYPES.register("basic_energy_cable", () -> TileEntityType.Builder.create(BasicEnergyCableTileEntity::new, BlockInit.BASIC_ENERGY_CABLE.getPrimary()).build(null));
 	public static final RegistryObject<TileEntityType<GeneratorTileEntity>> GENERATOR = TILE_ENTITY_TYPES.register("generator", () -> TileEntityType.Builder.create(GeneratorTileEntity::new, BlockInit.GENERATOR.getPrimary(), BlockInit.STRUCTURE_GENERATOR.get()).build(null));
 	public static final RegistryObject<TileEntityType<FeederTileEntity>> FEEDER_TILE_ENTITY_TYPE = TILE_ENTITY_TYPES.register("feeder", () -> TileEntityType.Builder.create(FeederTileEntity::new, BlockInit.FEEDER.getPrimary(), BlockInit.STRUCTURE_FEEDER.get()).build(null));
+	public static final RegistryObject<TileEntityType<SkeletalAssemblyTableTile>> SKELETAL_ASSEMBLY_TABLE_TILE = TILE_ENTITY_TYPES.register("skeletal_assembly_table", () -> TileEntityType.Builder.create(SkeletalAssemblyTableTile::new, BlockInit.SKELETAL_ASSEMBLY_TABLE.getPrimary()).build(null));
 
 	public static final RegistryObject<TileEntityType<PrehistoricBedTileEntity>> PREHISTORIC_BED = TILE_ENTITY_TYPES.register("prehistoric_bed", () -> new TileEntityType<>(PrehistoricBedTileEntity::new, Sets.newHashSet(BlockInit.PREHISTORIC_BED.get()), null));
 }

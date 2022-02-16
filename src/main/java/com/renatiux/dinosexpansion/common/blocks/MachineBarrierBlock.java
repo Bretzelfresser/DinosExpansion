@@ -90,13 +90,13 @@ public class MachineBarrierBlock extends Block {
 		return BlockRenderType.INVISIBLE;
 	}
 
-	public static interface ITileEntityProvider {
-		public TileEntity getTileEntity();
+	public interface ITileEntityProvider {
+		TileEntity getTileEntity();
 
 	}
 
-	public static interface OnBlockRightCLicked{
-		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
+	public interface OnBlockRightCLicked{
+		ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
 												 Hand handIn, BlockRayTraceResult hit);
 	}
 

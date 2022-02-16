@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
@@ -49,38 +50,51 @@ public class ModLootTableProvider extends LootTableProvider{
 		@Override
 		protected void addTables() {
 			registerMachines();
-			registerSelfDrop(BlockInit.REDWOOD_LOG.get());
-			registerSelfDrop(BlockInit.REDWOOD_PLANKS.get());
-			registerSelfDrop(BlockInit.REDWOOD_SAPLING.get());
-			registerSelfDrop(BlockInit.DINO_SAND.get());
-			registerSelfDrop(BlockInit.DINO_SILT.get());
-			registerSelfDrop(BlockInit.WHITE_ASTORGOSUCHUS_CREATE.getPrimary());
-			registerSelfDrop(BlockInit.DARK_ASTORGOSUCHUS_CREATE.getPrimary());
-			registerSelfDrop(BlockInit.VOLCANIC_BRICKS_SLAB.get());
-			registerSelfDrop(BlockInit.VOLCANIC_BRICKS_STAIRS.get());
-			registerSelfDrop(BlockInit.VOLCANIC_BRICKS.get());
-			registerSelfDrop(BlockInit.VOLCANIC_BRICKS_WALL.get());
-			registerSelfDrop(BlockInit.VOLCANIC_STONE_SLAB.get());
-			registerSelfDrop(BlockInit.VOLCANIC_STONE_STAIRS.get());
-			registerSelfDrop(BlockInit.VOLCANIC_STONE_WALL.get());
+			registerDropSelfLootTable(BlockInit.REDWOOD_LOG.get());
+			registerDropSelfLootTable(BlockInit.REDWOOD_PLANKS.get());
+			registerDropSelfLootTable(BlockInit.REDWOOD_SAPLING.get());
+			registerDropSelfLootTable(BlockInit.DINO_SAND.get());
+			registerDropSelfLootTable(BlockInit.DINO_SILT.get());
+			registerDropSelfLootTable(BlockInit.WHITE_ASTORGOSUCHUS_CREATE.getPrimary());
+			registerDropSelfLootTable(BlockInit.DARK_ASTORGOSUCHUS_CREATE.getPrimary());
+			registerSlab(BlockInit.VOLCANIC_BRICKS_SLAB.get());
+			registerDropSelfLootTable(BlockInit.VOLCANIC_BRICKS_STAIRS.get());
+			registerDropSelfLootTable(BlockInit.VOLCANIC_BRICKS.get());
+			registerDropSelfLootTable(BlockInit.VOLCANIC_BRICKS_WALL.get());
+			registerSlab(BlockInit.VOLCANIC_STONE_SLAB.get());
+			registerDropSelfLootTable(BlockInit.VOLCANIC_STONE_STAIRS.get());
+			registerDropSelfLootTable(BlockInit.VOLCANIC_STONE_WALL.get());
+			registerDropSelfLootTable(BlockInit.REDWOOD_SAPLING.get());
+			registerSilkTouch(BlockInit.ALLOSAURUS_EGG.get());
+			registerSilkTouch(BlockInit.DODO_EGG.get());
+
 
 
 		}
 		
 		private void registerMachines(){
 			BlockInit.MACHINES.getEntries().stream().map(RegistryObject::get).forEach(block ->{
-				registerSelfDrop(block);
+				registerDropSelfLootTable(block);
 			});
-			registerSelfDrop(BlockInit.ADVANCED_SMITHING_TABLE.getPrimary());
-			registerSelfDrop(BlockInit.BASIC_ENERGY_CABLE.getPrimary());
-			registerSelfDrop(BlockInit.INDUSTRIAL_GRILL.getPrimary());
-			registerSelfDrop(BlockInit.GENERATOR.getPrimary());
+			registerDropSelfLootTable(BlockInit.ADVANCED_SMITHING_TABLE.getPrimary());
+			registerDropSelfLootTable(BlockInit.BASIC_ENERGY_CABLE.getPrimary());
+			registerDropSelfLootTable(BlockInit.INDUSTRIAL_GRILL.getPrimary());
+			registerDropSelfLootTable(BlockInit.GENERATOR.getPrimary());
+			registerDropSelfLootTable(BlockInit.SKELETAL_ASSEMBLY_TABLE.getPrimary());
 		}
 		
-		private void registerSelfDrop(Block b) {
-			list.add(b);
-			registerDropSelfLootTable(b);
+
+
+
+		protected void registerSlab(Block slab){
+			registerLootTable(slab, BlockLootTables::droppingSlab);
 		}
+		@Override
+		protected void registerLootTable(Block blockIn, LootTable.Builder table) {
+			list.add(blockIn);
+			super.registerLootTable(blockIn, table);
+		}
+
 		
 		@Override
 		protected Iterable<Block> getKnownBlocks() {
