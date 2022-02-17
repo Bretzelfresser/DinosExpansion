@@ -9,6 +9,7 @@ import com.renatiux.dinosexpansion.core.init.ItemInit;
 import com.renatiux.dinosexpansion.util.datagen.AdvancedSmithingTableRecipeBuilder;
 import com.renatiux.dinosexpansion.util.datagen.GeneratorRecipeBuilder;
 import com.renatiux.dinosexpansion.util.datagen.MortarRecipeBuilder;
+import com.renatiux.dinosexpansion.util.datagen.SkeletalAssemblyTableRecipeBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.entity.passive.PandaEntity;
@@ -31,6 +32,7 @@ public class ModRecipeProvider extends RecipeProvider {
         shieldBoomerangRecipes(consumer);
         generator(consumer);
         addTools(consumer);
+        addAssemblyTableRecipe(consumer);
         //shapeless recipe, the criterion determines when the recipe is unlocked in the recipe book, there has to be one
         ShapelessRecipeBuilder.shapelessRecipe(ItemInit.TRANQUILIZER_ARROW.get()).addIngredient(Items.ARROW).addIngredient(ItemInit.NARCOTICS.get()).addCriterion("hasItem", hasItem(ItemInit.NARCOTICS.get())).build(consumer);
         MortarRecipeBuilder.recipe(ItemInit.NARCOTICS.get(), 300).addInput(Items.ROTTEN_FLESH).addInput(ItemInit.NARCOTIC_BERRY.get(), 3).addCriterion("hasItem", hasItem(ItemInit.NARCOTIC_BERRY.get())).build(consumer);
@@ -102,6 +104,17 @@ public class ModRecipeProvider extends RecipeProvider {
 
     private void addTools(Consumer<IFinishedRecipe> consumer){
         addToolsForMaterial(Items.EMERALD, ItemInit.EMERALD_PICKAXE.get(), ItemInit.EMERALD_AXE.get(), ItemInit.EMERALD_SWORD.get(), ItemInit.EMERALD_HOE.get(), ItemInit.EMERALD_SHOVEL.get(), consumer);
+    }
+
+    private void addAssemblyTableRecipe(Consumer<IFinishedRecipe> consumer){
+        SkeletalAssemblyTableRecipeBuilder.recipe(Items.DIAMOND)
+                .key('s', Items.STICK)
+                .patternLine("sssss")
+                .patternLine("sssss")
+                .patternLine("sssss")
+                .patternLine("sssss")
+                .patternLine("sssss")
+                .addCriterion("hasItem", hasItem(Items.DIAMOND)).build(consumer, Dinosexpansion.modLoc("big_stick"));
     }
 
     private void addToolsForMaterial(Item material, Item pickaxe, Item axe, Item sword, Item hoe, Item shovel, Consumer<IFinishedRecipe> consumer) {

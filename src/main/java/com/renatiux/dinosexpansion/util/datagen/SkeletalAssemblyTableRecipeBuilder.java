@@ -72,7 +72,7 @@ public class SkeletalAssemblyTableRecipeBuilder {
     }
 
     public SkeletalAssemblyTableRecipeBuilder patternLine(String patternIn) {
-        if (!this.pattern.isEmpty() && patternIn.length() != this.pattern.get(0).length() || this.pattern.size() >= SkeletalAssemblyRecipe.HEIGHT || patternIn.length() >= SkeletalAssemblyRecipe.WIDTH) {
+        if (!this.pattern.isEmpty() && patternIn.length() != this.pattern.get(0).length() || this.pattern.size() > SkeletalAssemblyRecipe.HEIGHT || patternIn.length() > SkeletalAssemblyRecipe.WIDTH) {
             throw new IllegalArgumentException("Pattern must be the same width on every line and cant be bigger then 5");
         } else {
             this.pattern.add(patternIn);

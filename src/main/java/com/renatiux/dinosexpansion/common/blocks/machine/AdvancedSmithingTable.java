@@ -104,7 +104,6 @@ public class AdvancedSmithingTable extends BaseMultiBlock {
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		if(!worldIn.isRemote) {
-			System.out.println(pos);
 		worldIn.setBlockState(pos.offset(state.get(HORIZONTAL_FACING).rotateYCCW()),
 				BlockInit.STRUCTURE_SMITHING_TABLE.get().getDefaultState());
 		state.updateNeighbours(worldIn, pos, 3);
@@ -119,11 +118,6 @@ public class AdvancedSmithingTable extends BaseMultiBlock {
 						PathType.LAND))
 			return true;
 		return false;
-	}
-
-	@Override
-	protected void fillStateContainer(Builder<Block, BlockState> builder) {
-		super.fillStateContainer(builder);
 	}
 
 }

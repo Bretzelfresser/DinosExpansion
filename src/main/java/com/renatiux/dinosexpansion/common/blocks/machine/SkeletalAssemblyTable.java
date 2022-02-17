@@ -97,7 +97,6 @@ public class SkeletalAssemblyTable extends BaseMultiBlock {
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         if(!worldIn.isRemote) {
-            System.out.println(pos);
             worldIn.setBlockState(pos.offset(state.get(HORIZONTAL_FACING).rotateY()),
                     BlockInit.STRUCTURE_SKELETAL_ASSEMBLY_TABLE.get().getDefaultState());
             state.updateNeighbours(worldIn, pos, 3);

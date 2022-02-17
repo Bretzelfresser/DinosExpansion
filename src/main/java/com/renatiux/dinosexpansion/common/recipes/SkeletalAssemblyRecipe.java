@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.common.tileEntities.AdvancedSmithingTableTileEntity;
 import com.renatiux.dinosexpansion.common.tileEntities.SkeletalAssemblyTableTile;
 import com.renatiux.dinosexpansion.core.init.RecipeInit;
 import net.minecraft.item.ItemStack;
@@ -45,8 +44,8 @@ public class SkeletalAssemblyRecipe implements IRecipe<SkeletalAssemblyTableTile
 
     @Override
     public boolean matches(SkeletalAssemblyTableTile inv, World worldIn) {
-        for (int i = 0; i <= 4 - this.recipeWidth; ++i) {
-            for (int j = 0; j <= 4 - this.recipeHeight; ++j) {
+        for (int i = 0; i <= WIDTH - this.recipeWidth; ++i) {
+            for (int j = 0; j <= HEIGHT - this.recipeHeight; ++j) {
                 if (this.checkMatch(inv, i, j, true)) {
                     return true;
                 }
@@ -60,8 +59,8 @@ public class SkeletalAssemblyRecipe implements IRecipe<SkeletalAssemblyTableTile
     }
 
     private boolean checkMatch(SkeletalAssemblyTableTile inv, int width, int height, boolean p_77573_4_) {
-        for (int i = 0; i < 4; ++i) {
-            for (int j = 0; j < 4; ++j) {
+        for (int i = 0; i < WIDTH; ++i) {
+            for (int j = 0; j < HEIGHT; ++j) {
                 int k = i - width;
                 int l = j - height;
                 Ingredient ingredient = Ingredient.EMPTY;
@@ -73,7 +72,7 @@ public class SkeletalAssemblyRecipe implements IRecipe<SkeletalAssemblyTableTile
                     }
                 }
 
-                if (!ingredient.test(inv.getStackInSlot(i + j * 4))) {
+                if (!ingredient.test(inv.getStackInSlot(i + j * HEIGHT))) {
                     return false;
                 }
             }

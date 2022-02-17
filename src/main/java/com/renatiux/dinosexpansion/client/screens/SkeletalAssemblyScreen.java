@@ -27,7 +27,7 @@ public class SkeletalAssemblyScreen extends ContainerScreen<SkeletalAssemblyCont
 
     @Override
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
-        this.minecraft.textureManager.bindTexture(Dinosexpansion.modLoc("textures/gui/skeletal_assembly_gui.png"));
+        this.minecraft.textureManager.bindTexture(TEXTURE);
         int middleX = (this.width - this.xSize) / 2;
         int middleY = (this.height - this.ySize) / 2;
         this.blit(matrixStack, middleX, middleY, 0, 0, 176, 203);

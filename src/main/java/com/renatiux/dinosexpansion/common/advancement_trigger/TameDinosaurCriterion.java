@@ -33,7 +33,6 @@ public class TameDinosaurCriterion extends AbstractCriterionTrigger<TameDinosaur
 	
 	
 	public void trigger(ServerPlayerEntity player, Dinosaur dino) {
-		System.out.println("bis hier hin mal");
 	      LootContext lootcontext = EntityPredicate.getLootContext(player, dino);
 	      this.triggerListeners(player, (instance) -> {
 	         return instance.test(lootcontext);

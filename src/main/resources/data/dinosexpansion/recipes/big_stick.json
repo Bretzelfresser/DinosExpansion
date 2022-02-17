@@ -1,0 +1,18 @@
+{
+  "type": "dinosexpansion:skeletal_assembly_recipe",
+  "pattern": [
+    "sssss",
+    "sssss",
+    "sssss",
+    "sssss",
+    "sssss"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "minecraft:diamond"
+  }
+}
