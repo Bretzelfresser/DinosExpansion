@@ -8,9 +8,7 @@ import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 
 import javax.annotation.Nullable;
 
@@ -36,14 +34,13 @@ public class SkeletalAssemblyTableTile extends MasterSlaveTileEntity implements 
 
     @Override
     public void tick() {
-        if (!world.isRemote || !isMaster)
+        if (world.isRemote || !isMaster)
             return;
         System.out.println(getStackInSlot(10));
         if (hasItem()) {
             SkeletalAssemblyRecipe recipe = getRecipe();
             if (recipe != null) {
                 setInventorySlotContents(25, recipe.getRecipeOutput().copy());
-                return;
             } else
                 reset();
         } else
@@ -52,7 +49,6 @@ public class SkeletalAssemblyTableTile extends MasterSlaveTileEntity implements 
     }
 
     private void reset() {
-
         setInventorySlotContents(25, ItemStack.EMPTY);
     }
 
