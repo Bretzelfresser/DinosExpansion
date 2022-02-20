@@ -36,7 +36,6 @@ public class SkeletalAssemblyTableTile extends MasterSlaveTileEntity implements 
     public void tick() {
         if (world.isRemote || !isMaster)
             return;
-        System.out.println(getStackInSlot(10));
         if (hasItem()) {
             SkeletalAssemblyRecipe recipe = getRecipe();
             if (recipe != null) {

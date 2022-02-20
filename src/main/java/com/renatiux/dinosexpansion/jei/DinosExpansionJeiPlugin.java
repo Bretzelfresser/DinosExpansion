@@ -33,6 +33,7 @@ public class DinosExpansionJeiPlugin implements IModPlugin {
 
         registration.addRecipes(getRecipes(manager, RecipeInit.MORTAR_RECIPE), MortarRecipeCategory.ID);
         registration.addRecipes(getRecipes(manager, RecipeInit.ADVANCED_SMITHING_TABLE_RECIPE), AdvancedSmithingTableCategory.ID);
+        registration.addRecipes(getRecipes(manager, RecipeInit.SKELETAL_ASSEMBLY_RECIPE), SkeletalAssemblyTableCategory.ID);
     }
 
     @Override
@@ -40,8 +41,8 @@ public class DinosExpansionJeiPlugin implements IModPlugin {
         IGuiHelper helper = registration.getJeiHelpers().getGuiHelper();
 
         registration.addRecipeCategories(new MortarRecipeCategory(helper));
-        
         registration.addRecipeCategories(new AdvancedSmithingTableCategory(helper));
+        registration.addRecipeCategories(new SkeletalAssemblyTableCategory(helper));
     }
 
     public static Collection<?> getRecipes(RecipeManager manager, IRecipeType<?> type){

@@ -28,7 +28,7 @@ public class AdvancedSmithingTableContainer extends BaseTileEntityContainer<Adva
 
 		addSlotField(tileEntity, 0, 14, 26, 4, 18, 4, 18);
 
-		addSlot(new ResultSlot(tileEntity, 16, 133, 53));
+		addSlot(new ResultSlot(tileEntity, 16, 133, 54));
 	}
 
 	@Override

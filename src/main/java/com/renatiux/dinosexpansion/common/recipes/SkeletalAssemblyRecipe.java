@@ -102,6 +102,11 @@ public class SkeletalAssemblyRecipe implements IRecipe<SkeletalAssemblyTableTile
     }
 
     @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return this.inputs;
+    }
+
+    @Override
     public IRecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }

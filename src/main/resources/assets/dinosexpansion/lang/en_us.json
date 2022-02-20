@@ -205,8 +205,9 @@
 	
 	"item.dinosexpansion.tooltip.tranquillizer_arrow": "Special arrow to knock out dinosaurs",
 	"category.dinosexpansion.mortar_recipe": "Mortar",
-	"category.dinosexpansion.advanced_smithing_table": "Advanced Smithing Table",
 	"dinosexpansion.mortar.time.seconds": "%ss",
+	"category.dinosexpansion.advanced_smithing_table": "Advanced Smithing Table",
+	"category.dinosexpansion.skeletal_assembly_table_category": "Skeletal Assembly Table",
 	
 	"screen.dinosexpansion.idle": "Idle",
 	"screen.dinosexpansion.hostile": "Hostile",
