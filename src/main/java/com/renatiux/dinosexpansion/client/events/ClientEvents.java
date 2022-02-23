@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.client.events;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.client.renderer.blocks.CabinetRenderer;
 import com.renatiux.dinosexpansion.client.renderer.entities.*;
 import com.renatiux.dinosexpansion.client.renderer.items.*;
 import com.renatiux.dinosexpansion.client.renderer.blocks.GeneratorRenderer;
@@ -77,6 +78,7 @@ public class ClientEvents {
 		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.MORTAR_TILE_ENTITY_TYPE.get(), MortarRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.INCUBATOR.get(), IncubatorRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.GENERATOR.get(), GeneratorRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.CABINET_TILE_ENTITY.get(), CabinetRenderer::new);
 	}
 	private static void screenBinding() {
 		ScreenManager.registerFactory(ContainerTypeInit.ALLOSAURUS_CONTAINER_TYPE.get(), AllosaurusScreen::new);
@@ -91,6 +93,7 @@ public class ClientEvents {
 		ScreenManager.registerFactory(ContainerTypeInit.INCUBATOR_CONTAINER_TYPE.get(), IncubatorScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.ASTORGOSUCHUS_CONTAINER.get(), AstorgosuchusPoseScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.SKELETAL_ASSEMBLY_CONTAINER.get(), SkeletalAssemblyScreen::new);
+		ScreenManager.registerFactory(ContainerTypeInit.CABINET_CONTAINER.get(), CabinetScreen::new);
 	}
 
 	private static void armorModel(){
