@@ -39,11 +39,39 @@ public class FlammablesDE {
 
         //Log
         flammableBlock(BlockInit.REDWOOD_LOG.get(), 5, 5);
+        flammableBlock(BlockInit.PALM_LOG.get(), 5, 5);
 
         //Leaves
         flammableBlock(BlockInit.REDWOOD_LEAVES.get(), 30, 60);
+        flammableBlock(BlockInit.PALM_LEAVES.get(), 30, 60);
 
         //Planks
         flammableBlock(BlockInit.REDWOOD_PLANKS.get(), 5, 5);
+        flammableBlock(BlockInit.PALM_PLANKS.get(), 5, 5);
+
+        //Stripped log
+        flammableBlock(BlockInit.STRIPPED_PALM_LOG.get(), 5, 5);
+
+        //Stripped wood
+        flammableBlock(BlockInit.STRIPPED_PALM_WOOD.get(), 5, 5);
+
+        //Wood
+        flammableBlock(BlockInit.PALM_WOOD.get(), 5, 5);
+
+        //Button
+        flammableBlock(BlockInit.PALM_BUTTON.get(), 5, 5);
+
+        //Door
+        flammableBlock(BlockInit.PALM_DOOR.get(), 5, 5);
+
+        //Fence
+        flammableBlock(BlockInit.PALM_FENCE.get(), 5, 5);
+
+        //Fence Gate
+        flammableBlock(BlockInit.PALM_FENCE_GATE.get(), 5, 5);
+
+        //Pressure Plate
+        flammableBlock(BlockInit.PALM_PRESSURE_PLATE.get(), 5, 5);
+
     }
 }

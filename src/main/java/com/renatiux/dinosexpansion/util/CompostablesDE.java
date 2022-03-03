@@ -41,7 +41,7 @@ public class CompostablesDE {
 
         //Leaves
         compostibleBlocks(0.3f, BlockInit.REDWOOD_LEAVES.get());
-
+        compostibleBlocks(0.3f, BlockInit.PALM_LEAVES.get());
     }
 
 }

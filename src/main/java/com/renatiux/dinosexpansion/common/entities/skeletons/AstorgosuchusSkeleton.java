@@ -1,6 +1,5 @@
 package com.renatiux.dinosexpansion.common.entities.skeletons;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.model.entities.creatures.Astorgosuchus.*;
@@ -34,7 +33,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class AstorgosuchusSkeleton extends Entity{
