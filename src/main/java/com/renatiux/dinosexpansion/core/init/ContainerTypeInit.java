@@ -14,6 +14,7 @@ public class ContainerTypeInit {
 	public static final DeferredRegister<ContainerType<?>> CONTAINER_TYPES = DeferredRegister
 			.create(ForgeRegistries.CONTAINERS, Dinosexpansion.MODID);
 
+	public static final RegistryObject<ContainerType<CabinetContainer>> CABINET_CONTAINER = CONTAINER_TYPES.register("cabinet", () -> IForgeContainerType.create(CabinetContainer::new));
 	public static final RegistryObject<ContainerType<AllosaurusContainer>> ALLOSAURUS_CONTAINER_TYPE = CONTAINER_TYPES
 			.register("allosaurus_container", () -> IForgeContainerType.create(AllosaurusContainer::new));
 	public static final RegistryObject<ContainerType<DinosaurTamingInventory>> DINOSAUR_TAMING_INVENTORY = CONTAINER_TYPES.register("taming",

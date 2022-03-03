@@ -15,7 +15,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public abstract class ContainerTileEntity extends LockableLootTileEntity{
+public abstract class  ContainerTileEntity extends LockableLootTileEntity{
 
 	protected final int slots;
 	protected NonNullList<ItemStack> items;

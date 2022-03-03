@@ -56,7 +56,6 @@ public class ClientForgeEvents {
     @SubscribeEvent
     public static void onSoundPlayed(PlaySoundEvent event){
         if (Minecraft.getInstance().player != null && !Minecraft.getInstance().player.isPotionActive(PotionInit.BLEEDING.get())){
-            System.out.println(event.getSound().getSoundLocation());
             if (event.getSound().getSoundLocation().equals(SoundInit.FASTER_HEARTBEAT.get().getName())){
                 stop(event);
             }
@@ -77,7 +76,7 @@ public class ClientForgeEvents {
     public static void onRenderOverlay(RenderGameOverlayEvent.Post event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
             if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.isPotionActive(PotionInit.BLEEDING.get()) && Minecraft.getInstance().gameSettings.getPointOfView() == PointOfView.FIRST_PERSON) {
-                Minecraft.getInstance().getTextureManager().bindTexture(Dinosexpansion.modLoc("textures/gui/bleeding_overlay.png"));
+                Minecraft.getInstance().getTextureManager().bindTexture(BLEEDING_OVERLAY);
                 MainWindow res = event.getWindow();
                 AbstractGui.blit(event.getMatrixStack(), 0, 0, 0, 0, res.getScaledWidth(), res.getScaledHeight(), res.getScaledWidth(), res.getScaledHeight());
             }
