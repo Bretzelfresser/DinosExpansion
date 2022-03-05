@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "dinosexpansion:block/palm_log",
+    "side": "dinosexpansion:block/palm_log"
+  }
+}

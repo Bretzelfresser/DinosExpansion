@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "dinosexpansion:block/palm_slab"
+    },
+    "type=double": {
+      "model": "dinosexpansion:block/palm_planks"
+    },
+    "type=top": {
+      "model": "dinosexpansion:block/palm_slab_top"
+    }
+  }
+}

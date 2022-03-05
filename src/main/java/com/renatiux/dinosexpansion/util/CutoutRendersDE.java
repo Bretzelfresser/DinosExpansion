@@ -41,7 +41,7 @@ public class CutoutRendersDE {
 
         //Leaves
         RenderTypeLookup.setRenderLayer(BlockInit.REDWOOD_LEAVES.get(), RenderType.getCutout());
-
+        RenderTypeLookup.setRenderLayer(BlockInit.PALM_LEAVES.get(), RenderType.getCutout());
 
         //Bush
         RenderTypeLookup.setRenderLayer(BlockInit.NARCOTIC_BERRY_BUSH.get(), RenderType.getCutout());

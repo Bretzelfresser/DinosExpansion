@@ -1,0 +1,7 @@
+{
+  "parent":"block/cube_column",
+  "textures":{
+    "end":"dinosexpansion:block/palm_log_top",
+    "side":"dinosexpansion:block/palm_log"
+  }
+}

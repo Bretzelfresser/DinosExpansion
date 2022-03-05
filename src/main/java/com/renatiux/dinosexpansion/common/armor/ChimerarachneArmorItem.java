@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.common.armor;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.model.armor.ChimerarachneArmorModel;
+import com.renatiux.dinosexpansion.core.init.ItemInit;
 import com.renatiux.dinosexpansion.core.init.PotionInit;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
@@ -56,17 +57,35 @@ public class ChimerarachneArmorItem extends ArmorItem {
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (hasFullArmor(player)) {
+        /*if (hasFullArmor(player)) {
             player.addPotionEffect(new EffectInstance(PotionInit.CLIMB_EFFECT.get(), 250, 0, false, false, true));
+        }*/
+        boolean isHelmetOn = player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem() == ItemInit.CHIMERARACHNE_HELMET.get();
+        boolean isChestplateOn = player.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem() == ItemInit.CHIMERARACHNE_CHESTPLATE.get();
+        boolean isLeggingsOn = player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() == ItemInit.CHIMERARACHNE_LEGGINGS.get();
+        boolean isBootsOn = player.getItemStackFromSlot(EquipmentSlotType.FEET).getItem() == ItemInit.CHIMERARACHNE_BOOTS.get();
+        if(isHelmetOn&isChestplateOn || isHelmetOn&isLeggingsOn || isHelmetOn&isBootsOn ||
+                isChestplateOn&isLeggingsOn || isChestplateOn&isBootsOn || isLeggingsOn&isBootsOn) {
+            if (!player.isSpectator() && player.collidedHorizontally && player.moveForward > 0 && !player.isWet()) {
+                player.setMotion(player.getMotion().getX(), 0.05, player.getMotion().getZ());
+                player.fallDistance = 0F;
+            }
+        }
+        if(isHelmetOn&isChestplateOn&isLeggingsOn&isBootsOn)
+        {
+            if (!player.isSpectator() && player.collidedHorizontally && player.moveForward > 0 && !player.isWet()) {
+                player.setMotion(player.getMotion().getX(), 0.1, player.getMotion().getZ());
+                player.fallDistance = 0F;
+            }
         }
     }
 
-    private boolean hasFullArmor(PlayerEntity player) {
+    /*private boolean hasFullArmor(PlayerEntity player) {
         boolean hasHelmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem() instanceof ChimerarachneArmorItem;
         boolean hasChest = player.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem() instanceof ChimerarachneArmorItem;
         boolean hasLegs = player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof ChimerarachneArmorItem;
         boolean hasBoots = player.getItemStackFromSlot(EquipmentSlotType.FEET).getItem() instanceof ChimerarachneArmorItem;
         return hasHelmet && hasChest && hasLegs && hasBoots;
-    }
+    }*/
 
 }

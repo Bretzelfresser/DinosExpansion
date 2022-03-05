@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "dinosexpansion:block/palm_pressure_plate"
+    },
+    "powered=true": {
+      "model": "dinosexpansion:block/palm_pressure_plate_down"
+    }
+  }
+}

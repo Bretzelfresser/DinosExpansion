@@ -330,4 +330,8 @@ public class ItemInit {
 	public static final RegistryObject<Item> MULTI_BOW_5 = ITEMS.register("multi_bow_5",
 			() -> new MultiBow5(1,  new Item.Properties().maxStackSize(1).maxDamage(700)
 					.group(ItemGroupInit.PROJECTILES)));
+
+	//Blocks
+	public static final RegistryObject<Item> PALM_SIGN = ITEMS.register("palm_sign",
+			()-> new SignItem(new Item.Properties().maxStackSize(16).group(ItemGroupInit.MISC), BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get()));
 }

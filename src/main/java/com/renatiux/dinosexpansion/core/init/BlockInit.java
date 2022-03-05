@@ -21,6 +21,7 @@ import com.renatiux.dinosexpansion.common.tileEntities.*;
 import com.renatiux.dinosexpansion.common.trees.DETreeSpawners;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 import com.renatiux.dinosexpansion.util.LightUtil;
+import com.renatiux.dinosexpansion.util.WoodTypeDE;
 import com.renatiux.dinosexpansion.util.registration.BlockDeferredRegister;
 import com.renatiux.dinosexpansion.util.registration.DoubleRegistryObject;
 
@@ -141,13 +142,71 @@ public class BlockInit {
 			()-> new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).sound(SoundType.PLANT).hardnessAndResistance(0.2F).tickRandomly().notSolid()
 					.setBlocksVision((state, world, pos) -> false).setSuffocates((state, world, pos) -> false).harvestTool(ToolType.HOE)));
 
+	public static final RegistryObject<Block> PALM_LEAVES = PLANTS.register("palm_leaves",
+			()-> new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).sound(SoundType.PLANT).hardnessAndResistance(0.2F).tickRandomly().notSolid()
+					.setBlocksVision((state, world, pos) -> false).setSuffocates((state, world, pos) -> false).harvestTool(ToolType.HOE)));
+
 	//Log
 	public static final RegistryObject<Block> REDWOOD_LOG = PLANTS.register("redwood_log",
 			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F)));
 
+	public static final RegistryObject<Block> PALM_LOG = PLANTS.register("palm_log",
+			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F)));
+
+	//Stripped Log
+	public static final RegistryObject<Block> STRIPPED_PALM_LOG = PLANTS.register("stripped_palm_log",
+			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F).sound(SoundType.WOOD)));
+
 	//Planks
 	public static final RegistryObject<Block> REDWOOD_PLANKS = PLANTS.register("redwood_planks",
 			()-> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+
+	public static final RegistryObject<Block> PALM_PLANKS = PLANTS.register("palm_planks",
+			()-> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+
+	//Wood
+	public static final RegistryObject<Block> PALM_WOOD = PLANTS.register("palm_wood",
+			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F).sound(SoundType.WOOD)));
+
+	//Stripped Wood
+	public static final RegistryObject<Block> STRIPPED_PALM_WOOD = PLANTS.register("stripped_palm_wood",
+			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F).sound(SoundType.WOOD)));
+
+	//Button
+	public static final RegistryObject<Block> PALM_BUTTON = PLANTS.register("palm_button",
+			()-> new WoodButtonBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
+
+	//Door
+	public static final RegistryObject<Block> PALM_DOOR = PLANTS.register("palm_door",
+			()-> new DoorBlock(AbstractBlock.Properties.create(Material.WOOD, PALM_PLANKS.get().getMaterialColor()).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid()));
+
+	//Fence
+	public static final RegistryObject<Block> PALM_FENCE = PLANTS.register("palm_fence",
+			()-> new FenceBlock(AbstractBlock.Properties.create(Material.WOOD, PALM_PLANKS.get().getMaterialColor()).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<Block> PALM_FENCE_GATE = PLANTS.register("palm_fence_gate",
+			()-> new FenceGateBlock(AbstractBlock.Properties.create(Material.WOOD, PALM_PLANKS.get().getMaterialColor()).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+
+	//Pressure Plate
+	public static final RegistryObject<Block> PALM_PRESSURE_PLATE = PLANTS.register("palm_pressure_plate",
+			()-> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.create(Material.WOOD, PALM_PLANKS.get().getMaterialColor()).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
+
+	//Trapdoor
+	public static final RegistryObject<Block> PALM_TRAPDOOR = PLANTS.register("palm_trapdoor",
+			()-> new TrapDoorBlock(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid()));
+
+	//Sign
+	public static final RegistryObject<Block> PALM_SIGN = BLOCK.register("palm_sign",
+			()-> new DEStandingSignBlock(AbstractBlock.Properties.create(Material.WOOD, PALM_LOG.get().getMaterialColor()).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD), WoodTypeDE.PALM));
+	public static final RegistryObject<Block> PALM_WALL_SIGN = BLOCK.register("palm_wall_sign",
+			()-> new DEWallSignBlock(AbstractBlock.Properties.create(Material.WOOD).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD).lootFrom(PALM_SIGN), WoodTypeDE.PALM));
+
+	//Slab
+	public static final RegistryObject<Block> PALM_SLAB = PLANTS.register("palm_slab",
+			()-> new SlabBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+
+	//Stair
+	public static final RegistryObject<Block> PALM_STAIR = PLANTS.register("palm_stairs",
+			()-> new StairsBlock(PALM_PLANKS.get().getDefaultState(), AbstractBlock.Properties.from(PALM_PLANKS.get())));
 
 	//eggs
 	public static final RegistryObject<Block> ALLOSAURUS_EGG = EGGS.register("allosaurus_egg", AllosaurusEggBlock::new);

@@ -6,15 +6,21 @@ import static net.minecraft.item.ItemModelsProperties.registerProperty;
 import com.renatiux.dinosexpansion.client.events.ClientEvents;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
 import com.renatiux.dinosexpansion.common.loot.ChestLootModifier;
+import com.renatiux.dinosexpansion.common.tileEntities.DESignTileEntity;
 import com.renatiux.dinosexpansion.core.init.*;
+import com.renatiux.dinosexpansion.util.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
+import net.minecraft.block.WoodType;
+import net.minecraft.client.renderer.Atlases;
+import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,11 +36,6 @@ import com.renatiux.dinosexpansion.common.items.CustomSpawnEgg;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import com.renatiux.dinosexpansion.core.network.DENetwork;
-import com.renatiux.dinosexpansion.util.CompostablesDE;
-import com.renatiux.dinosexpansion.util.CutoutRendersDE;
-import com.renatiux.dinosexpansion.util.FlammablesDE;
-import com.renatiux.dinosexpansion.util.OreGeneration;
-import com.renatiux.dinosexpansion.util.StrippablesDE;
 
 import net.minecraft.client.world.DimensionRenderInfo;
 import net.minecraft.entity.EntityType;
@@ -139,6 +140,7 @@ public class Dinosexpansion {
 
         event.enqueueWork(DimensionInit::initBiomeSourcesAndChunkGenerator);
         DENetwork.init();
+        WoodType.register(WoodTypeDE.PALM);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -151,6 +153,8 @@ public class Dinosexpansion {
         DimensionRenderInfo baseRender = new DinoDimensionRenderInfo();
 
         DimensionRenderInfo.field_239208_a_.put(Dinosexpansion.modLoc("dino_render"), baseRender);
+        Atlases.addWoodType(WoodTypeDE.PALM);
+        ClientRegistry.bindTileEntityRenderer(TileEntityTypesInit.SIGN_TILE_ENTITIES.get(), SignTileEntityRenderer::new);
 
     }
 

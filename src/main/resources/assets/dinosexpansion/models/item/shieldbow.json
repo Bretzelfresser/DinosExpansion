@@ -1,7 +1,6 @@
 {
-	"credit": "By Captain Atlas, made with Blockbench",
 	"parent": "builtin/entity",
-	"texture_size": [64, 64],
+	"gui_light": "front",
 	"textures": {
 		"1": "dinosexpansion:item/shields/shieldbow",
 		"particle": "dinosexpansion:item/shields/shieldbow"
