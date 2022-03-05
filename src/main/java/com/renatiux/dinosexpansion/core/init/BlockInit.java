@@ -21,6 +21,7 @@ import com.renatiux.dinosexpansion.common.tileEntities.*;
 import com.renatiux.dinosexpansion.common.trees.DETreeSpawners;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 import com.renatiux.dinosexpansion.util.LightUtil;
+import com.renatiux.dinosexpansion.util.WoodTypeDE;
 import com.renatiux.dinosexpansion.util.registration.BlockDeferredRegister;
 import com.renatiux.dinosexpansion.util.registration.DoubleRegistryObject;
 
@@ -188,6 +189,24 @@ public class BlockInit {
 	//Pressure Plate
 	public static final RegistryObject<Block> PALM_PRESSURE_PLATE = PLANTS.register("palm_pressure_plate",
 			()-> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.create(Material.WOOD, PALM_PLANKS.get().getMaterialColor()).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
+
+	//Trapdoor
+	public static final RegistryObject<Block> PALM_TRAPDOOR = PLANTS.register("palm_trapdoor",
+			()-> new TrapDoorBlock(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid()));
+
+	//Sign
+	public static final RegistryObject<Block> PALM_SIGN = BLOCK.register("palm_sign",
+			()-> new DEStandingSignBlock(AbstractBlock.Properties.create(Material.WOOD, PALM_LOG.get().getMaterialColor()).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD), WoodTypeDE.PALM));
+	public static final RegistryObject<Block> PALM_WALL_SIGN = BLOCK.register("palm_wall_sign",
+			()-> new DEWallSignBlock(AbstractBlock.Properties.create(Material.WOOD).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD).lootFrom(PALM_SIGN), WoodTypeDE.PALM));
+
+	//Slab
+	public static final RegistryObject<Block> PALM_SLAB = PLANTS.register("palm_slab",
+			()-> new SlabBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+
+	//Stair
+	public static final RegistryObject<Block> PALM_STAIR = PLANTS.register("palm_stairs",
+			()-> new StairsBlock(PALM_PLANKS.get().getDefaultState(), AbstractBlock.Properties.from(PALM_PLANKS.get())));
 
 	//eggs
 	public static final RegistryObject<Block> ALLOSAURUS_EGG = EGGS.register("allosaurus_egg", AllosaurusEggBlock::new);

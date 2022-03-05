@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "dinosexpansion:block/palm_planks",
+    "top": "dinosexpansion:block/palm_planks",
+    "side": "dinosexpansion:block/palm_planks"
+  }
+}
