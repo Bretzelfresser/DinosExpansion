@@ -14,7 +14,6 @@ public class CabinetRenderer extends GeoBlockRenderer<CabinetTileEntity> {
 
     @Override
     public void render(CabinetTileEntity tile, float partialTicks, MatrixStack stack, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        //System.out.println(tile.isMaster());
         if (tile.isMaster())
             super.render(tile, partialTicks, stack, bufferIn, packedLightIn);
     }

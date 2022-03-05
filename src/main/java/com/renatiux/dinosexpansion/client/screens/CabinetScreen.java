@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.client.screens;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.container.CabinetContainer;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -24,9 +25,9 @@ public class CabinetScreen extends ContainerScreen<CabinetContainer> {
     @Override
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
         this.minecraft.textureManager.bindTexture(GUI);
-        this.guiLeft = ((this.width - this.xSize) / 2) - 100;
-        this.guiTop = ((this.height - this.ySize) / 2) - 50;
-        blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, 248, 336);
+        this.guiLeft = ((this.width - this.xSize) / 2) - 30;
+        this.guiTop = ((this.height - this.ySize) / 2) - 90;
+        blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, 248, 336, 512, 512);
     }
 
     @Override

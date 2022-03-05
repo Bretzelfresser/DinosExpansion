@@ -7,6 +7,7 @@ import com.renatiux.dinosexpansion.common.blocks.machine.Cabinet;
 import com.renatiux.dinosexpansion.common.container.CabinetContainer;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 import com.renatiux.dinosexpansion.util.WorldUtils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +17,6 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -40,6 +40,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 
 import javax.annotation.Nullable;
@@ -49,6 +50,7 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
 
     public static final Map<Cabinet.MultiBlockState, Integer> SLOTS_PER_STAGE = ImmutableMap.of(Cabinet.MultiBlockState.SMALL, 27, Cabinet.MultiBlockState.MEDIUM, 54, Cabinet.MultiBlockState.LARGE, 156);
     public static final String CONTROLLER_NAME = "controller";
+    public static final int CONTROLLER_ID = 42;
 
     private LazyOptional<?> itemHandler = LazyOptional.of(this::createUnSidedHandler);
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOTS_PER_STAGE.get(Cabinet.MultiBlockState.SMALL), ItemStack.EMPTY);
@@ -56,16 +58,21 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
     private CabinetTileEntity master;
     private List<BlockPos> cluster = new ArrayList<>(4);
     private AnimationFactory factory = new AnimationFactory(this);
+    private int numPlayersUsing = 0;
 
     public CabinetTileEntity() {
         super(TileEntityTypesInit.CABINET_TILE_ENTITY.get());
     }
 
     private PlayState predicate(AnimationEvent<CabinetTileEntity> event) {
-        if (getBlockState().get(Cabinet.OPEN)) {
+        /*
+        boolean b = getBlockState().get(Cabinet.OPEN);
+        System.out.println(b);
+        if (b) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("open"));
+            return PlayState.CONTINUE;
         }
-
+        */
         return PlayState.CONTINUE;
     }
 
@@ -148,10 +155,15 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
 
     @Override
     public void tick() {
-        if (world.isRemote)return;
         if (firstRun) {
             initializeMasterIfNecessarry();
             firstRun = false;
+        }
+        if (!world.isRemote) {
+            if (getBlockState().get(Cabinet.OPEN) != this.numPlayersUsing > 0) {
+                world.setBlockState(pos, getBlockState().with(Cabinet.OPEN, this.numPlayersUsing > 0),
+                        Constants.BlockFlags.NOTIFY_NEIGHBORS + Constants.BlockFlags.BLOCK_UPDATE);
+            }
         }
 
     }
@@ -189,8 +201,16 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
             this.cluster.add(pos);
         if (this.master != null || this.isMaster)
             return;
+        updateMaster();
+
+
+    }
+
+    public void updateMaster() {
+        if (!this.cluster.contains(pos))
+            this.cluster.add(pos);
         if (this.cluster.size() == 4) {
-            checkClusterAndDefineMaster(this.cluster, true);
+            checkClusterAndDefineMaster(this.copyCluster(), true);
             return;
         }
         if (this.cluster.size() == 1) {
@@ -227,8 +247,6 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
             if (down && checkClusterAndDefineMaster(copyCluster(pos.down()), true)) return;
             setMaster(this, Cabinet.MultiBlockState.SMALL);
         }
-
-
     }
 
     /**
@@ -321,7 +339,7 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
     }
 
     public Cabinet.MultiBlockState getMultiblockStage() {
-        return getBlockState().get(Cabinet.STATE);
+        return world.getBlockState(getPos()).get(Cabinet.STATE);
     }
 
     @Override
@@ -380,7 +398,7 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
         }
         if (checkIndex(index)) {
             items.set(index, stack);
-        }else
+        } else
             throw new IllegalArgumentException("there are only " + items.size() + " items, u cant access " + index);
     }
 
@@ -391,7 +409,10 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
 
     @Override
     public void clear() {
-        if (!isMaster()) return;
+        if (!isMaster()) {
+            getMaster().clear();
+            return;
+        }
         for (int i = 0; i < items.size(); i++) {
             items.set(i, ItemStack.EMPTY);
         }
@@ -442,7 +463,7 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, CONTROLLER_NAME, 0, this::predicate));
+        data.addAnimationController(new AnimationController(this, CONTROLLER_NAME, 20, this::predicate));
     }
 
     @Override
@@ -455,18 +476,55 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
         return new TranslationTextComponent("container." + Dinosexpansion.MODID + ".cabinet");
     }
 
-    @Override
-    public void openInventory(PlayerEntity p_174889_1_) {
-        if (!getBlockState().get(Cabinet.OPEN))
-            world.setBlockState(pos, getBlockState().with(Cabinet.OPEN, true),
-                    Constants.BlockFlags.NOTIFY_NEIGHBORS + Constants.BlockFlags.BLOCK_UPDATE);
+    private void openOrClose() {
+        Block block = this.getBlockState().getBlock();
+        if (block instanceof Cabinet) {
+            this.world.addBlockEvent(this.pos, block, 1, this.numPlayersUsing);
+        }
     }
 
     @Override
-    public void closeInventory(PlayerEntity p_174886_1_) {
-        if (getBlockState().get(Cabinet.OPEN))
-            world.setBlockState(pos, getBlockState().with(Cabinet.OPEN, false),
-                    Constants.BlockFlags.NOTIFY_NEIGHBORS + Constants.BlockFlags.BLOCK_UPDATE);
+    public boolean receiveClientEvent(int id, int type) {
+        if (id == 1){
+            System.out.println("executed");
+            this.numPlayersUsing = type;
+            AnimationController<CabinetTileEntity> controller = GeckoLibUtil.getControllerForID(this.factory, CONTROLLER_ID, CONTROLLER_NAME);
+            controller.setAnimation(new AnimationBuilder().addAnimation("open"));
+            return true;
+        }
+        return super.receiveClientEvent(id, type);
+    }
+
+    @Override
+    public void openInventory(PlayerEntity player) {
+        if (!isMaster()) {
+            getMaster().openInventory(player);
+            return;
+        }
+        if (!player.isSpectator()) {
+            if (this.numPlayersUsing < 0) {
+                this.numPlayersUsing = 0;
+            }
+            if (numPlayersUsing == 0){
+
+            }
+            ++this.numPlayersUsing;
+            openOrClose();
+        }
+        System.out.println(getBlockState().get(Cabinet.OPEN));
+    }
+
+    @Override
+    public void closeInventory(PlayerEntity player) {
+        if (!isMaster()) {
+            getMaster().closeInventory(player);
+            return;
+        }
+        if (!player.isSpectator()) {
+            --this.numPlayersUsing;
+            openOrClose();
+        }
+        System.out.println(getBlockState().get(Cabinet.OPEN));
     }
 
     public void setCluster(List<BlockPos> cluster) {
