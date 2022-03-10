@@ -7,6 +7,7 @@ import com.renatiux.dinosexpansion.core.init.KeyBindsInit;
 import com.renatiux.dinosexpansion.core.network.AttackPacket;
 import com.renatiux.dinosexpansion.core.network.DENetwork;
 
+import com.renatiux.dinosexpansion.core.network.OpenTribeGuiPacket;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.RemoteClientPlayerEntity;
@@ -40,8 +41,13 @@ public class InputEvents {
 	}
 	
 	private static void onInput(Minecraft mc, int key, int action) {
-		if(mc.currentScreen == null && KeyBindsInit.ATTACK_KEY.isPressed()) {
-			DENetwork.CHANNEL1.sendToServer(new AttackPacket());
+		if(mc.currentScreen == null) {
+			if (KeyBindsInit.ATTACK_KEY.isPressed()) {
+				DENetwork.CHANNEL1.sendToServer(new AttackPacket());
+			}
+			if (KeyBindsInit.TRIBE_GUI.isPressed()){
+				DENetwork.CHANNEL1.sendToServer(new OpenTribeGuiPacket());
+			}
 		}
 	}
 

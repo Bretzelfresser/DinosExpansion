@@ -4,6 +4,7 @@ import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 import static net.minecraft.item.ItemModelsProperties.registerProperty;
 
 import com.renatiux.dinosexpansion.client.events.ClientEvents;
+import com.renatiux.dinosexpansion.common.LoadCommand;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
 import com.renatiux.dinosexpansion.common.loot.ChestLootModifier;
 import com.renatiux.dinosexpansion.common.tileEntities.DESignTileEntity;
@@ -20,6 +21,7 @@ import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

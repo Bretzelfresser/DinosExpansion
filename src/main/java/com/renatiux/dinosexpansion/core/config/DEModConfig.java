@@ -1,5 +1,6 @@
 package com.renatiux.dinosexpansion.core.config;
 
+import com.renatiux.dinosexpansion.common.tribes.Tribe;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.Random;
@@ -13,6 +14,7 @@ public class DEModConfig {
     public static ShieldsConfig SHIELD_CONFIG;
     public static ItemsConfig ITEMS_CONFIG;
     public static EffectConfig EFFECT_CONFIG;
+    public static TribeConfig TRIBE_CONFIG;
 
     public static ForgeConfigSpec init(ForgeConfigSpec.Builder builder) {
 
@@ -22,6 +24,7 @@ public class DEModConfig {
         SHIELD_CONFIG = new ShieldsConfig(builder);
         ITEMS_CONFIG = new ItemsConfig(builder);
         EFFECT_CONFIG = new EffectConfig(builder);
+        TRIBE_CONFIG = new TribeConfig(builder);
         return builder.build();
     }
 
@@ -165,12 +168,26 @@ public static class BoomerangConfig {
         }
     }
 
+    public static final class TribeConfig{
+        public final ForgeConfigSpec.IntValue playerPerTribe;
+        public final ForgeConfigSpec.IntValue maxTribes;
+
+        public TribeConfig(ForgeConfigSpec.Builder builder){
+            builder.push("Tribes");
+            builder.comment("defines how many player at a maximum can join a tribe", "0 means that there is no max Value");
+            playerPerTribe = builder.defineInRange("maxPlayerPerTribe", 0, 5, 100);
+            maxTribes = builder.defineInRange("maxTribes", 10, 0, 30);
+            builder.pop();
+        }
+    }
+
     public static final class ItemsConfig{
         public final ForgeConfigSpec.IntValue medikitCooldown;
 
         public ItemsConfig(ForgeConfigSpec.Builder builder){
             builder.comment("all configuration for Items").push("Items");
             this.medikitCooldown = builder.defineInRange("the cooldown of the medikits after they got used in seconds", 20, 1, Integer.MAX_VALUE);
+            builder.pop();
         }
     }
 }

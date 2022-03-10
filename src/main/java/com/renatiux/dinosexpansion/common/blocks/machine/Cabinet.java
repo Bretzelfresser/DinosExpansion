@@ -3,29 +3,38 @@ package com.renatiux.dinosexpansion.common.blocks.machine;
 import com.google.common.collect.Lists;
 import com.renatiux.dinosexpansion.common.blocks.RotatableBlock;
 import com.renatiux.dinosexpansion.common.tileEntities.CabinetTileEntity;
+import com.renatiux.dinosexpansion.common.tribes.Tribe;
+import com.renatiux.dinosexpansion.common.tribes.TribeUtils;
 import com.renatiux.dinosexpansion.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Cabinet extends RotatableBlock {
@@ -51,6 +60,20 @@ public class Cabinet extends RotatableBlock {
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+        if (!world.isRemote) {
+            CabinetTileEntity te = WorldUtils.getTileEntity(CabinetTileEntity.class, world, pos);
+            if (te != null && entity instanceof PlayerEntity && world instanceof ServerWorld){
+                if (TribeUtils.hasTribe((PlayerEntity) entity)){
+                    te.setOwner(TribeUtils.getTribe((PlayerEntity)entity, (ServerWorld) world));
+                }else{
+                    te.setOwner((PlayerEntity)entity);
+                 }
+            }
+        }
     }
 
     @Override
@@ -88,14 +111,12 @@ public class Cabinet extends RotatableBlock {
             if (te != null)
                 cluster = te.getCluster();
             super.onReplaced(state, world, pos, newState, drop);
-            System.out.println("destroyed");
             if (cluster != null) {
                 for (BlockPos pos1 : cluster) {
                     CabinetTileEntity cabinetTe = WorldUtils.getTileEntity(CabinetTileEntity.class, world, pos1);
                     if (cabinetTe != null) {
                         cabinetTe.setCluster(Lists.newArrayList(pos1));
                         cabinetTe.updateMaster();
-                        System.out.println("updated");
                     }
                 }
             }

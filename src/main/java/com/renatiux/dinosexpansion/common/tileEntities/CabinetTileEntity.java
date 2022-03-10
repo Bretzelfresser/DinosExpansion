@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.blocks.machine.Cabinet;
 import com.renatiux.dinosexpansion.common.container.CabinetContainer;
+import com.renatiux.dinosexpansion.common.tribes.Tribe;
 import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
 import com.renatiux.dinosexpansion.util.WorldUtils;
 import net.minecraft.block.Block;
@@ -59,6 +60,8 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
     private List<BlockPos> cluster = new ArrayList<>(4);
     private AnimationFactory factory = new AnimationFactory(this);
     private int numPlayersUsing = 0;
+    private Tribe owner;
+    private UUID playerOwner;
 
     public CabinetTileEntity() {
         super(TileEntityTypesInit.CABINET_TILE_ENTITY.get());
@@ -138,6 +141,12 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
     }
 
     private boolean canOpen(PlayerEntity player) {
+        if(owner != null){
+            return owner.hasMember(player);
+        }
+        if(playerOwner != null){
+            return playerOwner.equals(player.getUniqueID());
+        }
         return true;
     }
 
@@ -529,5 +538,12 @@ public class CabinetTileEntity extends TileEntity implements IInventory, ITickab
 
     public void setCluster(List<BlockPos> cluster) {
         this.cluster = cluster;
+    }
+
+    public void setOwner(Tribe owner) {
+        this.owner = owner;
+    }
+    public void setOwner(PlayerEntity owner) {
+        this.playerOwner = owner.getUniqueID();
     }
 }

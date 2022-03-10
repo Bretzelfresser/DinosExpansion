@@ -6,6 +6,7 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.events.ClientForgeEvents;
+import com.renatiux.dinosexpansion.common.LoadCommand;
 import com.renatiux.dinosexpansion.common.blocks.machine.PrehistoricBed;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.DinosaurStatus;
@@ -23,6 +24,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerSetSpawnEvent;
@@ -45,6 +47,12 @@ public class ServerEvents {
 		} else if (!event.player.isPotionActive(PotionInit.BLEEDING.get())) {
 			playerToStartHearBeat.replace(event.player, -1);
 		}
+	}
+
+	@SubscribeEvent
+	public static void registerCommands(RegisterCommandsEvent event){
+		new LoadCommand(event.getDispatcher());
+		new LoadCommand.SaveCommand(event.getDispatcher());
 	}
 
 	@SubscribeEvent

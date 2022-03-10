@@ -46,4 +46,5 @@ public class ContainerTypeInit {
 	IForgeContainerType.create(IncubatorContainer::new));
 
 	public static final RegistryObject<ContainerType<SkeletalAssemblyContainer>> SKELETAL_ASSEMBLY_CONTAINER = CONTAINER_TYPES.register("skeletal_assembly_table", () -> IForgeContainerType.create(SkeletalAssemblyContainer::new));
+	public static final RegistryObject<ContainerType<TribeContainer>> TRIBE_CONTAINER = CONTAINER_TYPES.register("tribe_container", () -> IForgeContainerType.create(TribeContainer::new));
 }

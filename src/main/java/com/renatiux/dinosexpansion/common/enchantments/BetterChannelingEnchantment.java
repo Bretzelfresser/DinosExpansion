@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.common.enchantments;
 
 import com.renatiux.dinosexpansion.core.init.ItemInit;
+import com.renatiux.dinosexpansion.util.enums.EnchantmentTypes;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -9,7 +10,7 @@ import net.minecraft.item.Items;
 public class BetterChannelingEnchantment extends Enchantment {
 
     public BetterChannelingEnchantment(Enchantment.Rarity rarityIn, EquipmentSlotType... slots) {
-        super(rarityIn, EnchantmentType.create("shield_trident", item -> item == Items.TRIDENT || item == ItemInit.SPIKES_SHIELD.get()), slots);
+        super(rarityIn, EnchantmentTypes.SHIELD_TRIDENT, slots);
     }
 
     /**
