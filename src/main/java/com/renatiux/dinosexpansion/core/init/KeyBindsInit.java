@@ -13,7 +13,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 public class KeyBindsInit {
 	
 	public static final KeyBinding ATTACK_KEY = register("attack", KeyEvent.VK_R);
-	public static final KeyBinding TRIBE_GUI = register("tribe", KeyEvent.VK_F);
+	public static final KeyBinding TRIBE_GUI = register("tribe", KeyEvent.VK_K);
 	
 	public static KeyBinding register(String name, int key) {
 		KeyBinding binding = create(name, key);

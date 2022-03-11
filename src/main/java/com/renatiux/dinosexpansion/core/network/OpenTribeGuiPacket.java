@@ -1,7 +1,6 @@
 package com.renatiux.dinosexpansion.core.network;
 
 import com.renatiux.dinosexpansion.common.container.TribeContainer;
-import com.renatiux.dinosexpansion.common.tribes.TribeUtils;
 import com.renatiux.dinosexpansion.world.TribeSaveData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,7 +10,6 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
 

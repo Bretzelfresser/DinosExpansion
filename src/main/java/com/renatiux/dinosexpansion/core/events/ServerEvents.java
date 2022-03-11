@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.events.ClientForgeEvents;
 import com.renatiux.dinosexpansion.common.LoadCommand;
+import com.renatiux.dinosexpansion.common.TribeCommand;
 import com.renatiux.dinosexpansion.common.blocks.machine.PrehistoricBed;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.DinosaurStatus;
@@ -53,6 +54,7 @@ public class ServerEvents {
 	public static void registerCommands(RegisterCommandsEvent event){
 		new LoadCommand(event.getDispatcher());
 		new LoadCommand.SaveCommand(event.getDispatcher());
+		new TribeCommand(event.getDispatcher());
 	}
 
 	@SubscribeEvent

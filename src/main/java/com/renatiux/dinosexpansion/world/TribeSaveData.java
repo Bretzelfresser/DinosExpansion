@@ -8,6 +8,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldSavedData;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +42,14 @@ public class TribeSaveData extends WorldSavedData {
 
     public int getSize(){
         return tribes.size();
+    }
+
+    public void remove(Tribe t){
+        this.tribes.remove(t.getName());
+    }
+
+    public Collection<Tribe> getTribes(){
+        return this.tribes.values();
     }
 
     @Override

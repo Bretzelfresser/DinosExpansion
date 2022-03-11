@@ -3,8 +3,7 @@ package com.renatiux.dinosexpansion.common.blocks.machine;
 import com.google.common.collect.Lists;
 import com.renatiux.dinosexpansion.common.blocks.RotatableBlock;
 import com.renatiux.dinosexpansion.common.tileEntities.CabinetTileEntity;
-import com.renatiux.dinosexpansion.common.tribes.Tribe;
-import com.renatiux.dinosexpansion.common.tribes.TribeUtils;
+import com.renatiux.dinosexpansion.util.TribeUtils;
 import com.renatiux.dinosexpansion.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -20,21 +19,17 @@ import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class Cabinet extends RotatableBlock {

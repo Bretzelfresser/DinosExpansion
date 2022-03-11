@@ -3,8 +3,11 @@ package com.renatiux.dinosexpansion.common.tribes;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -21,9 +24,10 @@ public class Tribe {
      */
     public static Tribe fromNBT(CompoundNBT nbt) {
         Map<UUID, TribeData> players = new HashMap();
-        for (int i = 0; nbt.contains("player" + i); i++) {
-            UUID player = nbt.getUniqueId("player" + i);
-            players.put(player, TribeData.load(nbt.getCompound("data" + i)));
+        for (int i = 0; nbt.contains("data" + i); i++) {
+            CompoundNBT playerData = nbt.getCompound("data" + i);
+            UUID player = playerData.getUniqueId("player" + i);
+            players.put(player, TribeData.load(playerData));
         }
         TribeRole required = TribeRole.valueOf(nbt.getString("neededToAdd"));
         Tribe t = new Tribe(nbt.getString("name"), players);
@@ -71,13 +75,17 @@ public class Tribe {
         return null;
     }
 
+    public boolean canAddOtherPlayers(PlayerEntity player){
+        return this.players.get(player.getUniqueID()).role.hasMoreOrEqualRights(this.neededToAdd);
+    }
+
     public boolean addPlayer(PlayerEntity player, PlayerEntity adder) {
         return addPlayer(player, adder, TribeRole.MEMBER);
     }
 
     public boolean addPlayer(PlayerEntity player, PlayerEntity adder, TribeRole role) {
         TribeRole adderRole = getRole(adder);
-        if (adderRole != null && adderRole.hasMoreOrEqualRights(this.neededToAdd) && (this.getSize() < DEModConfig.TRIBE_CONFIG.playerPerTribe.get() || DEModConfig.TRIBE_CONFIG.playerPerTribe.get() == 0)) {
+        if (adderRole != null && adderRole.hasMoreOrEqualRights(this.neededToAdd) && adderRole.hasMoreOrEqualRights(role) && (this.getSize() < DEModConfig.TRIBE_CONFIG.playerPerTribe.get() || DEModConfig.TRIBE_CONFIG.playerPerTribe.get() == 0)) {
             player.getPersistentData().putString(TRIBE_SAVEDATA_PLAYER, this.name);
             this.players.put(player.getUniqueID(), new TribeData(role));
             return true;
@@ -85,12 +93,32 @@ public class Tribe {
         return false;
     }
 
+    /**
+     * just used from commands, to force add a player
+     * just takes into account whether the max amount is reached
+     */
+    public boolean forceAddPlayer(PlayerEntity player, TribeRole role){
+        if(this.getSize() < DEModConfig.TRIBE_CONFIG.playerPerTribe.get() || DEModConfig.TRIBE_CONFIG.playerPerTribe.get() == 0){
+            player.getPersistentData().putString(TRIBE_SAVEDATA_PLAYER, this.name);
+            this.players.put(player.getUniqueID(), new TribeData(role));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * refer to java doce from {@link Tribe#forceAddPlayer(PlayerEntity, TribeRole)}
+     */
+    public boolean forceAddPlayer(PlayerEntity player){
+      return this.forceAddPlayer(player, TribeRole.MEMBER);
+    }
+
     public int getSize() {
         return players.size();
     }
 
     public boolean removePlayer(PlayerEntity remover, PlayerEntity toRemove) {
-        if (remover == toRemove) {
+        if (remover == toRemove && hasMember(remover)) {
             return remove(toRemove);
         }
         TribeRole removerRole = getRole(remover);
@@ -103,7 +131,21 @@ public class Tribe {
     }
 
     private boolean remove(PlayerEntity toRemove) {
-        return players.remove(toRemove.getUniqueID()) != null;
+        if (players.remove(toRemove.getUniqueID()) != null) {
+            toRemove.getPersistentData().remove(TRIBE_SAVEDATA_PLAYER);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * removes all the Players from this tribe
+     */
+    public void remove(World world){
+        for (UUID UUIDPlayer : this.players.keySet()){
+            PlayerEntity player = world.getPlayerByUuid(UUIDPlayer);
+            this.remove(player);
+        }
     }
 
     public CompoundNBT save() {

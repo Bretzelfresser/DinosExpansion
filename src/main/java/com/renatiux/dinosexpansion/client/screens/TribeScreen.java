@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.client.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.container.TribeContainer;
 import net.minecraft.client.Minecraft;
@@ -9,10 +10,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
-
-import javax.annotation.Nullable;
+import org.lwjgl.opengl.GL11;
 
 public class TribeScreen extends ContainerScreen<TribeContainer> {
     private static final ResourceLocation GUI = Dinosexpansion.modLoc("textures/gui/tribe_gui.png");
@@ -24,7 +23,7 @@ public class TribeScreen extends ContainerScreen<TribeContainer> {
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
         this.font.drawText(matrixStack, new StringTextComponent("Tribe will stand here").mergeStyle(TextFormatting.BOLD).mergeStyle(TextFormatting.BLUE),
-                (float)this.titleX, (float)this.titleY, 4210752);
+                (float)this.titleX + 10, (float)this.titleY + 70, 4210752);
     }
 
     @Override
@@ -32,11 +31,11 @@ public class TribeScreen extends ContainerScreen<TribeContainer> {
         Minecraft.getInstance().textureManager.bindTexture(GUI);
         int middleX = (this.width - this.xSize) / 2;
         int middleY = (this.height - this.ySize) / 2;
-        this.blit(matrixStack, middleX, middleY, 0, 0, 196, 196);
+        this.blit(matrixStack, middleX, middleY - 20, 0, 0, 255, 216);
     }
 
     @Override
-    public void render(MatrixStack p_230430_1_, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
-        super.render(p_230430_1_, p_230430_2_, p_230430_3_, p_230430_4_);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 }

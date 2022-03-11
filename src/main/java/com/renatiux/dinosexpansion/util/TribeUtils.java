@@ -1,6 +1,7 @@
-package com.renatiux.dinosexpansion.common.tribes;
+package com.renatiux.dinosexpansion.util;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.common.tribes.Tribe;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
 import com.renatiux.dinosexpansion.world.TribeSaveData;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,6 +39,24 @@ public class TribeUtils {
             return TribeSaveData.getData(world).getTribeWithName(player.getPersistentData().getString(Tribe.TRIBE_SAVEDATA_PLAYER));
         }
         return null;
+    }
+
+    public static Tribe getTribe(String name, ServerWorld world){
+        if (tribeExists(name, world)){
+            return TribeSaveData.getData(world).getTribeWithName(name);
+        }
+        return null;
+    }
+
+    public static boolean removeTribe(ServerWorld world, String name){
+        if (tribeExists(name, world)){
+            Tribe t = getTribe(name, world);
+            t.remove(world);
+            TribeSaveData data = TribeSaveData.getData(world);
+            data.remove(t);
+            return true;
+        }
+        return false;
     }
 
 
