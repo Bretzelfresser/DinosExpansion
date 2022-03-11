@@ -15,7 +15,7 @@ public class OreGeneration {
     public static void addOres(final BiomeLoadingEvent event){
 
         addOre(event, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BlockInit.DINO_BROWNSTONE_ORE.get().getDefaultState(), 10, 1, 64, 20);
-        addOre(event, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BlockInit.DINO_PURPLE_GEN_ORE.get().getDefaultState(), 6, 1, 16, 8);
+        addOre(event, OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BlockInit.DINO_PURPLE_GEN_ORE.get().getDefaultState(), 6, 1, 16, 4);
 
     }
 

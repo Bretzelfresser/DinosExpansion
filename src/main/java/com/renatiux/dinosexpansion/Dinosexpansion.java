@@ -210,6 +210,15 @@ public class Dinosexpansion {
             });
             registerProperty(ItemInit.COMPOUND_BOW.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
 
+            registerProperty(ItemInit.MULTI_BOW_5.get(), new ResourceLocation("pull"), (itemStack, clientWorld, living) -> {
+                if (living == null) {
+                    return 0.0F;
+                } else {
+                    return living.getActiveItemStack() != itemStack ? 0.0F : (float) (itemStack.getUseDuration() - living.getItemInUseCount()) / 20.0F;
+                }
+            });
+            registerProperty(ItemInit.MULTI_BOW_5.get(), new ResourceLocation("pulling"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
+
             registerProperty(ItemInit.SPIKES_SHIELD.get(), new ResourceLocation("blocking"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);
 
             registerProperty(ItemInit.HULLBREAKER.get(), new ResourceLocation("blocking"), (itemStack, clientWorld, living) -> living != null && living.isHandActive() && living.getActiveItemStack() == itemStack ? 1.0F : 0.0F);

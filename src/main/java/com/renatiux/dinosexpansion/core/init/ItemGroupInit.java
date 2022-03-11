@@ -16,4 +16,6 @@ public class ItemGroupInit {
 	public static final ItemGroup FOOD = new DinoItemGroup("food", ItemInit.ALLOSAURUS_RAW_MEAT);
 	public static final ItemGroup ARMOR = new DinoItemGroup("armor", ItemInit.RAFT_ITEM);
 
+	public static final ItemGroup TREES = new DinoItemGroup("Tree", BlockInit.REDWOOD_SAPLING);
+
 }
