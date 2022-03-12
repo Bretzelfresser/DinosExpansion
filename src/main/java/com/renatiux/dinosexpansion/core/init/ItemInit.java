@@ -71,7 +71,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> PYCNOPHLEBIA_SPAWN_EGG = ITEMS.register("pycnophlebia_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.PYCNOPHLEBIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = ITEMS.register("aegirocassis_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.AEGIROCASSIS, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> EOSQUALODON_SPAWN_EGG = ITEMS.register("eosqualodon_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.EOSQUALODON, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
-
+	public static final RegistryObject<Item> OPABINIA_SPAWN_EGG = ITEMS.register("opabinia_spawn_egg", ()-> new CustomSpawnEgg(EntityTypeInit.OPABINIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 
 	//Misc
 	public static final RegistryObject<Item> TIME_MACHINE = ITEMS.register("time_machine", TimeMachineItem::new);
@@ -134,6 +134,9 @@ public class ItemInit {
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	public static final RegistryObject<Item> AMMONOID_FOSSIL = ITEMS.register("ammonoid_fossil",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+	public static final RegistryObject<Item> OPABINIA_PROBOSCIS = ITEMS.register("opabinia_proboscis",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	//Food

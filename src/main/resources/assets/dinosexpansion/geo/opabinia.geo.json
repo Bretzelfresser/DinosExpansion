@@ -1,0 +1,69 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Opabinia",
+					"pivot": [0, 4, 3]
+				},
+				{
+					"name": "Torso",
+					"parent": "Opabinia",
+					"pivot": [0, 4, 3],
+					"cubes": [
+						{"origin": [-2.5, 0, -7], "size": [5, 4, 13], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "LeftFins",
+					"parent": "Torso",
+					"pivot": [2.5, 3, -3],
+					"cubes": [
+						{"origin": [2.5, 3, -7], "size": [4, 0, 13], "uv": [0, 17]}
+					]
+				},
+				{
+					"name": "Tail",
+					"parent": "Torso",
+					"pivot": [0, 3, 6],
+					"cubes": [
+						{"origin": [-2.5, 3, 6], "size": [5, 0, 7], "uv": [14, 17]}
+					]
+				},
+				{
+					"name": "RightFins",
+					"parent": "Torso",
+					"pivot": [-2.5, 3, -3],
+					"cubes": [
+						{"origin": [-6.5, 3, -7], "size": [4, 0, 13], "uv": [10, 0]}
+					]
+				},
+				{
+					"name": "Mouth",
+					"parent": "Torso",
+					"pivot": [0, 3, -7],
+					"cubes": [
+						{"origin": [-1.5, 1, -14], "size": [3, 2, 7], "uv": [0, 23]}
+					]
+				},
+				{
+					"name": "Mouth2",
+					"parent": "Mouth",
+					"pivot": [0, 2.5, -13],
+					"cubes": [
+						{"origin": [-2.5, 0.5, -17], "size": [5, 2, 4], "uv": [21, 24]}
+					]
+				}
+			]
+		}
+	]
+}

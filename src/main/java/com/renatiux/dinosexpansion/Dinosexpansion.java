@@ -6,6 +6,7 @@ import static net.minecraft.item.ItemModelsProperties.registerProperty;
 import com.renatiux.dinosexpansion.client.events.ClientEvents;
 import com.renatiux.dinosexpansion.common.LoadCommand;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
+import com.renatiux.dinosexpansion.common.entities.aquatic.Opabinia;
 import com.renatiux.dinosexpansion.common.loot.ChestLootModifier;
 import com.renatiux.dinosexpansion.common.tileEntities.DESignTileEntity;
 import com.renatiux.dinosexpansion.core.init.*;
@@ -170,6 +171,7 @@ public class Dinosexpansion {
         event.put(EntityTypeInit.PYCNOPHLEBIA.get(), Pycnophlebia.registerAttributes().create());
         event.put(EntityTypeInit.AEGIROCASSIS.get(), Aegirocassis.registerAttributes().create());
         event.put(EntityTypeInit.EOSQUALODON.get(), Eosqualodon.registerAttributes().create());
+        event.put(EntityTypeInit.OPABINIA.get(), Opabinia.registerAttributes().create());
 
 
     }

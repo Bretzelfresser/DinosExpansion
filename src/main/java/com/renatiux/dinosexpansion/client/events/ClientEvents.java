@@ -71,6 +71,7 @@ public class ClientEvents {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.PYCNOPHLEBIA.get(), PycnophlebiaRender::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.AEGIROCASSIS.get(), AegirocassisRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.EOSQUALODON.get(), EosqualodonRender::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.OPABINIA.get(), OpabiniaRenderer::new);
 
 	}
 
