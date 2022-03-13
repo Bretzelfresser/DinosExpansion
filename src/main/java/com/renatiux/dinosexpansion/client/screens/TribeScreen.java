@@ -3,7 +3,10 @@ package com.renatiux.dinosexpansion.client.screens;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.client.screens.util.TribeButton;
+import com.renatiux.dinosexpansion.client.screens.util.TribeScrollPane;
 import com.renatiux.dinosexpansion.common.container.TribeContainer;
+import com.renatiux.dinosexpansion.common.tribes.Tribe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -16,8 +19,19 @@ import org.lwjgl.opengl.GL11;
 public class TribeScreen extends ContainerScreen<TribeContainer> {
     private static final ResourceLocation GUI = Dinosexpansion.modLoc("textures/gui/tribe_gui.png");
 
+    private TribeScrollPane scrollpane;
+
     public TribeScreen(TribeContainer p_i51105_1_, PlayerInventory p_i51105_2_, ITextComponent p_i51105_3_) {
         super(p_i51105_1_, p_i51105_2_, p_i51105_3_);
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        this.scrollpane = this.addButton(new TribeScrollPane(this.minecraft, 310, 35, 100, 100));
+        for (Tribe t : this.container.getData().getTribes()){
+            scrollpane.addButton(new TribeButton(t, b -> {}));
+        }
     }
 
     @Override

@@ -39,6 +39,7 @@ public class Tribe {
     private Map<UUID, TribeData> players;
     private boolean shouldExist = true;
     private TribeRole neededToAdd = TribeRole.MEMBER;
+    private int color = 0xFFFFFF;
 
     private Tribe(String name, Map<UUID, TribeData> players) {
         this.name = name;
@@ -185,8 +186,14 @@ public class Tribe {
             }
             toCkeck = toCkeck.demote();
         }
+    }
 
+    public int getColor() {
+        return color;
+    }
 
+    public void setColor(int color) {
+        this.color = color;
     }
 
     private static class TribeData {
