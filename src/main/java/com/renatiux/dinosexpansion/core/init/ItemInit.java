@@ -107,6 +107,8 @@ public class ItemInit {
 	public static final RegistryObject<Item> SALT_DOT = ITEMS.register("salt_dot",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
+	public static final RegistryObject<Item> BANDAGE = ITEMS.register("bandage",
+			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	//Entities
 	public static final RegistryObject<Item> CHIMERARACHNE_CHITIN = ITEMS.register("chimerarachne_chitin",

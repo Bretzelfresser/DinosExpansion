@@ -48,6 +48,7 @@ public class FlammablesDE {
         //Planks
         flammableBlock(BlockInit.REDWOOD_PLANKS.get(), 5, 5);
         flammableBlock(BlockInit.PALM_PLANKS.get(), 5, 5);
+        flammableBlock(BlockInit.BJUVIA_PLANKS.get(), 5, 5);
 
         //Stripped log
         flammableBlock(BlockInit.STRIPPED_PALM_LOG.get(), 5, 5);

@@ -159,10 +159,13 @@ public class BlockInit {
 
 	//Planks
 	public static final RegistryObject<Block> REDWOOD_PLANKS = PLANTS.register("redwood_planks",
-			()-> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+			()-> new Block(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
 
 	public static final RegistryObject<Block> PALM_PLANKS = PLANTS.register("palm_planks",
-			()-> new Block(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.SAND).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+			()-> new Block(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+
+	public static final RegistryObject<Block> BJUVIA_PLANKS = PLANTS.register("bjuvia_planks",
+			()-> new Block(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
 
 	//Wood
 	public static final RegistryObject<Block> PALM_WOOD = PLANTS.register("palm_wood",
@@ -174,6 +177,9 @@ public class BlockInit {
 
 	//Button
 	public static final RegistryObject<Block> PALM_BUTTON = PLANTS.register("palm_button",
+			()-> new WoodButtonBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
+
+	public static final RegistryObject<Block> BJUVIA_BUTTON = PLANTS.register("bjuvia_button",
 			()-> new WoodButtonBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
 
 	//Door
