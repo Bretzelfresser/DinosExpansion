@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "dinosexpansion:block/bjuvia_slab"
+    },
+    "type=double": {
+      "model": "dinosexpansion:block/bjuvia_planks"
+    },
+    "type=top": {
+      "model": "dinosexpansion:block/bjuvia_slab_top"
+    }
+  }
+}

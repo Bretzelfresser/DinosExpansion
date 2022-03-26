@@ -1,7 +1,7 @@
 package com.renatiux.dinosexpansion.client.model.entities.creatures.Opabinia;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.common.entities.aquatic.Opabinia;
+import com.renatiux.dinosexpansion.common.entities.environment.Opabinia;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

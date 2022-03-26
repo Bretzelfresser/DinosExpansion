@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.entities.aquatic;
+package com.renatiux.dinosexpansion.common.entities.environment;
 
 import com.renatiux.dinosexpansion.common.entities.controller.AquaticMoveController;
 import net.minecraft.entity.EntityType;

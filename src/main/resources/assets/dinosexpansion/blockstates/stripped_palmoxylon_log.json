@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "dinosexpansion:block/stripped_palmoxylon_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "dinosexpansion:block/stripped_palmoxylon_log_vertical"
+    },
+    "axis=z": {
+      "model": "dinosexpansion:block/stripped_palmoxylon_log_horizontal",
+      "x": 90
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "dinosexpansion:block/template_horizontal_thin_log",
+	"textures": {
+		"end": "dinosexpansion:block/stripped_palmoxylon_log_top",
+		"side": "dinosexpansion:block/stripped_palmoxylon_log"
+	}
+}

@@ -318,6 +318,11 @@ public class ItemInit {
 	public static final RegistryObject<Item> DIAMOND_AIOT = ITEMS.register("diamond_aiot",
 			()-> new MultiToolItem(ItemTier.DIAMOND, 4, -2.4F, (new Item.Properties().group(ItemGroupInit.MISC))));
 
+	public static final RegistryObject<Item> BONE_SWORD = ITEMS.register("bone_sword",
+			()-> new SwordItem(DEToolMaterial.BONE, 5, -2.4F, (new Item.Properties().group(ItemGroupInit.MISC))));
+	public static final RegistryObject<Item> GREAT_BONE_SWORD = ITEMS.register("great_bone_sword",
+			()-> new SwordItem(DEToolMaterial.BONE, 6, -2.3F, (new Item.Properties().group(ItemGroupInit.MISC))));
+
 	//shields
 	public static final RegistryObject<Item> HULLBREAKER = ITEMS.register("hullbreaker", () -> new HullBreaker(new Item.Properties().setISTER(() -> () -> DEItemstackRenderer.INTANCE).maxDamage(800).group(ItemGroupInit.ARMOR)));
 	public static final RegistryObject<Item> SPIKES_SHIELD = ITEMS.register("spikes_shield", ()-> new SpikesShieldItem((new Item.Properties().setISTER(() -> () ->DEItemstackRenderer.INTANCE).maxDamage(336).group(ItemGroupInit.ARMOR))));

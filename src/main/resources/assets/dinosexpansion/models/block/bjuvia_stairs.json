@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "dinosexpansion:block/bjuvia_planks",
+    "top": "dinosexpansion:block/bjuvia_planks",
+    "side": "dinosexpansion:block/bjuvia_planks"
+  }
+}
