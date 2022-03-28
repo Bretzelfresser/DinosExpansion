@@ -1,0 +1,27 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.archimyrmex.crawl": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"Archimyrmex": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.92": {
+							"vector": [1, 1, 1.12],
+							"easing": "easeInExpo"
+						},
+						"2.0": {
+							"vector": [1, 1, 1],
+							"easing": "easeInQuart"
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

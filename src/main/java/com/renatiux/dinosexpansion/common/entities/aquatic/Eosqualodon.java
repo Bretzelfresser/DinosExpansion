@@ -50,7 +50,8 @@ public class Eosqualodon extends WaterMobEntity implements IAnimatable {
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 60)
+        return MobEntity.func_233666_p_()
+                .createMutableAttribute(Attributes.MAX_HEALTH, 60)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3D);
     }
 

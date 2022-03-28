@@ -3,15 +3,13 @@ package com.renatiux.dinosexpansion.client.events;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.blocks.CabinetRenderer;
 import com.renatiux.dinosexpansion.client.renderer.entities.*;
+import com.renatiux.dinosexpansion.client.renderer.entities.Archimyrmex.ArchimyrmexLarvaeRenderer;
 import com.renatiux.dinosexpansion.client.renderer.items.*;
 import com.renatiux.dinosexpansion.client.renderer.blocks.GeneratorRenderer;
 import com.renatiux.dinosexpansion.client.renderer.blocks.IncubatorRenderer;
 import com.renatiux.dinosexpansion.client.renderer.blocks.MortarRenderer;
 import com.renatiux.dinosexpansion.client.screens.*;
-import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
-import com.renatiux.dinosexpansion.common.armor.AstorgosuchusChestplateItem;
-import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
-import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
+import com.renatiux.dinosexpansion.common.armor.*;
 import com.renatiux.dinosexpansion.core.init.*;
 
 import net.minecraft.client.MainWindow;
@@ -72,7 +70,7 @@ public class ClientEvents {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.AEGIROCASSIS.get(), AegirocassisRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.EOSQUALODON.get(), EosqualodonRender::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.OPABINIA.get(), OpabiniaRenderer::new);
-
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.ARCHIMYRMEX_LARVAE.get(), ArchimyrmexLarvaeRenderer::new);
 	}
 
 	private static void tileEntityRenderer() {
@@ -103,6 +101,7 @@ public class ClientEvents {
 		AllosaurusArmorItem.initArmorModel();
 		SteelArmorItem.initArmorModel();
 		AstorgosuchusChestplateItem.initArmorModel();
+		DodoArmorItem.initArmorModel();
 	}
 	
 	private static void registerBlockRenders() {

@@ -2,16 +2,13 @@ package com.renatiux.dinosexpansion.core.init;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.renderer.DEItemstackRenderer;
-import com.renatiux.dinosexpansion.common.armor.AllosaurusArmorItem;
-import com.renatiux.dinosexpansion.common.armor.AstorgosuchusChestplateItem;
-import com.renatiux.dinosexpansion.common.armor.SteelArmorItem;
+import com.renatiux.dinosexpansion.common.armor.*;
 import com.renatiux.dinosexpansion.common.blocks.bush.DENarcoticBlock;
 import com.renatiux.dinosexpansion.common.entities.projectiles.DiamondBoomerang;
 import com.renatiux.dinosexpansion.common.entities.projectiles.IronBoomerang;
 import com.renatiux.dinosexpansion.common.entities.projectiles.WoodBoomerang;
 import com.renatiux.dinosexpansion.common.items.*;
 
-import com.renatiux.dinosexpansion.common.armor.ChimerarachneArmorItem;
 import com.renatiux.dinosexpansion.common.items.shields.*;
 import com.renatiux.dinosexpansion.common.tools.MultiToolItem;
 import com.renatiux.dinosexpansion.util.enums.DEArmorMaterial;
@@ -72,6 +69,8 @@ public class ItemInit {
 	public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = ITEMS.register("aegirocassis_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.AEGIROCASSIS, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> EOSQUALODON_SPAWN_EGG = ITEMS.register("eosqualodon_spawn_egg", () -> new CustomSpawnEgg(EntityTypeInit.EOSQUALODON, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
 	public static final RegistryObject<Item> OPABINIA_SPAWN_EGG = ITEMS.register("opabinia_spawn_egg", ()-> new CustomSpawnEgg(EntityTypeInit.OPABINIA, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
+	public static final RegistryObject<Item> ARCHIMYRMEX_LARVAE_SPAWN_EGG = ITEMS.register("archimyrmex_larvae_spawn_egg", ()-> new CustomSpawnEgg(EntityTypeInit.ARCHIMYRMEX_LARVAE, 13140819, 3481088, new Item.Properties().group(ItemGroupInit.MISC)));
+
 
 	//Misc
 	public static final RegistryObject<Item> TIME_MACHINE = ITEMS.register("time_machine", TimeMachineItem::new);
@@ -109,6 +108,9 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> BANDAGE = ITEMS.register("bandage",
 			()-> new Item(new Item.Properties().group(ItemGroupInit.MISC)));
+
+	public static final RegistryObject<Item> ARCHIMYRMEX_LARVAE = ITEMS.register("archimyrmex_larvae",
+			()-> new ArchimyrmexLarvaeItem(new Item.Properties().group(ItemGroupInit.MISC)));
 
 	//Entities
 	public static final RegistryObject<Item> CHIMERARACHNE_CHITIN = ITEMS.register("chimerarachne_chitin",
@@ -300,6 +302,8 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> ASTORGOSUCHUS_CHESTPLATE = ITEMS.register("astorgosuchus_chestplate", () -> new AstorgosuchusChestplateItem(DEArmorMaterial.ASTORGOSUCHUS_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 
+	public static final RegistryObject<Item> DODO_HELMET = ITEMS.register("dodo_helmet", () -> new DodoArmorItem(ArmorMaterial.LEATHER, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
+	public static final RegistryObject<Item> DODO_CHESTPLATE = ITEMS.register("dodo_chestplate", () -> new DodoArmorItem(DEArmorMaterial.DODO_ARMOR, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroupInit.ARMOR).rarity(Rarity.COMMON)));
 
 	//Tools
 	public static final RegistryObject<Item> EMERALD_SWORD = ITEMS.register("emerald_sword",

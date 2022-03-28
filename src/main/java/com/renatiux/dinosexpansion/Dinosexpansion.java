@@ -5,6 +5,7 @@ import static net.minecraft.item.ItemModelsProperties.registerProperty;
 
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
 import com.renatiux.dinosexpansion.common.entities.environment.Opabinia;
+import com.renatiux.dinosexpansion.common.entities.environment.myrmex.ArchimyrmexLarvae;
 import com.renatiux.dinosexpansion.common.loot.ChestLootModifier;
 import com.renatiux.dinosexpansion.core.init.*;
 import com.renatiux.dinosexpansion.util.*;
@@ -163,6 +164,7 @@ public class Dinosexpansion {
         event.put(EntityTypeInit.AEGIROCASSIS.get(), Aegirocassis.registerAttributes().create());
         event.put(EntityTypeInit.EOSQUALODON.get(), Eosqualodon.registerAttributes().create());
         event.put(EntityTypeInit.OPABINIA.get(), Opabinia.registerAttributes().create());
+        event.put(EntityTypeInit.ARCHIMYRMEX_LARVAE.get(), ArchimyrmexLarvae.registerAttributes().create());
 
 
     }
