@@ -121,8 +121,18 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 	}
 
 	@Override
-	public int getTimeBetweenEating() {
-		return 0;
+	public int neededHungerToTame() {
+		return 2000;
+	}
+
+	@Override
+	public int getTier() {
+		return 1;
+	}
+
+	@Override
+	public int reduceHunger(int hunger) {
+		return this.rand.nextDouble() < 0.001d ? hunger - 1 : hunger;
 	}
 
 	@Override
@@ -231,23 +241,4 @@ public class Dodo extends Dinosaur implements IAnimationPredicate<Dodo>, IFleein
 			this.playSound(getChestEquipSound(), 0.5F, 1.0F);
 		}
 	}
-	
-	@Override
-	protected AxisAlignedBB getChildBoundingBox(AxisAlignedBB superBox) {
-		return superBox;
-	}
-
-	@Override
-	protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
-		return superBox;
-	}
-
-
-
-
-	@Override
-	protected AnimationQueue<Dinosaur> createAnimationQueue(AnimationFactory factory) {
-		return new AnimationQueue<Dinosaur>(this, new AnimationBuilder(), "dodo_controller", factory);
-	}
-
 }

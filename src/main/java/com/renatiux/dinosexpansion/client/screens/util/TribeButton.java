@@ -3,6 +3,7 @@ package com.renatiux.dinosexpansion.client.screens.util;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.renatiux.dinosexpansion.client.screens.TribeScreen;
 import com.renatiux.dinosexpansion.common.tribes.Tribe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -20,6 +21,8 @@ import software.bernie.shadowed.eliotlash.mclib.math.functions.limit.Min;
 public class TribeButton extends ToggleWidget {
     private final Tribe representingTribe;
     private final Pressable onPres;
+    private int border = 4;
+    private boolean upperBorder = true, downBorder = true, isMouseInParent = true;
 
     public TribeButton(int x, int y, int width, int height, Tribe representingTribe, Pressable onPress) {
         super(x, y, width, height, false);
@@ -49,8 +52,19 @@ public class TribeButton extends ToggleWidget {
 
     @Override
     public void renderWidget(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+        Minecraft.getInstance().textureManager.bindTexture(TribeScreen.GUI);
+        if (upperBorder)
+            this.blit(stack, this.x, this.y, 0, 232, this.width, this.border);
+        if (downBorder)
+            this.blit(stack, this.x, this.y + this.height - this.border, 0, 232, this.width, this.border);
+        if ((this.isHovered() && this.isMouseInParent) || isStateTriggered()){
+            int y = upperBorder ? this.y + this.border : this.y;
+            int height = this.height;
+            if (upperBorder) height -= this.border;
+            if (downBorder) height -= this.border;
+            this.blit(stack, this.x, y, 0, 198, this.width, height);
+        }
         this.drawTextInMiddle(this.representingTribe.getName(), stack);
-
     }
 
 
@@ -62,8 +76,8 @@ public class TribeButton extends ToggleWidget {
         return y;
     }
 
-    protected void drawHorizontalLine(int y, int x, int width){
-        drawLine(new Vector2f(x, y), new Vector2f(x + width, y));
+    public void addY(int toAdd){
+        this.y += toAdd;
     }
 
     protected void drawTextInMiddle(String text, MatrixStack stack){
@@ -76,16 +90,25 @@ public class TribeButton extends ToggleWidget {
         Minecraft.getInstance().fontRenderer.drawText(stack, new StringTextComponent(text), x, y, this.representingTribe.getColor());
     }
 
-    protected void drawLine(Vector2f first, Vector2f second){
-        GL11.glPushMatrix();
-        GL11.glColor3b((byte) 255,(byte) 255,(byte) 255);
-        GL11.glBegin(GL11.GL_LINE_STRIP);
-        GL11.glVertex3d(first.x, first.y, this.getBlitOffset());
-        GL11.glVertex3d(second.x, second.y, this.getBlitOffset());
-        GL11.glEnd();
-        GL11.glPopMatrix();
+    public int getBorderThickness() {
+        return border;
     }
 
+    public void setBorderThickness(int border) {
+        this.border = border;
+    }
+
+    public void setDownBorder(boolean downBorder) {
+        this.downBorder = downBorder;
+    }
+
+    public void setUpperBorder(boolean upperBorder) {
+        this.upperBorder = upperBorder;
+    }
+
+    public void setMouseInParent(boolean mouseInParent) {
+        isMouseInParent = mouseInParent;
+    }
 
     @OnlyIn(Dist.CLIENT)
     public interface Pressable{

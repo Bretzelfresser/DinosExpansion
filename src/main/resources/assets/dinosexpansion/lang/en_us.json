@@ -237,5 +237,26 @@
 
 	"tooltip.dinosexpansion.heavy_shield_cooldown": "Cooldown: %s",
 
+	"dinosexpansion.tribes_scrollpane": "Tribes",
+	"dinosexpansion.tribe.created": "created %s as  new Tribe",
+	"dinosexpansion.tribe.max_tribes": "cant add more Tribes because max Tribes is already reached",
+	"dinosexpansion.tribe.create": "creates a tribe with a specific name",
+	"dinosexpansion.tribe.added_member": "added %p to the Tribe %t",
+	"dinosexpansion.tribe.add": "add a Player to a specific Tribe",
+	"dinosexpansion.tribe.list": "lists all Tribes",
+	"dinosexpansion.tribe.remove": "removes a Player from a specific Tribe",
+	"dinosexpansion.tribe.delete": "deletes a Tribe",
+	"dinosexpansion.tribe.removed": "removed Tribe: %t",
+	"dinosexpansion.tribe.removed_member": "removed %p from %t",
+	"dinosexpansion.tribe.cant_remove": "Cant remove %p from %t",
+	"dinosexpansion.tribe.cant_add": "Cant add %p to %t",
+	"dinosexpansion.tribe.cant_remove": "Cant remove %t",
+	"dinosexpansion.tribe.tribe_list_header": "existing Tribes:",
+	"dinosexpansion.tribe.delete": "deletes a Tribe",
+	"dinosexpansion.tribe.tribe_list_header": "existing Tribes:",
+
+
+
+
 	"death.attack.dinosexpansion.bleeding": "%s bleed to death"
 }

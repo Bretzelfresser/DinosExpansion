@@ -45,21 +45,6 @@ public class Alioramus extends Dinosaur{
     }
 
     @Override
-    protected AnimationQueue<Dinosaur> createAnimationQueue(AnimationFactory factory) {
-        return null;
-    }
-
-    @Override
-    protected AxisAlignedBB getChildBoundingBox(AxisAlignedBB superBox) {
-        return null;
-    }
-
-    @Override
-    protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
-        return null;
-    }
-
-    @Override
     public boolean canBreed() {
         return false;
     }
@@ -80,7 +65,17 @@ public class Alioramus extends Dinosaur{
     }
 
     @Override
-    public int getTimeBetweenEating() {
+    public int neededHungerToTame() {
+        return 0;
+    }
+
+    @Override
+    public int getTier() {
+        return 1;
+    }
+
+    @Override
+    public int reduceHunger(int hunger) {
         return 0;
     }
 
@@ -101,7 +96,7 @@ public class Alioramus extends Dinosaur{
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+    public Container createMenu(int id, PlayerInventory inv, PlayerEntity player) {
         return null;
     }
 

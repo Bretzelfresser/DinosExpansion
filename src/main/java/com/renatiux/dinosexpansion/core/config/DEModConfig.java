@@ -15,6 +15,7 @@ public class DEModConfig {
     public static ItemsConfig ITEMS_CONFIG;
     public static EffectConfig EFFECT_CONFIG;
     public static TribeConfig TRIBE_CONFIG;
+    public static DinoConfig DINO_CONFIG;
 
     public static ForgeConfigSpec init(ForgeConfigSpec.Builder builder) {
 
@@ -25,6 +26,7 @@ public class DEModConfig {
         ITEMS_CONFIG = new ItemsConfig(builder);
         EFFECT_CONFIG = new EffectConfig(builder);
         TRIBE_CONFIG = new TribeConfig(builder);
+        DINO_CONFIG = new DinoConfig(builder);
         return builder.build();
     }
 
@@ -187,6 +189,23 @@ public static class BoomerangConfig {
         public ItemsConfig(ForgeConfigSpec.Builder builder){
             builder.comment("all configuration for Items").push("Items");
             this.medikitCooldown = builder.defineInRange("the cooldown of the medikits after they got used in seconds", 20, 1, Integer.MAX_VALUE);
+            builder.pop();
+        }
+    }
+
+    public static final class DinoConfig{
+        public final ForgeConfigSpec.IntValue maxLevelSpawn, minLevelSpawn, maxLevelTame, baseNeededLevelToLevelUp;
+
+        DinoConfig(ForgeConfigSpec.Builder builder){
+            builder.push("Dinos").comment("all Config for the Dinos");
+            builder.comment("this defines the maximum Level that Dinos can spawn");
+            maxLevelSpawn = builder.defineInRange("maxLevelSpawn", 30, 1, 500);
+            builder.comment("this defines the minimum level that the dino needs to have when spawning");
+            minLevelSpawn = builder.defineInRange("minLevelSpawn", 1, 1, 499);
+            builder.comment("this defines the maximum Level that can be reached when the dino is tamed");
+            maxLevelTame = builder.defineInRange("maxLevelTame", 100, 10, Integer.MAX_VALUE);
+            builder.comment("this value determines how much xp u need until u level up", " keep in mind that this value is just the base Value that gets scaled with other factors too");
+            baseNeededLevelToLevelUp = builder.defineInRange("baseNeededLevel",40, 20, Integer.MAX_VALUE);
             builder.pop();
         }
     }

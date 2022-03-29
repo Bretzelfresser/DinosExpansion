@@ -14,8 +14,8 @@ public class TribeUtils {
     public static String createTribe(String name, PlayerEntity creator, ServerWorld world){
         if (tribeExists(name, world))
             return withModid("tribe.exists");
-        if (getAmountOfTribes(world) >= DEModConfig.TRIBE_CONFIG.maxTribes.get() && DEModConfig.TRIBE_CONFIG.maxTribes.get() > 0)
-            return withModid("tribe.max_tribes");
+        //if (getAmountOfTribes(world) >= DEModConfig.TRIBE_CONFIG.maxTribes.get() && DEModConfig.TRIBE_CONFIG.maxTribes.get() > 0)
+            //return withModid("tribe.max_tribes");
         Tribe t = new Tribe(name, creator);
         TribeSaveData.addTribe(t, world);
         return withModid("tribe.created");

@@ -162,10 +162,19 @@ public class Chimerarachne extends Dinosaur{
 	}
 
 	@Override
-	public int getTimeBetweenEating() {
-		return 0;
+	public int neededHungerToTame() {
+		return 100;
 	}
 
+	@Override
+	public int getTier() {
+		return 1;
+	}
+
+	@Override
+	public int reduceHunger(int hunger) {
+		return hunger;
+	}
 	@Override
 	protected String getContainerName() {
 		return null;
@@ -189,21 +198,6 @@ public class Chimerarachne extends Dinosaur{
 	
 	@Override
 	protected void poop() {
-	}
-
-	@Override
-	protected AxisAlignedBB getChildBoundingBox(AxisAlignedBB superBox) {
-		return superBox;
-	}
-
-	@Override
-	protected AxisAlignedBB getYoungBoundingBox(AxisAlignedBB superBox) {
-		return superBox;
-	}
-
-	@Override
-	protected AnimationQueue<Dinosaur> createAnimationQueue(AnimationFactory factory) {
-		return new AnimationQueue<Dinosaur>(this, new AnimationBuilder(), "chimerarachne_controller", factory);
 	}
 
 }

@@ -80,7 +80,7 @@ public class DinosaurNearestAttackableTarget<T extends LivingEntity> extends Nea
 	public boolean shouldExecute() {
 		if ((!this.dinosaurGowalOwner.isTame() || this.dinosaurGowalOwner.getStatus() == DinosaurStatus.HOSTILE)
 				&& !dinosaurGowalOwner.isChild() && !dinosaurGowalOwner.isSleeping() && !dinosaurGowalOwner.isKnockout()
-				&& dinosaurGowalOwner.deathTime <= 0) {
+				&& dinosaurGowalOwner.deathTime <= 0 && dinosaurGowalOwner.isHungry()) {
 			return super.shouldExecute() && checkOwner();
 		}
 		return false;
@@ -97,7 +97,6 @@ public class DinosaurNearestAttackableTarget<T extends LivingEntity> extends Nea
 	@Override
 	public void startExecuting() {
 		super.startExecuting();
-		System.out.println("yuhu");
 		if (callsForHelp)
 			alertOthers();
 	}
@@ -108,6 +107,10 @@ public class DinosaurNearestAttackableTarget<T extends LivingEntity> extends Nea
 			this.nearestTarget = this.goalOwner.world.getClosestEntity(this.targetClass, this.targetEntitySelector,
 					this.goalOwner, this.goalOwner.getPosX(), this.goalOwner.getPosYEye(), this.goalOwner.getPosZ(),
 					this.getTargetableArea(this.getTargetDistance()));
+			if (this.nearestTarget instanceof Dinosaur && ((Dinosaur)this.nearestTarget).getTier() > this.dinosaurGowalOwner.getTier()) {
+				this.nearestTarget = null;
+				return;
+			}
 			if (this.nearestTarget != null)
 				foundNonPlayer();
 		} else {

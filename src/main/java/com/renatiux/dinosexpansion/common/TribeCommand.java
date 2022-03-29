@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.common;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -45,8 +46,8 @@ public class TribeCommand {
             source.getSource().sendFeedback(new TranslationTextComponent(withPrefix("exists")), true);
             return -1;
         }
-        TribeUtils.createTribe(tribeName, source.getSource().asPlayer(), world);
-        source.getSource().sendFeedback(new TranslationTextComponent(withPrefix("created"), tribeName), true);
+        String result = TribeUtils.createTribe(tribeName, source.getSource().asPlayer(), world);
+        source.getSource().sendFeedback(new TranslationTextComponent(result, tribeName), true);
         return 1;
     }
 

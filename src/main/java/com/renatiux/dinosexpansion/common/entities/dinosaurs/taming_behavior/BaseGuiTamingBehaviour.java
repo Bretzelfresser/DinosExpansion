@@ -46,7 +46,7 @@ public abstract class BaseGuiTamingBehaviour<T extends Dinosaur> implements Tami
 
 	@Override
 	public boolean isReadyToTame(T dino) {
-		return dino.getHunger() >= dino.getMaxHunger();
+		return dino.getTamingProgress() >= 100;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public abstract class BaseGuiTamingBehaviour<T extends Dinosaur> implements Tami
 			dino.setNarcotic(dino.shrinkNarcotic(dino.getNarcoticValue()));
 			dino.findAndAddNarcotic();
 			if(!isReadyToTame(dino))
-				dino.findAndAddHunger();
+				dino.findAndAddHunger(true);
 			if (dino.getNarcoticValue() < 0)
 				dino.setNarcotic(0);
 		}

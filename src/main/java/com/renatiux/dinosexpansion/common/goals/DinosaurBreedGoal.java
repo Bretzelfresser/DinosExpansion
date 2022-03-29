@@ -46,7 +46,7 @@ public class DinosaurBreedGoal extends Goal {
 	    * method as well.
 	    */
 	   public boolean shouldExecute() {
-	      if (!this.dino.isReadyToBreed()) {
+	      if (!this.dino.canBreed() || !this.dino.isReadyToBreed()) {
 	         return false;
 	      } else {
 	         this.targetMate = this.getNearbyMate();
