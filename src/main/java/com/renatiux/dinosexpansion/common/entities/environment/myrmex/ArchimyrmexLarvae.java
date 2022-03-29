@@ -1,6 +1,5 @@
 package com.renatiux.dinosexpansion.common.entities.environment.myrmex;
 
-import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
 import com.renatiux.dinosexpansion.common.items.ArchimyrmexLarvaeItem;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 import net.minecraft.entity.CreatureEntity;
@@ -74,12 +73,15 @@ public class ArchimyrmexLarvae extends CreatureEntity implements IAnimatable {
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(MAX_HEALTH, 4)
-                .createMutableAttribute(MOVEMENT_SPEED, 0.02);
+                .createMutableAttribute(MOVEMENT_SPEED, 0.1);
     }
 
     private PlayState predicate(AnimationEvent<ArchimyrmexLarvae> event) {
 
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.archimyrmex.crawl", true));
+        if(event.isMoving()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.archimyrmex.crawl", true));
+            return PlayState.CONTINUE;
+        }
         return PlayState.CONTINUE;
     }
 

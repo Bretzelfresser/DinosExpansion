@@ -46,7 +46,7 @@ public class DodoArmorItem extends ArmorItem {
     @OnlyIn(Dist.CLIENT)
     public static void initArmorModel() {
         dodoArmorModel.put(EquipmentSlotType.HEAD, new DodoArmorModel(EquipmentSlotType.HEAD,1.0F));
-        dodoArmorModel.put(EquipmentSlotType.CHEST, new DodoArmorModel(EquipmentSlotType.CHEST,0.5F));
+        dodoArmorModel.put(EquipmentSlotType.CHEST, new DodoArmorModel(EquipmentSlotType.CHEST,0.75F));
     }
 
     @Override
