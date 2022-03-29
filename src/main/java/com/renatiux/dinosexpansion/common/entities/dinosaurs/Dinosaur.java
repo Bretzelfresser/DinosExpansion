@@ -141,6 +141,7 @@ public abstract class Dinosaur extends MonsterEntity
         this.stacksToDrop = new LinkedList<>();
         initInventory(sizeInventory);
         InitTamingInventory(12);
+        //updateStatsBasedOnLevel();
 
     }
 
@@ -599,7 +600,6 @@ public abstract class Dinosaur extends MonsterEntity
         this.dataManager.register(TAMING_PROGRESS, (byte) 0);
         this.dataManager.register(LEVEL, this.getInitialLevel());
         this.dataManager.register(LEVEL_PROGRESS, (byte) 0);
-        updateStatsBasedOnLevel();
     }
 
     private void updateStatsBasedOnLevel(){
