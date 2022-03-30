@@ -439,9 +439,6 @@
 						"0.8": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Neck": {
@@ -458,9 +455,6 @@
 						"0.8": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Head": {
@@ -474,9 +468,6 @@
 						"0.8": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Jaw": {
@@ -503,9 +494,6 @@
 						"0.8": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Arm_R": {
@@ -519,9 +507,6 @@
 						"0.8": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Tail1": {
@@ -535,9 +520,6 @@
 						"0.8": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Tail2": {
@@ -574,30 +556,6 @@
 				"Eyelid_R": {
 					"scale": {
 						"vector": [1, 0, 1]
-					}
-				},
-				"AllosaurusF": {
-					"rotation": {
-						"vector": [0, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
-					}
-				},
-				"Leg_L": {
-					"rotation": {
-						"vector": [0, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
-					}
-				},
-				"Leg_R": {
-					"rotation": {
-						"vector": [0, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				}
 			}
@@ -1335,9 +1293,6 @@
 			"animation_length": 1.04,
 			"bones": {
 				"Torso": {
-					"rotation": {
-						"vector": [0, 0, 0]
-					},
 					"position": {
 						"0.0": {
 							"vector": [0, 0, 0]
@@ -1373,9 +1328,6 @@
 						"1.04": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Arm_R": {
@@ -1395,9 +1347,6 @@
 						"1.04": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Leg_L": {
@@ -1501,9 +1450,6 @@
 						"1.04": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Head": {
@@ -1517,9 +1463,6 @@
 						"1.04": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Tail1": {
@@ -1533,9 +1476,6 @@
 						"1.04": {
 							"vector": [0, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Tail3": {
@@ -1559,14 +1499,6 @@
 				"Eyelid_R": {
 					"scale": {
 						"vector": [1, 0, 1]
-					}
-				},
-				"AllosaurusF": {
-					"rotation": {
-						"vector": [0, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				}
 			}
@@ -1619,9 +1551,6 @@
 						"0.8": {
 							"vector": [7.5, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Head": {
@@ -1641,9 +1570,6 @@
 						"0.8": {
 							"vector": [-17.5, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Jaw": {
@@ -1682,9 +1608,6 @@
 						"0.8": {
 							"vector": [-27.5, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Arm_R": {
@@ -1704,9 +1627,6 @@
 						"0.8": {
 							"vector": [-27.5, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Tail1": {
@@ -1720,9 +1640,6 @@
 						"0.8": {
 							"vector": [-2.5, 0, 0]
 						}
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"Tail2": {
@@ -1841,14 +1758,6 @@
 				"Eyelid_R": {
 					"scale": {
 						"vector": [1, 0, 1]
-					}
-				},
-				"AllosaurusF": {
-					"rotation": {
-						"vector": [0, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
 					}
 				}
 			}

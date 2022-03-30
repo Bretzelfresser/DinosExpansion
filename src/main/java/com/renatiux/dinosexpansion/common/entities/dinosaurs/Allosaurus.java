@@ -105,6 +105,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
         idleCooldown = 0;
         wakeUpCooldown = 0;
         growl = false;
+
         this.stepHeight = 1.0f;
     }
 
@@ -242,16 +243,16 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<Allosaurus>(this, CONTROLLER_NAME, 30, this));
-        data.addAnimationController(new AnimationController<Allosaurus>(this, "walking", 0, this::walkingAnimation));
+        data.addAnimationController(new AnimationController<>(this, CONTROLLER_NAME, 30, this::test));
+        data.addAnimationController(new AnimationController<>(this, "walking", 0, this::walkingAnimation));
     }
 
     public PlayState walkingAnimation(AnimationEvent<Allosaurus> event) {
-        if (event.isMoving() && !isAttacking() && !isGrowl() && !isSleeping() && !shouldplayDeadAnimation() && !isKnockout()) {
+        if (event.isMoving() && !isGrowl() && !isSleeping() && !shouldplayDeadAnimation() && !isKnockout()) {
             if (!Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED)).hasModifier(SPEED_MODIFIER_ATTACKING)) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Walk.new", true));
-            } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Run.new", true));
+            } else {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Walk.new", true));
             }
             return PlayState.CONTINUE;
         }
