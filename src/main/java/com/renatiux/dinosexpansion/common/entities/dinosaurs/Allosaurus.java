@@ -140,6 +140,10 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
         if (growlCooldown > 0) {
             growlCooldown--;
         }
+        if (this.world.isRemote){
+            if(this.growlAnimationCooldown > 0)
+                this.growlAnimationCooldown--;
+        }
         //resetting the status after he woke up so he don�t move during waking up
         if (wakeUpCooldown > 0) {
             wakeUpCooldown--;
@@ -157,7 +161,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
         if (player instanceof ServerPlayerEntity) {
             if (isTame() && isOwner(player) && (!hasChest() || !isSaddled())) {
                 ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
-                // shortcut to put chest in inventory
+                // shortcut to put saddle in inventory
                 if (!isSaddled() && stack.getItem() == Items.SADDLE) {
                     dinosaurInventory.setInventorySlotContents(0, new ItemStack(stack.getItem()));
                     stack.shrink(1);
@@ -324,20 +328,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
         if (id == 10) {
             growl = true;
             this.growlAnimationCooldown = 25;
-        } else if (id == 11) {
-            //playAttackAnimation();
-        } else if (id == 12) {
-            //playWakeUpAnimation();
-        } else if (id == 13) {
-            //playSleepAnimation();
-        } else if (id == 14) {
-            //playKnockOutAnimation();
-        } else if (id == 15) {
-            //playWakeUpFromKnockoutAnimation();
-        } else if (id == 16) {
-            //TODO sit
-        } else if (id == 17) {
-            //TODO stand up
         } else
             super.handleStatusUpdate(id);
     }
@@ -435,7 +425,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
     @Override
     public int reduceHunger(int hunger) {
         if (this.rand.nextDouble() <= 0.01) {
-            return hunger - 1;
+            return --hunger;
         }
         return hunger;
     }

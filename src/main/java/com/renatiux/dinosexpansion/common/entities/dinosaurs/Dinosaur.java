@@ -153,7 +153,8 @@ public abstract class Dinosaur extends MonsterEntity
 
     @Override
     public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
-        return this.getEntityInteractionResult(player, hand);
+        //return this.getEntityInteractionResult(player, hand);
+        return super.applyPlayerInteraction(player, vec, hand);
     }
 
     @Override

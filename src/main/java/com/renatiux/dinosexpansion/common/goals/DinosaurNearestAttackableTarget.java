@@ -80,7 +80,7 @@ public class DinosaurNearestAttackableTarget<T extends LivingEntity> extends Nea
 	public boolean shouldExecute() {
 		if ((!this.dinosaurGowalOwner.isTame() || this.dinosaurGowalOwner.getStatus() == DinosaurStatus.HOSTILE)
 				&& !dinosaurGowalOwner.isChild() && !dinosaurGowalOwner.isSleeping() && !dinosaurGowalOwner.isKnockout()
-				&& dinosaurGowalOwner.deathTime <= 0 && dinosaurGowalOwner.isHungry()) {
+				&& dinosaurGowalOwner.deathTime <= 0) {
 			return super.shouldExecute() && checkOwner();
 		}
 		return false;
@@ -211,8 +211,11 @@ public class DinosaurNearestAttackableTarget<T extends LivingEntity> extends Nea
 
 	/**
 	 * executed when the Goal has found something else as a Player as a target
+	 * normalyy here is managed that when the Dino isnt hungry it wont attack a non Player entity
 	 */
 	protected void foundNonPlayer() {
+		if(!this.dinosaurGowalOwner.isHungry())
+			this.target = null;
 	}
 
 	/**
