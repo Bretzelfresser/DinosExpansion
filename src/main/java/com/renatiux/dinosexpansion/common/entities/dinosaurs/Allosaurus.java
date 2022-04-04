@@ -253,7 +253,7 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
 
     public PlayState walkingAnimation(AnimationEvent<Allosaurus> event) {
         if (event.isMoving() && !isGrowl() && !isSleeping() && !shouldplayDeadAnimation() && !isKnockout()) {
-            if (!Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED)).hasModifier(SPEED_MODIFIER_ATTACKING)) {
+            if (Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED)).hasModifier(SPEED_MODIFIER_ATTACKING)) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Run.new", true));
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Walk.new", true));
