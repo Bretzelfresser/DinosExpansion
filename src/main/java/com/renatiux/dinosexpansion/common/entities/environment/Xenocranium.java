@@ -48,10 +48,14 @@ public class Xenocranium extends CreatureEntity implements IAnimatable {
 
     protected static final DataParameter<Boolean> DIGGING = EntityDataManager.createKey(Xenocranium.class, DataSerializers.BOOLEAN);
     protected static final DataParameter<Boolean> CAN_COME_UP = EntityDataManager.createKey(Xenocranium.class, DataSerializers.BOOLEAN);
-    protected static final DataParameter<String> TEXTURE = EntityDataManager.createKey(Xenocranium.class, DataSerializers.STRING);
-    public static final String CONTROLLER_NAME = "controller";
-    private static final ResourceLocation[] TEXTURES = new ResourceLocation[]{Dinosexpansion.modLoc("textures/entity/environment/xenocranium/xenocranium1.png"), Dinosexpansion.modLoc("textures/entity/environment/xenocranium/xenocranium2.png"), Dinosexpansion.modLoc("textures/entity/environment/xenocranium/xenocranium3.png")};
 
+    public static final String CONTROLLER_NAME = "controller";
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[]{
+            Dinosexpansion.modLoc("textures/entity/environment/xenocranium/xenocranium1.png"),
+            Dinosexpansion.modLoc("textures/entity/environment/xenocranium/xenocranium2.png"),
+            Dinosexpansion.modLoc("textures/entity/environment/xenocranium/xenocranium3.png")};
+
+    protected final ResourceLocation texture;
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return CreatureEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 5d)
@@ -65,8 +69,7 @@ public class Xenocranium extends CreatureEntity implements IAnimatable {
 
     public Xenocranium(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
-        if (!this.world.isRemote)
-            setInitialTexture();
+        texture = chooseRandom();
     }
 
     @Override
@@ -80,11 +83,16 @@ public class Xenocranium extends CreatureEntity implements IAnimatable {
         }
     }
 
+    private ResourceLocation chooseRandom() {
+        return TEXTURES[this.world.rand.nextInt(TEXTURES.length)];
+    }
+
     /**
      * synced with the client, returns the path to the current used texture
      */
+    @OnlyIn(Dist.CLIENT)
     public ResourceLocation getTexture() {
-        return new ResourceLocation(this.dataManager.get(TEXTURE));
+        return texture;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -144,7 +152,6 @@ public class Xenocranium extends CreatureEntity implements IAnimatable {
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        this.dataManager.set(TEXTURE, compound.getString("texture"));
         this.dataManager.set(DIGGING, compound.getBoolean("digging"));
         this.dataManager.set(CAN_COME_UP, compound.getBoolean("can_come_up"));
     }
@@ -152,7 +159,6 @@ public class Xenocranium extends CreatureEntity implements IAnimatable {
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putString("texture", this.dataManager.get(TEXTURE));
         compound.putBoolean("digging", this.isDigging());
         compound.putBoolean("can_come_up", this.canComeUp());
     }
@@ -162,7 +168,6 @@ public class Xenocranium extends CreatureEntity implements IAnimatable {
         super.registerData();
         this.dataManager.register(DIGGING, false);
         this.dataManager.register(CAN_COME_UP, false);
-        this.dataManager.register(TEXTURE, setInitialTexture().toString());
     }
 
     public boolean canComeUp() {
