@@ -140,8 +140,8 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
         if (growlCooldown > 0) {
             growlCooldown--;
         }
-        if (this.world.isRemote){
-            if(this.growlAnimationCooldown > 0)
+        if (this.world.isRemote) {
+            if (this.growlAnimationCooldown > 0)
                 this.growlAnimationCooldown--;
         }
         //resetting the status after he woke up so he don�t move during waking up
@@ -280,33 +280,43 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
     @OnlyIn(Dist.CLIENT)
     @Override
     public PlayState test(AnimationEvent<Allosaurus> event) {
-        if (!isAttacking() || !isGrowl()) {
+        if (!isAttacking() || !isGrowl() || this.idleCooldown < 600) {
             event.getController().transitionLengthTicks = 30;
         }
         if (shouldplayDeadAnimation()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Dead.new", true));
+            idleCooldown = 0;
             return PlayState.CONTINUE;
         } else if (isKnockout()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Knockout.new", true));
+            idleCooldown = 0;
             return PlayState.CONTINUE;
         } else if (isSleeping()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Sleep.new", true));
+            idleCooldown = 0;
             return PlayState.CONTINUE;
         } else if (isGrowl()) {
             event.getController().transitionLengthTicks = 0;
             if (!event.getController().getCurrentAnimation().animationName.equals("Alt_Allosaurus_Threaten.new"))
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Threaten.new", false));
+            idleCooldown = 0;
             return PlayState.CONTINUE;
         } else if (isAttacking()) {
             event.getController().transitionLengthTicks = 0;
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Attack.new", true));
+            idleCooldown = 0;
             return PlayState.CONTINUE;
         } else if (isSitting()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_SitIdle.new", true));
+            idleCooldown = 0;
             return PlayState.CONTINUE;
         } else if (idleCooldown >= 600) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Idle.new", false));
-            idleCooldown = 0;
+            if (!event.getController().getCurrentAnimation().animationName.equals("Alt_Allosaurus_Idle.new"))
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_Idle.new", false));
+            if (idleCooldown >= 642)
+                idleCooldown = 0;
+            else
+                idleCooldown++;
             return PlayState.CONTINUE;
         } else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Alt_Allosaurus_IdleContinue.new"));
@@ -341,8 +351,8 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
         if (growlCooldown <= 0) {
             this.world.setEntityState(this, (byte) 10);
             growlCooldown = 6000;
-            addPotionEffect(new EffectInstance(Effects.STRENGTH, 2400));
-            addPotionEffect(new EffectInstance(Effects.SLOWNESS, 25, 4000));
+            addPotionEffect(new EffectInstance(Effects.STRENGTH, 2400, 1, false, false));
+            addPotionEffect(new EffectInstance(Effects.SLOWNESS, 25, 4000, false, false));
         }
     }
 

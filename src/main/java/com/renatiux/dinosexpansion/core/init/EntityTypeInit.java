@@ -4,13 +4,10 @@ import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.RaftEntity;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
-import com.renatiux.dinosexpansion.common.entities.environment.Opabinia;
+import com.renatiux.dinosexpansion.common.entities.environment.*;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
-import com.renatiux.dinosexpansion.common.entities.environment.Charnia;
-import com.renatiux.dinosexpansion.common.entities.environment.Pycnophlebia;
-import com.renatiux.dinosexpansion.common.entities.environment.Thaumaptilon;
 import com.renatiux.dinosexpansion.common.entities.environment.myrmex.ArchimyrmexLarvae;
 import com.renatiux.dinosexpansion.common.entities.poop.Poop;
 import com.renatiux.dinosexpansion.common.entities.projectiles.*;
@@ -69,6 +66,8 @@ public class EntityTypeInit {
 	public static final RegistryObject<EntityType<Opabinia>> OPABINIA = register("opabinia", EntityType.Builder.create(Opabinia::new, EntityClassification.WATER_CREATURE));
 
 	public static final RegistryObject<EntityType<ArchimyrmexLarvae>> ARCHIMYRMEX_LARVAE = register("archimyrmex_larvae", EntityType.Builder.create(ArchimyrmexLarvae::new, EntityClassification.AMBIENT));
+
+	public static final RegistryObject<EntityType<Xenocranium>> XENOCRANIUM = register("xenocranium", EntityType.Builder.create(Xenocranium::new, EntityClassification.AMBIENT));
 
 
 	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder){

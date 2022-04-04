@@ -153,7 +153,20 @@ public abstract class Dinosaur extends MonsterEntity
 
     @Override
     public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
-        //return this.getEntityInteractionResult(player, hand);
+        if (!world.isRemote) {
+            if (deathTime > 0) {
+                if (getDroppedItems() != null && player.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+                    NonNullList<ItemStack> toDrop = NonNullList.create();
+                    getDroppedItems().forEach(stack -> toDrop.add(stack));
+                    InventoryHelper.dropItems(world, getPosition(), toDrop);
+                    getDroppedItems().forEach(player::addItemStackToInventory);
+                    player.giveExperiencePoints(this.experienceValue);
+                    this.remove();
+                    return ActionResultType.SUCCESS;
+                }
+                return ActionResultType.PASS;
+            }
+        }
         return super.applyPlayerInteraction(player, vec, hand);
     }
 
@@ -492,7 +505,6 @@ public abstract class Dinosaur extends MonsterEntity
     public void livingTick() {
         super.livingTick();
         if (!this.world.isRemote) {
-            System.out.println(this.getLevel());
             getTamingBehaviour().tick(this);
             if (getTamingBehaviour().shouldKnockout(this)) {
                 this.setKnockedOut(true);

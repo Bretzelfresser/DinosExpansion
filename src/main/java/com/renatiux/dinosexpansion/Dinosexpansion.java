@@ -4,7 +4,7 @@ import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 import static net.minecraft.item.ItemModelsProperties.registerProperty;
 
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
-import com.renatiux.dinosexpansion.common.entities.environment.Opabinia;
+import com.renatiux.dinosexpansion.common.entities.environment.*;
 import com.renatiux.dinosexpansion.common.entities.environment.myrmex.ArchimyrmexLarvae;
 import com.renatiux.dinosexpansion.common.loot.ChestLootModifier;
 import com.renatiux.dinosexpansion.core.init.*;
@@ -24,9 +24,6 @@ import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dodo;
-import com.renatiux.dinosexpansion.common.entities.environment.Charnia;
-import com.renatiux.dinosexpansion.common.entities.environment.Pycnophlebia;
-import com.renatiux.dinosexpansion.common.entities.environment.Thaumaptilon;
 import com.renatiux.dinosexpansion.common.items.CustomSpawnEgg;
 import com.renatiux.dinosexpansion.common.world.DEFeatures;
 import com.renatiux.dinosexpansion.core.config.DEModConfig;
@@ -165,7 +162,7 @@ public class Dinosexpansion {
         event.put(EntityTypeInit.EOSQUALODON.get(), Eosqualodon.registerAttributes().create());
         event.put(EntityTypeInit.OPABINIA.get(), Opabinia.registerAttributes().create());
         event.put(EntityTypeInit.ARCHIMYRMEX_LARVAE.get(), ArchimyrmexLarvae.registerAttributes().create());
-
+        event.put(EntityTypeInit.XENOCRANIUM.get(), Xenocranium.setCustomAttributes().create());
 
     }
 
