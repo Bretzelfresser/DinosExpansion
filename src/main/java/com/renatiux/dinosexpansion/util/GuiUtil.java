@@ -3,14 +3,28 @@ package com.renatiux.dinosexpansion.util;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class GuiUtil {
+
+
+    @OnlyIn(Dist.CLIENT)
+    public static final void openScreen(Screen screen){
+        Minecraft.getInstance().displayGuiScreen(screen);
+    }
+
+    public static int getTextHeight(ITextComponent component){
+        return  Minecraft.getInstance().fontRenderer.getWordWrappedHeight(component.getString(),  Minecraft.getInstance().fontRenderer.getStringPropertyWidth(component));
+    }
 
     public static void drawEntityOnScreen(int posX, int posY, int scale, float mouseX, float mouseY, Entity livingEntity) {
         float f = (float)Math.atan((double)(mouseX / 40.0F));

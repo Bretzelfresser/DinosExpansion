@@ -256,7 +256,8 @@
 	"dinosexpansion.tribe.tribe_list_header": "existing Tribes:",
 
 
-
+	"speed": "Speed To Test",
+	"speed_value": "here should be a value",
 
 	"death.attack.dinosexpansion.bleeding": "%s bleed to death"
 }
