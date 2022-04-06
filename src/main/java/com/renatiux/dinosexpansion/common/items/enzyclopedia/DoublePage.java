@@ -3,11 +3,10 @@ package com.renatiux.dinosexpansion.common.items.enzyclopedia;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 public class DoublePage extends Page {
-    private final Page left, right;
+    private Page left, right;
 
     /**
-     *
-     * @param left - the left page musnt be a DoublePage
+     * @param left  - the left page musnt be a DoublePage
      * @param right - the right page musnt be a DoublePage
      */
     public DoublePage(Page left, Page right) {
@@ -19,13 +18,21 @@ public class DoublePage extends Page {
     }
 
     @Override
-    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
-        super.render(stack, mouseX, mouseY, partialTicks);
-        right.render(stack, mouseX, mouseY, partialTicks);
-        right.render(stack, mouseX, mouseY, partialTicks);
+    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks, int index) {
+        super.render(stack, mouseX, mouseY, partialTicks, index);
+        left.render(stack, mouseX, mouseY, partialTicks, index);
+        right.render(stack, mouseX, mouseY, partialTicks, index + 1);
     }
 
-    @Override
-    protected void renderPage(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public Page getLeftPage() {
+        return left;
+    }
+
+    public Page getRightPage() {
+        return right;
+    }
+
+    public void setRight(Page right) {
+        this.right = right;
     }
 }

@@ -258,6 +258,7 @@
 
 	"speed": "Speed To Test",
 	"speed_value": "here should be a value",
+	"title": "See How The TitleLooks",
 
 	"death.attack.dinosexpansion.bleeding": "%s bleed to death"
 }
