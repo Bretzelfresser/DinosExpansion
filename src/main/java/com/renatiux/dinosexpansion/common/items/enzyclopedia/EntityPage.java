@@ -44,6 +44,10 @@ public class EntityPage extends Page{
 
     }
 
+    public Entity getEntity() {
+        return entity;
+    }
+
     public static class Builder{
 
         public static Builder create(Entity entity, ResourceLocation entityTexture, int textWidth, int textHeight){

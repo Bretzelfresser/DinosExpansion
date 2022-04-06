@@ -8,13 +8,13 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.text.*;
-import sun.java2d.pipe.RenderBuffer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-
+@OnlyIn(Dist.CLIENT)
 public class Page {
 
     public static final Page BLANK = new Page(0, 0, 10, 10);
@@ -105,7 +105,11 @@ public class Page {
     }
 
     protected void drawPageIndex(MatrixStack stack, int index) {
-        Minecraft.getInstance().fontRenderer.drawText(stack, new StringTextComponent(index + ""), x, this.y + this.height, 4210752);
+        Minecraft.getInstance().fontRenderer.drawText(stack, new StringTextComponent(index + ""), this.x + this.width/2, this.y + this.height + 7, 4210752);
+    }
+
+    public boolean isMouseOver(int mouseX, int mouseY){
+        return this.x <= mouseX && this.x + width >= mouseX && this.y <= mouseY && this.y + this.height >= mouseY;
     }
 
     public void setPositionAndSize(int x, int y, int width, int height) {

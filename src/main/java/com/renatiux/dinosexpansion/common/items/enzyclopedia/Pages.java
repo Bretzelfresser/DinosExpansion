@@ -1,14 +1,11 @@
 package com.renatiux.dinosexpansion.common.items.enzyclopedia;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Pages {
@@ -21,6 +18,10 @@ public class Pages {
             Dinosexpansion.modLoc("textures/gui/matrix.png"), 100, 100).addProperty("health", 20)));
 
     public static final Page TEST = register(new Page(Page.Builder.create(new TranslationTextComponent("title")).addProperty("speed", "speed_value").addProperty("Health", 20)));
+    public static final EntityPage DODO = register(new EntityPage(EntityPage.Builder.create(EntityTypeInit.DODO.get().create(Minecraft.getInstance().world),
+            Dinosexpansion.modLoc("textures/gui/matrix.png"), 100, 100).addProperty("health", 20)));
+    public static final EntityPage XENOCRANIUM = register(new EntityPage(EntityPage.Builder.create(EntityTypeInit.XENOCRANIUM.get().create(Minecraft.getInstance().world),
+            Dinosexpansion.modLoc("textures/gui/matrix.png"), 100, 100).addProperty("health", 20)));
 
 
     /**

@@ -20,8 +20,8 @@ public class DoublePage extends Page {
     @Override
     public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks, int index) {
         super.render(stack, mouseX, mouseY, partialTicks, index);
-        left.render(stack, mouseX, mouseY, partialTicks, index);
-        right.render(stack, mouseX, mouseY, partialTicks, index + 1);
+        left.render(stack, mouseX, mouseY, partialTicks, index * 2 - 1);
+        right.render(stack, mouseX, mouseY, partialTicks, index * 2);
     }
 
     public Page getLeftPage() {
