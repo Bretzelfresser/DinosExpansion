@@ -13,13 +13,16 @@ import com.renatiux.dinosexpansion.common.entities.dinosaurs.Dinosaur;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.DinosaurStatus;
 import com.renatiux.dinosexpansion.common.entities.projectiles.NarcoticArrowEntity;
 
+import com.renatiux.dinosexpansion.core.init.EnchantmentInit;
 import com.renatiux.dinosexpansion.core.init.PotionInit;
 import com.renatiux.dinosexpansion.core.init.SoundInit;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -80,15 +83,20 @@ public class ServerEvents {
 	
 	@SubscribeEvent
 	public static void onPlayerHurt(LivingHurtEvent event) {
-		if (!(event.getEntityLiving() instanceof PlayerEntity))
-			return;
-		PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-		alertTamedDinosaurs(player);
+		if (event.getEntityLiving() instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+			alertTamedDinosaurs(player);
+		}
 		
 		
 		if(event.getSource().getImmediateSource() instanceof NarcoticArrowEntity) {
-			System.out.println("hi");
 			event.setAmount(2);
+		}
+		if (event.getSource().getTrueSource() instanceof  LivingEntity){
+			int penLevel = EnchantmentHelper.getMaxEnchantmentLevel(EnchantmentInit.ARMOR_PENETRATION.get(), (LivingEntity) event.getSource().getTrueSource());
+			if (penLevel > 0){
+				event.getSource().setDamageBypassesArmor().setDamageIsAbsolute();
+			}
 		}
 	}
 
@@ -97,7 +105,6 @@ public class ServerEvents {
 		axisalignedbb = AxisAlignedBB.fromVector(player.getPositionVec()).grow(20d, 10.0D, 20d);
 		List<Dinosaur> list = player.world.getLoadedEntitiesWithinAABB(Dinosaur.class, axisalignedbb);
 		for (Dinosaur dinosaur : list) {
-			System.out.println();
 			if (dinosaur.isTame() && dinosaur.isOwner(player) && (dinosaur.getStatus() == DinosaurStatus.HOSTILE || dinosaur.getStatus() == DinosaurStatus.PROTECTION)) {
 				if (!dinosaur.isSleeping() && !dinosaur.isKnockout()) {
 					setAttackTarget(dinosaur, player.getRevengeTarget());

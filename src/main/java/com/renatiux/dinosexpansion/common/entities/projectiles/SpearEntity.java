@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.common.entities.projectiles;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.core.init.EntityTypeInit;
+import com.renatiux.dinosexpansion.util.EnchantmentUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -135,6 +136,9 @@ public class SpearEntity extends AbstractArrowEntity {
 
         Entity thrower = getShooter();
         DamageSource source = DamageSource.causeTridentDamage(this, (thrower == null) ? this : thrower);
+        if (EnchantmentUtils.hasArmorPen(getArrowStack())){
+            source = source.setDamageBypassesArmor().setDamageIsAbsolute();
+        }
         SoundEvent sound = SoundEvents.ITEM_TRIDENT_HIT;
 
         if (entity.attackEntityFrom(source, (float) this.getDamage())) {

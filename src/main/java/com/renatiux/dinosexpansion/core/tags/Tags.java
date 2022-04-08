@@ -66,6 +66,7 @@ public class Tags {
 		public static final INamedTag<Item> MEDIKITS = createModTag("medikits");
 
 		public static final INamedTag<Item> PALEONTOLOGIC_TOOLS = createModTag("paleontologic_tools");
+		public static final INamedTag<Item> SPEARS = createModTag("spears");
 
 		public static ITag.INamedTag<Item> createModTag(String name){
 			return ItemTags.makeWrapperTag(new ResourceLocation(Dinosexpansion.MODID, name).toString());

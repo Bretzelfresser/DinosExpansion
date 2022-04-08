@@ -17,4 +17,8 @@ public class EnchantmentUtils {
     public static boolean hasBoundEnchantment(ItemStack stack){
         return EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.BOUND_ENCHANTMENT.get(), stack) > 0;
     }
+
+    public static boolean hasArmorPen(ItemStack stack){
+        return EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.ARMOR_PENETRATION.get(), stack) > 0;
+    }
 }

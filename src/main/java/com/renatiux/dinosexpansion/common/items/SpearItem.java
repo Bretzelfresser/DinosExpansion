@@ -25,6 +25,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class SpearItem extends TieredItem implements IVanishable {
@@ -57,33 +58,31 @@ public class SpearItem extends TieredItem implements IVanishable {
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity entity, int duration) {
-        if (!(entity instanceof PlayerEntity)) {
-            return;
-        }
-
-        PlayerEntity player = (PlayerEntity) entity;
-
         int useDuration = getUseDuration(stack) - duration;
-        if (useDuration < 10) {
-            return;
+        if (useDuration >= 10) {
+            if (!world.isRemote()) {
+                throwSpear(world, entity, stack);
+            }
+            if (entity instanceof PlayerEntity)
+                ((PlayerEntity) entity).addStat(Stats.ITEM_USED.get(this));
         }
 
-        if (!world.isRemote()) {
-            throwSpear(world, player, stack);
-        }
-
-        player.addStat(Stats.ITEM_USED.get(this));
     }
 
-    protected void throwSpear(final World world, final PlayerEntity thrower, final ItemStack stack) {
+    protected static void throwSpear(final World world, final LivingEntity thrower, final ItemStack stack) {
         stack.damageItem(1, thrower, e -> e.sendBreakAnimation(thrower.getActiveHand()));
         SpearEntity spear = new SpearEntity(world, thrower, stack);
         spear.setDirectionAndMovement(thrower, thrower.rotationPitch, thrower.rotationYaw, 0.0F, 2.25F, 1.0F);
         // set pickup status and remove the itemstack
-        if (thrower.abilities.isCreativeMode) {
-            spear.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
-        } else {
-            thrower.inventory.deleteStack(stack);
+        if (thrower instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) thrower;
+            if (player.abilities.isCreativeMode) {
+                spear.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
+            } else {
+                player.inventory.deleteStack(stack);
+            }
+        }else{
+            spear.pickupStatus = AbstractArrowEntity.PickupStatus.DISALLOWED;
         }
         world.addEntity(spear);
         world.playMovingSound(null, spear, SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);
@@ -108,7 +107,7 @@ public class SpearItem extends TieredItem implements IVanishable {
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         stack.damageItem(1, attacker, (entity) -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
         final CompoundNBT nbt = stack.getOrCreateChildTag("effect").copy();
-        if(nbt.contains("effect")) {
+        if (nbt.contains("effect")) {
             nbt.putByte("Id", (byte) Effect.getId(ForgeRegistries.POTIONS.getValue(new ResourceLocation(nbt.getString("effect")))));
             target.addPotionEffect(EffectInstance.read(nbt));
         }
@@ -117,7 +116,7 @@ public class SpearItem extends TieredItem implements IVanishable {
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if ((double)state.getBlockHardness(worldIn, pos) != 0.0D) {
+        if ((double) state.getBlockHardness(worldIn, pos) != 0.0D) {
             stack.damageItem(2, entityLiving, (entity) -> {
                 entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
             });
