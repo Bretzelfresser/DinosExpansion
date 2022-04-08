@@ -1,7 +1,7 @@
 package com.renatiux.dinosexpansion.common.entities.aquatic;
 
 import com.renatiux.dinosexpansion.common.entities.controller.AquaticMoveController;
-import com.renatiux.dinosexpansion.common.entities.controller.SemiAquaticPathNavigator;
+import com.renatiux.dinosexpansion.common.entities.navigator.SemiAquaticPathNavigator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.MoverType;

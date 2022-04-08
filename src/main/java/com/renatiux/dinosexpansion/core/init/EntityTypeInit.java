@@ -49,6 +49,9 @@ public class EntityTypeInit {
 	public static final RegistryObject<EntityType<DiamondBoomerang>> DIAMOND_BOOMERANG = ENTITY_TYPES.register("diamond_boomerang", 
 			() -> EntityType.Builder.<DiamondBoomerang>create(DiamondBoomerang::new, EntityClassification.MISC).build(Dinosexpansion.modLoc("diamond_boomerang").toString()));
 
+	public static final RegistryObject<EntityType<SpearEntity>> SPEAR_ENTITY = ENTITY_TYPES.register("spear",
+			()-> EntityType.Builder.<SpearEntity>create(SpearEntity::new, EntityClassification.MISC).size(0.5f, 0.5f).setTrackingRange(4).setUpdateInterval(20).build("spear"));
+
 	public static final RegistryObject<EntityType<SpikesShieldEntity>> SPIKE_SHIELD_ENTITY_TYPE = register("spike_shield", EntityType.Builder.<SpikesShieldEntity>create(SpikesShieldEntity::new, EntityClassification.MISC).size(0.75F, 0.3F));
 	public static final RegistryObject<EntityType<HeavyShieldEntity>> HEAVY_SHIELD_ENTITY_TYPE = register("heavy_shield", EntityType.Builder.<HeavyShieldEntity>create(HeavyShieldEntity::new, EntityClassification.MISC).size(1.5f, 3f).immuneToFire().trackingRange(10));
 	public static final RegistryObject<EntityType<AstorgosuchusSkeleton>> ASTORGOSUCHUS_SKELETON = register("astorgosuchus_skeleton", EntityType.Builder.<AstorgosuchusSkeleton>create(AstorgosuchusSkeleton::new ,EntityClassification.MISC).size(2f, 1f).immuneToFire());

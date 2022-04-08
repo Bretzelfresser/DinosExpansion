@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.entities.controller;
+package com.renatiux.dinosexpansion.common.entities.navigator;
 
 import com.renatiux.dinosexpansion.common.entities.environment.Xenocranium;
 import net.minecraft.pathfinding.PathFinder;

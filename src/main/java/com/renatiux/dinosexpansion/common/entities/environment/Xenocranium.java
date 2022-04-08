@@ -1,13 +1,8 @@
 package com.renatiux.dinosexpansion.common.entities.environment;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
-import com.renatiux.dinosexpansion.common.entities.controller.InEarthPathNavigator;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.particle.BreakingParticle;
-import net.minecraft.client.particle.DiggingParticle;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.world.ClientWorld;
+import com.renatiux.dinosexpansion.common.entities.navigator.InEarthPathNavigator;
+
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -24,8 +19,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.*;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
@@ -33,7 +26,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.event.world.NoteBlockEvent;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;

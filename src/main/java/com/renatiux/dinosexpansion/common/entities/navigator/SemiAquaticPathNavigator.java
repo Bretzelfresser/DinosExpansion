@@ -1,4 +1,4 @@
-package com.renatiux.dinosexpansion.common.entities.controller;
+package com.renatiux.dinosexpansion.common.entities.navigator;
 
 import net.minecraft.entity.MobEntity;
 import net.minecraft.pathfinding.PathFinder;
