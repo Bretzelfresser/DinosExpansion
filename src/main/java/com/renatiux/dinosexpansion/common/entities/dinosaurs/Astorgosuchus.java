@@ -10,6 +10,7 @@ import com.renatiux.dinosexpansion.core.tags.Tags;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -29,6 +30,7 @@ import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.pathfinding.SwimmerPathNavigator;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -57,6 +59,7 @@ public class Astorgosuchus extends Dinosaur implements ISemiAquatic{
 
     protected final SwimmerPathNavigator waterNavigator;
     protected final GroundPathNavigator groundNavigator;
+
     public Astorgosuchus(EntityType<? extends Dinosaur> type, World worldIn, boolean child) {
         super(type, worldIn, 18, child);
         this.waterNavigator = new SwimmerPathNavigator(this, worldIn);
@@ -168,6 +171,26 @@ public class Astorgosuchus extends Dinosaur implements ISemiAquatic{
             }
         }
 
+    }
+
+    @Override
+    public void travel(Vector3d travelVector) {
+        if (this.isServerWorld() && this.isInWater()) {
+            this.moveRelative(this.getAIMoveSpeed(), travelVector);
+            this.move(MoverType.SELF, this.getMotion());
+            this.setMotion(this.getMotion().scale(0.9D));
+            if (this.getAttackTarget() == null) {
+                this.setMotion(this.getMotion().add(0.0D, -0.005D, 0.0D));
+            }
+        } else {
+            super.travel(travelVector);
+        }
+
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        return source == DamageSource.DROWN || source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || super.isInvulnerableTo(source);
     }
 
     public boolean isSwimming(){

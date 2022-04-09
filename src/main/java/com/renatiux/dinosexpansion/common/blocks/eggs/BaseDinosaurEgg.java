@@ -11,6 +11,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -36,7 +37,7 @@ public abstract class BaseDinosaurEgg extends Block implements IIncubatorEgg{
 
 	public BaseDinosaurEgg(Properties properties) {
 		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(HATCH, Integer.valueOf(0)));
+		this.setDefaultState(this.stateContainer.getBaseState().with(HATCH, Integer.valueOf(0)).with(EGGS, Integer.valueOf(1)));
 	}
 
 	/**
@@ -51,7 +52,10 @@ public abstract class BaseDinosaurEgg extends Block implements IIncubatorEgg{
 	 * Block's chance to react to a living entity falling on it.
 	 */
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-		tryTrample(worldIn, pos, entityIn, 2);
+		if (!(entityIn instanceof ZombieEntity)) {
+			this.tryTrample(worldIn, pos, entityIn, 3);
+		}
+
 		super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
 	}
 
@@ -102,6 +106,7 @@ public abstract class BaseDinosaurEgg extends Block implements IIncubatorEgg{
 		}
 
 	}
+
 
 	private boolean hasProperHabitat(IBlockReader blockReader, BlockPos pos) {
 		return blockReader.getBlockState(pos.down()).getBlock() == Blocks.SAND
