@@ -19,10 +19,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.EntityPredicates;
-import net.minecraft.util.Hand;
-import net.minecraft.util.HandSide;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -55,6 +52,11 @@ public class Poop extends LivingEntity {
 			}
 		}
 
+	}
+
+	@Override
+	public boolean isInvulnerableTo(DamageSource source) {
+		return true;
 	}
 
 	@Override
