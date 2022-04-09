@@ -4,6 +4,7 @@ import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.entities.RaftEntity;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Aegirocassis;
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.Astorgosuchus;
 import com.renatiux.dinosexpansion.common.entities.environment.*;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Allosaurus;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.Chimerarachne;
@@ -71,6 +72,8 @@ public class EntityTypeInit {
 	public static final RegistryObject<EntityType<ArchimyrmexLarvae>> ARCHIMYRMEX_LARVAE = register("archimyrmex_larvae", EntityType.Builder.create(ArchimyrmexLarvae::new, EntityClassification.AMBIENT));
 
 	public static final RegistryObject<EntityType<Xenocranium>> XENOCRANIUM = register("xenocranium", EntityType.Builder.create(Xenocranium::new, EntityClassification.AMBIENT));
+
+	public static final RegistryObject<EntityType<Astorgosuchus>> ASTORGOSUCHUS = register("astorgosuchus", EntityType.Builder.create(Astorgosuchus::new, EntityClassification.MONSTER));
 
 
 	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder){

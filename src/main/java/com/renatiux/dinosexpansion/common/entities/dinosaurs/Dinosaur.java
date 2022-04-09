@@ -109,7 +109,7 @@ public abstract class Dinosaur extends MonsterEntity
     protected AnimationFactory factory = new AnimationFactory(this);
     protected Inventory dinosaurInventory, tamingInventory;
 
-    private boolean dead, day;
+    protected boolean dead, day;
     private List<ItemStack> stacksToDrop;
     protected DinosaurStatus prevStatus;
 
@@ -522,13 +522,7 @@ public abstract class Dinosaur extends MonsterEntity
             if (this.getLevelProgress() >= 100){
                 this.levelUp();
             }
-            if (isSleeping()) {
-                if (shouldWakeUp()) {
-                    setSleep(false);
-                }
-            } else if (shouldSleep()) {
-                setSleep(true);
-            }
+            updateSleep();
             if (!isKnockout())
                 findAndAddHunger(false);
         }
@@ -540,6 +534,20 @@ public abstract class Dinosaur extends MonsterEntity
             updateChild();
         }
         this.setHunger(this.reduceHunger(this.getHunger()));
+    }
+
+    /**
+     * update Sleep only is executed on the server
+     * called every tick
+     */
+    protected void updateSleep(){
+        if (isSleeping()) {
+            if (shouldWakeUp()) {
+                setSleep(false);
+            }
+        } else if (shouldSleep()) {
+            setSleep(true);
+        }
     }
 
     protected void updateChild() {
@@ -810,7 +818,8 @@ public abstract class Dinosaur extends MonsterEntity
         this.setNarcotic(compound.getInt("narcotic"));
         this.setStatus(DinosaurStatus.getStatus(compound.getInt("status")));
         this.setTame(compound.getBoolean("Tame"));
-        this.setSex(Sex.valueOf(compound.getString("sex")));
+        if (compound.contains("sex"))
+            this.setSex(Sex.valueOf(compound.getString("sex")));
         this.dataManager.set(LEVEL, compound.getInt("level"));
         this.setLevelPoints(compound.getInt("levelPoints"));
         this.dataManager.set(TAMING_PROGRESS, compound.getByte("tamingProgress"));

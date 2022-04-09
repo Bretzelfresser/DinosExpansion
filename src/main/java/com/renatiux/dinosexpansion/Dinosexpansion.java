@@ -4,6 +4,7 @@ import static com.renatiux.dinosexpansion.common.world.DEFeatures.features;
 import static net.minecraft.item.ItemModelsProperties.registerProperty;
 
 import com.renatiux.dinosexpansion.common.entities.aquatic.Eosqualodon;
+import com.renatiux.dinosexpansion.common.entities.dinosaurs.Astorgosuchus;
 import com.renatiux.dinosexpansion.common.entities.environment.*;
 import com.renatiux.dinosexpansion.common.entities.environment.myrmex.ArchimyrmexLarvae;
 import com.renatiux.dinosexpansion.common.loot.ChestLootModifier;
@@ -163,7 +164,7 @@ public class Dinosexpansion {
         event.put(EntityTypeInit.OPABINIA.get(), Opabinia.registerAttributes().create());
         event.put(EntityTypeInit.ARCHIMYRMEX_LARVAE.get(), ArchimyrmexLarvae.registerAttributes().create());
         event.put(EntityTypeInit.XENOCRANIUM.get(), Xenocranium.setCustomAttributes().create());
-
+        event.put(EntityTypeInit.ASTORGOSUCHUS.get(), Astorgosuchus.setCustomAttributes().create());
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

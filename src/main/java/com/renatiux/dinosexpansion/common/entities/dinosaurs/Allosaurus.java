@@ -66,12 +66,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Allosaurus> {
 
-    /**
-     * Constants for {@link World#setEntityState(Entity, byte)} for this Entity
-     */
-    public static final byte GROWL_ANIMATION = 10, ATTACK_ANIMATION = 11, WAKEUP_ANIMATION = 12,
-            SLEEP_ANIMATION = 13, KNOCKOUT_ANIMATION = 14, NOT_KNOCKOUT_ANIMATION = 15, SIT = 16, STAND_UP = 17;
-
     private static final UUID SPEED_MODIFIER_ATTACKING_UUID = UUID.fromString("020E0FFB-87AE-4653-9556-501010E221A0");
     private static final String CONTROLLER_NAME = "controller";
     public static final AttributeModifier SPEED_MODIFIER_ATTACKING = new AttributeModifier(
@@ -85,7 +79,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
     }
 
     private int attackCounter, attackedId, growlCooldown, idleCooldown, wakeUpCooldown;
-    private boolean growl;
     @OnlyIn(Dist.CLIENT)
     private int growlAnimationCooldown = 0;
 
@@ -104,7 +97,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
         growlCooldown = 0;
         idleCooldown = 0;
         wakeUpCooldown = 0;
-        growl = false;
 
         this.stepHeight = 1.0f;
     }
@@ -205,8 +197,8 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
-                this.setAIMoveSpeed((float) 0.4f);
-                super.travel(new Vector3d((double) f, pos.y, (double) f1));
+                this.setAIMoveSpeed(0.4f);
+                super.travel(new Vector3d(f, pos.y, f1));
             } else
                 super.travel(pos);
         }
@@ -336,7 +328,6 @@ public final class Allosaurus extends Dinosaur implements IAnimationPredicate<Al
     @Override
     public void handleStatusUpdate(byte id) {
         if (id == 10) {
-            growl = true;
             this.growlAnimationCooldown = 25;
         } else
             super.handleStatusUpdate(id);

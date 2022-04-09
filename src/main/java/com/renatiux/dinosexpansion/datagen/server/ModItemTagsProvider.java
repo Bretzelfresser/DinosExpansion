@@ -31,6 +31,7 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 		getOrCreateBuilder(Tags.Items.MEDIKITS).add(ItemInit.NORMAL_MEDIKIT.get(), ItemInit.BETTER_MEDIKIT.get());
 		getOrCreateBuilder(Tags.Items.WOOD_TOOLS).add(Items.WOODEN_AXE, Items.WOODEN_HOE, Items.WOODEN_PICKAXE, Items.WOODEN_SHOVEL, Items.WOODEN_SWORD);
 		getOrCreateBuilder(Tags.Items.PALEONTOLOGIC_TOOLS).add(ItemInit.PALEONTOLOGICAL_HAMMER.get());
+		getOrCreateBuilder(Tags.Items.SPEARS);//TODO Spears tag
 	}
 
 	private void makeShields(){
