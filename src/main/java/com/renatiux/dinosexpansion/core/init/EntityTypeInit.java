@@ -73,7 +73,7 @@ public class EntityTypeInit {
 
 	public static final RegistryObject<EntityType<Xenocranium>> XENOCRANIUM = register("xenocranium", EntityType.Builder.create(Xenocranium::new, EntityClassification.AMBIENT));
 
-	public static final RegistryObject<EntityType<Astorgosuchus>> ASTORGOSUCHUS = register("astorgosuchus", EntityType.Builder.create(Astorgosuchus::new, EntityClassification.MONSTER));
+	public static final RegistryObject<EntityType<Astorgosuchus>> ASTORGOSUCHUS = register("astorgosuchus", EntityType.Builder.<Astorgosuchus>create(Astorgosuchus::new, EntityClassification.MONSTER).size(1.5f, 0.6f));
 
 
 	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder){

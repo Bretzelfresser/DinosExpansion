@@ -1,13 +1,14 @@
 package com.renatiux.dinosexpansion.common.entities.dinosaurs;
 
-import com.google.common.collect.Lists;
 import com.renatiux.dinosexpansion.common.container.DinosaurTamingInventory;
 import com.renatiux.dinosexpansion.common.entities.controller.AquaticMoveController;
+import com.renatiux.dinosexpansion.common.entities.controller.ISemiAquatic;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.BaseGuiTamingBehaviour;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
 import com.renatiux.dinosexpansion.common.goals.*;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -20,12 +21,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.pathfinding.SwimmerPathNavigator;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -38,10 +41,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.function.DoublePredicate;
+import java.util.Random;
 
-public class Astorgosuchus extends Dinosaur{
+public class Astorgosuchus extends Dinosaur implements ISemiAquatic{
     public static final String CONTROLLER_NAME = "controller";
 
     public static final DataParameter<Boolean> SWIMMING = EntityDataManager.createKey(Astorgosuchus.class, DataSerializers.BOOLEAN);
@@ -68,7 +70,7 @@ public class Astorgosuchus extends Dinosaur{
 
     @OnlyIn(Dist.CLIENT)
     private PlayState movingAnimation(AnimationEvent<Astorgosuchus> event){
-        if (event.isMoving()){
+        if (event.isMoving() && !isSleeping() && !isKnockout() && deathTime <= 0){
             if (isSwimming()){
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Astargosuchus_Swim", true));
             }else{
@@ -91,6 +93,18 @@ public class Astorgosuchus extends Dinosaur{
     }
 
     @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setSwimming(compound.getBoolean("swimming"));
+    }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putBoolean("swimming", this.isSwimming());
+    }
+
+    @Override
     protected void registerData() {
         super.registerData();
         this.dataManager.register(SWIMMING, this.isInWater());
@@ -100,6 +114,7 @@ public class Astorgosuchus extends Dinosaur{
     public void livingTick() {
         super.livingTick();
         updateSwimming();
+        System.out.println(isSleeping());
     }
 
     @Override
@@ -116,7 +131,8 @@ public class Astorgosuchus extends Dinosaur{
         this.goalSelector.addGoal(11, new AstorgosuchusWalkRandom(this, 0.5f));
         this.goalSelector.addGoal(9, new DinosaurLookAtGoal(this,PlayerEntity.class, 12.0f));
         this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 0.8f, 3, 10));
-        this.goalSelector.addGoal(3, new SwitchMoveWaterLand(this, 0.5f));
+        this.goalSelector.addGoal(3, new MoveToWaterGoal(this));
+        this.goalSelector.addGoal(4, new MoveToLandGoal(this));
     }
 
     @Override
@@ -187,12 +203,12 @@ public class Astorgosuchus extends Dinosaur{
 
     @Override
     protected boolean shouldSleep() {
-        return false;
+        return this.isOnGround() && !isInWater() && timeToSleep() &&this.navigator.noPath();
     }
 
     @Override
     protected boolean shouldWakeUp() {
-        return false;
+        return this.isInWater() && timeToWakeUp();
     }
 
     private boolean timeToSleep(){
@@ -238,6 +254,26 @@ public class Astorgosuchus extends Dinosaur{
         data.addAnimationController(new AnimationController(this, "walkingController", 0, this::movingAnimation));
     }
 
+    @Override
+    public boolean shouldEnterWater() {
+        return timeToWakeUp() && isSleeping();
+    }
+
+    @Override
+    public boolean shouldLeaveWater() {
+        return timeToSleep() && !isSleeping();
+    }
+
+    @Override
+    public boolean shouldStopMoving() {
+        return false;
+    }
+
+    @Override
+    public int getWaterSearchRange() {
+        return 20;
+    }
+
     protected static class AstorgosuchusWalkRandom extends DinosaureWalkRandomlyGoal{
 
         private final Astorgosuchus crocodile;
@@ -245,6 +281,11 @@ public class Astorgosuchus extends Dinosaur{
         public AstorgosuchusWalkRandom(Astorgosuchus creature, double speed) {
             super(creature, speed);
             crocodile = creature;
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            return ( this.crocodile.navigator.getPath() == null || this.crocodile.navigator.getPath().isFinished()) && super.shouldExecute();
         }
 
         @Nullable
@@ -259,88 +300,5 @@ public class Astorgosuchus extends Dinosaur{
             }
             return super.getPosition();
         }
-    }
-
-    protected static class SwitchMoveWaterLand extends Goal {
-
-        protected final Astorgosuchus creature;
-        protected BlockPos positionToMoveTo;
-        protected final double speed;
-        public SwitchMoveWaterLand(Astorgosuchus creature, double speed){
-            this.creature = creature;
-            this.speed = speed;
-        }
-
-        @Override
-        public boolean shouldExecute() {
-            return (this.creature.timeToSleep() && !this.creature.isSleeping()) || (this.creature.timeToWakeUp() && this.creature.isSleeping());
-        }
-
-        @Override
-        public void resetTask() {
-            this.positionToMoveTo = null;
-        }
-
-        @Override
-        public void startExecuting() {
-            if (this.creature.isSwimming() && this.creature.timeToSleep()){
-                searchForDestination((world, pos) -> world.getBlockState(pos).allowsMovement(world, pos, PathType.LAND) && pos.distanceSq(this.creature.getPosition()) > 25);
-            }else if(creature.timeToWakeUp()){
-                System.out.println(searchForDestination((world, pos) -> world.getBlockState(pos).matchesBlock(Blocks.WATER)));
-                creature.setSleep(false);
-                System.out.println(positionToMoveTo != null);
-            }
-            if (positionToMoveTo != null){
-                System.out.println(this.creature.navigator.tryMoveToXYZ(positionToMoveTo.getX(), positionToMoveTo.getY(), positionToMoveTo.getZ(), this.speed));
-                System.out.println(positionToMoveTo);
-            }
-        }
-
-        @Override
-        public void tick() {
-            if (this.creature.navigator.getPath() != null && this.creature.navigator.getPath().isFinished()){
-               this.positionToMoveTo = null;
-            }
-            if (this.positionToMoveTo == null && creature.timeToSleep()){
-                this.creature.setSleep(true);
-            }
-        }
-
-        protected Vector3d getGroundPosition(){
-            return RandomPositionGenerator.getLandPos(this.creature, 100, 10);
-        }
-
-        protected Vector3d getWaterPosition(){
-            Vector3d vector3d = RandomPositionGenerator.findRandomTarget(this.creature, 100, 10);
-            for(int i = 0; vector3d != null && !this.creature.world.getBlockState(new BlockPos(vector3d)).allowsMovement(this.creature.world, new BlockPos(vector3d), PathType.WATER) && i++ < 1000; vector3d = RandomPositionGenerator.findRandomTarget(this.creature, 100, 10)) {
-            }
-            return vector3d;
-        }
-
-        protected boolean searchForDestination(BiPredicate<World, BlockPos> predicate) {
-            int i = 100;
-            int j = 10;
-            BlockPos blockpos = this.creature.getPosition();
-            BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
-            for(int k = 0; k <= j; k = k > 0 ? -k : 1 - k) {
-                for(int l = 0; l < i; ++l) {
-                    for(int i1 = 0; i1 <= l; i1 = i1 > 0 ? -i1 : 1 - i1) {
-                        for(int j1 = i1 < l && i1 > -l ? l : 0; j1 <= l; j1 = j1 > 0 ? -j1 : 1 - j1) {
-                            blockpos$mutable.setAndOffset(blockpos, i1, k - 1, j1);
-                            if (predicate.accept(this.creature.world, blockpos$mutable)) {
-                                this.positionToMoveTo = blockpos$mutable;
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-    }
-
-    public interface BiPredicate<S, T>{
-        boolean accept(S first, T second);
     }
 }
