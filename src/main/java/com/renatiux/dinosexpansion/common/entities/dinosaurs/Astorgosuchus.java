@@ -2,6 +2,7 @@ package com.renatiux.dinosexpansion.common.entities.dinosaurs;
 
 import com.google.common.collect.Lists;
 import com.renatiux.dinosexpansion.common.container.DinosaurTamingInventory;
+import com.renatiux.dinosexpansion.common.entities.controller.AquaticMoveController;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.BaseGuiTamingBehaviour;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
 import com.renatiux.dinosexpansion.common.goals.*;
@@ -11,6 +12,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.SquidEntity;
@@ -102,7 +104,7 @@ public class Astorgosuchus extends Dinosaur{
 
     @Override
     public boolean canBreatheUnderwater() {
-        return false;
+        return true;
     }
 
     @Override
@@ -110,10 +112,10 @@ public class Astorgosuchus extends Dinosaur{
         super.registerGoals();
         this.goalSelector.addGoal(1, new DinosaurNearestAttackableTarget<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(2, new DinosaurNearestAttackableTarget<>(this, SquidEntity.class, true));
-        this.goalSelector.addGoal(10, new DinosaurBreedGoal(this, 1.2f));
+        this.goalSelector.addGoal(10, new DinosaurBreedGoal(this, 0.8f));
         this.goalSelector.addGoal(11, new AstorgosuchusWalkRandom(this, 0.5f));
         this.goalSelector.addGoal(9, new DinosaurLookAtGoal(this,PlayerEntity.class, 12.0f));
-        this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 1.0f, 3, 10));
+        this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 0.8f, 3, 10));
         this.goalSelector.addGoal(3, new SwitchMoveWaterLand(this, 0.5f));
     }
 
@@ -141,9 +143,11 @@ public class Astorgosuchus extends Dinosaur{
         if (!this.world.isRemote) {
             if (this.isServerWorld() && this.isInWater()) {
                 this.navigator = this.waterNavigator;
+                this.moveController = new AquaticMoveController(this, 1);
                 this.setSwimming(true);
             } else {
                 this.navigator = this.groundNavigator;
+                this.moveController = new MovementController(this);
                 this.setSwimming(false);
             }
         }
@@ -251,7 +255,6 @@ public class Astorgosuchus extends Dinosaur{
 
                 for(int i = 0; vector3d != null && !this.creature.world.getBlockState(new BlockPos(vector3d)).allowsMovement(this.creature.world, new BlockPos(vector3d), PathType.WATER) && i++ < 10; vector3d = RandomPositionGenerator.findRandomTarget(this.creature, 10, 7)) {
                 }
-                System.out.println(new BlockPos(vector3d));
                 return vector3d;
             }
             return super.getPosition();
