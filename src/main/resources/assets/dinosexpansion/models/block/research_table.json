@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "dinosexpansion:block/research_table_side",
+    "north": "dinosexpansion:block/research_table_side",
+    "south": "dinosexpansion:block/research_table_side",
+    "east": "dinosexpansion:block/research_table_side",
+    "west": "dinosexpansion:block/research_table_side",
+    "up": "dinosexpansion:block/research_table_top",
+    "down": "dinosexpansion:block/research_table_bottom"
+  }
+}

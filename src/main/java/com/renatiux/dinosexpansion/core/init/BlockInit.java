@@ -72,6 +72,7 @@ public class BlockInit {
 	public static final DoubleRegistryObject<Feeder, BlockItem> FEEDER = CUSTOM.register("feeder", Feeder::new, block -> new BlockItem(block, new Item.Properties().group(ItemGroupInit.MACHINES)));
 	public static final DoubleRegistryObject<SkeletalAssemblyTable, BlockItem> SKELETAL_ASSEMBLY_TABLE = CUSTOM.register("skeletal_assembly_table", SkeletalAssemblyTable::new, () -> new Item.Properties().group(ItemGroupInit.MACHINES));
 	public static final DoubleRegistryObject<Cabinet, BlockItem> CABINET = CUSTOM.register("cabinet", Cabinet::new, () -> new Item.Properties().group(ItemGroupInit.MACHINES));
+	public static final RegistryObject<Block> RESEARCH_TABLE = MACHINES.register("research_table", ResearchTable::new);
 
 	//creates
 	public static final DoubleRegistryObject<CreateBlock, BlockItem> WHITE_ASTORGOSUCHUS_CREATE = CUSTOM.register("white_astorgosuchus_create", () -> new CreateBlock(AbstractBlock.Properties.create(Material.WOOD).setRequiresTool().harvestTool(ToolType.AXE)), () -> new Item.Properties().group(ItemGroupInit.BLOCK));
