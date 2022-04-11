@@ -5,6 +5,8 @@ import com.renatiux.dinosexpansion.common.entities.controller.AquaticMoveControl
 import com.renatiux.dinosexpansion.common.entities.controller.ISemiAquatic;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.BaseGuiTamingBehaviour;
 import com.renatiux.dinosexpansion.common.entities.dinosaurs.taming_behavior.TamingBahviour;
+import com.renatiux.dinosexpansion.common.entities.ia.AstorgosuchusAIMelee;
+import com.renatiux.dinosexpansion.common.entities.ia.AstorgosuchusAIRandomSwimming;
 import com.renatiux.dinosexpansion.common.goals.*;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 import net.minecraft.block.Blocks;
@@ -16,6 +18,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.SquidEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +32,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.pathfinding.SwimmerPathNavigator;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
@@ -43,9 +45,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class Astorgosuchus extends Dinosaur implements ISemiAquatic{
+
     public static final String CONTROLLER_NAME = "controller";
 
     public static final DataParameter<Boolean> SWIMMING = EntityDataManager.createKey(Astorgosuchus.class, DataSerializers.BOOLEAN);
@@ -130,7 +132,10 @@ public class Astorgosuchus extends Dinosaur implements ISemiAquatic{
         this.goalSelector.addGoal(1, new DinosaurNearestAttackableTarget<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(2, new DinosaurNearestAttackableTarget<>(this, SquidEntity.class, true));
         this.goalSelector.addGoal(10, new DinosaurBreedGoal(this, 0.8f));
+        //this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 0.5f, true));
+        this.goalSelector.addGoal(4, new AstorgosuchusAIMelee(this, 0.5f, true));
         this.goalSelector.addGoal(11, new AstorgosuchusWalkRandom(this, 0.5f));
+        this.goalSelector.addGoal(10, new AstorgosuchusAIRandomSwimming(this, 1.0D, 7));
         this.goalSelector.addGoal(9, new DinosaurLookAtGoal(this,PlayerEntity.class, 12.0f));
         this.goalSelector.addGoal(5, new DinosaurFollowGoal(this, 0.8f, 3, 10));
         this.goalSelector.addGoal(3, new MoveToWaterGoal(this));
@@ -234,7 +239,7 @@ public class Astorgosuchus extends Dinosaur implements ISemiAquatic{
     }
 
     private boolean timeToSleep(){
-       return this.world.getDayTime() < 9000;
+        return this.world.getDayTime() < 9000;
     }
 
     private boolean timeToWakeUp(){

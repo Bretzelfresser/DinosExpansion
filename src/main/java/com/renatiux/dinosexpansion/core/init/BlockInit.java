@@ -299,6 +299,9 @@ public class BlockInit {
 	public static final RegistryObject<Block> DINO_STONE = BASIC_BLOCKS.register("dino_stone",
 			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.5F, 6.0F).harvestLevel(0).harvestTool(ToolType.PICKAXE)));
 
+	public static final RegistryObject<Block> FOSSIL_BLOCK = BASIC_BLOCKS.register("fossil_block",
+			()-> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE).setRequiresTool().hardnessAndResistance(1.5F, 6.0f).harvestLevel(0).harvestTool(ToolType.PICKAXE)));
+
 	//Ores
 	public static final RegistryObject<Block> DINO_COAL_ORE = BASIC_BLOCKS.register("dino_coal_ore",
 			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE)));
