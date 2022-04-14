@@ -3,13 +3,11 @@ package com.renatiux.dinosexpansion.datagen.server;
 import java.util.function.Consumer;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.common.recipes.ResearchTableRecipe;
 import com.renatiux.dinosexpansion.core.init.BlockInit;
 import com.renatiux.dinosexpansion.core.init.ItemInit;
 
-import com.renatiux.dinosexpansion.util.datagen.AdvancedSmithingTableRecipeBuilder;
-import com.renatiux.dinosexpansion.util.datagen.GeneratorRecipeBuilder;
-import com.renatiux.dinosexpansion.util.datagen.MortarRecipeBuilder;
-import com.renatiux.dinosexpansion.util.datagen.SkeletalAssemblyTableRecipeBuilder;
+import com.renatiux.dinosexpansion.util.datagen.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.entity.passive.PandaEntity;
@@ -36,6 +34,7 @@ public class ModRecipeProvider extends RecipeProvider {
         //shapeless recipe, the criterion determines when the recipe is unlocked in the recipe book, there has to be one
         ShapelessRecipeBuilder.shapelessRecipe(ItemInit.TRANQUILIZER_ARROW.get()).addIngredient(Items.ARROW).addIngredient(ItemInit.NARCOTICS.get()).addCriterion("hasItem", hasItem(ItemInit.NARCOTICS.get())).build(consumer);
         MortarRecipeBuilder.recipe(ItemInit.NARCOTICS.get(), 300).addInput(Items.ROTTEN_FLESH).addInput(ItemInit.NARCOTIC_BERRY.get(), 3).addCriterion("hasItem", hasItem(ItemInit.NARCOTIC_BERRY.get())).build(consumer);
+        ResearchTableRecipeBuilder.create(ItemInit.CROCODILE_FOSSIL.get()).setOutput(com.renatiux.dinosexpansion.core.tags.Tags.Items.ALLOSAURUS_FOSSILE_OUTCOME).setProcessingTime(100).build(consumer, "crocodile");
 
 
         CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ItemInit.RAW_BROWNSTONE.get()), ItemInit.POLISHED_BROWNSTONE.get(), 1.0F, 200).addCriterion("has_raw_brownstone", hasItem(ItemInit.RAW_BROWNSTONE.get())).build(consumer, Dinosexpansion.modLoc("polished_brownstone_from_smelting"));

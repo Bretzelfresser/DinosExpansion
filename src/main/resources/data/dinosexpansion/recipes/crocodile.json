@@ -1,0 +1,10 @@
+{
+  "type": "dinosexpansion:research_recipe",
+  "input": {
+    "item": "dinosexpansion:crocodile_fossil"
+  },
+  "output": {
+    "tag": "dinosexpansion:allosaurus_fossil_outcome"
+  },
+  "worktime": 100
+}

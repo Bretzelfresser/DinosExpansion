@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "dinosexpansion:allosaurus_bone_leg",
+    "dinosexpansion:allosaurus_bone_arm",
+    "dinosexpansion:allosaurus_bone_pelvis",
+    "dinosexpansion:allosaurus_bone_neck"
+  ]
+}

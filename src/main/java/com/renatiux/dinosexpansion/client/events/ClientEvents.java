@@ -97,6 +97,7 @@ public class ClientEvents {
 		ScreenManager.registerFactory(ContainerTypeInit.SKELETAL_ASSEMBLY_CONTAINER.get(), SkeletalAssemblyScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.CABINET_CONTAINER.get(), CabinetScreen::new);
 		ScreenManager.registerFactory(ContainerTypeInit.TRIBE_CONTAINER.get(), TribeScreen::new);
+		ScreenManager.registerFactory(ContainerTypeInit.RESEARCH_TABLE_CONTAINER.get(), ResearchTableScreen::new);
 	}
 
 	private static void armorModel(){

@@ -1,24 +1,49 @@
 package com.renatiux.dinosexpansion.common.tileEntities;
 
+import com.renatiux.dinosexpansion.common.container.ResearchTableContainer;
+import com.renatiux.dinosexpansion.common.recipes.ResearchTableRecipe;
+import com.renatiux.dinosexpansion.common.recipes.ResearchTableRecipeType;
+import com.renatiux.dinosexpansion.core.init.RecipeInit;
+import com.renatiux.dinosexpansion.core.init.TileEntityTypesInit;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
-public class ResearchTableTileEntity extends ContainerTileEntity implements ITickableTileEntity {
+import javax.annotation.Nullable;
+
+public class ResearchTableTileEntity extends ContainerTileEntity implements ITickableTileEntity, ISidedInventory {
 
     private static final int[] SLOTS_UP = new int[]{0};
-    private static final int[] SLOTS_DOWN = new int[]{2, 1};
-    private static final int[] SLOTS_HORIZONTAL = new int[]{1};
+    private static final int[] SLOTS_DOWN = new int[]{1};
+    private static final int[] SLOTS_HORIZONTAL = new int[]{0, 1};
 
-    public ResearchTableTileEntity(TileEntityType<?> tileEntityTypeIn, int slots) {
-        super(tileEntityTypeIn, slots);
+    LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.UP, Direction.DOWN,
+            Direction.NORTH);
+
+    private int maxCounter, counter, counterPercentage;
+
+    public ResearchTableTileEntity() {
+        super(TileEntityTypesInit.RESEARCH_TABLE_TILE.get(), 2);
+        maxCounter = 1;
+        counter = 0;
     }
 
 
     @Override
     protected Container createMenu(int id, PlayerInventory player) {
-        return null;
+        return new ResearchTableContainer(id, player, this);
     }
 
     @Override
@@ -27,7 +52,114 @@ public class ResearchTableTileEntity extends ContainerTileEntity implements ITic
     }
 
     @Override
-    public void tick() {
+    public void read(BlockState state, CompoundNBT nbt) {
+        super.read(state, nbt);
+        this.counter = nbt.getInt("counter");
+        this.maxCounter = nbt.getInt("maxCounter");
+        this.counterPercentage = nbt.getInt("counterPercentage");
+    }
 
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        compound.putInt("counter", this.counter);
+        compound.putInt("maxCounter", this.maxCounter);
+        compound.putInt("counterPercentage", this.counterPercentage);
+        return super.write(compound);
+    }
+
+    @Override
+    public void tick() {
+        //counter is normally 0, then it counts up to the workTime needed
+        //and when reaching it will put the stack in the output slot
+        if (!world.isRemote){
+            ResearchTableRecipe recipe = getRecipe();
+            if (recipe != null && canStart(recipe)) {
+                if (counter == 0)
+                    startProcessing(recipe);
+                if (counter < maxCounter) {
+                    process(recipe);
+                    if (counter == maxCounter){
+                        endProcessing(recipe);
+                    }
+                }
+            }else{
+                resetProcessing();
+            }
+            counterPercentage = (int) (((double) counter) * 100/((double)maxCounter));
+        }
+    }
+
+    /**
+     * when there is a recipe found that matches the current input item this check if there are additional conditions
+     */
+    private boolean canStart(ResearchTableRecipe recipe){
+        return getStackInSlot(1).isEmpty();
+    }
+
+    /**
+     * define the initial values to be set
+     */
+    private void startProcessing(ResearchTableRecipe recipe){
+        maxCounter = recipe.getNeededTime();
+        counter = 0;
+    }
+
+    private void process(ResearchTableRecipe recipe){
+        counter++;
+    }
+
+    private void endProcessing(ResearchTableRecipe recipe){
+        decrStackSize(0, 1);
+        setInventorySlotContents(1, recipe.getRecipeOutput());
+    }
+
+
+    private void resetProcessing(){
+        this.counter = 0;
+    }
+
+    @Nullable
+    private ResearchTableRecipe getRecipe(){
+        return this.world.getRecipeManager().getRecipe(RecipeInit.RESEARCH_TABLE_RECIPE, this, this.world).orElse(null);
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        if (side == Direction.DOWN){
+            return SLOTS_DOWN;
+        }if (side == Direction.UP)
+            return SLOTS_UP;
+        return SLOTS_HORIZONTAL;
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable Direction direction) {
+        return isItemValidForSlot(index, itemStackIn);
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+        return true;
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
+        if (!this.removed && side != null && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (side == Direction.UP)
+                return handlers[0].cast();
+            else if (side == Direction.DOWN)
+                return handlers[1].cast();
+            else
+                return handlers[2].cast();
+        }
+        return super.getCapability(cap, side);
+    }
+
+    public int getCounterPercentage() {
+        return counterPercentage;
+    }
+
+    public void setCounterPercentage(int counterPercentage) {
+        this.counterPercentage = counterPercentage;
     }
 }

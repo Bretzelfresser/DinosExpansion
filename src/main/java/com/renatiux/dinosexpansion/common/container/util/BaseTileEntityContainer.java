@@ -68,7 +68,11 @@ public abstract class BaseTileEntityContainer<T extends TileEntity & IInventory>
 		}
 		return stack;
 	}
-	
+
+	public T getTileEntity() {
+		return tileEntity;
+	}
+
 	public static class FuelSlot extends Slot{
 
 		public FuelSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {

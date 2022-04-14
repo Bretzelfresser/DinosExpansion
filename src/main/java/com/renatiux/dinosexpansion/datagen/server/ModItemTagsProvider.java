@@ -27,6 +27,7 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 		makeTimeMachineConsumable();
 		makePlantFood();
 		makeShields();
+		makeFossileTags();
 		getOrCreateBuilder(Tags.Items.DODO_COLLECTABLES).add(Items.MELON_SEEDS, Items.WHEAT_SEEDS, ItemInit.NARCOTIC_BERRY.get(), Items.BEETROOT_SEEDS, Items.PUMPKIN_SEEDS);
 		getOrCreateBuilder(Tags.Items.MEDIKITS).add(ItemInit.NORMAL_MEDIKIT.get(), ItemInit.BETTER_MEDIKIT.get());
 		getOrCreateBuilder(Tags.Items.WOOD_TOOLS).add(Items.WOODEN_AXE, Items.WOODEN_HOE, Items.WOODEN_PICKAXE, Items.WOODEN_SHOVEL, Items.WOODEN_SWORD);
@@ -36,6 +37,10 @@ public class ModItemTagsProvider extends ItemTagsProvider{
 
 	private void makeShields(){
 		getOrCreateBuilder(Tags.Items.SHIELDS).add(ItemInit.SPIKES_SHIELD.get(), ItemInit.HULLBREAKER.get(), ItemInit.HEAVY_SHIELD.get());
+	}
+
+	private void makeFossileTags(){
+		getOrCreateBuilder(Tags.Items.ALLOSAURUS_FOSSILE_OUTCOME).add(ItemInit.ALLOSAURUS_BONE_LEG.get(), ItemInit.ALLOSAURUS_BONE_ARM.get(), ItemInit.ALLOSAURUS_BONE_PELVIS.get(), ItemInit.ALLOSAURUS_BONE_NECK.get());
 	}
 	
 	private void makeArrows() {

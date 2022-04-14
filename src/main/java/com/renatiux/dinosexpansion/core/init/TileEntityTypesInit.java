@@ -25,6 +25,7 @@ public class TileEntityTypesInit {
 	public static final RegistryObject<TileEntityType<SkeletalAssemblyTableTile>> SKELETAL_ASSEMBLY_TABLE_TILE = TILE_ENTITY_TYPES.register("skeletal_assembly_table", () -> TileEntityType.Builder.create(SkeletalAssemblyTableTile::new, BlockInit.SKELETAL_ASSEMBLY_TABLE.getPrimary(), BlockInit.STRUCTURE_SKELETAL_ASSEMBLY_TABLE.get()).build(null));
 	public static final RegistryObject<TileEntityType<CabinetTileEntity>> CABINET_TILE_ENTITY = TILE_ENTITY_TYPES.register("cabinet", () -> TileEntityType.Builder.create(CabinetTileEntity::new, BlockInit.CABINET.getPrimary()).build(null));
 	public static final RegistryObject<TileEntityType<PrehistoricBedTileEntity>> PREHISTORIC_BED = TILE_ENTITY_TYPES.register("prehistoric_bed", () -> new TileEntityType<>(PrehistoricBedTileEntity::new, Sets.newHashSet(BlockInit.PREHISTORIC_BED.get()), null));
+	public static final RegistryObject<TileEntityType<ResearchTableTileEntity>> RESEARCH_TABLE_TILE = TILE_ENTITY_TYPES.register("research_table", () -> TileEntityType.Builder.create(ResearchTableTileEntity::new, BlockInit.RESEARCH_TABLE.get()).build(null));
 
 	public static final RegistryObject<TileEntityType<DESignTileEntity>> SIGN_TILE_ENTITIES = TILE_ENTITY_TYPES.register("sign",
 			()-> TileEntityType.Builder.create(DESignTileEntity::new, BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get()).build(null));
