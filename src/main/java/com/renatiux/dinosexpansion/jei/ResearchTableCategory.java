@@ -24,6 +24,8 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 
+import java.util.Arrays;
+
 public class ResearchTableCategory implements IRecipeCategory<ResearchTableRecipe> {
 
     public static final ResourceLocation ID = Dinosexpansion.modLoc("research_table_category");
@@ -32,7 +34,7 @@ public class ResearchTableCategory implements IRecipeCategory<ResearchTableRecip
     private final LoadingCache<Integer, IDrawableAnimated> progressBar;
 
     public ResearchTableCategory(IGuiHelper helper) {
-        this.background = helper.createDrawable(ResearchTableScreen.TEXTURE, 0, 0, 176, 130);
+        this.background = helper.createDrawable(ResearchTableScreen.TEXTURE, 0, 0, 176, 80);
         this.icon = helper.createDrawableIngredient(new ItemStack(BlockInit.RESEARCH_TABLE.get()));
         this.progressBar = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<Integer, IDrawableAnimated>() {
             @Override
@@ -57,7 +59,7 @@ public class ResearchTableCategory implements IRecipeCategory<ResearchTableRecip
 
     @Override
     public String getTitle() {
-        return new TranslationTextComponent("category" + Dinosexpansion.MODID + "research_table_category").toString();
+        return new TranslationTextComponent("category" + Dinosexpansion.MODID + "research_table_category").getString();
     }
 
     @Override
@@ -73,18 +75,20 @@ public class ResearchTableCategory implements IRecipeCategory<ResearchTableRecip
     @Override
     public void setIngredients(ResearchTableRecipe recipe, IIngredients ingredients) {
             ingredients.setInputIngredients(recipe.getIngredients());
-            for (ItemStack stack : recipe.getOutput().getMatchingStacks())
-                ingredients.setOutput(VanillaTypes.ITEM, stack);
+            ingredients.setOutputs(VanillaTypes.ITEM, Arrays.asList(recipe.getOutput().getMatchingStacks()));
     }
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, ResearchTableRecipe recipe, IIngredients ingredients) {
         IGuiItemStackGroup items = recipeLayout.getItemStacks();
 
-        items.init(0, true, 54, 35);
-        items.init(1, false, 116, 35);
+        items.init(0, true, 53, 34);
+        items.init(1, false, 115, 34);
+
 
         items.set(ingredients);
+        items.set(1, Arrays.asList(recipe.getOutput().getMatchingStacks()));
+        items.set(0, Arrays.asList(recipe.getInput().getMatchingStacks()));
 
     }
 
@@ -112,11 +116,11 @@ public class ResearchTableCategory implements IRecipeCategory<ResearchTableRecip
         if (cookTime > 0 && chance > 0) {
             int cookTimeSeconds = cookTime / 20;
             TranslationTextComponent timeString = new TranslationTextComponent("dinosexpansion.research_table.time.seconds", cookTimeSeconds);
-            TranslationTextComponent chanceString = new TranslationTextComponent(Dinosexpansion.MODID + ".research_table.chance", chance);
+            TranslationTextComponent chanceString = new TranslationTextComponent("dinosexpansion.research_table.chance", chance, "%");
             Minecraft minecraft = Minecraft.getInstance();
             FontRenderer fontRenderer = minecraft.fontRenderer;
-            fontRenderer.drawText(matrixStack, timeString, 79, 46, 0xFF808080);
-            fontRenderer.drawText(matrixStack, chanceString, 111, 45, 0xFF808080);
+            fontRenderer.drawText(matrixStack, timeString, 79, 55, 0xFF808080);
+            fontRenderer.drawText(matrixStack, chanceString, 116, 60, 0xFF808080);
         }
     }
 }

@@ -10,13 +10,9 @@ import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import mezz.jei.plugins.vanilla.ingredients.item.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
