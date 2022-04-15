@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -53,6 +54,11 @@ public class ResearchTableRecipe implements IRecipe<ResearchTableTileEntity> {
         return true;
     }
 
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return NonNullList.from(this.input);
+    }
+
     /**
      * this will get u the output, keep in mind that this will get a random item from a tag, so if u call it twice it may give u a differen value
      */
@@ -63,6 +69,10 @@ public class ResearchTableRecipe implements IRecipe<ResearchTableTileEntity> {
             return outputs[0];
         }
         return outputs[new Random().nextInt(outputs.length)].copy();
+    }
+
+    public Ingredient getOutput() {
+        return output;
     }
 
     @Override
