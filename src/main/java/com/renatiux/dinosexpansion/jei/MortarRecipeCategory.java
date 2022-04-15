@@ -26,7 +26,7 @@ public class MortarRecipeCategory implements IRecipeCategory<MortarRecipe> {
 
     public static final ResourceLocation ID = new ResourceLocation(Dinosexpansion.MODID, "mortar_recipe_category");
     protected static final ResourceLocation GUI = Dinosexpansion.modLoc("textures/gui/jei/dinosexpansion_backgrounds.png");
-    private final LoadingCache<Integer, IDrawableAnimated> ProgessBar;
+    private final LoadingCache<Integer, IDrawableAnimated> progressBar;
     private final IDrawable back;
     private final IDrawable icon;
     private final IDrawableStatic staticMortar;
@@ -37,7 +37,7 @@ public class MortarRecipeCategory implements IRecipeCategory<MortarRecipe> {
         this.icon = helper.createDrawableIngredient(new ItemStack(BlockInit.MORTAR.get()));
         this.staticMortar = helper.createDrawable(MortarRecipeCategory.GUI, 82, 0, 16, 17);
         //this.animatedMortar = helper.createAnimatedDrawable(staticMortar, 300, IDrawableAnimated.StartDirection.BOTTOM, false);
-        this.ProgessBar = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<Integer, IDrawableAnimated>() {
+        this.progressBar = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<Integer, IDrawableAnimated>() {
             @Override
             public IDrawableAnimated load(Integer cookTime) {
                 return helper.drawableBuilder(MortarRecipeCategory.GUI, 82, 17, 24, 17).buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
@@ -51,7 +51,7 @@ public class MortarRecipeCategory implements IRecipeCategory<MortarRecipe> {
             cookTime = 60;
         }
 
-        return this.ProgessBar.getUnchecked(cookTime);
+        return this.progressBar.getUnchecked(cookTime);
     }
 
     @Override
