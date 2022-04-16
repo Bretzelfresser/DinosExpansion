@@ -38,7 +38,7 @@ public class ResearchTable extends ContainerBlock {
             if (te != null)
             NetworkHooks.openGui((ServerPlayerEntity) player, te, pos);
         }
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        return ActionResultType.SUCCESS;
     }
 
     @Override

@@ -53,7 +53,7 @@ public class Generator extends BaseMultiBlock{
 				NetworkHooks.openGui((ServerPlayerEntity) player, te, pos);
 			}
 		}
-		return ActionResultType.PASS;
+		return ActionResultType.CONSUME;
 	}
 	
 	@SuppressWarnings("deprecation")

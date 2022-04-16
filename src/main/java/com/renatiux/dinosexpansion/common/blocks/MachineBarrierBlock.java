@@ -82,7 +82,7 @@ public class MachineBarrierBlock extends Block {
 		}
 		if (clickedProvider != null)
 			return clickedProvider.onBlockActivated(state, world, pos, player, handIn, hit);
-		return ActionResultType.PASS;
+		return ActionResultType.CONSUME;
 	}
 
 	@Override
