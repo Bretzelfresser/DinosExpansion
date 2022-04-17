@@ -6,7 +6,6 @@ import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.client.screens.ResearchTableScreen;
-import com.renatiux.dinosexpansion.common.recipes.MortarRecipe;
 import com.renatiux.dinosexpansion.common.recipes.ResearchTableRecipe;
 import com.renatiux.dinosexpansion.core.init.BlockInit;
 import mezz.jei.api.constants.VanillaTypes;
@@ -20,7 +19,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 
