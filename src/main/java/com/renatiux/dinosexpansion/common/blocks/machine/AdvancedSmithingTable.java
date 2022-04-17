@@ -36,7 +36,7 @@ public class AdvancedSmithingTable extends BaseMultiBlock {
 	protected static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 16, 16);
 
 	public AdvancedSmithingTable() {
-		super(AbstractBlock.Properties.create(Material.IRON).harvestTool(ToolType.AXE).harvestLevel(1).setRequiresTool()
+		super(AbstractBlock.Properties.create(Material.WOOD).harvestTool(ToolType.AXE).harvestLevel(1).setRequiresTool()
 				.notSolid().hardnessAndResistance(4.0f), SHAPE);
 	}
 
@@ -53,20 +53,18 @@ public class AdvancedSmithingTable extends BaseMultiBlock {
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
 			Hand handIn, BlockRayTraceResult hit) {
-		if (openGui(player, worldIn, pos)) {
-			return ActionResultType.CONSUME;
+		if (!worldIn.isRemote) {
+			TileEntity te = worldIn.getTileEntity(pos);
+			if (te instanceof AdvancedSmithingTableTileEntity) {
+				NetworkHooks.openGui((ServerPlayerEntity) player, (AdvancedSmithingTableTileEntity) te, pos);
+
+			}
 		}
-		return ActionResultType.PASS;
+		return ActionResultType.SUCCESS;
 	}
 
-	/**
-	 * 
-	 * @param player - the player that is opening the gui
-	 * @param world - the world that is the gui opening in
-	 * @param pos - the pos of the te that should open
-	 * @return whether the gui opened or not
-	 */
-	public boolean openGui(PlayerEntity player, World world, BlockPos pos) {
+
+	/*public boolean openGui(PlayerEntity player, World world, BlockPos pos) {
 		if (!world.isRemote) {
 			TileEntity te = world.getTileEntity(pos);
 			if (te instanceof AdvancedSmithingTableTileEntity) {
@@ -75,7 +73,7 @@ public class AdvancedSmithingTable extends BaseMultiBlock {
 			}
 		}
 		return false;
-	}
+	}*/
 
 	@SuppressWarnings("deprecation")
 	@Override
