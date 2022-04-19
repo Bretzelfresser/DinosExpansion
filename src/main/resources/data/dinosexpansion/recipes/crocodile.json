@@ -6,5 +6,6 @@
   "output": {
     "tag": "dinosexpansion:allosaurus_fossil_outcome"
   },
-  "worktime": 100
+  "worktime": 100,
+  "experience": 5.0
 }

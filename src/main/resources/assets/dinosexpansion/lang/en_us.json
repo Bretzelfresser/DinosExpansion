@@ -8,6 +8,7 @@
 	"container.dinosexpansion.industrial_grill": "Industrial Grill",
 	"container.dinosexpansion.incubator" : "Incubator",
 	"container.dinosexpansion.skeletal_assembly_table": "Skeletal Assembly Table",
+	"container.dinosexpansion.research_table": "Research Table",
 	
 	"block.dinosexpansion.mortar": "Mortar",
 	"block.dinosexpansion.lavender": "Lavender",
@@ -210,6 +211,7 @@
 	"dinosexpansion.research_table.chance": "%1$s%2$s",
 	"category.dinosexpansion.advanced_smithing_table": "Advanced Smithing Table",
 	"category.dinosexpansion.skeletal_assembly_table_category": "Skeletal Assembly Table",
+	"category.dinosexpansion.research_table": "Research Table",
 	
 	"screen.dinosexpansion.idle": "Idle",
 	"screen.dinosexpansion.hostile": "Hostile",
