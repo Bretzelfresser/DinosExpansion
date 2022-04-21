@@ -1,6 +1,7 @@
 package com.renatiux.dinosexpansion.datagen.server;
 
 import com.renatiux.dinosexpansion.Dinosexpansion;
+import com.renatiux.dinosexpansion.core.init.BlockInit;
 import com.renatiux.dinosexpansion.core.tags.Tags;
 
 import net.minecraft.block.Blocks;
@@ -39,6 +40,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider{
 		getOrCreateBuilder(Tags.Blocks.AMORPHOPHALLUS_IN_GROUND).add(Blocks.GRASS_BLOCK);
 		
 		getOrCreateBuilder(Tags.Blocks.DODO_BUSHES).add(Blocks.GRASS, Blocks.SWEET_BERRY_BUSH);
+
+		getOrCreateBuilder(Tags.Blocks.RADIATION_BLOCKS).add(BlockInit.URANIUM_ORE.get());
 
 
 		//Sapling

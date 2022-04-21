@@ -31,6 +31,7 @@ public class ModRecipeProvider extends RecipeProvider {
         generator(consumer);
         addTools(consumer);
         addAssemblyTableRecipe(consumer);
+        uraniumRecipes(consumer);
         //shapeless recipe, the criterion determines when the recipe is unlocked in the recipe book, there has to be one
         ShapelessRecipeBuilder.shapelessRecipe(ItemInit.TRANQUILIZER_ARROW.get()).addIngredient(Items.ARROW).addIngredient(ItemInit.NARCOTICS.get()).addCriterion("hasItem", hasItem(ItemInit.NARCOTICS.get())).build(consumer);
         MortarRecipeBuilder.recipe(ItemInit.NARCOTICS.get(), 300).addInput(Items.ROTTEN_FLESH).addInput(ItemInit.NARCOTIC_BERRY.get(), 3).addCriterion("hasItem", hasItem(ItemInit.NARCOTIC_BERRY.get())).build(consumer);
@@ -42,6 +43,27 @@ public class ModRecipeProvider extends RecipeProvider {
 
         CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(BlockInit.DINO_PURPLE_GEN_ORE.get()), ItemInit.PURPLE_GEM.get(), 1.0F, 200).addCriterion("has_purple_gem_ore", hasItem(BlockInit.DINO_PURPLE_GEN_ORE.get())).build(consumer, Dinosexpansion.modLoc("purple_gem_from_smelting"));
         CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(BlockInit.DINO_PURPLE_GEN_ORE.get()), ItemInit.PURPLE_GEM.get(), 1.0F, 100).addCriterion("has_purple_gem_ore", hasItem(BlockInit.DINO_PURPLE_GEN_ORE.get())).build(consumer, Dinosexpansion.modLoc("purple_gem_from_blasting"));
+    }
+
+    private void uraniumRecipes(Consumer<IFinishedRecipe> consumer){
+        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(BlockInit.URANIUM_RAW_BLOCK.get().asItem()), BlockInit.URANIUM_BLOCK.get().asItem(), 10.0f, 1600).addCriterion("hasItem", hasItem(BlockInit.URANIUM_BLOCK.get())).build(consumer);
+        CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(BlockInit.URANIUM_RAW_BLOCK.get().asItem()), BlockInit.URANIUM_BLOCK.get().asItem(), 10.0f, 800).addCriterion("hasItem", hasItem(BlockInit.URANIUM_BLOCK.get())).build(consumer, Dinosexpansion.modLoc("uranium_block_blasting"));
+        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ItemInit.URANIUM_SCRAP.get()), ItemInit.URANIUM_INGOT.get(), 1.0f, 200).addCriterion("hasItem", hasItem(ItemInit.URANIUM_SCRAP.get())).build(consumer);
+        CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(ItemInit.URANIUM_SCRAP.get()), ItemInit.URANIUM_INGOT.get(), 1.0f, 100).addCriterion("hasItem", hasItem(ItemInit.URANIUM_SCRAP.get())).build(consumer, Dinosexpansion.modLoc("uranium_ingot_blasting"));
+        ShapelessRecipeBuilder.shapelessRecipe(ItemInit.URANIUM_INGOT.get(), 9).addIngredient(BlockInit.URANIUM_BLOCK.get()).addCriterion("hasItem", hasItem(BlockInit.URANIUM_BLOCK.get())).build(consumer, Dinosexpansion.modLoc("uranium_ingot_from_block"));
+        ShapelessRecipeBuilder.shapelessRecipe(ItemInit.URANIUM_SCRAP.get(), 9).addIngredient(BlockInit.URANIUM_RAW_BLOCK.get()).addCriterion("hasItem", hasItem(BlockInit.URANIUM_RAW_BLOCK.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(BlockInit.URANIUM_BLOCK.get())
+                .key('u', Ingredient.fromItems(ItemInit.URANIUM_INGOT.get()))
+                .patternLine("uuu")
+                .patternLine("uuu")
+                .patternLine("uuu")
+                .addCriterion("hasItem", hasItem(ItemInit.URANIUM_INGOT.get())).build(consumer, Dinosexpansion.modLoc("uranium_block_crafting"));
+        ShapedRecipeBuilder.shapedRecipe(BlockInit.URANIUM_RAW_BLOCK.get())
+                .key('u', Ingredient.fromItems(ItemInit.URANIUM_SCRAP.get()))
+                .patternLine("uuu")
+                .patternLine("uuu")
+                .patternLine("uuu")
+                .addCriterion("hasItem", hasItem(ItemInit.URANIUM_SCRAP.get())).build(consumer);
 
     }
 

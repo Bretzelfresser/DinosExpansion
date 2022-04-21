@@ -11,6 +11,7 @@ import com.renatiux.dinosexpansion.common.blocks.crops.DEDoubleCropsBlock;
 import com.renatiux.dinosexpansion.common.blocks.eggs.AllosaurusEggBlock;
 import com.renatiux.dinosexpansion.common.blocks.eggs.DodoEggBlock;
 import com.renatiux.dinosexpansion.common.blocks.machine.*;
+import com.renatiux.dinosexpansion.common.blocks.ores.RadiationBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DEDoubleFlowerBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DEFlowerBlock;
 import com.renatiux.dinosexpansion.common.blocks.plants.DETripleFlowerBlock;
@@ -305,105 +306,109 @@ public class BlockInit {
 
 	//Ores
 	public static final RegistryObject<Block> DINO_COAL_ORE = BASIC_BLOCKS.register("dino_coal_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).setXp(0, 2)));
 	public static final RegistryObject<Block> DINO_IRON_ORE = BASIC_BLOCKS.register("dino_iron_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(1).harvestTool(ToolType.PICKAXE)));
 	public static final RegistryObject<Block> DINO_GOLD_ORE = BASIC_BLOCKS.register("dino_gold_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 	public static final RegistryObject<Block> DINO_DIAMOND_ORE = BASIC_BLOCKS.register("dino_diamond_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE).setXp(3, 7)));
 	public static final RegistryObject<Block> DINO_EMERALD_ORE = BASIC_BLOCKS.register("dino_emerald_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE).setXp(3, 7)));
 
 	public static final RegistryObject<Block> DINO_REDSTONE_ORE = BASIC_BLOCKS.register("dino_redstone_ore",
 			()-> new RedstoneOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().tickRandomly().setLightLevel(LightUtil.getLightValueLit(9)).hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 	public static final RegistryObject<Block> DINO_LAPIS_ORE = BASIC_BLOCKS.register("dino_lapis_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE).setXp(2, 5)));
 
 	public static final RegistryObject<Block> DINO_PURPLE_GEN_ORE = BASIC_BLOCKS.register("dino_purple_gem_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE).setXp(3, 7)));
 	public static final RegistryObject<Block> DINO_PURPLE_GEN_BLOCK = BASIC_BLOCKS.register("dino_purple_gem_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
 
 	public static final RegistryObject<Block> DINO_BROWNSTONE_ORE = BASIC_BLOCKS.register("dino_brownstone_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2).setXp(3, 7)));
 	public static final RegistryObject<Block> DINO_BROWNSTONE_BLOCK = BASIC_BLOCKS.register("dino_brownstone_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 
 	public static final RegistryObject<Block> TIN_ORE = BASIC_BLOCKS.register("tin_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 	public static final RegistryObject<Block> TIN_BLOCK = BASIC_BLOCKS.register("tin_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 
 	public static final RegistryObject<Block> AQUAMARINE_ORE = BASIC_BLOCKS.register("aquamarine_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 	public static final RegistryObject<Block> AQUAMARINE_BLOCK = BASIC_BLOCKS.register("aquamarine_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 
 	public static final RegistryObject<Block> COPPER_ORE = BASIC_BLOCKS.register("copper_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 	public static final RegistryObject<Block> COPPER_BLOCK = BASIC_BLOCKS.register("copper_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 
 	public static final RegistryObject<Block> BRONZE_ORE = BASIC_BLOCKS.register("bronze_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 	public static final RegistryObject<Block> BRONZE_BLOCK = BASIC_BLOCKS.register("bronze_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 
 	public static final RegistryObject<Block> STEEL_ORE = BASIC_BLOCKS.register("steel_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 	public static final RegistryObject<Block> STEEL_BLOCK = BASIC_BLOCKS.register("steel_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 
 	public static final RegistryObject<Block> SILVER_ORE = BASIC_BLOCKS.register("silver_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 	public static final RegistryObject<Block> SILVER_BLOCK = BASIC_BLOCKS.register("silver_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 
 	public static final RegistryObject<Block> AMETHYST_ORE = BASIC_BLOCKS.register("amethyst_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 	public static final RegistryObject<Block> AMETHYST_BLOCK = BASIC_BLOCKS.register("amethyst_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(1)));
 
 	public static final RegistryObject<Block> PLATINUM_ORE = BASIC_BLOCKS.register("platinum_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 	public static final RegistryObject<Block> PLATINUM_BLOCK = BASIC_BLOCKS.register("platinum_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 
 	public static final RegistryObject<Block> RUBY_ORE = BASIC_BLOCKS.register("ruby_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 	public static final RegistryObject<Block> RUBY_BLOCK = BASIC_BLOCKS.register("ruby_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 
 	public static final RegistryObject<Block> SAPPHIRE_ORE = BASIC_BLOCKS.register("sapphire_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 	public static final RegistryObject<Block> SAPPHIRE_BLOCK = BASIC_BLOCKS.register("sapphire_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 
 	public static final RegistryObject<Block> MYTHRIL_ORE = BASIC_BLOCKS.register("mythril_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 	public static final RegistryObject<Block> MYTHRIL_BLOCK = BASIC_BLOCKS.register("mythril_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 
 	public static final RegistryObject<Block> JADE_ORE = BASIC_BLOCKS.register("jade_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)));
 	public static final RegistryObject<Block> JADE_BLOCK = BASIC_BLOCKS.register("jade_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)));
 
 	public static final RegistryObject<Block> TUNGSTEN_ORE = BASIC_BLOCKS.register("tungsten_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)));
 	public static final RegistryObject<Block> TUNGSTEN_BLOCK = BASIC_BLOCKS.register("tungsten_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)));
 
 	public static final RegistryObject<Block> ONYX_ORE = BASIC_BLOCKS.register("onyx_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(4)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(4)));
 	public static final RegistryObject<Block> ONYX_BLOCK = BASIC_BLOCKS.register("onyx_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(4)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(4)));
 
 	public static final RegistryObject<Block> TITANIUM_ORE = BASIC_BLOCKS.register("titanium_ore",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(4)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(4)));
 	public static final RegistryObject<Block> TITANIUM_BLOCK = BASIC_BLOCKS.register("titanium_block",
-			()-> new DEOreBlock(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(4)));
+			()-> new DEOreBlock(DEOreBlock.OreProperties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(4)));
+
+	public static final RegistryObject<Block> URANIUM_ORE = BASIC_BLOCKS.register("uranium_ore", () -> new RadiationBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(12f,6f ).harvestTool(ToolType.PICKAXE).harvestLevel(3), 1, 3, 3d));
+	public static final RegistryObject<Block> URANIUM_BLOCK = BASIC_BLOCKS.register("uranium_block", () -> new RadiationBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(14f,8f ).harvestTool(ToolType.PICKAXE).harvestLevel(3), 2, 10, 6d));
+	public static final RegistryObject<Block> URANIUM_RAW_BLOCK = BASIC_BLOCKS.register("uranium_raw_block", () -> new RadiationBlock(DEOreBlock.OreProperties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(13f,8f ).harvestTool(ToolType.PICKAXE).harvestLevel(3), 2, 8, 5d));
 
 
 

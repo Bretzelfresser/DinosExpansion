@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "dinosexpansion:uranium_raw_block"
+  },
+  "result": "dinosexpansion:uranium_block",
+  "experience": 10.0,
+  "cookingtime": 1600
+}

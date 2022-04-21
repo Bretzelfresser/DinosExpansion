@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "dinosexpansion:uranium_raw_block"
+    }
+  ],
+  "result": {
+    "item": "dinosexpansion:uranium_raw",
+    "count": 9
+  }
+}

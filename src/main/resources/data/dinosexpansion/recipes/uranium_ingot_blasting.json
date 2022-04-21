@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "dinosexpansion:uranium_raw"
+  },
+  "result": "dinosexpansion:uranium_ingot",
+  "experience": 1.0,
+  "cookingtime": 200
+}

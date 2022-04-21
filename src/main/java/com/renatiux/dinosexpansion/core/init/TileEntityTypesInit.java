@@ -1,15 +1,25 @@
 package com.renatiux.dinosexpansion.core.init;
 
 import com.google.common.collect.Sets;
+import com.mojang.datafixers.types.Type;
 import com.renatiux.dinosexpansion.Dinosexpansion;
 import com.renatiux.dinosexpansion.common.tileEntities.*;
 import com.renatiux.dinosexpansion.common.tileEntities.cable.BasicEnergyCableTileEntity;
 
+import com.renatiux.dinosexpansion.core.tags.Tags;
 import com.renatiux.dinosexpansion.util.WoodTypeDE;
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Arrays;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class TileEntityTypesInit {
 	
@@ -26,8 +36,22 @@ public class TileEntityTypesInit {
 	public static final RegistryObject<TileEntityType<CabinetTileEntity>> CABINET_TILE_ENTITY = TILE_ENTITY_TYPES.register("cabinet", () -> TileEntityType.Builder.create(CabinetTileEntity::new, BlockInit.CABINET.getPrimary()).build(null));
 	public static final RegistryObject<TileEntityType<PrehistoricBedTileEntity>> PREHISTORIC_BED = TILE_ENTITY_TYPES.register("prehistoric_bed", () -> new TileEntityType<>(PrehistoricBedTileEntity::new, Sets.newHashSet(BlockInit.PREHISTORIC_BED.get()), null));
 	public static final RegistryObject<TileEntityType<ResearchTableTileEntity>> RESEARCH_TABLE_TILE = TILE_ENTITY_TYPES.register("research_table", () -> TileEntityType.Builder.create(ResearchTableTileEntity::new, BlockInit.RESEARCH_TABLE.get()).build(null));
+	public static final RegistryObject<TileEntityType<RadiationTileEntity>> RADIATION_TE = TILE_ENTITY_TYPES.register("radiation_te", () -> new BetterTileEntityType<>(RadiationTileEntity::new, block -> block instanceof RadiationTileEntity.IRadiationBlock, null));
 
 	public static final RegistryObject<TileEntityType<DESignTileEntity>> SIGN_TILE_ENTITIES = TILE_ENTITY_TYPES.register("sign",
 			()-> TileEntityType.Builder.create(DESignTileEntity::new, BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get()).build(null));
 
+	private static final class BetterTileEntityType<T extends TileEntity> extends TileEntityType<T>{
+		private final Predicate<Block> acceptor;
+
+		public BetterTileEntityType(Supplier<? extends T> factoryIn, Predicate<Block> acceptor, Type<?> dataFixerType) {
+			super(factoryIn, Sets.newHashSet(), dataFixerType);
+			this.acceptor = acceptor;
+		}
+
+		@Override
+		public boolean isValidBlock(Block blockIn) {
+			return acceptor.test(blockIn);
+		}
+	}
 }

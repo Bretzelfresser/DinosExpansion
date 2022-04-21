@@ -9,7 +9,7 @@
 	"container.dinosexpansion.incubator" : "Incubator",
 	"container.dinosexpansion.skeletal_assembly_table": "Skeletal Assembly Table",
 	"container.dinosexpansion.research_table": "Research Table",
-	
+
 	"block.dinosexpansion.mortar": "Mortar",
 	"block.dinosexpansion.lavender": "Lavender",
 	"block.dinosexpansion.lemon_verbena": "Lemon Verbena",
@@ -75,6 +75,8 @@
 	"block.dinosexpansion.adobe_bricks_slab": "Adobe Bricks Slab",
 	"block.dinosexpansion.adobe_bricks_wall": "Adobe Bricks Wall",
 	"block.dinosexpansion.skeletal_assembly_table": "Skeletal Assembly Table",
+	"block.dinosexpansion.uranium_block": "Block of Uranium",
+	"block.dinosexpansion.uranium_raw_block": "Block of Raw Uranium",
 
 
 	"item.dinosexpansion.tranquillizer_arrow": "Tranquillizer Arrow",
@@ -177,6 +179,8 @@
 	"item.dinosexpansion.hullbreaker": "Hullbreaker",
 	"item.dinosexpansion.heavy_shield": "Heavy Shield",
 	"item.dinosexpansion.shieldbow": "Shieldbow",
+	"item.dinosexpansion.uranium_ingot": "Uranium Ingot",
+	"item.dinosexpansion.uranium_raw": "Uranium Raw",
 
 
 	"entity.dinosexpansion.allosaurus": "Allosaurus",
@@ -185,11 +189,11 @@
 	"sound.boomerang_throw": "Boomerang Thrown",
 	"item.boomerang_loop": "Boomerang Flying",
 	"sound.boomerang_loop": "Boomerang Flying",
-	
+
 	"entity.dodo_idle": "Dodo",
 	"entity.dodo_hurt": "Hurt Dodo",
 	"entity.dodo_die": "Dying Dodo",
-	
+
 	"itemGroup.dinosexpansion.machines": "Machines",
 	"itemGroup.dinosexpansion.projectiles": "Weapons and Projectiles",
 	"itemGroup.dinosexpansion.misc": "Misc",
@@ -197,13 +201,13 @@
 	"itemGroup.dinosexpansion.block": "Blocks",
 	"itemGroup.dinosexpansion.food": "Foods",
 	"itemGroup.dinosexpansion.armor": "Armors",
-	
+
 	"biome.dinosexpansion.deep_dino_ocean": "Deep Dino Ocean",
 	"biome.dinosexpansion.dino_ocean": "Dino Ocean",
 	"biome.dinosexpansion.warm_deep_dino_ocean": "Warm Deep Dino Ocean",
 	"biome.dinosexpansion.warm_dino_ocean": "Warm Dino Ocean",
 	"biome.dinosexpansion.redwood_forest": "Redwood Forest",
-	
+
 	"item.dinosexpansion.tooltip.tranquillizer_arrow": "Special arrow to knock out dinosaurs",
 	"category.dinosexpansion.mortar_recipe": "Mortar",
 	"dinosexpansion.mortar.time.seconds": "%ss",
@@ -212,7 +216,7 @@
 	"category.dinosexpansion.advanced_smithing_table": "Advanced Smithing Table",
 	"category.dinosexpansion.skeletal_assembly_table_category": "Skeletal Assembly Table",
 	"category.dinosexpansion.research_table": "Research Table",
-	
+
 	"screen.dinosexpansion.idle": "Idle",
 	"screen.dinosexpansion.hostile": "Hostile",
 	"screen.dinosexpansion.wander": "Wander",
@@ -221,22 +225,33 @@
 	"screen.dinosexpansion.protecting": "Protecting",
 	"screen.dinosexpansion.breed": "Breed",
 	"screen.dinosexpansion.sleep": "Sleep",
-	
+
 	"dinosexpansion.sex": "Sex : %s",
 	"sex.dinosexpansion.male": "Male",
 	"sex.dinosexpansion.female": "Female",
 	"sex.dinosexpansion.asexual": "Asexual",
-	
+
 	"key.dinosexpansion.attack": "Dino attack",
 	"key.category.dinosexpansion": "Dinosexpansion",
-	
+
 	"effect.dinosexpansion.climb_effect": "Climb",
 	"effect.dinosexpansion.bleeding": "Bleeding",
 	"effect.dinosexpansion.death_blow": "Death Blow",
+	"effect.dinosexpansion.radiation": "Radiation",
+
+	"item.minecraft.potion.effect.radiation":"Potion of Radioactive Water",
+	"item.minecraft.potion.effect.long_radiation":"Potion of Radioactive Water",
+	"item.minecraft.potion.effect.strong_radiation":"Potion of Radioactive Water",
+	"item.minecraft.splash_potion.effect.radiation":"Splash Potion of Radioactive Water",
+	"item.minecraft.splash_potion.effect.long_radiation":"Splash Potion of Radioactive Water",
+	"item.minecraft.splash_potion.effect.strong_radiation":"Splash Potion of Radioactive Water",
+	"item.minecraft.lingering_potion.effect.radiation":"Lingering Potion of Radioactive Water",
+	"item.minecraft.lingering_potion.effect.long_radiation":"Lingering Potion of Radioactive Water",
+	"item.minecraft.lingering_potion.effect.strong_radiation":"Lingering Potion of Radioactive Water",
 
 	"enchantment.dinosexpansion.shield_strength": "Shield Strength",
 	"enchantment.dinosexpansion.bound_enchantment": "Bound",
-	
+
 	"message.dinosexpansion.isnt_owner":"You don't own this incubator, destroy and place it again or ask the owner",
 
 	"tooltip.dinosexpansion.heavy_shield_cooldown": "Cooldown: %s",
@@ -264,5 +279,6 @@
 	"speed_value": "here should be a value",
 	"title": "See How The TitleLooks",
 
-	"death.attack.dinosexpansion.bleeding": "%s bleed to death"
+	"death.attack.dinosexpansion.bleeding": "%s bleed to death",
+	"death.attack.radiation": "%s died to radiation"
 }

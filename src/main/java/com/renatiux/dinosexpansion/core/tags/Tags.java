@@ -38,7 +38,7 @@ public class Tags {
 		public static final INamedTag<Block> AMORPHOPHALLUS_IN_GROUND = createModTag("amorphophallus_in_ground");
 		
 		public static final INamedTag<Block> DODO_BUSHES = createModTag("dodo_bushes");
-
+		public static final INamedTag<Block> RADIATION_BLOCKS = createModTag("radiation_blocks");
 
 		//Sapling
 		public static final INamedTag<Block> REDWOOD_IN_GROUND = createModTag("redwood_in_ground");

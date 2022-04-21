@@ -21,6 +21,9 @@ public class ModBlockStatesProvider extends BlockStateProvider {
         topBottomBlock(BlockInit.WHITE_ASTORGOSUCHUS_CREATE.getPrimary(), modLoc("block/creates/astorgosuchus_fossil_create_side"), modLoc("block/creates/white_create_top"), modLoc("block/creates/astorgosuchus_fossil_create_bottom"));
         topBottomBlock(BlockInit.DARK_ASTORGOSUCHUS_CREATE.getPrimary(), modLoc("block/creates/astorgosuchus_fossil_create_side"), modLoc("block/creates/dark_create_top"), modLoc("block/creates/astorgosuchus_fossil_create_bottom"));
         simpleBlockItem(BlockInit.SKELETAL_ASSEMBLY_TABLE.getPrimary(), cubeAll(BlockInit.SKELETAL_ASSEMBLY_TABLE.getPrimary()));
+        blockCubeAll(BlockInit.URANIUM_ORE.get());
+        blockCubeAll(BlockInit.URANIUM_RAW_BLOCK.get());
+        blockCubeAll(BlockInit.URANIUM_BLOCK.get());
     }
 
     private void topBottomBlock(Block block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom) {
@@ -31,6 +34,10 @@ public class ModBlockStatesProvider extends BlockStateProvider {
     public void simpleBlock(Block block, ModelFile model) {
         super.simpleBlock(block, model);
         super.simpleBlockItem(block,model);
+    }
+
+    private void blockCubeAll(Block b){
+        simpleBlock(b, cubeAll(b));
     }
 
     private String name(Block block) {
