@@ -92,9 +92,9 @@ public static class BoomerangConfig {
         public ToolsConfig(ForgeConfigSpec.Builder builder) {
 
             builder.comment(" Dinos Expansion Tool config \n These multipliers affect the amount of damage tools take per use.").push("Tool");
-            hammerDuraLossMulti = builder.defineInRange("HammerDuraLossMulti", 2, 1, Integer.MAX_VALUE);
-            greataxeDuraLossMulti = builder.defineInRange("GreataxeDuraLossMulti", 3, 1, Integer.MAX_VALUE);
-            excavatorDuraLossMulti = builder.defineInRange("ExcavatorDuraLossMulti", 2, 1, Integer.MAX_VALUE);
+            hammerDuraLossMulti = builder.comment("Hammer").defineInRange("HammerDuraLossMulti", 2, 1, Integer.MAX_VALUE);
+            greataxeDuraLossMulti = builder.comment("Axe").defineInRange("GreataxeDuraLossMulti", 3, 1, Integer.MAX_VALUE);
+            excavatorDuraLossMulti = builder.comment("Shovel").defineInRange("ExcavatorDuraLossMulti", 2, 1, Integer.MAX_VALUE);
             weaponfireability = builder.comment("Fire Ability").define("Turn on the enemy",true);
             builder.pop();
         }
@@ -121,15 +121,16 @@ public static class BoomerangConfig {
 
 
         public EffectConfig(ForgeConfigSpec.Builder builder){
-            builder.push("Death Blow");
+            builder.push("Effect");
+            builder.comment("DeathBlow");
             builder.comment("how much attack damage u loose per level of effect");
             attackDamageLoss = builder.defineInRange("attack damage Loss", 2d, 0d, 10d);
             builder.comment("slowness loss per level of effect");
             slownessLoss = builder.defineInRange("slowness", -0.2, -1, 1);
-            builder.pop().push("Bleeding");
+            builder.comment("Bleed");
             builder.comment("how mch ticks there r between the damage of the bleeding");
             ticksBeforeDamage = builder.defineInRange("ticksBetweenBleeding", 20, 1, Integer.MAX_VALUE);
-
+            builder.pop();
 
         }
     }
@@ -153,7 +154,7 @@ public static class BoomerangConfig {
             hullBreakerCooldown = builder.defineInRange("Hullbreaker knockback Cooldown in ticks", 200, 20, Integer.MAX_VALUE);
             hullbreakerKnockbackMultiplier = builder.defineInRange("Hullbreaker Knockback multiplier", 1d, 0d, 10d);
             builder.pop();
-            builder.push("Spikes Shield");
+            builder.push("SpikesShield");
             builder.comment("this determines how fast teh spikes Shield fly when thrown \n the default value is the same as the trident, when set to zero u actually cant throw it");
             spikesShieldVelocity = builder.defineInRange("spikes shield velocity", 2d, 0d, 10d);
             builder.comment("defines how much durability one throw of the shield costs");
@@ -188,6 +189,7 @@ public static class BoomerangConfig {
 
         public ItemsConfig(ForgeConfigSpec.Builder builder){
             builder.comment("all configuration for Items").push("Items");
+            builder.comment("Medikit");
             this.medikitCooldown = builder.defineInRange("the cooldown of the medikits after they got used in seconds", 20, 1, Integer.MAX_VALUE);
             builder.pop();
         }
