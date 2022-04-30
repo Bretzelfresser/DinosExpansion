@@ -166,6 +166,7 @@ public class Dinosexpansion {
         event.put(EntityTypeInit.ARCHIMYRMEX_LARVAE.get(), ArchimyrmexLarvae.registerAttributes().create());
         event.put(EntityTypeInit.XENOCRANIUM.get(), Xenocranium.setCustomAttributes().create());
         event.put(EntityTypeInit.ASTORGOSUCHUS.get(), Astorgosuchus.setCustomAttributes().create());
+        event.put(EntityTypeInit.WHETERELLUS.get(), Wheterellus.registerAttributes().create());
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

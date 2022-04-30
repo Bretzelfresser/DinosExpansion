@@ -74,6 +74,7 @@ public class ClientEvents {
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.XENOCRANIUM.get(), XenocraniumRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.ASTORGOSUCHUS.get(), AstorgosuchusRender::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.WHETERELLUS.get(), WheterellusRenderer::new);
 	}
 
 	private static void tileEntityRenderer() {

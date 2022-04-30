@@ -75,6 +75,8 @@ public class EntityTypeInit {
 
 	public static final RegistryObject<EntityType<Astorgosuchus>> ASTORGOSUCHUS = register("astorgosuchus", EntityType.Builder.<Astorgosuchus>create(Astorgosuchus::new, EntityClassification.MONSTER).size(1.5f, 0.6f));
 
+	public static final RegistryObject<EntityType<Wheterellus>> WHETERELLUS = register("wheterellus", EntityType.Builder.create(Wheterellus::new, EntityClassification.WATER_AMBIENT).size(0.5F, 0.3F));
+
 
 	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder){
 		return ENTITY_TYPES.register(name, () -> builder.build(Dinosexpansion.modLoc(name).toString()));
