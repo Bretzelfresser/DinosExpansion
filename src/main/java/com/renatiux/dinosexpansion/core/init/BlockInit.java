@@ -162,6 +162,9 @@ public class BlockInit {
 	public static final RegistryObject<Block> PALMOXYLON_LOG = PLANTS.register("palmoxylon_log",
 			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F).notSolid()));
 
+	public static final RegistryObject<Block> BJUVIA_LOG = PLANTS.register("bjuvia_log",
+			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.0F).notSolid()));
+
 	//Stripped Log
 	public static final RegistryObject<Block> STRIPPED_PALM_LOG = PLANTS.register("stripped_palm_log",
 			()-> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F).sound(SoundType.WOOD)));
@@ -201,6 +204,9 @@ public class BlockInit {
 	public static final RegistryObject<Block> PALM_DOOR = PLANTS.register("palm_door",
 			()-> new DoorBlock(AbstractBlock.Properties.create(Material.WOOD, PALM_PLANKS.get().getMaterialColor()).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid()));
 
+	public static final RegistryObject<Block> BJUVIA_DOOR = PLANTS.register("bjuvia_door",
+			()-> new DoorBlock(AbstractBlock.Properties.create(Material.WOOD, BJUVIA_PLANKS.get().getMaterialColor()).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid()));
+
 	//Fence
 	public static final RegistryObject<Block> PALM_FENCE = PLANTS.register("palm_fence",
 			()-> new FenceBlock(AbstractBlock.Properties.create(Material.WOOD, PALM_PLANKS.get().getMaterialColor()).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
@@ -221,6 +227,9 @@ public class BlockInit {
 
 	//Trapdoor
 	public static final RegistryObject<Block> PALM_TRAPDOOR = PLANTS.register("palm_trapdoor",
+			()-> new TrapDoorBlock(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid()));
+
+	public static final RegistryObject<Block> BJUVIA_TRAPDOOR = PLANTS.register("bjuvia_trapdoor",
 			()-> new TrapDoorBlock(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid()));
 
 	//Sign
