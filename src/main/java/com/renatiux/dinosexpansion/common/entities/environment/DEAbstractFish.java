@@ -33,7 +33,7 @@ public abstract class DEAbstractFish extends WaterMobEntity implements IAnimatab
 
     public boolean outOfWater;
 
-    protected DEAbstractFish(EntityType type, World world) {
+    protected DEAbstractFish(EntityType<? extends WaterMobEntity> type, World world) {
         super(type, world);
         this.moveController = new AquaticMoveController(this, 1.0F);
     }
@@ -92,7 +92,7 @@ public abstract class DEAbstractFish extends WaterMobEntity implements IAnimatab
     @Override
     public void travel(Vector3d travelVector) {
         if (this.isServerWorld() && this.isInWater()) {
-            this.moveRelative(0.01F, travelVector);
+            this.moveRelative(this.getAIMoveSpeed(), travelVector);
             this.move(MoverType.SELF, this.getMotion());
             this.setMotion(this.getMotion().scale(0.9D));
             if (this.getAttackTarget() == null) {
@@ -101,7 +101,6 @@ public abstract class DEAbstractFish extends WaterMobEntity implements IAnimatab
         } else {
             super.travel(travelVector);
         }
-
     }
 
     @Override

@@ -26,6 +26,8 @@ public class DinoChunkGenerator extends SeedNoiseChunkGenerator {
             return chunkGenerator.settings;
         })).apply(c, c.stable(DinoChunkGenerator::new));
     });
+
+
     private long seed;
     public static long hackSeed;
 
@@ -44,7 +46,7 @@ public class DinoChunkGenerator extends SeedNoiseChunkGenerator {
     @Override
     public ChunkGenerator func_230349_a_(long seed)
     {
-        return new DinoChunkGenerator(biomeProvider.getBiomeProvider(seed), seed, getDimensionSettings());
+        return new DinoChunkGenerator(biomeProvider.getBiomeProvider(WorldSeedHolder.getSeed()), WorldSeedHolder.getSeed(), getDimensionSettings());
     }
 
     private Supplier<DimensionSettings> getDimensionSettings()

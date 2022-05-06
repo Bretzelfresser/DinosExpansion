@@ -53,11 +53,10 @@ public class DinoLayerUtil {
         zoomLayer = ZoomLayer.NORMAL.apply(context.apply(2002), coniferForest);
         IAreaFactory<T> desert = DinoAddSubBiomeLayer.desert().apply(context.apply(17), oceanLayerGen);
         zoomLayer = ZoomLayer.NORMAL.apply(context.apply(2002), desert);
-        IAreaFactory<T> plains = DinoAddSubBiomeLayer.plains().apply(context.apply(17), oceanLayerGen);
-        zoomLayer = ZoomLayer.NORMAL.apply(context.apply(2002), plains);
         IAreaFactory<T> redwood = DinoAddSubBiomeLayer.redwoodForest().apply(context.apply(17), oceanLayerGen);
         zoomLayer = ZoomLayer.NORMAL.apply(context.apply(2002), redwood);
-
+        IAreaFactory<T> plains = DinoAddSubBiomeLayer.plains().apply(context.apply(17), oceanLayerGen);
+        zoomLayer = ZoomLayer.NORMAL.apply(context.apply(2002), plains);
 
         IAreaFactory<T> riverLayer = zoomLayer;
         riverLayer = new DinoRiverInitLayer().apply(context.apply(12), riverLayer);

@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.FindWaterGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -33,11 +34,13 @@ public class Wheterellus extends DEAbstractFish{
         this.goalSelector.addGoal(1, new FindWaterGoal(this));
         this.goalSelector.addGoal(2, new PanicGoal(this, 1D));
         this.goalSelector.addGoal(3, new AISwimBottom(this, 1F, 7));
+        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 3)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25F);
+        return MobEntity.func_233666_p_()
+                .createMutableAttribute(Attributes.MAX_HEALTH, 3)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
     @Override
@@ -60,7 +63,10 @@ public class Wheterellus extends DEAbstractFish{
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.wetherellus.outofwater", true));
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.wetherellus.swim", true));
+        if(isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.wetherellus.swim", true));
+            return PlayState.CONTINUE;
+        }
         return PlayState.CONTINUE;
     }
 
