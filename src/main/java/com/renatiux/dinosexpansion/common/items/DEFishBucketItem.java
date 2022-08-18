@@ -17,15 +17,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class DEFishBucketItem extends BucketItem {
 
-    private final EntityType<?> fishType;
-
-    public DEFishBucketItem(EntityType<?> fishTypeIn, Fluid fluid, Item.Properties properties) {
+    public DEFishBucketItem(Supplier<EntityType<?>> fishTypeIn, Supplier<Fluid> fluid, Item.Properties properties) {
         super(fluid, properties.maxStackSize(1));
-        this.fishType = fishTypeIn;
-        this.fishTypeSupplier = () -> fishTypeIn;
+        this.fishTypeSupplier = fishTypeIn;
     }
 
     @Override
@@ -41,7 +39,7 @@ public class DEFishBucketItem extends BucketItem {
     }
 
     private void placeFish(ServerWorld worldIn, ItemStack stack, BlockPos pos) {
-        Entity entity = this.fishType.spawn(worldIn, stack, null, pos, SpawnReason.BUCKET, true, false);
+        Entity entity = this.fishTypeSupplier.get().spawn(worldIn, stack, null, pos, SpawnReason.BUCKET, true, false);
         if (entity != null) {
             ((DEAbstractFish)entity).setFromBucket(true);
         }

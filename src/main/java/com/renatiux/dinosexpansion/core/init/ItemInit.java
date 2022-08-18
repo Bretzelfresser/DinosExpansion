@@ -360,6 +360,6 @@ public class ItemInit {
 			()-> new SignItem(new Item.Properties().maxStackSize(16).group(ItemGroupInit.MISC), BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get()));
 
 	//Buckets
-	/*public static final RegistryObject<Item> WHETERELLUS_BUCKET = ITEMS.register("wheterellus_bucket",
-			()-> new DEFishBucketItem(EntityTypeInit.WHETERELLUS.get(), Fluids.WATER, (new Item.Properties().group(ItemGroupInit.MISC))));*/
+	public static final RegistryObject<Item> WHETERELLUS_BUCKET = ITEMS.register("wheterellus_bucket",
+			()-> new DEFishBucketItem(() -> EntityTypeInit.WHETERELLUS.get(), () -> Fluids.WATER, (new Item.Properties().group(ItemGroupInit.MISC))));
 }
